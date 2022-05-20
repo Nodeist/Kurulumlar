@@ -28,7 +28,7 @@ Aşağıdaki otomatik komut dosyasını kullanarak defund fullnode'unuzu birkaç
 
 
 ```
-wget -O defund.sh https://raw.githubusercontent.com/kj89/testnet_manuals/main/defund/defund.sh && chmod +x defund.sh && ./defund.sh
+wget -O NodeistDefund.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Defund/NodeistDefund.sh && chmod +x NodeistDefund.sh && ./NodeistDefund.sh
 ```
 
 ### Option 2 (manual)
