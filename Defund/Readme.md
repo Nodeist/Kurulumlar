@@ -1,6 +1,6 @@
 <p style="font-size:14px" align="right">
- <a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Ahbaay34/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="30"/></a><br>Telegrama Katıl<br>
-<a href="https://nodeist.com/" target="_blank"><img src="https://github.com/Ahbaay34/Testnet_Kurulumlar/blob/a1520438004a799bba57311cd0cfc1f9a047691e/logo.png" width="60"/></a><br> Websitemizi Ziyaret Et 
+ <a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="30"/></a><br>Telegrama Katıl<br>
+<a href="https://nodeist.com/" target="_blank"><img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/a1520438004a799bba57311cd0cfc1f9a047691e/logo.png" width="60"/></a><br> Websitemizi Ziyaret Et 
 </p>
 
 <p align="center">
@@ -130,7 +130,7 @@ sudo ufw enable
 Bu komut dosyası, düğümünüzü tam olarak senkronize etmenin ne kadar zaman alacağını tahmin etmenize yardımcı olacaktır. 
 5 dakikalık bir süre boyunca senkronize edilen dakika başına ortalama blokları ölçer ve ardından size sonuçlar verir.
 ```
-wget -O synctime.py https://raw.githubusercontent.com/kj89/testnet_manuals/main/defund/tools/synctime.py && python3 ./synctime.py
+wget -O senkronizesurehesapla.py https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Defund/senkronizesurehesapla.py && python3 ./senkronizesurehesapla.py
 ```
 
 ## Şu anda bağlı olan eşler listesini kimlikleri ile alın
