@@ -86,7 +86,7 @@ $balance <YOUR_WALLET_ADDRESS> rhapsody
 
 
 ### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 fetf'ye sahip olduğunuzdan (1 fetf 1000000 ufetf'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+Doğrulayıcı oluşturmadan önce lütfen en az 1 qck'ye sahip olduğunuzdan (1 qck 1000000 uqck'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
 
 Cüzdan bakiyenizi kontrol etmek için:
 ```
