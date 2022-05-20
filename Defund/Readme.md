@@ -1,30 +1,32 @@
 <p style="font-size:14px" align="right">
-Join our telegram <a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Ahbaay34/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="30"/></a>
-Visit our website <a href="https://nodeist.com/" target="_blank"><img src="https://github.com/Ahbaay34/Testnet_Kurulumlar/blob/a1520438004a799bba57311cd0cfc1f9a047691e/logo.png" width="30"/></a>
+ <a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Ahbaay34/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="30"/></a><br>Telegrama Katıl<br>
+<a href="https://nodeist.com/" target="_blank"><img src="https://github.com/Ahbaay34/Testnet_Kurulumlar/blob/a1520438004a799bba57311cd0cfc1f9a047691e/logo.png" width="60"/></a><br> Websitemizi Ziyaret Et 
 </p>
 
 <p align="center">
   <img height="100" height="auto" src="https://user-images.githubusercontent.com/50621007/165055511-83e8a2d3-1700-4d26-af27-abcc825573a7.png">
 </p>
 
-# defund node setup for Testnet — defund-private-1
+# Defund Node Kurulumu — defund-private-1
 
-Official documentation:
->- [Validator setup instructions](https://github.com/defund-labs/defund/blob/main/testnet/private/validators.md)
+Resmi Dökümanlar:
+>- [Validator Kurulumu](https://github.com/defund-labs/defund/blob/main/testnet/private/validators.md)
 >- [DeFund Tokenomics](https://medium.com/defund-finance/detf-token-economics-release-schedule-78a8d32713a5)
 >- [FundDrop Breakdown](https://medium.com/defund-finance/airdrop-d-c2685d282858)
 
-Explorer:
+Gezgin:
 >-  https://defund.explorers.guru/
 
-## Usefull tools and references
-> To set up monitoring for your validator node navigate to [Set up monitoring and alerting for defund validator](https://github.com/kj89/testnet_manuals/blob/main/defund/monitoring/README.md)
+## Kullanışlı Araçlar ve Referanslar
+> Doğrulayıcı düğümünüz için monitör kullanmak ve alarm oluşturmak için [buraya tıklayın](https://github.com/kj89/testnet_manuals/blob/main/defund/monitoring/README.md)
 >
-> To migrate your valitorator to another machine read [Migrate your validator to another machine](https://github.com/kj89/testnet_manuals/blob/main/defund/migrate_validator.md)
+> Doğrulayıcı düğümünüzü başka bir sunucuya taşımak için [buraya tıklayın](https://github.com/kj89/testnet_manuals/blob/main/defund/migrate_validator.md)
 
-## Set up your defund fullnode
-### Option 1 (automatic)
-You can setup your defund fullnode in few minutes by using automated script below. It will prompt you to input your validator node name!
+## Defund Full Node Kurulum Adımları
+### Seçenek 1 (Otomatik Kurulum)
+Aşağıdaki otomatik komut dosyasını kullanarak defund fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı(NODE NAME) girmenizi isteyecektir!
+
+
 ```
 wget -O defund.sh https://raw.githubusercontent.com/kj89/testnet_manuals/main/defund/defund.sh && chmod +x defund.sh && ./defund.sh
 ```
