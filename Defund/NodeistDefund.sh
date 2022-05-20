@@ -17,7 +17,7 @@ sleep 2
 
 # set vars
 if [ ! $NODENAME ]; then
-	read -p "Enter node name: " NODENAME
+	read -p "Node ismi yaziniz: " NODENAME
 	echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
 fi
 echo "export WALLET=wallet" >> $HOME/.bash_profile
@@ -25,9 +25,9 @@ echo "export CHAIN_ID=defund-private-1" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 echo '================================================='
-echo 'Your node name: ' $NODENAME
-echo 'Your wallet name: ' $WALLET
-echo 'Your chain name: ' $CHAIN_ID
+echo 'Node isminiz: ' $NODENAME
+echo 'Cüzdan isminiz: ' $WALLET
+echo 'Chain ismi: ' $CHAIN_ID
 echo '================================================='
 sleep 2
 
@@ -121,6 +121,6 @@ sudo systemctl daemon-reload
 sudo systemctl enable defundd
 sudo systemctl restart defundd
 
-echo '=============== SETUP FINISHED ==================='
-echo -e 'To check logs: \e[1m\e[32mjournalctl -ujournalctl -u defundd -f -o cat\e[0m'
-echo -e 'To check sync status: \e[1m\e[32mcurl -s localhost:26657/status | jq .result.sync_info\e[0m'
+echo '=============== KURULUM BASARIYLA TAMAMLANDI ==================='
+echo -e 'Loglari kontrol et: \e[1m\e[32mjournalctl -ujournalctl -u defundd -f -o cat\e[0m'
+echo -e 'Senkronizasyon durumu kontrol et: \e[1m\e[32mcurl -s localhost:26657/status | jq .result.sync_info\e[0m'
