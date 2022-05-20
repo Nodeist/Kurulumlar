@@ -73,11 +73,17 @@ source $HOME/.bash_profile
 ```
 
 ### Musluğu kullanarak cüzdan bakiyenizi arttırın
+Doğrulayıcı oluşturmak için önce cüzdanınıza testnet jetonları ile para yatırmanız gerekir. Cüzdanınızı doldurmak ve QCK - ATOM musluklarına erişmek için Quicksilver discord sunucusuna katılın. Uygun kanalda olduğunuzdan emin olun.
 
-quicksilver-private-1 test ağında 20 ücretsiz jeton almak için:
-* https://bitszn.com/faucets.html sitesine gidin.
-* `COSMOS` sekmesine geçin ve `quicksilver.Finance Testnet` seçin.
-* cüzdan adresinizi girin ve `Request` butonuna tıklayın.
+Musluktan token talep etmek için:
+```
+$request <YOUR_WALLET_ADDRESS> rhapsody
+```
+Bakiyenizi kontrol etmek için:
+```
+$balance <YOUR_WALLET_ADDRESS> rhapsody
+```
+
 
 ### Doğrulayıcı oluştur
 Doğrulayıcı oluşturmadan önce lütfen en az 1 fetf'ye sahip olduğunuzdan (1 fetf 1000000 ufetf'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
