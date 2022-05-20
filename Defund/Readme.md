@@ -32,69 +32,72 @@ wget -O defund.sh https://raw.githubusercontent.com/kj89/testnet_manuals/main/de
 ```
 
 ### Option 2 (manual)
-You can follow [manual guide](https://github.com/kj89/testnet_manuals/blob/main/defund/manual_install.md) if you better prefer setting up node manually
+Düğümü manuel olarak kurmayı tercih ederseniz, [manuel kurulum kılavuzu](https://github.com/kj89/testnet_manuals/blob/main/defund/manual_install.md)'na göz atabilirsiniz.
 
-### Post installation
-When installation is finished please load variables into system
+### Kurulum Sonrası Adımlar
+Kurulum bittiğinde lütfen değişkenleri sisteme yükleyin:
 ```
 source $HOME/.bash_profile
 ```
 
-Next you have to make sure your validator is syncing blocks. You can use command below to check synchronization status
+Ardından, doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
 defundd status 2>&1 | jq .SyncInfo
 ```
 
-### Create wallet
-To create new wallet you can use command below. Don’t forget to save the mnemonic
+### Cüzdan Oluşturma
+Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı(mnemonic) kaydetmeyi unutmayın.
 ```
 defundd keys add $WALLET
 ```
 
-(OPTIONAL) To recover your wallet using seed phrase
+(İSTEĞE BAĞLI) Cüzdanınızı hatırlatıcı(mnemonic) kullanarak kurtarmak için:
 ```
 defundd keys add $WALLET --recover
 ```
 
-To get current list of wallets
+Mevcut cüzdan listesini almak için:
 ```
 defundd keys list
 ```
 
-### Save wallet info
-Add wallet address
+### Cüzdan Bilgilerini Kaydet
+Cüzdan Adresi Ekleyin:
 ```
 WALLET_ADDRESS=$(defundd keys show $WALLET -a)
 ```
 
-Add valoper address
+Valoper Adresi Ekleyin:
 ```
 VALOPER_ADDRESS=$(defundd keys show $WALLET --bech val -a)
 ```
 
-Load variables into system
+Değişkenleri sisteme yükleyin:
 ```
 echo 'export WALLET_ADDRESS='${WALLET_ADDRESS} >> $HOME/.bash_profile
+
 echo 'export VALOPER_ADDRESS='${VALOPER_ADDRESS} >> $HOME/.bash_profile
+
 source $HOME/.bash_profile
 ```
 
-### Top up your wallet balance using faucet
-To get 20 free tokens in defund-private-1 testnet:
-* navigate to https://bitszn.com/faucets.html
-* switch to `COSMOS` tab and select `DeFund.Finance Testnet`
-* input your wallet address and click `Request`
+### Musluğu kullanarak cüzdan bakiyenizi arttırın
 
-### Create validator
-Before creating validator please make sure that you have at least 1 fetf (1 fetf is equal to 1000000 ufetf) and your node is synchronized
+defund-private-1 test ağında 20 ücretsiz jeton almak için:
+* https://bitszn.com/faucets.html sitesine gidin.
+* `COSMOS` sekmesine geçin ve `DeFund.Finance Testnet` seçin.
+* cüzdan adresinizi girin ve `Request` butonuna tıklayın.
 
-To check your wallet balance:
+### Doğrulayıcı oluştur
+Doğrulayıcı oluşturmadan önce lütfen en az 1 fetf'ye sahip olduğunuzdan (1 fetf 1000000 ufetf'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+
+Cüzdan bakiyenizi kontrol etmek için:
 ```
 defundd query bank balances $WALLET_ADDRESS
 ```
-> If your wallet does not show any balance than probably your node is still syncing. Please wait until it finish to synchronize and then continue 
+> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin. 
 
-To create your validator run command below
+Doğrulayıcıyı çalıştırma komutunu yazalım:
 ```
 defundd tx staking create-validator \
   --amount 1000000ufetf \
@@ -108,19 +111,19 @@ defundd tx staking create-validator \
   --chain-id $CHAIN_ID
 ```
 
-## Security
-To protect you keys please make sure you follow basic security rules
+## Güvenlik
+Anahtarlarınızı korumak için lütfen temel güvenlik kurallarına uyduğunuzdan emin olun.
 
-### Set up ssh keys for authentication
-Good tutorial on how to set up ssh keys for authentication to your server can be found [here](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04)
+### Kimlik doğrulama için ssh anahtarlarını ayarlayın
+Sunucunuza kimlik doğrulaması için ssh anahtarlarının nasıl kurulacağına dair iyi bir eğitim [burada bulunabilir](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04)
 
-### Basic Firewall security
-Start by checking the status of ufw.
+### Temel Güvenlik Duvarı güvenliği
+ufw'nin durumunu kontrol ederek başlayın.
 ```
 sudo ufw status
 ```
 
-Sets the default to allow outgoing connections, deny all incoming except ssh and 26656. Limit SSH login attempts
+Varsayılanı, giden bağlantılara izin verecek, ssh ve 26656 hariç tüm gelenleri reddedecek şekilde ayarlayın. SSH oturum açma girişimlerini sınırlayın.
 ```
 sudo ufw default allow outgoing
 sudo ufw default deny incoming
@@ -130,129 +133,130 @@ sudo ufw allow 26656,26660/tcp
 sudo ufw enable
 ```
 
-## Monitoring
-To monitor and get alerted about your validator health status you can use my guide on [Set up monitoring and alerting for defund validator](https://github.com/kj89/testnet_manuals/blob/main/defund/monitoring/README.md)
+## Monitör
+Doğrulayıcı sağlık durumunuzu izlemek ve bu konuda alarm kurmak istiyorsanız [buraya tıklayarak ilgili dökümana göz atın.](https://github.com/kj89/testnet_manuals/blob/main/defund/monitoring/README.md)
 
-## Calculate synchronization time
-This script will help you to estimate how much time it will take to fully synchronize your node\
-It measures average blocks per minute that are being synchronized for period of 5 minutes and then gives you results
+## Senkronizasyon süresini hesaplayın
+
+Bu komut dosyası, düğümünüzü tam olarak senkronize etmenin ne kadar zaman alacağını tahmin etmenize yardımcı olacaktır. 
+5 dakikalık bir süre boyunca senkronize edilen dakika başına ortalama blokları ölçer ve ardından size sonuçlar verir.
 ```
 wget -O synctime.py https://raw.githubusercontent.com/kj89/testnet_manuals/main/defund/tools/synctime.py && python3 ./synctime.py
 ```
 
-## Get currently connected peer list with ids
+## Şu anda bağlı olan eşler listesini kimlikleri ile alın
 ```
 curl -sS http://localhost:26657/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}'
 ```
 
-## Usefull commands
-### Service management
-Check logs
+## Kullanışlı Komutlar
+### Servis Yönetimi
+Logları Kontrol Et:
 ```
 journalctl -fu defundd -o cat
 ```
 
-Start service
+Servisi Başlat:
 ```
 systemctl start defundd
 ```
 
-Stop service
+Servisi Durdur:
 ```
 systemctl stop defundd
 ```
 
-Restart service
+Servisi Yeniden Başlat:
 ```
 systemctl restart defundd
 ```
 
-### Node info
-Synchronization info
+### Node Bilgileri
+Senkronizasyon Bilgisi:
 ```
 defundd status 2>&1 | jq .SyncInfo
 ```
 
-Validator info
+Validator Bilgisi:
 ```
 defundd status 2>&1 | jq .ValidatorInfo
 ```
 
-Node info
+Node Bilgisi:
 ```
 defundd status 2>&1 | jq .NodeInfo
 ```
 
-Show node id
+Node ID Göser:
 ```
 defundd tendermint show-node-id
 ```
 
-### Wallet operations
-List of wallets
+### Cüzdan İşlemleri
+Cüzdanları Listele:
 ```
 defundd keys list
 ```
 
-Recover wallet
+Mnemonic kullanarak cüzdanı kurtar:
 ```
 defundd keys add $WALLET --recover
 ```
 
-Delete wallet
+Cüzdan Silme:
 ```
 defundd keys delete $WALLET
 ```
 
-Get wallet balance
+Cüzdan Bakiyesi Sorgulama:
 ```
 defundd query bank balances $WALLET_ADDRESS
 ```
 
-Transfer funds
+Cüzdandan Cüzdana Bakiye Transferi:
 ```
 defundd tx bank send $WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ufetf
 ```
 
-### Voting
+### Oylama
 ```
 defundd tx gov vote 1 yes --from $WALLET --chain-id=$CHAIN_ID
 ```
 
-### Staking, Delegation and Rewards
-Delegate stake
+### Stake, Delegasyon ve Ödüller
+Delegate İşlemi:
 ```
 defundd tx staking delegate $VALOPER_ADDRESS 10000000ufetf --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 
-Redelegate stake from validator to another validator
+Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
 ```
 defundd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ufetf --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 
-Withdraw all rewards
+Tüm ödülleri çek:
 ```
 defundd tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 
-Withdraw rewards with commision
+Komisyon ile ödülleri geri çekin:
 ```
 defundd tx distribution withdraw-rewards $VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$CHAIN_ID
 ```
 
-### Validator management
-Edit validator
+### Doğrulayıcı Yönetimi
+Validatörü Düzenle:
 ```
 defundd tx staking edit-validator \
 --moniker=$NODENAME \
 --identity=1C5ACD2EEF363C3A \
---website="http://kjnodes.com" \
+--website="http://nodeist.com" \
 --details="Providing professional staking services with high performance and availability. Find me at Discord: kjnodes#8455 and Telegram: @kjnodes" \
 --chain-id=$CHAIN_ID \
 --from=$WALLET
 ```
 
-Unjail validator
+Hapisten Kurtul(Unjail): 
 ```
 defundd tx slashing unjail \
   --broadcast-mode=block \
