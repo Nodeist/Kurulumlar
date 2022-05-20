@@ -17,22 +17,14 @@ Resmi Dökümanlar:
 Gezgin:
 >-  https://defund.explorers.guru/
 
-## Kullanışlı Araçlar ve Referanslar
-> Doğrulayıcı düğümünüz için monitör kullanmak ve alarm oluşturmak için [buraya tıklayın](https://github.com/kj89/testnet_manuals/blob/main/defund/monitoring/README.md)
->
-> Doğrulayıcı düğümünüzü başka bir sunucuya taşımak için [buraya tıklayın](https://github.com/kj89/testnet_manuals/blob/main/defund/migrate_validator.md)
-
 ## Defund Full Node Kurulum Adımları
-### Seçenek 1 (Otomatik Kurulum)
+### Tek Script İle Otomatik Kurulum
 Aşağıdaki otomatik komut dosyasını kullanarak defund fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı(NODE NAME) girmenizi isteyecektir!
 
 
 ```
 wget -O NodeistDefund.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Defund/NodeistDefund.sh && chmod +x NodeistDefund.sh && ./NodeistDefund.sh
 ```
-
-### Option 2 (manual)
-Düğümü manuel olarak kurmayı tercih ederseniz, [manuel kurulum kılavuzu](https://github.com/kj89/testnet_manuals/blob/main/defund/manual_install.md)'na göz atabilirsiniz.
 
 ### Kurulum Sonrası Adımlar
 Kurulum bittiğinde lütfen değişkenleri sisteme yükleyin:
@@ -132,9 +124,6 @@ sudo ufw limit ssh/tcp
 sudo ufw allow 26656,26660/tcp
 sudo ufw enable
 ```
-
-## Monitör
-Doğrulayıcı sağlık durumunuzu izlemek ve bu konuda alarm kurmak istiyorsanız [buraya tıklayarak ilgili dökümana göz atın.](https://github.com/kj89/testnet_manuals/blob/main/defund/monitoring/README.md)
 
 ## Senkronizasyon süresini hesaplayın
 
