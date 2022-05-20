@@ -1,6 +1,6 @@
 <p style="font-size:14px" align="right">
-Join our telegram <a href="https://t.me/kjnotes" target="_blank"><img src="https://user-images.githubusercontent.com/50621007/168689534-796f181e-3e4c-43a5-8183-9888fc92cfa7.png" width="30"/></a>
-Visit our website <a href="https://kjnodes.com/" target="_blank"><img src="https://user-images.githubusercontent.com/50621007/168689709-7e537ca6-b6b8-4adc-9bd0-186ea4ea4aed.png" width="30"/></a>
+Join our telegram <a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Ahbaay34/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="30"/></a>
+Visit our website <a href="https://nodeist.com/" target="_blank"><img src="https://github.com/Ahbaay34/Testnet_Kurulumlar/blob/a1520438004a799bba57311cd0cfc1f9a047691e/logo.png" width="30"/></a>
 </p>
 
 <p align="center">
