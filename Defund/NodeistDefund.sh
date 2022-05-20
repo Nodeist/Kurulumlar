@@ -27,11 +27,11 @@ echo 'Chain ismi: ' $CHAIN_ID
 echo '================================================='
 sleep 2
 
-echo -e "\e[1m\e[32m1. Updating packages... \e[0m" && sleep 1
+echo -e "\e[1m\e[32m1. Paketler güncelleniyor... \e[0m" && sleep 1
 # update
 sudo apt update && sudo apt upgrade -y
 
-echo -e "\e[1m\e[32m2. Installing dependencies... \e[0m" && sleep 1
+echo -e "\e[1m\e[32m2. Bagliliklar yukleniyor... \e[0m" && sleep 1
 # packages
 sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
 
@@ -46,7 +46,7 @@ echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
 source ~/.bash_profile
 go version
 
-echo -e "\e[1m\e[32m3. Downloading and building binaries... \e[0m" && sleep 1
+echo -e "\e[1m\e[32m3. kutuphaneler indirilip yukleniyor... \e[0m" && sleep 1
 # download binary
 cd $HOME
 git clone https://github.com/defund-labs/defund
@@ -93,7 +93,7 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 # reset
 defundd tendermint unsafe-reset-all
 
-echo -e "\e[1m\e[32m4. Starting service... \e[0m" && sleep 1
+echo -e "\e[1m\e[32m4. Servisler baslatiliyor... \e[0m" && sleep 1
 # create service
 tee $HOME/defundd.service > /dev/null <<EOF
 [Unit]
