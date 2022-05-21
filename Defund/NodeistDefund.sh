@@ -11,6 +11,7 @@ echo "=================================================="
 
 sleep 2
 
+
 # set vars
 if [ ! $NODENAME ]; then
 	read -p "Node ismi yaziniz: " NODENAME
