@@ -4,10 +4,10 @@
 </p>
 
 <p align="center">
-  <img height="100" height="auto" src="https://user-images.githubusercontent.com/50621007/166676803-ee125d04-dfe2-4c92-8f0c-8af357aad691.png">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Deweb(DWS)/dws.png">
 </p>
 
-# DWS node setup for Testnet — deweb-testnet-1
+# DWS Node Kurulumu — deweb-testnet-1
 
 Resmi doküman:
 >- [Validator Kurulum Rehberi](https://docs.deweb.services/guides/validator-setup-guide)
