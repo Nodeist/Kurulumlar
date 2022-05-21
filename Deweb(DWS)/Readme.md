@@ -70,15 +70,15 @@ source $HOME/.bash_profile
 ```
 
 ### Musluğu kullanarak cüzdan bakiyenizi arttırın
-Doğrulayıcı oluşturmak için önce cüzdanınıza testnet jetonları ile para yatırmanız gerekir. Cüzdanınızı doldurmak ve QCK - ATOM musluklarına erişmek için deweb discord sunucusuna katılın. Uygun kanalda olduğunuzdan emin olun.
+Doğrulayıcı oluşturmak için önce cüzdanınıza testnet jetonları ile para yatırmanız gerekir. Cüzdanınızı doldurmak ve musluklara erişmek için deweb discord sunucusuna katılın. Uygun kanalda olduğunuzdan emin olun.
 
 Musluktan token talep etmek için:
 ```
-$request <YOUR_WALLET_ADDRESS> rhapsody
+$request <YOUR_WALLET_ADDRESS> menkar
 ```
 Bakiyenizi kontrol etmek için:
 ```
-$balance <YOUR_WALLET_ADDRESS> rhapsody
+$balance <YOUR_WALLET_ADDRESS> menkar
 ```
 
 
