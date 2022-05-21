@@ -245,7 +245,7 @@ quicksilverd tx staking edit-validator \
 --moniker=$NODENAME \
 --identity=C6A8BDD24F8EA6F5 \
 --website="http://nodeist.com" \
---details="Providing professional staking services with high performance and availability. Find me at Discord: kjnodes#8455 and Telegram: @kjnodes" \
+--details="Professional node running, best uptime, low fees" \
 --chain-id=$CHAIN_ID \
 --from=$WALLET
 ```
