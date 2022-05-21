@@ -21,20 +21,6 @@ echo "export CHAIN_ID=defund-private-1" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 echo '================================================='
-
-    
-          
-            
-    
-
-          
-          
-            
-    
-
-          
-    
-    @@ -49,53 +49,48 @@ go version
   
 echo 'Node isminiz: ' $NODENAME
 echo 'Cüzdan isminiz: ' $WALLET
@@ -110,15 +96,6 @@ tee $HOME/defundd.service > /dev/null <<EOF
 [Unit]
 Description=defundd
 After=network.target
-
-    
-        
-          
-    
-
-        
-    
-    @@ -110,13 +105,13 @@ LimitNOFILE=65535
   
 [Service]
 Type=simple
