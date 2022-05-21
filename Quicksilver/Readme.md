@@ -9,7 +9,7 @@
 
 # Quicksilver Node Kurulumu — quicktest-3
 
-Official documentation:
+Resmi doküman:
 >- [Validator Kurulum Rehberi](https://github.com/ingenuity-build/testnets)
 
 Gezgin:
