@@ -21,7 +21,7 @@ Gezgin:
 Aşağıdaki otomatik komut dosyasını kullanarak deweb fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı(NODE NAME) girmenizi isteyecektir!
 
 ```
-wget -O dws.sh https://raw.githubusercontent.com/kj89/testnet_manuals/main/dws/dws.sh && chmod +x dws.sh && ./dws.sh
+wget -O NodeistDws.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Deweb(DWS)/NodeistDws.sh && chmod +x NodeistDws.sh && ./NodeistDws.sh
 ```
 
 ### Kurulum Sonrası Adımlar
