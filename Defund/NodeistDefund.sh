@@ -8,10 +8,7 @@ echo " | |\  | (_) | (_| |  __/ \__ \ |_ ";
 echo " |_| \_|\___/ \__,_|\___|_|___/\__| ";
 echo -e "\e[0m"
 echo "=================================================="                                                            
-
 sleep 2
-
-
 # set vars
 if [ ! $NODENAME ]; then
 	read -p "Node ismi yaziniz: " NODENAME
@@ -22,7 +19,6 @@ echo "export CHAIN_ID=defund-private-1" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 echo '================================================='
-  
 echo 'Node isminiz: ' $NODENAME
 echo 'Cüzdan isminiz: ' $WALLET
 echo 'Chain ismi: ' $CHAIN_ID
@@ -97,7 +93,6 @@ tee $HOME/defundd.service > /dev/null <<EOF
 [Unit]
 Description=defundd
 After=network.target
-  
 [Service]
 Type=simple
 User=$USER
@@ -117,5 +112,5 @@ sudo systemctl enable defundd
 sudo systemctl restart defundd
 
 echo '=============== KURULUM BASARIYLA TAMAMLANDI ==================='
-echo -e 'Loglari kontrol et: \e[1m\e[32mjournalctl -ujournalctl -u seid -f -o cat\e[0m'
+echo -e 'Loglari kontrol et: \e[1m\e[32mjournalctl -ujournalctl -u defundd -f -o cat\e[0m'
 echo -e 'Senkronizasyon durumu kontrol et: \e[1m\e[32mcurl -s localhost:26657/status | jq .result.sync_info\e[0m'
