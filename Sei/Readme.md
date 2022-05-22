@@ -72,21 +72,19 @@ echo 'export VALOPER_ADDRESS='${VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
-### Musluğu kullanarak cüzdan bakiyenizi arttırın
-Doğrulayıcı oluşturmak için önce cüzdanınıza testnet jetonları ile para yatırmanız gerekir. Cüzdanınızı doldurmak ve QCK - ATOM musluklarına erişmek için sei discord sunucusuna katılın. Uygun kanalda olduğunuzdan emin olun.
+### Cüzdanınıza para yatırın
+Doğrulayıcı oluşturmak için önce cüzdanınıza testnet jetonları ile para yatırmanız gerekir.
+
+Sei testnet'in genesis düğümünde (3.22.112.181) bir musluk sunucusu çalışıyor. Cüzdan adresinize coin istemek için, musluk sunucusuna bir HTTP isteği göndermeniz yeterlidir.
 
 Musluktan token talep etmek için:
 ```
-$request <YOUR_WALLET_ADDRESS> rhapsody
-```
-Bakiyenizi kontrol etmek için:
-```
-$balance <YOUR_WALLET_ADDRESS> rhapsody
+curl -X POST -d '{"address": "<WALLET_ADDRESS>", "coins": ["1000000usei"]}' http://3.22.112.181:8000
 ```
 
 
 ### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 qck'ye sahip olduğunuzdan (1 qck 1000000 uqck'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+Doğrulayıcı oluşturmadan önce lütfen en az 1 sei'ye sahip olduğunuzdan (1 sei 1000000 usei'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
 
 Cüzdan bakiyenizi kontrol etmek için:
 ```
