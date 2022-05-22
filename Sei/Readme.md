@@ -106,7 +106,7 @@ seid tx staking create-validator \
   --chain-id $CHAIN_ID
 ```
 
-## Güvenlik
+## Güvenlik (Opsiyonel)
 Anahtarlarınızı korumak için lütfen temel güvenlik kurallarına uyduğunuzdan emin olun.
 
 ### Kimlik doğrulama için ssh anahtarlarını ayarlayın
