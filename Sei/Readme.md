@@ -128,18 +128,6 @@ sudo ufw allow 26656,26660/tcp
 sudo ufw enable
 ```
 
-## Senkronizasyon süresini hesaplayın
-
-Bu komut dosyası, düğümünüzü tam olarak senkronize etmenin ne kadar zaman alacağını tahmin etmenize yardımcı olacaktır. 
-5 dakikalık bir süre boyunca senkronize edilen dakika başına ortalama blokları ölçer ve ardından size sonuçlar verir.
-```
-wget -O senkronizesurehesapla.py https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/sei/senkronizesurehesapla.py && python3 ./senkronizesurehesapla.py
-```
-
-## Şu anda bağlı olan eşler listesini kimlikleri ile alın
-```
-curl -sS http://localhost:26657/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}'
-```
 
 ## Kullanışlı Komutlar
 ### Servis Yönetimi
