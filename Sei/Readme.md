@@ -7,7 +7,7 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Sei/169664551-39020c2e-fa95-483b-916b-c52ce4cb907c.png">
 </p>
 
-# sei Node Kurulumu — quicktest-3
+# Sei Node Kurulumu — quicktest-3
 
 Resmi doküman:
 >- [Validator Kurulum Rehberi](https://docs.seinetwork.io/nodes-and-validators/joining-testnets)
