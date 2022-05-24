@@ -95,7 +95,7 @@ seid query bank balances $WALLET_ADDRESS
 Doğrulayıcıyı çalıştırma komutunu yazalım:
 ```
 seid tx staking create-validator \
-  --amount 1000000ufetf \
+  --amount 1000000usei \
   --from $WALLET \
   --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
