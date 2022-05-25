@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/kyve/169664551-39020sc2e-fa95-483b-916b-c52ce4cb907c.png">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Kyve/kyve.png">
 </p>
 
 # kyve Node Kurulumu — korellia
