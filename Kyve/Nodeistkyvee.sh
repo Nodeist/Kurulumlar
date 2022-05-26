@@ -1,11 +1,18 @@
 #!/bin/bash
-echo -e ''
-curl -s https://api.testnet.run/logo.sh | bash && sleep 3
-echo -e ''
+echo "=================================================="
+echo -e "\033[0;35m"
+echo " | \ | |         | |    (_)   | |  ";
+echo " |  \| | ___   __| | ___ _ ___| |_ ";
+echo " |     |/ _ \ / _  |/ _ \ / __| __| ";
+echo " | |\  | (_) | (_| |  __/ \__ \ |_ ";
+echo " |_| \_|\___/ \__,_|\___|_|___/\__| ";
+echo -e "\e[0m"
+echo "=================================================="                                                            
+sleep 2
 GREEN="\e[32m"
 NC="\e[0m"
 dependiences () {
-    echo -e '\e[0;33mİnstalling Dependiences\e[0m'
+    echo -e '\e[0;33mGereklilikler yukleniyors\e[0m'
     echo -e ''
     sudo apt update
     sudo apt install make clang pkg-config libssl-dev build-essential git jq zip screen ncdu nload -y < "/dev/null"
@@ -23,7 +30,7 @@ binaries () {
     echo -e ''
     echo -e "\033[1;34m"
     if [ ! $node_name ]; then
-        read -p ' Enter your node name: ' node_name
+        read -p ' Node ismi yazin: ' node_name
         echo 'export node_name='$node_name >> $HOME/.bash_profile
     fi
     . $HOME/.bash_profile
@@ -88,17 +95,17 @@ if [ ! $NODE_PASS ]; then
     source $HOME/.profile
 fi
     echo -e ""
-    echo -e '\033[0mGenerating keys...\e[0m'
+    echo -e '\033[0mKey uretiliyor\e[0m'
     sleep 2
     echo -e ''
     echo -e "\e[33mWait...\e[0m" && sleep 4
     (echo $NODE_PASS; echo $NODE_PASS) | kyved keys add validator --output json &>> $HOME/"$CHAIN_ID"_validator_info.json
-    echo -e "You can find your mnemonic with the following command;"
+    echo -e "Bu kodu yazarak mnemoniclerine ulasabilirsin;"
     echo -e "\e[32mcat $HOME/kyve-beta_validator_info.json\e[39m"
     export KYVE_WALLET=`echo $NODE_PASS | kyved keys show validator -a`
     echo 'export KYVE_WALLET='${KYVE_WALLET} >> $HOME/.bash_profile
     . $HOME/.bash_profile
-    echo -e '\n\e[44mHere is the your wallet address, save it!:' $KYVE_WALLET '\e[0m\n'
+    echo -e '\n\e[44mCuzdan adresiniz::' $KYVE_WALLET '\e[0m\n'
 }
 
 
@@ -117,10 +124,35 @@ visor_bin () {
 }
 
 config_service () {
-    wget -q https://raw.githubusercontent.com/Errorist79/seeds/main/seeds-korellia.txt -O $HOME/.kyve/config/seeds.txt
-    sed -i.bak 's/seeds = \"\"/seeds = \"'$(cat $HOME/.kyve/config/seeds.txt)'\"/g' $HOME/.kyve/config/config.toml
-    rm $HOME/.kyve/config/addrbook.json && wget -P $HOME/.kyve/config https://cdn.discordapp.com/attachments/829678581764456451/966987280046759946/addrbook.json
-    echo -e 'Creating system service...'
+    SEEDS=""
+    PEERS="a24fc4dfdf780931a9d3c1f5082431fea7a33dca@65.108.225.158:10656"
+    sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.kyve/config/config.toml
+    rm $HOME/.kyve/config/addrbook.json && wget -P $HOME/.kyve/config https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Kyve/addrbook.json
+    pruning="custom"
+    pruning_keep_recent="100"
+    pruning_keep_every="0"
+    pruning_interval="10"
+    sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/.defund/config/app.toml
+    sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/.kyve/config/app.toml
+    sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/.kyve/config/app.toml
+    sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/.kyve/config/app.toml
+SNAP_RPC="https://kyve-testnet-rpc.polkachu.com:443"
+
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
+s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"\"|" $HOME/.kyve/config/config.toml
+
+    kyved tendermint unsafe-reset-all
+
+    
+    
+    echo -e 'Servisler olusturuluyor..'
     sleep 2
 sudo tee /etc/systemd/system/kyved.service > /dev/null <<EOF  
 [Unit]
@@ -152,15 +184,15 @@ sudo systemctl restart systemd-journald
 
 info () {
     echo -e ${GREEN}"======================================================"${NC}
-    echo -e "Your wallet addr: ${GREEN}$KYVE_WALLET${NC}"
-    echo -e "Check wallet mnemonic; use this command: ${GREEN}cat $HOME/kyve_korellia_validator_info.json${NC}"
+    echo -e "Cüzdan adresi: ${GREEN}$KYVE_WALLET${NC}"
+    echo -e "mnemonicleri bul ve yedekle: ${GREEN}cat $HOME/kyve_korellia_validator_info.json${NC}"
     echo -e ${GREEN}"======================================================"${NC}
 }
 
 done_process () {
     LOG_SEE="journalctl -u kyved.service -f -n 100"
     source $HOME/.profile
-    echo -e '\n\e[41mDone! Now, please wait for your node to sync with the chain. This will take approximately 15 minutes. Use this command to see the logs:' $LOG_SEE '\e[0m\n'
+    echo -e '\n\e[41mIslem tamam! Senkronizasyonu bekle! 10 dakika kadar surebilir.' $LOG_SEE '\e[0m\n'
 }
 
 PS3="What do you want?: "
