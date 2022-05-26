@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/celestia/celestia.png">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Celestia/1.png">
 </p>
 
 # Celestia Node Kurulumu — mamaki
