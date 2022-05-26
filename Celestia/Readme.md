@@ -70,15 +70,16 @@ echo 'export VALOPER_ADDRESS='${VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
+
 ### Cüzdanınıza para yatırın
-Doğrulayıcı oluşturmak için önce cüzdanınıza testnet jetonları ile para yatırmanız gerekir.
 
-celestia testnet'in genesis düğümünde (3.22.112.181) bir musluk sunucusu çalışıyor. Cüzdan adresinize coin istemek için, musluk sunucusuna bir HTTP isteği göndermeniz yeterlidir.
+Doğrulayıcı oluşturmak için önce cüzdanınıza testnet jetonları ile para yatırmanız gerekir. 
+Cüzdanınızı doldurmak için [Celestia discord sunucusuna katılın](https://discord.gg/QAsD8j4Z) ve NODE OPERATORS kategorisi altındaki #faucet kanalına gidin.
 
-Musluktan token talep etmek için:
 ```
-curl -X POST -d '{"address": "<WALLET_ADDRESS>", "coins": ["1000000uutia"]}' http://3.22.112.181:8000
+$request <YOUR_WALLET_ADDRESS>
 ```
+
 
 
 ### Doğrulayıcı oluştur
