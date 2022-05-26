@@ -98,6 +98,27 @@ sed -i.bak -e "s/^skip-timeout-commit *=.*/skip-timeout-commit = false/" $HOME/.
 # set validator mode
 sed -i.bak -e "s/^mode *=.*/mode = \"validator\"/" $HOME/.celestia-app/config/config.toml
 
+# set quicksync
+function quickSync {
+cd $HOME
+rm -rf ~/.celestia-app/data
+mkdir -p ~/.celestia-app/data
+SNAP_NAME=$(curl -s https://snaps.qubelabs.io/celestia/ | egrep -o ">mamaki.*tar" | tr -d ">")
+wget -O - https://snaps.qubelabs.io/celestia/${SNAP_NAME} | tar xf - -C ~/.celestia-app/data/
+}
+
+# let uset choose sync mode
+while true; do
+read -p "Do you want use Quick Sync for rapid data synchronization? (y/n) " yn
+case $yn in 
+	[yY] ) echo -e '\n\e[31mDownloading data using Quick Sync...\e[39m' && sleep 1
+	quickSync
+	    break;;
+	[nN] ) echo -e '\n\e[31mSkipping Quick Sync...\e[39m' && sleep 1
+		break;;
+	* ) echo invalid response;;
+esac
+done
 
 echo -e "\e[1m\e[32m4. Servisler başlatılıyor... \e[0m" && sleep 1
 # create service
