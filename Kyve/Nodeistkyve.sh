@@ -128,6 +128,8 @@ config_service () {
     PEERS="a24fc4dfdf780931a9d3c1f5082431fea7a33dca@65.108.225.158:10656"
     sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.kyve/config/config.toml
     rm $HOME/.kyve/config/addrbook.json && wget -P $HOME/.kyve/config https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Kyve/addrbook.json
+        sleep 2
+
     pruning="custom"
     pruning_keep_recent="100"
     pruning_keep_every="0"
