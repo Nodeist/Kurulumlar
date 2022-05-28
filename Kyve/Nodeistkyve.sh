@@ -125,7 +125,7 @@ visor_bin () {
 
 config_service () {
     SEEDS=""
-    PEERS="a24fc4dfdf780931a9d3c1f5082431fea7a33dca@65.108.225.158:10656"
+    PEERS="e7b4f7833edea6281071bec25e9c7e0e8455cb7e@173.249.59.141:26656        eb2fa2e524332f90e76d1bc9e989b96b1d1c8476@167.86.69.194:26656         fd5d98a69998017c10ef9f4f08254d222478aa8b@195.2.85.56:26656           9a655c23bd3f043cebe8bc557b9c221d03e54b84@185.218.124.201:26656       a24fc4dfdf780931a9d3c1f5082431fea7a33dca@65.108.225.158:10656        6215a7936b5410dd4b8ec1d25d80b80aaee275bc@45.10.43.108:26656          189d8c0f278aa7925bc1501f6f8e2febafb6066f@135.181.251.108:26656       71ea9b725f02ec514b01b28c72f738b0bc810e69@144.76.63.67:26209          4e3da7567b4696b5a9d5163932f9999136ee916d@185.43.4.187:26656          9fac06a086f3dbc854dd84926ccf7c177074aaa1@136.244.119.227:26656"
     sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.kyve/config/config.toml
     rm $HOME/.kyve/config/addrbook.json && wget -P $HOME/.kyve/config https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Kyve/addrbook.json
         sleep 2
