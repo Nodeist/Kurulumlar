@@ -50,7 +50,9 @@ cd $HOME
 git clone https://github.com/terra-money/core
 cd terra
 git checkout v2.0.0-rc.0
-make install
+go build -o build/terrad ./cmd/terrad
+chmod +x ./build/terrad && sudo mv ./build/terrad /usr/local/bin/terrad
+
 
 # config
 terrad config chain-id $CHAIN_ID
