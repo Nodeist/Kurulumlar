@@ -237,3 +237,13 @@ terrad tx slashing unjail \
   --chain-id=$CHAIN_ID \
   --gas=auto
 ```
+
+Aktif Set: 
+```
+terrad query staking validators --limit 2000 -o json | jq -r '.validators[] | select(.status=="BOND_STATUS_BONDED") | [.operator_address, .status, (.tokens|tonumber / pow(10; 6)), .description.moniker] | @csv' | column -t -s"," | sort -k3 -n -r
+```
+
+İnaktif set:
+```
+terrad query staking validators --limit 2000 -o json | jq -r '.validators[] | select(.status=="BOND_STATUS_UNBONDED") | [.operator_address, .status, (.tokens|tonumber / pow(10; 6)), .description.moniker] | @csv' | column -t -s"," | sort -k3 -n -r
+```
