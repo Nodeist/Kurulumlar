@@ -195,7 +195,7 @@ seid query bank balances $WALLET_ADDRESS
 
 Cüzdandan Cüzdana Bakiye Transferi:
 ```
-seid tx bank send $WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ufetf
+seid tx bank send $WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000usei
 ```
 
 ### Oylama
@@ -206,12 +206,12 @@ seid tx gov vote 1 yes --from $WALLET --chain-id=$CHAIN_ID
 ### Stake, Delegasyon ve Ödüller
 Delegate İşlemi:
 ```
-seid tx staking delegate $VALOPER_ADDRESS 10000000ufetf --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+seid tx staking delegate $VALOPER_ADDRESS 10000000usei --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 
 Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
 ```
-seid tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ufetf --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+seid tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000usei --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 
 Tüm ödülleri çek:
