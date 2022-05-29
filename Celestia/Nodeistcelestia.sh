@@ -91,7 +91,7 @@ sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_rec
 sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/.celestia-app/config/app.toml
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/.celestia-app/config/app.toml
 
-sleep1
+sleep 1
 
 #Change port 30
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:36308\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:36307\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:6301\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:36306\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":36300\"%" $HOME/.celestia-app/config/config.toml
