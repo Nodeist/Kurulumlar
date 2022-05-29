@@ -237,3 +237,15 @@ kujirad tx slashing unjail \
   --chain-id=$CHAIN_ID \
   --gas=auto
 ```
+
+
+Node Tamamen Silmek:
+```
+sudo systemctl stop kujirad && \
+sudo systemctl disable kujirad && \
+rm /etc/systemd/system/kujirad.service && \
+sudo systemctl daemon-reload && \
+cd $HOME && \
+rm -rf .kujira kujira-core && \
+rm -rf $(which kujirad)
+```
