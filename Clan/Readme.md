@@ -236,3 +236,14 @@ cland tx slashing unjail \
   --chain-id=$CHAIN_ID \
   --gas=auto
 ```
+
+Node Tamamen Silmek: 
+```
+sudo systemctl stop ccland && \
+sudo systemctl disable ccland && \
+rm /etc/systemd/system/ccland.service && \
+sudo systemctl daemon-reload && \
+cd $HOME && \
+rm -rf .clan clan && \
+rm -rf $(which ccland)
+```
