@@ -253,3 +253,14 @@ defundd tx slashing unjail \
   --chain-id=$CHAIN_ID \
   --gas=auto
 ```
+
+Node Tamamen Silmek:
+```
+sudo systemctl stop defundd && \
+sudo systemctl disable defundd && \
+rm /etc/systemd/system/defundd.service && \
+sudo systemctl daemon-reload && \
+cd $HOME && \
+rm -rf .defund defund && \
+rm -rf $(which defundd)
+```
