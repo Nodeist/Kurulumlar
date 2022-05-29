@@ -7,7 +7,7 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Clan/logo.webp">
 </p>
 
-# clan Node Kurulumu — clan-private-1
+# clan Node Kurulumu — playsatation-2
 
 Gezgin:
 >-  https://clan.explorers.guru/
