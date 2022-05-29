@@ -14,3 +14,4 @@ Kyve `35`
 Quicksilver `36`
 Sei `37`
 Terra2 `38`
+Comdex `39`
