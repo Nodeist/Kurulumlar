@@ -242,3 +242,15 @@ dewebd tx slashing unjail \
   --chain-id=$CHAIN_ID \
   --gas=auto
 ```
+
+
+Node Tamamen Silmek:
+```
+sudo systemctl stop dewebd && \
+sudo systemctl disable dewebd && \
+rm /etc/systemd/system/dewebd.service && \
+sudo systemctl daemon-reload && \
+cd $HOME && \
+rm -rf .deweb deweb && \
+rm -rf $(which dewebd)
+```
