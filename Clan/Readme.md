@@ -69,7 +69,7 @@ source $HOME/.bash_profile
 ```
 
 ### Musluğu kullanarak cüzdan bakiyenizi arttırın
-
+https://faucet-testnet.clan.network/
 
 ### Doğrulayıcı oluştur
 Doğrulayıcı oluşturmadan önce lütfen en az 1 clan'ye sahip olduğunuzdan (1 clan 1000000 uclan'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
