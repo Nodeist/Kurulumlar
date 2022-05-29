@@ -239,11 +239,11 @@ cland tx slashing unjail \
 
 Node Tamamen Silmek: 
 ```
-sudo systemctl stop ccland && \
-sudo systemctl disable ccland && \
-rm /etc/systemd/system/ccland.service && \
+sudo systemctl stop cland && \
+sudo systemctl disable cland && \
+rm /etc/systemd/system/cland.service && \
 sudo systemctl daemon-reload && \
 cd $HOME && \
 rm -rf .clan clan && \
-rm -rf $(which ccland)
+rm -rf $(which cland)
 ```
