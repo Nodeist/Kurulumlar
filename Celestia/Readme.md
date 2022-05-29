@@ -243,3 +243,15 @@ celestia-appd tx slashing unjail \
   --chain-id=$CHAIN_ID \
   --gas=auto
 ```
+
+
+Node Tamamen Silmek: 
+```
+sudo systemctl stop celestia-appd && \
+sudo systemctl disable celestia-appd && \
+rm /etc/systemd/system/celestia-appd.service && \
+sudo systemctl daemon-reload && \
+cd $HOME && \
+rm -rf .celestia-app celestia-app && \
+rm -rf $(which celestia-appd)
+```
