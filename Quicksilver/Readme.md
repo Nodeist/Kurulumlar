@@ -258,3 +258,15 @@ quicksilverd tx slashing unjail \
   --chain-id=$CHAIN_ID \
   --gas=auto
 ```
+
+
+Node Tamamen Silmek:
+```
+sudo systemctl stop quicksilverd && \
+sudo systemctl disable quicksilverd && \
+rm /etc/systemd/system/quicksilverd.service && \
+sudo systemctl daemon-reload && \
+cd $HOME && \
+rm -rf .quicksilverd quicksilverd && \
+rm -rf $(which quicksilverd)
+```
