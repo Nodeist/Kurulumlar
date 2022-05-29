@@ -94,11 +94,11 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 sleep1
 
 #Change port 30
-sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:36308\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:36307\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:6301\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:36306\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":36300\"%" $HOME/.kujira/config/config.toml
-sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:9300\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:9301\"%" $HOME/.kujira/config/app.toml
-sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:36307\"%" $HOME/.kujira/config/client.toml
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:36308\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:36307\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:6301\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:36306\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":36300\"%" $HOME/.celestia-app/config/config.toml
+sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:9300\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:9301\"%" $HOME/.celestia-app/config/app.toml
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:36307\"%" $HOME/.celestia-app/config/client.toml
 external_address=$(wget -qO- eth0.me)
-sed -i.bak -e "s/^external_address *=.*/external_address = \"$external_address:36306\"/" $HOME/.kujir/config/config.toml
+sed -i.bak -e "s/^external_address *=.*/external_address = \"$external_address:36306\"/" $HOME/.celestia-app/config/config.toml
 
 sleep 1 
 
