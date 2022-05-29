@@ -19,7 +19,7 @@ Aşağıdaki otomatik komut dosyasını kullanarak comdex fullnode'unuzu birkaç
 
 
 ```
-wget -O Nodeistcomdex.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/comdex/Nodeistcomdex.sh && chmod +x Nodeistcomdex.sh && ./Nodeistcomdex.sh
+wget -O Nodeistcomdex.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Comdex/Nodeistcomdex.sh && chmod +x Nodeistcomdex.sh && ./Nodeistcomdex.sh
 ```
 
 ### Kurulum Sonrası Adımlar
