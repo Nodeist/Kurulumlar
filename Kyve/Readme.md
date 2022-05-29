@@ -242,3 +242,14 @@ kyved tx slashing unjail \
   --chain-id=$CHAIN_ID \
   --gas=auto
 ```
+
+Node Tamamen Silmek:
+```
+sudo systemctl stop kyved && \
+sudo systemctl disable kyved && \
+rm /etc/systemd/system/kyved.service && \
+sudo systemctl daemon-reload && \
+cd $HOME && \
+rm -rf .kyve kyve && \
+rm -rf $(which kyved)
+```
