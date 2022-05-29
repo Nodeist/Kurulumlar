@@ -9,6 +9,8 @@
 
 # kujira Node Kurulumu — harpoon-3
 
+Explorer:
+> https://cosmosrun.info/kujira-harpoon-3
 
 ## kujira Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
