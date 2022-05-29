@@ -86,6 +86,18 @@ sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_rec
 sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/.quicksilverd/config/app.toml
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/.quicksilverd/config/app.toml
 
+sleep 1
+
+#Change port 36
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:36368\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:36367\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:6361\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:36366\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":36360\"%" $HOME/.kyve/config/config.toml
+sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:9360\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:9361\"%" $HOME/.kyve/config/app.toml
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:36367\"%" $HOME/.kyve/config/client.toml
+external_address=$(wget -qO- eth0.me)
+sed -i.bak -e "s/^external_address *=.*/external_address = \"$external_address:36366\"/" $HOME/.kyve/config/config.toml
+
+sleep 1 
+
+
 # state sync
 SNAP_RPC1="http://node02.quicktest-1.quicksilver.zone:26657" \
 && SNAP_RPC2="http://node04.quicktest-1.quicksilver.zone:26657"
