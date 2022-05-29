@@ -68,10 +68,7 @@ source $HOME/.bash_profile
 
 ### Musluğu kullanarak cüzdan bakiyenizi arttırın
 
-kujira-private-1 test ağında 20 ücretsiz jeton almak için:
-* https://bitszn.com/faucets.html sitesine gidin.
-* `COSMOS` sekmesine geçin ve `kujira.Finance Testnet` seçin.
-* cüzdan adresinizi girin ve `Request` butonuna tıklayın.
+Dc kanalına katılın ve adminden isteyin. şimdilik faucet bulunmuyor.
 
 ### Doğrulayıcı oluştur
 Doğrulayıcı oluşturmadan önce lütfen en az 1 kuji'ye sahip olduğunuzdan (1 kuji 1000000 ukuji'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
@@ -116,14 +113,6 @@ sudo ufw allow ssh/tcp
 sudo ufw limit ssh/tcp
 sudo ufw allow 26656,26660/tcp
 sudo ufw enable
-```
-
-## Senkronizasyon süresini hesaplayın
-
-Bu komut dosyası, düğümünüzü tam olarak senkronize etmenin ne kadar zaman alacağını tahmin etmenize yardımcı olacaktır. 
-5 dakikalık bir süre boyunca senkronize edilen dakika başına ortalama blokları ölçer ve ardından size sonuçlar verir.
-```
-wget -O senkronizesurehesapla.py https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/kujira/senkronizesurehesapla.py && python3 ./senkronizesurehesapla.py
 ```
 
 ## Şu anda bağlı olan eşler listesini kimlikleri ile alın
