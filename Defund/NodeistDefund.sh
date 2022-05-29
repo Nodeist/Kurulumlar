@@ -87,11 +87,11 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 sleep1
 
 #Change port 32
-sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:36328\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:36327\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:6321\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:36326\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":36320\"%" $HOME/.kujira/config/config.toml
-sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:9320\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:9321\"%" $HOME/.kujira/config/app.toml
-sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:36327\"%" $HOME/.kujira/config/client.toml
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:36328\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:36327\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:6321\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:36326\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":36320\"%" $HOME/.defund/config/config.toml
+sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:9320\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:9321\"%" $HOME/.defund/config/app.toml
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:36327\"%" $HOME/.defund/config/client.toml
 external_address=$(wget -qO- eth0.me)
-sed -i.bak -e "s/^external_address *=.*/external_address = \"$external_address:36326\"/" $HOME/.kujir/config/config.toml
+sed -i.bak -e "s/^external_address *=.*/external_address = \"$external_address:36326\"/" $HOME/.defund/config/config.toml
 
 sleep 1 
 
