@@ -245,4 +245,17 @@ comdex tx slashing unjail \
   --from=$WALLET \
   --chain-id=$CHAIN_ID \
   --gas=auto
+ 
+```
+
+
+Node Tamamen Silmek: 
+```
+sudo systemctl stop comdex && \
+sudo systemctl disable comdex && \
+rm /etc/systemd/system/comdex.service && \
+sudo systemctl daemon-reload && \
+cd $HOME && \
+rm -rf .comdex comdex && \
+rm -rf $(which comdex)
 ```
