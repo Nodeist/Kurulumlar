@@ -247,3 +247,15 @@ terrad query staking validators --limit 2000 -o json | jq -r '.validators[] | se
 ```
 terrad query staking validators --limit 2000 -o json | jq -r '.validators[] | select(.status=="BOND_STATUS_UNBONDED") | [.operator_address, .status, (.tokens|tonumber / pow(10; 6)), .description.moniker] | @csv' | column -t -s"," | sort -k3 -n -r
 ```
+
+
+Node Tamamen Silmek:
+```
+sudo systemctl stop terrad && \
+sudo systemctl disable terrad && \
+rm /etc/systemd/system/terrad.service && \
+sudo systemctl daemon-reload && \
+cd $HOME && \
+rm -rf .terra core && \
+rm -rf $(which terrad)
+```
