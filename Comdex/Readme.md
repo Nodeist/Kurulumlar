@@ -70,11 +70,8 @@ source $HOME/.bash_profile
 ```
 
 ### Musluğu kullanarak cüzdan bakiyenizi arttırın
+https://faucet.comdex.one/
 
-comdex-private-1 test ağında 20 ücretsiz jeton almak için:
-* https://bitszn.com/faucets.html sitesine gidin.
-* `COSMOS` sekmesine geçin ve `comdex.Finance Testnet` seçin.
-* cüzdan adresinizi girin ve `Request` butonuna tıklayın.
 
 ### Doğrulayıcı oluştur
 Doğrulayıcı oluşturmadan önce lütfen en az 1 cmdx'ye sahip olduğunuzdan (1 cmdx 1000000 ucmdx'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
