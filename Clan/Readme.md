@@ -10,7 +10,7 @@
 # clan Node Kurulumu — playsatation-2
 
 Gezgin:
->-  https://clan.explorers.guru/
+>-  https://secretnodes.com/clan/chains/playstation-2/validators
 
 ## clan Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
