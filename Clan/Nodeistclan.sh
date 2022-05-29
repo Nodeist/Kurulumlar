@@ -88,11 +88,11 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 sleep1
 
 #Change port 31
-sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:36318\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:36317\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:6311\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:36316\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":36310\"%" $HOME/.kujira/config/config.toml
-sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:9310\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:9311\"%" $HOME/.kujira/config/app.toml
-sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:36317\"%" $HOME/.kujira/config/client.toml
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:36318\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:36317\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:6311\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:36316\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":36310\"%" $HOME/.clan/config/config.toml
+sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:9310\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:9311\"%" $HOME/.clan/config/app.toml
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:36317\"%" $HOME/.clan/config/client.toml
 external_address=$(wget -qO- eth0.me)
-sed -i.bak -e "s/^external_address *=.*/external_address = \"$external_address:36316\"/" $HOME/.kujir/config/config.toml
+sed -i.bak -e "s/^external_address *=.*/external_address = \"$external_address:36316\"/" $HOME/.clan/config/config.toml
 
 sleep 1 
 
