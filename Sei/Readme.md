@@ -1,7 +1,8 @@
 <p style="font-size:14px" align="right">
  <a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="30"/></a><br>Telegrama Katıl<br>
-<a href="https://ahbaay.com/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="30"/></a><br> Websitemizi Ziyaret Et 
+<a href="https://nodeist.site/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="30"/></a><br> Websitemizi Ziyaret Et 
 </p>
+
 
 <p align="center">
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Sei/169664551-39020c2e-fa95-483b-916b-c52ce4cb907c.png">
@@ -230,7 +231,7 @@ Validatörü Düzenle:
 seid tx staking edit-validator \
 --moniker=$NODENAME \
 --identity=C6A8BDD24F8EA6F5 \
---website="http://nodeist.com" \
+--website="https://nodeist.site" \
 --details="Professional node running, best uptime, low fees" \
 --chain-id=$CHAIN_ID \
 --from=$WALLET
