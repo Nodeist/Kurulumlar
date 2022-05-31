@@ -15,7 +15,7 @@ if [ ! $NODENAME ]; then
 	echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
 fi
 echo "export WALLET=wallet" >> $HOME/.bash_profile
-echo "export CHAIN_ID=defund-private-1" >> $HOME/.bash_profile
+echo "export CHAIN_ID=uptick_7776-1" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 echo '================================================='
