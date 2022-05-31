@@ -258,6 +258,6 @@ sudo systemctl disable uptickd && \
 rm /etc/systemd/system/uptickd.service && \
 sudo systemctl daemon-reload && \
 cd $HOME && \
-rm -rf .uptickd uptickd && \
+rm -rf .uptickd uptick && \
 rm -rf $(which uptickd)
 ```
