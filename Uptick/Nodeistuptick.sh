@@ -102,7 +102,7 @@ s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.uptickd/c
 sleep 1 
 
 # Change port 40
-sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:36408\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:36407\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:6401\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:36406\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":36400\"%" $HOME/.upticd/config/config.toml
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:36408\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:36407\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:6401\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:36406\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":36400\"%" $HOME/.uptickd/config/config.toml
 sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:9400\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:9401\"%" $HOME/.uptickd/config/app.toml
 sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:36407\"%" $HOME/.uptickd/config/client.toml
 external_address=$(wget -qO- eth0.me)
