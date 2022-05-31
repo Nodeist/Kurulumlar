@@ -78,7 +78,7 @@ $request <YOUR_WALLET_ADDRESS>
 ```
 
 ### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 uptick'ye sahip olduğunuzdan (1 uptick 1000000 auptick'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+Doğrulayıcı oluşturmadan önce lütfen en az 1 uptick'ye sahip olduğunuzdan (1 uptick 1000000000000000000 auptick'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
 
 Cüzdan bakiyenizi kontrol etmek için:
 ```
@@ -89,7 +89,7 @@ uptickd query bank balances $WALLET_ADDRESS
 Doğrulayıcıyı çalıştırma komutunu yazalım:
 ```
 uptickd tx staking create-validator \
-  --amount 1000000auptick \
+  --amount 5000000000000000000auptick \
   --from $WALLET \
   --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
