@@ -62,9 +62,8 @@ wget -qO $HOME/.defund/config/addrbook.json "https://raw.githubusercontent.com/N
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0ufetf\"/" $HOME/.defund/config/app.toml
 
 # set peers and seeds
-SEEDS="8e1590558d8fede2f8c9405b7ef550ff455ce842@51.79.30.9:26656,bfffaf3b2c38292bd0aa2a3efe59f210f49b5793@51.91.208.71:26656,106c6974096ca8224f20a85396155979dbd2fb09@198.244.141.176:26656"
-PEERS="b41f3e0740130089a2998f48c243d5ae197b1ecd@139.59.177.215:26656,4f0cba3c4c6610c4e7dd7c4ed3da8143b1b4c747@62.171.168.124:26656,7b3d2b2b8859aeed418674dcfc28dfbb2fc46a07@23.88.120.5:26656,2db5d89ae038a9340733584c793dd39af2287e31@65.108.201.154:2070,8e958e9ae0010c36452b4488fa37a59000130c91@185.197.194.186:26651,509e915bb4f0a7fae2071de3c126bf467736f45d@65.108.140.212:26656,813b71481abfb5856b0ca6c8306bb0bc25e71c66@89.58.6.72:26617,d2b5bec855d95a61c8859e80360b5dc55edcf603@144.91.108.209:26656,5b10a67cad723fd13060761f8955f371fb1810a2@80.64.208.121:26656"
-sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.defund/config/config.toml
+peers="decba6e9907011541d56ada922b8da325a5885c2@rpc2.bonded.zone:20656"
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" $HOME/.defund/config/config.toml
 
 # enable prometheus
 sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.defund/config/config.toml
@@ -94,6 +93,19 @@ external_address=$(wget -qO- eth0.me)
 sed -i.bak -e "s/^external_address *=.*/external_address = \"$external_address:36326\"/" $HOME/.defund/config/config.toml
 
 sleep 1 
+
+RPC="http://rpc2.bonded.zone:20657"
+LATEST_HEIGHT=$(curl -s $RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+TRUST_HASH=$(curl -s "$RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$RPC,$RPC\"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
+s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"\"|" $HOME/.defund/config/config.toml
+
+
+sleep 1
 
 # reset
 defundd tendermint unsafe-reset-all
