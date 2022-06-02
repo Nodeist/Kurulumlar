@@ -51,7 +51,8 @@ echo -e "\e[1m\e[32m3. kutuphaneler indirilip yukleniyor... \e[0m" && sleep 1
 cd $HOME
 git clone --depth 1 --branch 1.0.1beta https://github.com/sei-protocol/sei-chain.git
 cd sei-chain
-go build -o build/seid ./cmd/seid
+git checkout 1.0.0beta
+go build -o build/seid ./cmd/sei-chaind
 chmod +x ./build/seid && sudo mv ./build/seid /usr/local/bin/seid
 mv $HOME/go/bin/seid /usr/local/bin/
 mv $HOME/.sei-chain $HOME/.sei
