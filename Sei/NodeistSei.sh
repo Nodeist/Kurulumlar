@@ -57,7 +57,6 @@ go build -o build/seid ./cmd/seid
 chmod +x ./build/seid && sudo mv ./build/seid /usr/local/bin/seid
 
 sleep 1
-
 mv $HOME/go/bin/seid /usr/local/bin/
 mv $HOME/.sei-chain $HOME/.sei
 mv $HOME/sei-chain $HOME/sei
