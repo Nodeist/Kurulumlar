@@ -52,7 +52,7 @@ cd $HOME
 git clone --depth 1 --branch 1.0.1beta https://github.com/sei-protocol/sei-chain.git
 cd sei-chain
 git checkout 1.0.0beta
-go build -o build/seid ./cmd/sei-chaind
+go build -o build/seid ./cmd/seid
 chmod +x ./build/seid && sudo mv ./build/seid /usr/local/bin/seid
 
 sleep 1
