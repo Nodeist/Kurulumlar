@@ -54,6 +54,9 @@ cd sei-chain
 git checkout 1.0.0beta
 go build -o build/seid ./cmd/sei-chaind
 chmod +x ./build/seid && sudo mv ./build/seid /usr/local/bin/seid
+
+sleep 1
+
 mv $HOME/go/bin/seid /usr/local/bin/
 mv $HOME/.sei-chain $HOME/.sei
 mv $HOME/sei-chain $HOME/sei
