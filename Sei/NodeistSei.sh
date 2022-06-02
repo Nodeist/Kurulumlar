@@ -52,16 +52,12 @@ cd $HOME
 git clone https://github.com/sei-protocol/sei-chain.git
 cd sei-chain
 git checkout 1.0.1 beta
-go build -o build/seid ./cmd/sei-chaind
-chmod +x ./build/seid && sudo mv ./build/seid /usr/local/bin/seid
+make install
 
 
 
 sleep 1
 
-mv $HOME/go/bin/seid /usr/local/bin/
-mv $HOME/.sei-chain $HOME/.sei
-mv $HOME/sei-chain $HOME/sei
 
 # config
 seid config chain-id $CHAIN_ID
