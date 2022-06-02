@@ -3,6 +3,9 @@
 <a href="https://nodeist.site/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="30"/></a><br> Websitemizi Ziyaret Et 
 </p>
 
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Subspace/logo.png">
+</p>
 
 
 ## Gemini Incentivized Testnet için Subspace düğümü kurulumu
