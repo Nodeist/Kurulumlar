@@ -253,7 +253,7 @@ sudo systemctl disable seid && \
 rm /etc/systemd/system/seid.service && \
 sudo systemctl daemon-reload && \
 cd $HOME && \
-rm -rf . sei-chain sei-chain && \
+rm -rf . sei sei && \
 rm -rf $(which seid)
 ```
 
