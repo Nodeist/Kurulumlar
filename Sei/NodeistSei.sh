@@ -53,6 +53,8 @@ git clone --depth 1 --branch <tag_name> https://github.com/sei-protocol/sei-chai
 git checkout 1.0.0beta
 go build -o build/seid ./cmd/sei-chaind
 chmod +x ./build/seid && sudo mv ./build/seid /usr/local/bin/seid
+mv $HOME/go/bin/seid /usr/local/bin/
+mv $HOME/.sei-chain $HOME/.sei
 
 # config
 seid config chain-id $CHAIN_ID
