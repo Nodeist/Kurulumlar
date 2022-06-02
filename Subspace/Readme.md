@@ -48,7 +48,7 @@ Düğümünüzü ve çiftçinizi kurmayı bitirdiğinizde:
 2. ve  düğüm adınızı yazarak arayın
 3. Kendinizi aşağıdaki resimdeki gibi listede görmelisiniz
 
-![image](https://user-images.githubusercontent.com/50621007/171700021-8997d43b-408f-4275-982f-60896b0df8fb.png)
+![image](https://i.hizliresim.com/6g6ykf6.png)
 
   ## Faydalı komutlar
 Düğüm durumunu kontrol edin
