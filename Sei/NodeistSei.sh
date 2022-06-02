@@ -50,8 +50,9 @@ echo -e "\e[1m\e[32m3. kutuphaneler indirilip yukleniyor... \e[0m" && sleep 1
 # download binary
 cd $HOME
 git clone --depth 1 --branch <tag_name> https://github.com/sei-protocol/sei-chain.gitcd sei-chain
-cd sei-chain/
-make install
+git checkout 1.0.0beta
+go build -o build/seid ./cmd/sei-chaind
+chmod +x ./build/seid && sudo mv ./build/seid /usr/local/bin/seid
 
 # config
 seid config chain-id $CHAIN_ID
