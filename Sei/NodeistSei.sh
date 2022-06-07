@@ -51,7 +51,7 @@ echo -e "\e[1m\e[32m3. kutuphaneler indirilip yukleniyor... \e[0m" && sleep 1
 
 # download binary
 cd $HOME
-git clone --depth 1 --branch 1.0.1beta https://github.com/sei-protocol/sei-chain.git
+git clone --depth 1 --branch 1.0.2beta https://github.com/sei-protocol/sei-chain.git
 cd sei-chain && make install
 go build -o build/seid ./cmd/seid
 chmod +x ./build/seid && sudo mv ./build/seid /usr/local/bin/seid
