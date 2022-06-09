@@ -105,16 +105,15 @@ palomad tendermint unsafe-reset-all
 
 echo -e "\e[1m\e[32m4. Servisler baslatiliyor... \e[0m" && sleep 1
 # create service
-tee $HOME/palomad.service > /dev/null <<EOF
+sudo tee /etc/systemd/system/palomad.service > /dev/null <<EOF
 [Unit]
-Description=palomad
-After=network.target
+Description=paloma
+After=network-online.target
 [Service]
-Type=simple
 User=$USER
 ExecStart=$(which palomad) start
 Restart=on-failure
-RestartSec=10
+RestartSec=3
 LimitNOFILE=65535
 [Install]
 WantedBy=multi-user.target
