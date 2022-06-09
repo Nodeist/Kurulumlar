@@ -71,10 +71,9 @@ source $HOME/.bash_profile
 
 ### Musluğu kullanarak cüzdan bakiyenizi arttırın
 
-paloma-private-1 test ağında 20 ücretsiz jeton almak için:
-* https://bitszn.com/faucets.html sitesine gidin.
-* `COSMOS` sekmesine geçin ve `paloma.Finance Testnet` seçin.
-* cüzdan adresinizi girin ve `Request` butonuna tıklayın.
+```
+curl -X POST https://faucet.paloma.app/$WALLET_ADDRESS
+```
 
 ### Doğrulayıcı oluştur
 Doğrulayıcı oluşturmadan önce lütfen en az 1 paloma'ye sahip olduğunuzdan (1 paloma 1000000 grain'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
