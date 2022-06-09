@@ -5,7 +5,7 @@
 
 
 <p align="center">
-  <img height="100" height="auto" src="https://user-images.githubusercontent.com/50621007/165055511-83e8a2d3-1700-4d26-af27-abcc825573a7.png">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Paloma/172488614-7d93b016-5fe4-4a51-99e2-67da5875ab7a.png">
 </p>
 
 # paloma Node Kurulumu — paloma-
