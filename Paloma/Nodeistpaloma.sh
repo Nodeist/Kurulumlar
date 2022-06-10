@@ -9,14 +9,16 @@ echo " |_| \_|\___/ \__,_|\___|_|___/\__| ";
 echo -e "\e[0m"
 echo "=================================================="                                                            
 sleep 2
+
 # set vars
 if [ ! $NODENAME ]; then
-	read -p "Node ismi yaziniz: " NODENAME
+	read -p "node isminizi yaziniz: " NODENAME
 	echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
 fi
 echo "export WALLET=wallet" >> $HOME/.bash_profile
-echo "export CHAIN_ID=paloma” >> $HOME/.bash_profile
+echo "export CHAIN_ID=paloma" >> $HOME/.bash_profile
 source $HOME/.bash_profile
+
 
 echo '================================================='
 echo 'Node isminiz: ' $NODENAME
