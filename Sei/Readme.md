@@ -8,7 +8,7 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Sei/169664551-39020c2e-fa95-483b-916b-c52ce4cb907c.png">
 </p>
 
-# Sei Node Kurulumu — sei-testnet-1
+# Sei Node Kurulumu — sei-testnet-2
 
 Resmi doküman:
 >- [Validator Kurulum Rehberi](https://docs.seinetwork.io/nodes-and-validators/joining-testnets)
@@ -76,12 +76,7 @@ source $HOME/.bash_profile
 ### Cüzdanınıza para yatırın
 Doğrulayıcı oluşturmak için önce cüzdanınıza testnet jetonları ile para yatırmanız gerekir.
 
-Sei testnet'in genesis düğümünde (3.22.112.181) bir musluk sunucusu çalışıyor. Cüzdan adresinize coin istemek için, musluk sunucusuna bir HTTP isteği göndermeniz yeterlidir.
-
-Musluktan token talep etmek için:
-```
-curl -X POST -d '{"address": "<WALLET_ADDRESS>", "coins": ["1000000usei"]}' http://3.22.112.181:8000
-```
+Bunun için discord kanalına katılın ve faucetten coin alın.
 
 
 ### Doğrulayıcı oluştur
