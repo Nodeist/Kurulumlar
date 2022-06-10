@@ -26,6 +26,24 @@ Aşağıdaki otomatik komut dosyasını kullanarak sei fullnode'unuzu birkaç da
 wget -O NodeistSei.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Sei/NodeistSei.sh && chmod +x NodeistSei.sh && ./NodeistSei.sh
 ```
 
+
+
+## Güncelleme 1.0.2beta to 1.0.3beta
+`ERR UPGRADE "upgrade-1.0.3beta" NEEDED at height: 153759`
+```
+cd $HOME && rm $HOME/sei-chain -rf
+
+git clone https://github.com/sei-protocol/sei-chain.git && cd $HOME/sei-chain
+
+git checkout 1.0.3beta
+
+make install
+
+mv ~/go/bin/seid /usr/local/bin/seid
+
+systemctl restart seid && journalctl -fu seid -o cat
+```
+
 ### Kurulum Sonrası Adımlar
 Kurulum bittiğinde lütfen değişkenleri sisteme yükleyin:
 ```
