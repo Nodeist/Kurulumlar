@@ -113,7 +113,7 @@ sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.
 sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:9340\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:9341\"%" $HOME/.kujira/config/app.toml
 sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:36347\"%" $HOME/.kujira/config/client.toml
 external_address=$(wget -qO- eth0.me)
-sed -i.bak -e "s/^external_address *=.*/external_address = \"$external_address:36346\"/" $HOME/.kujir/config/config.toml
+sed -i.bak -e "s/^external_address *=.*/external_address = \"$external_address:36346\"/" $HOME/.kujira/config/config.toml
 
 sleep 1 
 
