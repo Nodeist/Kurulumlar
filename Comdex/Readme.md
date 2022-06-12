@@ -228,13 +228,10 @@ comdex tx distribution withdraw-rewards $VALOPER_ADDRESS --from=$WALLET --commis
 ```
 
 ### Doğrulayıcı Yönetimi
-Validatörü Düzenle:
+Validatör İsmini Değiştir:
 ```
-comdex tx staking edit-validator \
---moniker=$NODENAME \
---identity=C6A8BDD24F8EA6F5 \
---website="https://nodeist.site" \
---details="Professional node running, best uptime, low fees" \
+seid tx staking edit-validator \
+--moniker=NEWNODENAME \
 --chain-id=$CHAIN_ID \
 --from=$WALLET
 ```
