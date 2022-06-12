@@ -28,7 +28,17 @@ wget -O NodeistSei.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kuruluml
 
 
 
+
+
+### Kurulum Sonrası Adımlar
+Kurulum bittiğinde lütfen değişkenleri sisteme yükleyin:
+```
+source $HOME/.bash_profile
+```
+
 ## Güncelleme 1.0.2beta to 1.0.3beta
+Senkronizasyonun tamamlanmasını bekleyin. tamamlandığında aşağıdakine benzer bir hata alacaksınız. 
+hatayı aldığınızda güncelleme kodlarını yazarak devam edin.
 `ERR UPGRADE "upgrade-1.0.3beta" NEEDED at height: 153759`
 ```
 cd $HOME && rm $HOME/sei-chain -rf
@@ -42,12 +52,6 @@ make install
 mv ~/go/bin/seid /usr/local/bin/seid
 
 systemctl restart seid && journalctl -fu seid -o cat
-```
-
-### Kurulum Sonrası Adımlar
-Kurulum bittiğinde lütfen değişkenleri sisteme yükleyin:
-```
-source $HOME/.bash_profile
 ```
 
 Ardından, doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
