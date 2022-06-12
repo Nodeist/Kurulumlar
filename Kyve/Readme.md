@@ -223,13 +223,10 @@ kyved tx distribution withdraw-rewards $VALOPER_ADDRESS --from=$WALLET --commiss
 ```
 
 ### Doğrulayıcı Yönetimi
-Validatörü Düzenle:
+Validatör İsmini Değiştir:
 ```
-kyved tx staking edit-validator \
---moniker=$NODENAME \
---identity=C6A8BDD24F8EA6F5 \
---website="http://nodeist.com" \
---details="Professional node running, best uptime, low fees" \
+seid tx staking edit-validator \
+--moniker=NEWNODENAME \
 --chain-id=$CHAIN_ID \
 --from=$WALLET
 ```
