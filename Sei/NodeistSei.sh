@@ -81,7 +81,7 @@ wget -qO $HOME/.sei/config/addrbook.json "https://raw.githubusercontent.com/sei-
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0usei\"/" $HOME/.sei/config/app.toml
 
 # set peers and seeds
-peers="257af61598dd3ce190bd7da84c6bcfeb5cbe9a99@rpc2.bonded.zone:21156"
+peers="8c6d2fc68f02ba8127fb8d5a7a65cbc75f57d05b@167.172.186.140:36656,6a605a26b1b4ac6baac1f06dcc5bc6e6d0a8be46@213.136.88.4:26656,17381b81322b23371b4882b2139fe06bcbf4d29e@173.212.212.197:36376,c951b5be19b4406e95a50abed0f1886ed38ed28a@89.163.164.207:26656,b03f9917af7556b4958f7eb23f18a77eba81bc1f@194.146.12.169:36376,3370dab8eaa935f4bc6cfad81e0af751caee5686@195.2.84.133:26656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" $HOME/.sei/config/config.toml
 
 # enable prometheus
