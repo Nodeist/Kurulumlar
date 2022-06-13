@@ -86,7 +86,7 @@ kujirad query bank balances $WALLET_ADDRESS
 Doğrulayıcıyı çalıştırma komutunu yazalım:
 ```
 kujirad tx staking create-validator \
-  --amount 1000000ukuji \
+  --amount 1999000ukuji \
   --from $WALLET \
   --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
@@ -94,7 +94,7 @@ kujirad tx staking create-validator \
   --min-self-delegation "1" \
   --pubkey  $(kujirad tendermint show-validator) \
   --moniker $NODENAME \
-  --chain-id $CHAIN_ID
+  --chain-id $CHAIN_ID --fees 250ukuji
 ```
 
 ## Güvenlik
@@ -201,17 +201,17 @@ kujirad tx gov vote 1 yes --from $WALLET --chain-id=$CHAIN_ID
 ### Stake, Delegasyon ve Ödüller
 Delegate İşlemi:
 ```
-kujirad tx staking delegate $VALOPER_ADDRESS 10000000ukuji --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+kujirad tx staking delegate $VALOPER_ADDRESS 10000000ukuji --from=$WALLET --chain-id=$CHAIN_ID --gas=auto --fees 250ukuji
 ```
 
 Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
 ```
-kujirad tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ukuji --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+kujirad tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ukuji --from=$WALLET --chain-id=$CHAIN_ID --gas=auto --fees 250ukuji
 ```
 
 Tüm ödülleri çek:
 ```
-kujirad tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+kujirad tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$CHAIN_ID --gas=auto --fees 250ukuji
 ```
 
 Komisyon ile ödülleri geri çekin:
@@ -234,7 +234,7 @@ kujirad tx slashing unjail \
   --broadcast-mode=block \
   --from=$WALLET \
   --chain-id=$CHAIN_ID \
-  --gas=auto
+  --gas=auto --fees 250ukuji
 ```
 
 
