@@ -34,7 +34,7 @@ echo -e "\e[1m\e[32m2. Bagliliklar yukleniyor... \e[0m" && sleep 1
 sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
 
 # install go
-ver="1.17.2"
+ver="1.18.2"
 cd $HOME
 wget https://go.dev/dl/go1.18.2.linux-amd64.tar.gz
 sudo rm -rf /usr/local/go
