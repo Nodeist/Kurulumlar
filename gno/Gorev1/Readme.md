@@ -17,6 +17,8 @@ cd gno
 
 ### Cüzdan bakiyenizi kontrol edin 
 `CUZDANADRESI` yazan kısma cuzdan adresinizi yazın
+En az 2000gnot bakiyeniz olduğundan emin olun.
+
 ```
 ./build/gnokey query auth/accounts/CUZDANADRESI --remote gno.land:36657
 ```
