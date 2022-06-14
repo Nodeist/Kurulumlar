@@ -11,24 +11,31 @@
 
 # Gno.land Kurulum
 
-### Go'yu yükleyin ve klasöre çıkartın
+### Güncellemeler ve gereklilikler
+Yükleme ve yapılandırma
 
 ```
-cd $HOME
 
-wget https://go.dev/dl/go1.18.1.linux-amd64.tar.gz 
+sudo apt update && sudo apt upgrade -y
 
-sudo tar -xvf go1.18.1.linux-amd64.tar.gz
+sudo apt install make clang pkg-config libssl-dev libclang-dev build-essential git curl ntp jq llvm tmux htop screen -y
 
-sudo mv git /usr/yerel 
+wget https://golang.org/dl/go1.18.3.linux-amd64.tar.gz
 
-nano ~/.bash_profile
+sudo tar -C /usr/local -xzf go1.18.3.linux-amd64.tar.gz
 
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export GO111MODULE=on
+
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+EOF
+
+source ~/.profile
 
 go version
+
+rm -rf go1.18.3.linux-amd64.tar.gz
 
 ```
 
