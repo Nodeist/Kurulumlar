@@ -7,7 +7,7 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Masa/logo.png">
 </p>
 
-# Düğümü Kurulumu
+# Node Kurulumu
 Aşağıdaki adımları takip edin 
 
 ## Değişken Ayarlayın
