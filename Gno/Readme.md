@@ -58,8 +58,7 @@ make
 ```
 
 ### Musluktan Jeton isteyin:
-https://medium.com/@onbloc/a-beginners-guide-to-the-gnoland-testnet-6fdc693a48f4#:~:text=the%20Gnoland%20Testnet%20Faucet
-
+https://gno.land/faucet
 
 Bakiyenizi kontrol edin. `CUZDANADRESINIZ` yazan kısma az önce aldığınız cüzdan adresini yazın.
 
