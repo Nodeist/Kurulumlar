@@ -103,6 +103,15 @@ WantedBy=multi-user.target
 EOF
 ```
 
+
+### Düğüm anahtarını geri yükle (Node Taşıma işlemi... İlk defa kuruyorsanız bu adımı atlayın)
+Masa düğüm anahtarını geri yüklemek için onu _$HOME/masa-node-v1.0/data/geth/nodekey_ içine yerleştirin ve ardından hizmeti yeniden başlatın\
+"<YOUR_NODE_KEY>" öğesini düğüm anahtarınızla değiştirin ve aşağıdaki komutu çalıştırın
+```
+echo <YOUR_NODE_KEY> > $HOME/masa-node-v1.0/data/geth/nodekey
+systemctl masad.service'i yeniden başlat
+```
+
 ## Kayıt ve Başlama
 ```
 sudo systemctl daemon-reload
@@ -163,10 +172,3 @@ net.peerCount
 
 _Çıkmak için CTRL+D'ye basın_
 
-### Düğüm anahtarını geri yükle
-Masa düğüm anahtarını geri yüklemek için onu _$HOME/masa-node-v1.0/data/geth/nodekey_ içine yerleştirin ve ardından hizmeti yeniden başlatın\
-"<YOUR_NODE_KEY>" öğesini düğüm anahtarınızla değiştirin ve aşağıdaki komutu çalıştırın
-```
-echo <YOUR_NODE_KEY> > $HOME/masa-node-v1.0/data/geth/nodekey
-systemctl masad.service'i yeniden başlat
-```
