@@ -109,7 +109,6 @@ Masa düğüm anahtarını geri yüklemek için onu _$HOME/masa-node-v1.0/data/g
 "<YOUR_NODE_KEY>" öğesini düğüm anahtarınızla değiştirin ve aşağıdaki komutu çalıştırın
 ```
 echo <YOUR_NODE_KEY> > $HOME/masa-node-v1.0/data/geth/nodekey
-systemctl masad.service'i yeniden başlat
 ```
 
 ## Kayıt ve Başlama
