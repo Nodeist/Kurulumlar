@@ -17,7 +17,7 @@ if [ ! $NODENAME ]; then
 	echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
 fi
 echo "export WALLET=wallet" >> $HOME/.bash_profile
-echo "export CHAIN_ID=quicktest-3" >> $HOME/.bash_profile
+echo "export CHAIN_ID=quicktest-4" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 echo '================================================='
@@ -49,14 +49,14 @@ go version
 echo -e "\e[1m\e[32m3. kutuphaneler indirilip yukleniyor... \e[0m" && sleep 1
 # download binary
 cd $HOME
-git clone https://github.com/ingenuity-build/quicksilver.git --branch v0.1.10
+git clone https://github.com/ingenuity-build/quicksilver.git --branch v0.2.0
 cd quicksilver
 make build
 chmod +x ./build/quicksilverd && mv ./build/quicksilverd /usr/local/bin/quicksilverd
 
 # config
 quicksilverd config chain-id $CHAIN_ID
-quicksilverd config keyring-backend file
+quicksilverd config keyring-backend test
 
 # init
 quicksilverd init $NODENAME --chain-id $CHAIN_ID
@@ -68,7 +68,7 @@ wget -qO $HOME/.quicksilverd/config/genesis.json "https://raw.githubusercontent.
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0uqck\"/" $HOME/.quicksilverd/config/app.toml
 
 # set peers and seeds
-SEEDS="dd3460ec11f78b4a7c4336f22a356fe00805ab64@seed.quicktest-1.quicksilver.zone:26656"
+SEEDS="dd3460ec11f78b4a7c4336f22a356fe00805ab64@seed.rhapsody-4.quicksilver.zone:26656"
 PEERS=""
 sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.quicksilverd/config/config.toml
 
@@ -97,21 +97,8 @@ sed -i.bak -e "s/^external_address *=.*/external_address = \"$external_address:3
 
 sleep 1 
 
-
-# state sync
-SNAP_RPC1="http://node02.quicktest-1.quicksilver.zone:26657" \
-&& SNAP_RPC2="http://node04.quicktest-1.quicksilver.zone:26657"
-LATEST_HEIGHT=$(curl -s $SNAP_RPC2/block | jq -r .result.block.header.height) \
-&& BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)) \
-&& TRUST_HASH=$(curl -s "$SNAP_RPC2/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC1,$SNAP_RPC2\"| ; \
-s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.quicksilverd/config/config.toml
-
 # reset
-quicksilverd unsafe-reset-all
+quicksilverd tendermint unsafe-reset-all --home $HOME/.quicksilverd
 
 echo -e "\e[1m\e[32m4. Servisler baslatiliyor... \e[0m" && sleep 1
 # create service
