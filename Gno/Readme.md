@@ -15,46 +15,15 @@
 Yükleme ve yapılandırma
 
 ```
+wget -O gno.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Gno/gno.sh && chmod +x gno.sh && ./gno.sh
 
-sudo apt update && sudo apt upgrade -y
-
-sudo apt install make clang pkg-config libssl-dev libclang-dev build-essential git curl ntp jq llvm tmux htop screen -y
-
-wget https://golang.org/dl/go1.18.3.linux-amd64.tar.gz
-
-sudo tar -C /usr/local -xzf go1.18.3.linux-amd64.tar.gz
-
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-export GO111MODULE=on
-
-
-
-source ~/.profile
-
-go version
-
-rm -rf go1.18.3.linux-amd64.tar.gz
-
-```
-
-### Make Kurulumu
-```
-sudo apt install make
-```
-
-### Gno.land Kurulumu
-```
-git clone https://github.com/gnolang/gno/
-
-cd gno
-
-make
 ```
 
 ### Mnemonic Üret (kaydetmeyi unutma!)
 
 ```
+cd gno
+
 ./build/gnokey generate
 ```
 
