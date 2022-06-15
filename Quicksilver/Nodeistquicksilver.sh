@@ -69,7 +69,7 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0uqck\"/" $HOME/.qu
 
 # set peers and seeds
 SEEDS="dd3460ec11f78b4a7c4336f22a356fe00805ab64@seed.rhapsody-4.quicksilver.zone:26656"
-PEERS=""
+PEERS="72912bac71c75109ba4697aced6ecb72e9d361bb@54.36.109.62:36656,7e431c91816e446b26bc9268c5e075d1819acdb9@5.189.154.95:26656"
 sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.quicksilverd/config/config.toml
 
 # enable prometheus
