@@ -11,7 +11,7 @@
 # paloma Node Kurulumu — paloma-
 
 Gezgin:
->-  Yok
+>-  https://paloma.explorers.guru
 
 ## paloma Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
