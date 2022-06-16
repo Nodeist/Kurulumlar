@@ -17,7 +17,7 @@ if [ ! $NODENAME ]; then
 	echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
 fi
 echo "export WALLET=wallet" >> $HOME/.bash_profile
-echo "export CHAIN_ID=quicktest-4" >> $HOME/.bash_profile
+echo "export CHAIN_ID=quicktest-5" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 echo '================================================='
@@ -49,7 +49,7 @@ go version
 echo -e "\e[1m\e[32m3. kutuphaneler indirilip yukleniyor... \e[0m" && sleep 1
 # download binary
 cd $HOME
-git clone https://github.com/ingenuity-build/quicksilver.git --branch v0.2.0
+git clone https://github.com/ingenuity-build/quicksilver.git --branch v0.3.0
 cd quicksilver
 make build
 chmod +x ./build/quicksilverd && mv ./build/quicksilverd /usr/local/bin/quicksilverd
