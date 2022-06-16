@@ -54,6 +54,7 @@ cd quicksilver
 make build
 chmod +x ./build/quicksilverd && mv ./build/quicksilverd /usr/local/bin/quicksilverd
 
+
 # config
 quicksilverd config chain-id $CHAIN_ID
 quicksilverd config keyring-backend test
