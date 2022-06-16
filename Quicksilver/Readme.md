@@ -8,7 +8,7 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Quicksilver/166148846-93575afe-e3ce-4ca5-a3f7-a21e8a8609cb.png">
 </p>
 
-# Quicksilver Node Kurulumu — quicktest-3
+# Quicksilver Node Kurulumu — quicktest-5
 
 Resmi doküman:
 >- [Validator Kurulum Rehberi](https://github.com/ingenuity-build/testnets)
