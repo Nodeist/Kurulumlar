@@ -70,9 +70,8 @@ source $HOME/.bash_profile
 ```
 
 ### Musluğu kullanarak cüzdan bakiyenizi arttırın
-
 ```
-curl -X POST https://faucet.paloma.app/$WALLET_ADDRESS
+JSON=$(jq -n --arg addr "$WALLET_ADDRESS" '{"denom":"ugrain","address":$addr}') && curl -X POST --header "Content-Type: application/json" --data "$JSON" http://faucet.palomaswap.com:8080/claim
 ```
 
 ### Doğrulayıcı oluştur
@@ -120,11 +119,6 @@ sudo ufw allow 26656,26660/tcp
 sudo ufw enable
 ```
 
-
-## Şu anda bağlı olan eşler listesini kimlikleri ile alın
-```
-JSON=$(jq -n --arg addr "$WALLET_ADDRESS" '{"denom":"ugrain","address":$addr}') && curl -X POST --header "Content-Type: application/json" --data "$JSON" http://faucet.palomaswap.com:8080/claim
-```
 
 ## Kullanışlı Komutlar
 ### Servis Yönetimi
