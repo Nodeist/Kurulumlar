@@ -86,7 +86,7 @@ palomad query bank balances $WALLET_ADDRESS
 Doğrulayıcıyı çalıştırma komutunu yazalım:
 ```
 palomad tx staking create-validator \
-  --amount 100000000grain \
+  --amount 1000000grain \
   --from $WALLET \
   --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
