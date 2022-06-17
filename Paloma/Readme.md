@@ -71,7 +71,7 @@ source $HOME/.bash_profile
 
 ### Musluğu kullanarak cüzdan bakiyenizi arttırın
 ```
-JSON=$(jq -n --arg addr "$WALLET_ADDRESS" '{"denom":"ugrain","address":$addr}') && curl -X POST --header "Content-Type: application/json" --data "$JSON" http://faucet.palomaswap.com:8080/claim
+http://faucet.palomaswap.com
 ```
 
 ### Doğrulayıcı oluştur
@@ -86,7 +86,7 @@ palomad query bank balances $WALLET_ADDRESS
 Doğrulayıcıyı çalıştırma komutunu yazalım:
 ```
 palomad tx staking create-validator \
-  --amount 1000000grain \
+  --amount 100000grain \
   --from $WALLET \
   --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
