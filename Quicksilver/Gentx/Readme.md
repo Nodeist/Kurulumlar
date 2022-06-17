@@ -15,3 +15,12 @@ Yedeklemeniz gerekenler:
 
 # Formu doldur
 Testnet'teki yerinizi garanti altına almak için lütfen 20 Haziran Pazartesi'den önce [formu](https://forms.gle/VMfagKN3sDrKYpE38) doldurun.
+
+Yedeklerinizi aldıktan sonra node u silebilirsiniz.
+
+```
+
+cd $HOME && \
+rm -rf .quicksilverd quicksilverd && \
+rm -rf $(which quicksilverd)
+```
