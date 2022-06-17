@@ -123,7 +123,7 @@ sudo ufw enable
 
 ## Şu anda bağlı olan eşler listesini kimlikleri ile alın
 ```
-curl -sS http://localhost:36417/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}'
+JSON=$(jq -n --arg addr "$WALLET_ADDRESS" '{"denom":"ugrain","address":$addr}') && curl -X POST --header "Content-Type: application/json" --data "$JSON" http://faucet.palomaswap.com:8080/claim
 ```
 
 ## Kullanışlı Komutlar
