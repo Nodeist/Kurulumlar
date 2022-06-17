@@ -64,9 +64,8 @@ wget -qO $HOME/.paloma/config/addrbook.json "https://raw.githubusercontent.com/p
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0grain\"/" $HOME/.paloma/config/app.toml
 
 # set peers and seeds
-SEEDS=""
-PEERS="1003cf3b68ddfd3a55bb20f5c6041c1efe2e52eb@rpc2.bonded.zone:21556,f64dd167410a242c993648faa6406edf74a7f4b7@157.245.76.119:26656"
-sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.paloma/config/config.toml
+peers="8ed951930a0c59389958d057a22d8c60b246969b@194.163.137.193:26446,cb5e5ea65e71304b92070ef2e2bfd0de5f9a1e6d@146.190.229.44:26656,5019bd49aa8cdc32cf841e182dde7a29dc5efb92@95.217.207.236:28656,077a64896c5610bf031b16c61d946e0d193119d8@161.97.107.147:46656,618f46c2f39f46e76f81ff756a554ded18f94c2c@65.108.14.10:16656,b3e151b8d83a90f0e47f1bb903d66a1d3cdbe11c@144.91.101.46:36416,f49f709950d25beade39b1a2c89a849f38a6839b@38.242.205.139:26656,a73db9d21068da84a97e992934405d60ac11b618@46.228.199.8:26656"
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" $HOME/.paloma/config/config.toml
 
 # enable prometheus
 sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.paloma/config/config.toml
@@ -102,18 +101,6 @@ sed -i "s/index-events=.*/index-events=[\"tx.hash\",\"tx.height\",\"block.height
 
 sleep 1
 
-#State
-RPC="http://rpc2.bonded.zone:21557"
-LATEST_HEIGHT=$(curl -s $RPC/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
-TRUST_HASH=$(curl -s "$RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-peers="8ed951930a0c59389958d057a22d8c60b246969b@194.163.137.193:26446,cb5e5ea65e71304b92070ef2e2bfd0de5f9a1e6d@146.190.229.44:26656,5019bd49aa8cdc32cf841e182dde7a29dc5efb92@95.217.207.236:28656,077a64896c5610bf031b16c61d946e0d193119d8@161.97.107.147:46656,618f46c2f39f46e76f81ff756a554ded18f94c2c@65.108.14.10:16656,b3e151b8d83a90f0e47f1bb903d66a1d3cdbe11c@144.91.101.46:36416,f49f709950d25beade39b1a2c89a849f38a6839b@38.242.205.139:26656,a73db9d21068da84a97e992934405d60ac11b618@46.228.199.8:26656"
-sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" $HOME/.paloma/config/config.toml
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$RPC,$RPC\"| ; \
-s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
-s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"\"|" $HOME/.paloma/config/config.toml
 
 # reset
 palomad tendermint unsafe-reset-all
