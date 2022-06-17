@@ -43,29 +43,31 @@ echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
 source ~/.bash_profile
 go version
 echo -e "\e[1m\e[32m3. kutuphaneler indirilip yukleniyor... \e[0m" && sleep 1
+
 # download binary
-wget -qO - https://github.com/palomachain/paloma/releases/download/v0.1.0-alpha/paloma_0.1.0-alpha_Linux_x86_64v3.tar.gz | \
+wget -O - https://github.com/palomachain/paloma/releases/download/v0.2.1-prealpha/paloma_0.2.1-prealpha_Linux_x86_64v3.tar.gz | \
 sudo tar -C /usr/local/bin -xvzf - palomad
 sudo chmod +x /usr/local/bin/palomad
 sudo wget -P /usr/lib https://github.com/CosmWasm/wasmvm/raw/main/api/libwasmvm.x86_64.so
 
 # config
 palomad config chain-id $CHAIN_ID
-palomad config keyring-backend file
+palomad config keyring-backend test
 
 # init
 palomad init $NODENAME --chain-id $CHAIN_ID
 
 # download genesis and addrbook
-wget -qO $HOME/.paloma/config/genesis.json "https://raw.githubusercontent.com/palomachain/testnet/master/livia/genesis.json"
-wget -qO $HOME/.paloma/config/addrbook.json "https://raw.githubusercontent.com/palomachain/testnet/master/livia/addrbook.json"
+wget -qO ~/.paloma/config/genesis.json https://raw.githubusercontent.com/palomachain/testnet/master/passerina/genesis.json
+wget -qO ~/.paloma/config/addrbook.json https://raw.githubusercontent.com/palomachain/testnet/master/passerina/addrbook.json
 
 # set minimum gas price
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0grain\"/" $HOME/.paloma/config/app.toml
 
 # set peers and seeds
-peers="8ed951930a0c59389958d057a22d8c60b246969b@194.163.137.193:26446,cb5e5ea65e71304b92070ef2e2bfd0de5f9a1e6d@146.190.229.44:26656,5019bd49aa8cdc32cf841e182dde7a29dc5efb92@95.217.207.236:28656,077a64896c5610bf031b16c61d946e0d193119d8@161.97.107.147:46656,618f46c2f39f46e76f81ff756a554ded18f94c2c@65.108.14.10:16656,b3e151b8d83a90f0e47f1bb903d66a1d3cdbe11c@144.91.101.46:36416,f49f709950d25beade39b1a2c89a849f38a6839b@38.242.205.139:26656,a73db9d21068da84a97e992934405d60ac11b618@46.228.199.8:26656"
-sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" $HOME/.paloma/config/config.toml
+SEEDS=""
+PEERS="0f4411c257bfe7bf191c2c3fd32b385a363487cf@testnet.palomaswap.com:26656"
+sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.paloma/config/config.toml
 
 # enable prometheus
 sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.paloma/config/config.toml
@@ -129,5 +131,5 @@ sudo systemctl enable palomad
 sudo systemctl restart palomad
 
 echo '=============== KURULUM BASARIYLA TAMAMLANDI ==================='
-echo -e 'Loglari kontrol et: \e[1m\e[32mjournalctl -ujournalctl -u palomad -f -o cat\e[0m'
+echo -e 'Loglari kontrol et: \e[1m\e[32mjournalctl -fu palomad -o cat\e[0m'
 echo -e 'Senkronizasyon durumu kontrol et: \e[1m\e[32mcurl -s localhost:26657/status | jq .result.sync_info\e[0m'
