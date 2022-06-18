@@ -130,6 +130,8 @@ sudo systemctl daemon-reload
 sudo systemctl enable palomad
 sudo systemctl restart palomad
 
+source $HOME/.bash_profile
+
 echo '=============== KURULUM BASARIYLA TAMAMLANDI ==================='
 echo -e 'Loglari kontrol et: \e[1m\e[32mjournalctl -fu palomad -o cat\e[0m'
 echo -e 'Senkronizasyon durumu kontrol et: \e[1m\e[32mcurl -s localhost:26657/status | jq .result.sync_info\e[0m'
