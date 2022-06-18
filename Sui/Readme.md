@@ -1,6 +1,6 @@
 # 1. Kurulum
 ```
-wget -O Nodeistsui.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Paloma/Nodeistsui.sh && chmod +x Nodeistsui.sh && ./Nodeistsui.sh
+wget -O Nodeistsui.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Sui/Nodeistsui.sh && chmod +x Nodeistsui.sh && ./Nodeistsui.sh
 ```
 
 # Ek kodlar
