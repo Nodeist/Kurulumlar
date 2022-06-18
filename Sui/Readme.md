@@ -3,6 +3,7 @@
 wget -O Nodeistsui.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Sui/Nodeistsui.sh && chmod +x Nodeistsui.sh && ./Nodeistsui.sh
 ```
 
+
 # Ek kodlar
 ### Node Kontrol:
 ```
