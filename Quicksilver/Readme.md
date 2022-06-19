@@ -8,6 +8,22 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Quicksilver/166148846-93575afe-e3ce-4ca5-a3f7-a21e8a8609cb.png">
 </p>
 
+## Donanım Gereksinimleri
+Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
+
+### Minimum Donanım Gereksinimleri
+ - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
+ - 4GB RAM
+ - 80GB Disk
+ - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum olacak; 10Mbps bol olacak - üretim için en az 100Mbps bekleniyor)
+
+### Önerilen Donanım Gereksinimleri
+ - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
+ - 8GB RAM
+ - 200 GB depolama (SSD veya NVME)
+ - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum olacak; 10Mbps bol olacak - üretim için en az 100Mbps bekleniyor)
+
+
 # Quicksilver Node Kurulumu — quicktest-5
 
 Resmi doküman:
