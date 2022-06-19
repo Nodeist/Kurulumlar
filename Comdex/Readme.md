@@ -10,6 +10,12 @@
 
 # Comdex Node Kurulumu — comets-testnet-1
 
+## Donanım Gereksinimleri
+- Bellek: 8 GB RAM
+- CPU: Dört Çekirdekli
+- Disk: 250 GB SSD Depolama
+- Bant Genişliği: İndirme için 1 Gbps/Yükleme için 100 Mbps
+
 
 Gezgin:
 >-  https://comets-test.comdex.one/
