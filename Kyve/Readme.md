@@ -14,6 +14,22 @@ Gezgin:
 >-  [Nodes Guru kyve Explorer](https://kyve.explorers.guru/)
 
 
+## Donanım Gereksinimleri
+Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
+
+### Minimum Donanım Gereksinimleri
+ - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
+ - 4GB RAM
+ - 200GB Disk
+ - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
+
+### Önerilen Donanım Gereksinimleri
+ - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
+ - 8GB RAM
+ - 400 GB depolama (SSD veya NVME)
+ - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
+
+
 ## kyve Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
 Aşağıdaki otomatik komut dosyasını kullanarak kyve fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı(NODE NAME) girmenizi isteyecektir!
