@@ -13,7 +13,6 @@
 - CPU: 1 CPU
 - Memory: 2 GB RAM
 - Disk: 20 GB SSD Storage
-- 
 *şimdilik node kurulumu yok basit görevler var, ileride sistem gereksinimleri yükselecek ve döküman güncellenecektir.*
 
 # Gno.land Kurulum
