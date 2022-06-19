@@ -13,6 +13,12 @@
 Gezgin:
 >-  [Nodes Guru celestia Explorer](https://celestia.explorers.guru/)
 
+## Donanım Gereksinimleri
+- Bellek: 8 GB RAM
+- CPU: Dört Çekirdekli
+- Disk: 250 GB SSD Depolama
+- Bant Genişliği: İndirme için 1 Gbps/Yükleme için 100 Mbps
+
 
 ## celestia Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
