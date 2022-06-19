@@ -18,6 +18,12 @@ Resmi Dökümanlar:
 Gezgin:
 >-  https://defund.explorers.guru/
 
+## Donanım Gereksinimleri
+- Bellek: 8 GB RAM
+- CPU: Dört Çekirdekli
+- Disk: 250 GB SSD Depolama
+- Bant Genişliği: İndirme için 1 Gbps/Yükleme için 100 Mbps
+
 ## Defund Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
 Aşağıdaki otomatik komut dosyasını kullanarak defund fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı(NODE NAME) girmenizi isteyecektir!
