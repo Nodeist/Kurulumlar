@@ -3,8 +3,6 @@
 <a href="https://nodeist.site/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="30"/></a><br> Websitemizi Ziyaret Et 
 </p>
 
-## Donanım Gereksinimleri
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
 
 ### Minimum Donanım Gereksinimleri
  - 2x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
