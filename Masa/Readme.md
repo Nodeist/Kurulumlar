@@ -7,6 +7,14 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Masa/logo.png">
 </p>
 
+
+## Donanım Gereksinimleri
+### Minimum Donanım Gereksinimleri
+- CPU: 1 çekirdek
+- Bellek: 2 GB RAM
+- Disk: 20 GB
+
+
 # Node Kurulumu
 Aşağıdaki adımları takip edin 
 
