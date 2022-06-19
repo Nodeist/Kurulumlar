@@ -8,6 +8,22 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Paloma/172488614-7d93b016-5fe4-4a51-99e2-67da5875ab7a.png">
 </p>
 
+## Donanım Gereksinimleri
+Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
+
+### Minimum Donanım Gereksinimleri
+ - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
+ - 4GB RAM
+ - 80GB Disk
+ - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps  olacak - üretim için en az 100Mbps bekleniyor)
+
+### Önerilen Donanım Gereksinimleri
+ - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
+ - 16GB RAM
+ - 200 GB depolama (SSD veya NVME)
+ - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps  olacak - üretim için en az 100Mbps bekleniyor)
+
+
 # paloma Node Kurulumu — paloma-
 
 Gezgin:
