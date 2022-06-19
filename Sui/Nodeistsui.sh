@@ -16,10 +16,9 @@ echo -e "\e[1m\e[32m1. Paketler güncelleniyor... \e[0m" && sleep 1
 sudo apt update && sudo apt upgrade -y
 echo -e "\e[1m\e[32m2. Bagliliklar yukleniyor... \e[0m" && sleep 1
 # packages
-sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
+apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install -y --no-install-recommends tzdata git ca-certificates curl build-essential libssl-dev pkg-config libclang-dev cmake jq
 
 # install rust
-apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install -y --no-install-recommends tzdata git ca-certificates curl build-essential libssl-dev pkg-config libclang-dev cmake jq
 echo -e '\n\e[42mInstall Rust\e[0m\n' && sleep 1
 sudo curl https://sh.rustup.rs -sSf | sh -s -- -y
 source $HOME/.cargo/env
