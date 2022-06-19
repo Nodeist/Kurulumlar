@@ -8,6 +8,22 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Sei/169664551-39020c2e-fa95-483b-916b-c52ce4cb907c.png">
 </p>
 
+## Donanım Gereksinimleri
+Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
+
+### Minimum Donanım Gereksinimleri
+ - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
+ - 4GB RAM
+ - 80GB Disk
+ - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum olacak; 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
+
+### Önerilen Donanım Gereksinimleri
+ - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
+ - 8GB RAM
+ - 200 GB depolama (SSD veya NVME)
+ - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum olacak; 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
+
+
 # Sei Node Kurulumu — sei-testnet-2
 
 Resmi doküman:
