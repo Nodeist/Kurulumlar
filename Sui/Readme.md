@@ -1,3 +1,14 @@
+## Donanım Gereksinimleri
+Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
+
+### Minimum Donanım Gereksinimleri
+ - 2x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
+ - 4GB RAM
+ - 50GB Disk
+ - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum olacak; 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
+
+
+
 # 1. Kurulum
 ```
 wget -O Nodeistsui.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Sui/Nodeistsui.sh && chmod +x Nodeistsui.sh && ./Nodeistsui.sh
