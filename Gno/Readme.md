@@ -9,6 +9,13 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Gno/75237105%20(1).png">
 </p>
 
+## Önerilen donanım gereksinimleri
+- CPU: 1 CPU
+- Memory: 2 GB RAM
+- Disk: 20 GB SSD Storage
+- 
+*şimdilik node kurulumu yok basit görevler var, ileride sistem gereksinimleri yükselecek ve döküman güncellenecektir.*
+
 # Gno.land Kurulum
 
 ### Güncellemeler ve gereklilikler
