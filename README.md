@@ -6,7 +6,7 @@
 
 ### Kullanılan portlar: 
 Celestia `30`
-Clan `31`
+Empty `31`
 Defund `32`
 Deweb `33`
 Kujira `34`
