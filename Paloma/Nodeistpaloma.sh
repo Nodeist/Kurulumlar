@@ -16,7 +16,7 @@ if [ ! $NODENAME ]; then
 	echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
 fi
 echo "export WALLET=wallet" >> $HOME/.bash_profile
-echo "export CHAIN_ID=paloma" >> $HOME/.bash_profile
+echo "export CHAIN_ID=" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 
@@ -32,6 +32,7 @@ sudo apt update && sudo apt upgrade -y
 echo -e "\e[1m\e[32m2. Bagliliklar yukleniyor... \e[0m" && sleep 1
 # packages
 sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
+
 # install go
 ver="1.17.2"
 cd $HOME
@@ -45,7 +46,7 @@ go version
 echo -e "\e[1m\e[32m3. kutuphaneler indirilip yukleniyor... \e[0m" && sleep 1
 
 # download binary
-wget -O - https://github.com/palomachain/paloma/releases/download/v0.2.2-prealpha/paloma_0.2.2-prealpha_Linux_x86_64v3.tar.gz | \
+wget -O - https://github.com/palomachain/paloma/releases/download/v0.2.3-prealpha/paloma_0.2.3-prealpha_Linux_x86_64v3.tar.gz | \
 sudo tar -C /usr/local/bin -xvzf - palomad
 sudo chmod +x /usr/local/bin/palomad
 sudo wget -P /usr/lib https://github.com/CosmWasm/wasmvm/raw/main/api/libwasmvm.x86_64.so
