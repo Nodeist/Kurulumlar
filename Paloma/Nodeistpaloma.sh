@@ -19,7 +19,6 @@ echo "export WALLET=wallet" >> $HOME/.bash_profile
 echo "export CHAIN_ID=paloma" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
-
 echo '================================================='
 echo 'Node isminiz: ' $NODENAME
 echo 'Cüzdan isminiz: ' $WALLET
