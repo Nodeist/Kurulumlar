@@ -66,7 +66,7 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0grain\"/" $HOME/.p
 
 # set peers and seeds
 SEEDS=""
-PEERS="0f4411c257bfe7bf191c2c3fd32b385a363487cf@testnet.palomaswap.com:26656"
+PEERS="f64dd167410a242c993648faa6406edf74a7f4b7@167.71.247.34:26656"
 sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.paloma/config/config.toml
 
 # enable prometheus
