@@ -103,6 +103,9 @@ sed -i "s/index-events=.*/index-events=[\"tx.hash\",\"tx.height\",\"block.height
 
 sleep 1
 
+#set gas
+sed -i 's/^minimum-gas-prices = ".*"/minimum-gas-prices = "0.001grain"/' app.toml
+
 
 # reset
 palomad tendermint unsafe-reset-all
