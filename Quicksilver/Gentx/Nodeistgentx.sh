@@ -62,25 +62,69 @@ quicksilverd config keyring-backend test
 # init
 quicksilverd init $NODENAME --chain-id $CHAIN_ID
 
-# add wallet
-quicksilverd keys add $WALLET --recover
+# download genesis
+wget -qO $HOME/.quicksilverd/config/genesis.json "https://raw.githubusercontent.com/ingenuity-build/testnets/main/rhapsody/genesis.json"
 
-# fund your wallet
-WALLET_ADDRESS=$(quicksilverd keys show $WALLET -a)
-quicksilverd add-genesis-account $WALLET_ADDRESS 100000000uqck
+# set minimum gas price
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0uqck\"/" $HOME/.quicksilverd/config/app.toml
 
-# generate gentx
-quicksilverd gentx $WALLET 100000000uqck \
---commission-max-change-rate=0.01 \
---commission-max-rate=0.20 \
---commission-rate=0.05 \
---pubkey=$(quicksilverd tendermint show-validator) \
---chain-id $CHAIN_ID \
---moniker $NODENAME
-sleep 2
-gentx=$(readlink -f $HOME/.quicksilverd/config/gentx/*)
+# set peers and seeds
+SEEDS="dd3460ec11f78b4a7c4336f22a356fe00805ab64@seed.rhapsody-5.quicksilver.zone:26656"
+PEERS=""
+sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.quicksilverd/config/config.toml
 
-echo -e "Gentx dosyanızın konumu: \e[1m\e[32m$gentx\e[0m"
-echo -e "Bu içeriği google forma yazın:\n\n\e[1m\e[32m$(cat $gentx)\n\e[0m"
-echo -e "Yedeklenmesi gerekenler:"
-echo -e "	Klasörü komple yedekleyin \e[1m\e[32m$HOME/.quicksilverd/config/\e[0m"
+# enable prometheus
+sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.quicksilverd/config/config.toml
+
+# config pruning
+pruning="custom"
+pruning_keep_recent="100"
+pruning_keep_every="0"
+pruning_interval="10"
+
+sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/.quicksilverd/config/app.toml
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/.quicksilverd/config/app.toml
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/.quicksilverd/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/.quicksilverd/config/app.toml
+
+sleep 1
+
+#Change port 36
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:36368\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:36367\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:6361\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:36366\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":36360\"%" $HOME/.quicksilverd/config/config.toml
+sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:9360\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:9361\"%" $HOME/.quicksilverd/config/app.toml
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:36367\"%" $HOME/.quicksilverd/config/client.toml
+external_address=$(wget -qO- eth0.me)
+sed -i.bak -e "s/^external_address *=.*/external_address = \"$external_address:36366\"/" $HOME/.quicksilverd/config/config.toml
+
+sleep 1 
+
+# reset
+quicksilverd tendermint unsafe-reset-all --home $HOME/.quicksilverd
+
+echo -e "\e[1m\e[32m4. Servisler baslatiliyor... \e[0m" && sleep 1
+# create service
+tee $HOME/quicksilverd.service > /dev/null <<EOF
+[Unit]
+Description=quicksilverd
+After=network.target
+[Service]
+Type=simple
+User=$USER
+ExecStart=$(which quicksilverd) start
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=65535
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo mv $HOME/quicksilverd.service /etc/systemd/system/
+
+# start service
+sudo systemctl daemon-reload
+sudo systemctl enable quicksilverd
+sudo systemctl restart quicksilverd
+
+echo '=============== KURULUM BASARIYLA TAMAMLANDI ==================='
+echo -e 'Loglari kontrol et: \e[1m\e[32mjournalctl -ujournalctl -u quicksilverd -f -o cat\e[0m'
+echo -e 'Senkronizasyon durumu kontrol et: \e[1m\e[32mcurl -s localhost:26657/status | jq .result.sync_info\e[0m'
