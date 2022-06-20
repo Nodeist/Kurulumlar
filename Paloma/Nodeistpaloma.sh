@@ -16,7 +16,7 @@ if [ ! $NODENAME ]; then
 	echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
 fi
 echo "export WALLET=wallet" >> $HOME/.bash_profile
-echo "export CHAIN_ID=paloma" >> $HOME/.bash_profile
+echo "export CHAIN_ID=paloma-iona" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 echo '================================================='
@@ -66,7 +66,7 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0grain\"/" $HOME/.p
 
 # set peers and seeds
 SEEDS=""
-PEERS="f64dd167410a242c993648faa6406edf74a7f4b7@167.71.247.34:26656,0f4411c257bfe7bf191c2c3fd32b385a363487cf@testnet.palomaswap.com:26656"
+PEERS="175ccd9b448390664ea121427aab20138cc8fcec@testnet.palomaswap.com:26656,0f4411c257bfe7bf191c2c3fd32b385a363487cf@testnet.palomaswap.com:26656"
 sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.paloma/config/config.toml
 
 # enable prometheus
