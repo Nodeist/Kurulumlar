@@ -52,7 +52,7 @@ sudo wget -P /usr/lib https://github.com/CosmWasm/wasmvm/raw/main/api/libwasmvm.
 
 
 # config
-palomad config chain-id $CHAIN_ID --chain-id paloma-testnet-5
+palomad config chain-id $CHAIN_ID
 palomad config keyring-backend test
 
 # init
