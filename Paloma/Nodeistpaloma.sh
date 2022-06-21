@@ -33,41 +33,47 @@ echo -e "\e[1m\e[32m2. Bagliliklar yukleniyor... \e[0m" && sleep 1
 sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
 
 # install go
-ver="1.17.2"
-cd $HOME
-wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
-sudo rm -rf /usr/local/go
-sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
-rm "go$ver.linux-amd64.tar.gz"
-echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
-source ~/.bash_profile
+ver="1.18.1" && \
+wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz" && \
+sudo rm -rf /usr/local/go && \
+sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz" && \
+rm "go$ver.linux-amd64.tar.gz" && \
+echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile && \
+source $HOME/.bash_profile && \
 go version
+
 echo -e "\e[1m\e[32m3. kutuphaneler indirilip yukleniyor... \e[0m" && sleep 1
 
 # download binary
-wget -O - https://github.com/palomachain/paloma/releases/download/v0.2.4-prealpha/paloma_0.2.4-prealpha_Linux_x86_64.tar.gz | \
+sudo wget -O - https://github.com/palomachain/paloma/releases/download/v0.2.4-prealpha/paloma_0.2.4-prealpha_Linux_x86_64.tar.gz | \
 sudo tar -C /usr/local/bin -xvzf - palomad
-sudo chmod +x /usr/local/bin/palomad
+sudo chmod +x /usr/local/bin/alomad
+# Required until we figure out cgo
 sudo wget -P /usr/lib https://github.com/CosmWasm/wasmvm/raw/main/api/libwasmvm.x86_64.so
 
+palomad version --long | head
+# version: v0.2.4-prealpha
+# commit: 73a8f85668bf155a7269d092bf4804221a4d3e7d
+
+
 # config
-palomad config chain-id $CHAIN_ID
+palomad config chain-id $CHAIN_ID --chain-id paloma-testnet-5
+
 palomad config keyring-backend test
 
 # init
 palomad init $NODENAME --chain-id $CHAIN_ID
 
 # download genesis and addrbook
-wget -qO ~/.paloma/config/genesis.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-5/genesis.json
-wget -qO ~/.paloma/config/addbrbook.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-5/addrbook.json
+wget -O $HOME/.paloma/config/genesis.json "https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-5/genesis.json"
+wget -O $HOME/.paloma/config/addrbook.json "https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-5/addrbook.json"
 
 # set minimum gas price
-sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0grain\"/" $HOME/.paloma/config/app.toml
+sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025ugrain\"/;" ~/.paloma/config/app.toml
 
 # set peers and seeds
-SEEDS=""
-PEERS="e1efddf3b39f1953590f8264d30d71d1a1313061@164.90.134.139:26656"
-sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.paloma/config/config.toml
+peers="e1efddf3b39f1953590f8264d30d71d1a1313061@164.90.134.139:26656"
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" $HOME/.paloma/config/config.toml
 
 # enable prometheus
 sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.paloma/config/config.toml
