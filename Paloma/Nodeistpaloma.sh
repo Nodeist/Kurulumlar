@@ -47,26 +47,20 @@ echo -e "\e[1m\e[32m3. kutuphaneler indirilip yukleniyor... \e[0m" && sleep 1
 # download binary
 sudo wget -O - https://github.com/palomachain/paloma/releases/download/v0.2.4-prealpha/paloma_0.2.4-prealpha_Linux_x86_64.tar.gz | \
 sudo tar -C /usr/local/bin -xvzf - palomad
-sudo chmod +x /usr/local/bin/alomad
-# Required until we figure out cgo
+sudo chmod +x /usr/local/bin/palomad
 sudo wget -P /usr/lib https://github.com/CosmWasm/wasmvm/raw/main/api/libwasmvm.x86_64.so
-
-palomad version --long | head
-# version: v0.2.4-prealpha
-# commit: 73a8f85668bf155a7269d092bf4804221a4d3e7d
 
 
 # config
 palomad config chain-id $CHAIN_ID --chain-id paloma-testnet-5
-
 palomad config keyring-backend test
 
 # init
 palomad init $NODENAME --chain-id $CHAIN_ID
 
 # download genesis and addrbook
-wget -O $HOME/.paloma/config/genesis.json "https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-5/genesis.json"
-wget -O $HOME/.paloma/config/addrbook.json "https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-5/addrbook.json"
+wget -O ~/.paloma/config/genesis.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-5/genesis.json
+wget -O ~/.paloma/config/addrbook.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-5/addrbook.json
 
 # set minimum gas price
 sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025ugrain\"/;" ~/.paloma/config/app.toml
