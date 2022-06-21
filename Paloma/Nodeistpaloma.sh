@@ -16,7 +16,7 @@ if [ ! $NODENAME ]; then
 	echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
 fi
 echo "export WALLET=wallet" >> $HOME/.bash_profile
-echo "export CHAIN_ID=paloma-testnet-4" >> $HOME/.bash_profile
+echo "export CHAIN_ID=paloma-testnet-5" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 echo '================================================='
@@ -45,7 +45,7 @@ go version
 echo -e "\e[1m\e[32m3. kutuphaneler indirilip yukleniyor... \e[0m" && sleep 1
 
 # download binary
-wget -O - https://github.com/palomachain/paloma/releases/download/v0.2.3-prealpha/paloma_0.2.3-prealpha_Linux_x86_64v3.tar.gz | \
+wget -O - https://github.com/palomachain/paloma/releases/download/v0.2.4-prealpha/paloma_0.2.4-prealpha_Linux_x86_64v3.tar.gz | \
 sudo tar -C /usr/local/bin -xvzf - palomad
 sudo chmod +x /usr/local/bin/palomad
 sudo wget -P /usr/lib https://github.com/CosmWasm/wasmvm/raw/main/api/libwasmvm.x86_64.so
@@ -58,15 +58,15 @@ palomad config keyring-backend test
 palomad init $NODENAME --chain-id $CHAIN_ID
 
 # download genesis and addrbook
-wget -qO ~/.paloma/config/genesis.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-4/genesis.json
-wget -qO ~/.paloma/config/addrbook.json http://sprunge.us/wrcx3j
+wget -qO ~/.paloma/config/genesis.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-5/genesis.json
+wget -qO ~/.paloma/config/addbrbook.json https://raw.githubusercontent.com/palomachain/testnet/master/paloma-testnet-5/addrbook.json
 
 # set minimum gas price
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0grain\"/" $HOME/.paloma/config/app.toml
 
 # set peers and seeds
 SEEDS=""
-PEERS="175ccd9b448390664ea121427aab20138cc8fcec@testnet.palomaswap.com:26656"
+PEERS="e1efddf3b39f1953590f8264d30d71d1a1313061@164.90.134.139:26656"
 sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.paloma/config/config.toml
 
 # enable prometheus
