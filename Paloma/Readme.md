@@ -102,15 +102,20 @@ palomad query bank balances $WALLET_ADDRESS
 Doğrulayıcıyı çalıştırma komutunu yazalım:
 ```
 palomad tx staking create-validator \
-  --amount 100000grain \
-  --from $WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(palomad tendermint show-validator) \
-  --moniker $NODENAME \
-  --chain-id $CHAIN_ID
+--amount=950000ugrain \
+--pubkey=$(palomad tendermint show-validator) \
+--moniker=$NODENAME \
+--chain-id=$CHAIN_ID \
+--commission-rate="0.10" \
+--commission-max-rate="0.20" \
+--commission-max-change-rate="0.01" \
+--min-self-delegation="1" \
+--fees=10000ugrain \
+--gas=10000000 \
+--from=$WALLET \
+--node "tcp://testnet.palomaswap.com:26657"
+-y
+
 ```
 
 ## Güvenlik
@@ -202,7 +207,7 @@ palomad query bank balances $WALLET_ADDRESS
 
 Cüzdandan Cüzdana Bakiye Transferi:
 ```
-palomad tx bank send $WALLET_ADDRESS <TO_WALLET_ADDRESS> 100000000grain
+palomad tx bank send $WALLET_ADDRESS <TO_WALLET_ADDRESS> 100000000ugrain
 ```
 
 ### Oylama
@@ -213,12 +218,12 @@ palomad tx gov vote 1 yes --from $WALLET --chain-id=$CHAIN_ID
 ### Stake, Delegasyon ve Ödüller
 Delegate İşlemi:
 ```
-palomad tx staking delegate $VALOPER_ADDRESS 100000000grain --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+palomad tx staking delegate $VALOPER_ADDRESS 100000000ugrain --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 
 Payını doğrulayıcıdan başka bir doğrulayıcı	ya yeniden devretme:
 ```
-palomad tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 100000000grain --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+palomad tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 100000000ugrain --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 
 Tüm ödülleri çek:
