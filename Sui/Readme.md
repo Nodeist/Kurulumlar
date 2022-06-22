@@ -14,7 +14,7 @@
 
 # 1. Kurulum
 ```
-wget -O Nodeistsui.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Sui/Nodeistsui.sh && chmod +x Nodeistsui.sh && ./Nodeistsui.sh
+wget -O Nodeistsui.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Sui/Nodeistsui.sh && chmod +x Nodeistsui.sh && ./Nodeistsui.sh
 ```
 
 
