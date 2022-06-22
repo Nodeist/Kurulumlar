@@ -13,3 +13,10 @@ Yedeklemeniz gerekenler:
 - klasörü komple `$HOME/.quicksilverd/config/`
 
 # henüz aktif değil
+
+İşlemler tamamlanınca içeriği silin: 
+```
+cd $HOME && \
+rm -rf .sei sei && \
+rm -rf $(which seid)
+```
