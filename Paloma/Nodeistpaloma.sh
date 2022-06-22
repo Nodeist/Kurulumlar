@@ -89,6 +89,19 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 
 sleep 1
 
+#State
+RPC="http://rpc2.bonded.zone:21557"
+LATEST_HEIGHT=$(curl -s $RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+TRUST_HASH=$(curl -s "$RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$RPC,$RPC\"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
+s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"\"|" $HOME/.paloma/config/config.toml
+
+sleep 1
+
 #Change port 41
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:36418\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:36417\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:6411\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:36416\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":36410\"%" $HOME/.paloma/config/config.toml
 sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:9410\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:9411\"%" $HOME/.paloma/config/app.toml
