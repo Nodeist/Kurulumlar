@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Masa/logo.png">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Masa/logo.png">
 </p>
 
 
