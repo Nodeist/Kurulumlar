@@ -79,10 +79,10 @@ seid keys add $WALLET --recover
 
 # fund your wallet
 WALLET_ADDRESS=$(seid keys show $WALLET -a)
-seid add-genesis-account $WALLET_ADDRESS 100000000usei
+seid add-genesis-account $WALLET_ADDRESS 100000000000000000000usei
 
 # generate gentx
-seid gentx $WALLET 100000000usei \
+seid gentx $WALLET 70000000000000000000usei \
 --commission-max-change-rate=0.01 \
 --commission-max-rate=0.20 \
 --commission-rate=0.05 \
