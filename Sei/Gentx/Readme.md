@@ -10,7 +10,7 @@ yakında..
 ```
 
 Yedeklemeniz gerekenler:
-- klasörü komple `$HOME/.quicksilverd/config/`
+- klasörü komple `$HOME/.sei/config/`
 
 # henüz aktif değil
 
