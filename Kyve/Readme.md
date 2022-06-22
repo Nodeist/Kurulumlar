@@ -36,7 +36,7 @@ Aşağıdaki otomatik komut dosyasını kullanarak kyve fullnode'unuzu birkaç d
 
 
 ```
-wget -O Nodeistkyve.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Kyve/Nodeistkyve.sh && chmod +x Nodeistkyve.sh && ./Nodeistkyve.sh
+wget -O Nodeistkyve.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Kyve/Nodeistkyve.sh && chmod +x Nodeistkyve.sh && ./Nodeistkyve.sh
 ```
 
 ### Kurulum Sonrası Adımlar
