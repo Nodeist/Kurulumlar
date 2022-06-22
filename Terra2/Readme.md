@@ -32,7 +32,7 @@ Aşağıdaki otomatik komut dosyasını kullanarak terra fullnode'unuzu birkaç 
 
 
 ```
-wget -O Nodeistterra.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Terra2/Nodeistterra.sh && chmod +x Nodeistterra.sh && ./Nodeistterra.sh
+wget -O Nodeistterra.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Terra2/Nodeistterra.sh && chmod +x Nodeistterra.sh && ./Nodeistterra.sh
 ```
 
 ### Kurulum Sonrası Adımlar
