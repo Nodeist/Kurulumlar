@@ -10,10 +10,6 @@
 
 # aura Node Kurulumu — Halo Testnet
 
-Resmi Dökümanlar:
->- [Validator Kurulumu](https://github.com/aura-labs/aura/blob/main/testnet/private/validators.md)
->- [aura Tokenomics](https://medium.com/aura-finance/detf-token-economics-release-schedule-78a8d32713a5)
->- [FundDrop Breakdown](https://medium.com/aura-finance/airdrop-d-c2685d282858)
 
 Gezgin:
 >-  yok
