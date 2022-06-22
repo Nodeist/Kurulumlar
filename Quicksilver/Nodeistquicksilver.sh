@@ -17,7 +17,7 @@ if [ ! $NODENAME ]; then
 	echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
 fi
 echo "export WALLET=wallet" >> $HOME/.bash_profile
-echo "export CHAIN_ID=rhapsody-5" >> $HOME/.bash_profile
+echo "export CHAIN_ID=killerqueen-1" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 echo '================================================='
@@ -49,7 +49,7 @@ go version
 echo -e "\e[1m\e[32m3. kutuphaneler indirilip yukleniyor... \e[0m" && sleep 1
 # download binary
 cd $HOME
-git clone https://github.com/ingenuity-build/quicksilver.git --branch v0.3.0
+git clone https://github.com/ingenuity-build/quicksilver.git --branch v0.4.0
 cd quicksilver
 make build
 chmod +x ./build/quicksilverd && mv ./build/quicksilverd /usr/local/bin/quicksilverd
@@ -63,7 +63,7 @@ quicksilverd config keyring-backend test
 quicksilverd init $NODENAME --chain-id $CHAIN_ID
 
 # download genesis
-wget -qO $HOME/.quicksilverd/config/genesis.json "https://raw.githubusercontent.com/ingenuity-build/testnets/main/rhapsody/genesis.json"
+wget -qO $HOME/.quicksilverd/config/genesis.json "https://raw.githubusercontent.com/ingenuity-build/testnets/killerqueen/killerqueen/genesis.json"
 
 # set minimum gas price
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0uqck\"/" $HOME/.quicksilverd/config/app.toml
