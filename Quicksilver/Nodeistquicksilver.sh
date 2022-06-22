@@ -63,7 +63,7 @@ quicksilverd config keyring-backend test
 quicksilverd init $NODENAME --chain-id $CHAIN_ID
 
 # download genesis
-wget -qO $HOME/.quicksilverd/config/genesis.json "https://raw.githubusercontent.com/ingenuity-build/testnets/killerqueen/killerqueen/genesis.json"
+wget -qO $HOME/.quicksilverd/config/genesis.json "https://raw.githubusercontent.com/ingenuity-build/testnets/main/killerqueen/genesis.json"
 
 # set minimum gas price
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0uqck\"/" $HOME/.quicksilverd/config/app.toml
