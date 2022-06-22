@@ -1,11 +1,11 @@
 <p style="font-size:14px" align="right">
- <a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="30"/></a><br>Telegrama Katıl<br>
-<a href="https://nodeist.site/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="30"/></a><br> Websitemizi Ziyaret Et 
+ <a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/nnooddeeiisstt/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="30"/></a><br>Telegrama Katıl<br>
+<a href="https://nodeist.site/" target="_blank"><img src="https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/logo.png" width="30"/></a><br> Websitemizi Ziyaret Et 
 </p>
 
 
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Quicksilver/166148846-93575afe-e3ce-4ca5-a3f7-a21e8a8609cb.png">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Quicksilver/166148846-93575afe-e3ce-4ca5-a3f7-a21e8a8609cb.png">
 </p>
 
 ## Donanım Gereksinimleri
@@ -39,7 +39,7 @@ Aşağıdaki otomatik komut dosyasını kullanarak quicksilver fullnode'unuzu bi
 
 
 ```
-wget -O Nodeistquicksilver.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Quicksilver/Nodeistquicksilver.sh && chmod +x Nodeistquicksilver.sh && ./Nodeistquicksilver.sh
+wget -O Nodeistquicksilver.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Quicksilver/Nodeistquicksilver.sh && chmod +x Nodeistquicksilver.sh && ./Nodeistquicksilver.sh
 ```
 
 ### Kurulum Sonrası Adımlar
