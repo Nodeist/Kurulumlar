@@ -30,7 +30,7 @@ Aşağıdaki otomatik komut dosyasını kullanarak defund fullnode'unuzu birkaç
 
 
 ```
-wget -O NodeistDefund.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Defund/NodeistDefund.sh && chmod +x NodeistDefund.sh && ./NodeistDefund.sh
+wget -O NodeistDefund.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Defund/NodeistDefund.sh && chmod +x NodeistDefund.sh && ./NodeistDefund.sh
 ```
 
 ### Kurulum Sonrası Adımlar
