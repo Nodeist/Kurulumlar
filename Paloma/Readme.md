@@ -35,7 +35,7 @@ Aşağıdaki otomatik komut dosyasını kullanarak paloma fullnode'unuzu birkaç
 
 
 ```
-wget -O Nodeistpaloma.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Paloma/Nodeistpaloma.sh && chmod +x Nodeistpaloma.sh && ./Nodeistpaloma.sh
+wget -O Nodeistpaloma.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Paloma/Nodeistpaloma.sh && chmod +x Nodeistpaloma.sh && ./Nodeistpaloma.sh
 ```
 
 ### Kurulum Sonrası Adımlar
