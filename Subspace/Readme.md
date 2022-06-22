@@ -1,10 +1,10 @@
 <p style="font-size:14px" align="right">
- <a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="30"/></a><br>Telegrama Katıl<br>
-<a href="https://nodeist.site/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="30"/></a><br> Websitemizi Ziyaret Et 
+ <a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/nnooddeeiisstt/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="30"/></a><br>Telegrama Katıl<br>
+<a href="https://nodeist.site/" target="_blank"><img src="https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/logo.png" width="30"/></a><br> Websitemizi Ziyaret Et 
 </p>
 
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Subspace/logo.png">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Subspace/logo.png">
 </p>
 
 
@@ -37,7 +37,7 @@ Polkadot cüzdanı oluşturmak için:
 Aşağıdaki otomatik komut dosyasını kullanarak subspace fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı(NODE NAME), cüzdan adresi ve disk alanı girmenizi isteyecektir! minimum 10G olarak belirleyin maks 2TB
 
 ```
-wget -O Nodeistsubspace.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Subspace/Nodeistsubspace.sh && chmod +x Nodeistsubspace.sh && ./Nodeistsubspace.sh
+wget -O Nodeistsubspace.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Subspace/Nodeistsubspace.sh && chmod +x Nodeistsubspace.sh && ./Nodeistsubspace.sh
 ```
 
   ## Telemetrideki düğümünüzü kontrol edin
