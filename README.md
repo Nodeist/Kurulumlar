@@ -6,7 +6,7 @@
 
 ### Kullanılan portlar: 
 Celestia `30`
-Empty `31`
+Aura `31`
 Defund `32`
 Deweb `33`
 Kujira `34`
