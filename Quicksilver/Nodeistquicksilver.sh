@@ -111,9 +111,9 @@ After=network.target
 Type=simple
 User=$USER
 ExecStart=$(which quicksilverd) start
-Restart=on-failure
-RestartSec=10
-LimitNOFILE=65535
+Restart=always
+RestartSec=3
+LimitNOFILE=infinity
 [Install]
 WantedBy=multi-user.target
 EOF
