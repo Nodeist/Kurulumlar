@@ -9,7 +9,7 @@ Celestia `30`
 Aura `31`
 Defund `32`
 Deweb `33`
-Kujira `34`
+Kujira-Mainnet `34`
 Kyve `35`
 Quicksilver `36`
 Sei `37`
@@ -17,6 +17,7 @@ Terra2 `38`
 Comdex `39`
 Uptick `40`
 Paloma `41`
+Another-1 `42`
 
 Peer bul
 ```
