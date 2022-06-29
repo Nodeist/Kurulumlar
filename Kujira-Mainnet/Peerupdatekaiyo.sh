@@ -18,5 +18,3 @@ PEERS="9813378d0dceb86e57018bfdfbade9d863f6f3c8@3.38.73.119:26656,ccffabe81f2de8
 sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.kujira/config/config.toml
 
 sudo systemctl restart kujirad && sudo journalctl -u kujirad -f -o cat
-
-echo "PEERS UPDATED"
