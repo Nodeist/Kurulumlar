@@ -15,8 +15,7 @@ $ git checkout tags/v0.3.0
 $ make build
 $ cd build
 ```
-![clone](./screenshots/clone.png)
-![checkout](./screenshots/checkout.png)
+
 
 Derleme dizininin içeriğini listeledikten sonra 'quicksilverd' yürütülebilir dosyasını görmelisiniz. Adresimizi oluşturmak için bundan sonra kullanacağımız şey budur.
 
@@ -33,8 +32,7 @@ $ ./quicksilverd keys add my-key-name --ledger
   mnemonic: ""
 ```
 
-![inceleme](./screenshots/review_ledger.jpg)
-![onay](./screenshots/approve_ledger.jpg)
+
 
 ## 3. Eski bir anımsatıcı kullanarak adres oluşturma
 Bu adım, bir Ledger'a sahip olmayan veya ham anımsatıcılarından bir Quicksilver adresi oluşturmak isteyen kullanıcılar içindir.
