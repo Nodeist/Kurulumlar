@@ -1,14 +1,10 @@
 
 
-# Defund Node Kurulumu — anone-testnet-1
+# Anone Node Kurulumu — anone-testnet-1
 
-Resmi Dökümanlar:
->- [Validator Kurulumu](https://github.com/defund-labs/defund/blob/main/testnet/private/validators.md)
->- [DeFund Tokenomics](https://medium.com/defund-finance/detf-token-economics-release-schedule-78a8d32713a5)
->- [FundDrop Breakdown](https://medium.com/defund-finance/airdrop-d-c2685d282858)
 
 Gezgin:
->-  https://defund.explorers.guru/
+>-  https://anone.explorers.guru/
 
 ## Donanım Gereksinimleri
 - Bellek: 8 GB RAM
@@ -16,7 +12,7 @@ Gezgin:
 - Disk: 250 GB SSD Depolama
 - Bant Genişliği: İndirme için 1 Gbps/Yükleme için 100 Mbps
 
-## Defund Full Node Kurulum Adımları
+## Anone Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
 Aşağıdaki otomatik komut dosyasını kullanarak defund fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı(NODE NAME) girmenizi isteyecektir!
 
