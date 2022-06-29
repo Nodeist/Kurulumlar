@@ -15,6 +15,13 @@ Explorer:
 > https://kujira.explorers.guru/
 
 
+## PEER UPDATE
+
+```
+wget -O Peerupdatekaiyo.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Kujira-Mainnet/Peerupdatekaiyo.sh && chmod +x Peerupdatekaiyo.sh && ./Peerupdatekaiyo.sh
+```
+
+
 ## Donanım Gereksinimleri
 Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
 
