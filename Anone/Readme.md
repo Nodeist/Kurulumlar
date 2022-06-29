@@ -22,7 +22,7 @@ Aşağıdaki otomatik komut dosyasını kullanarak defund fullnode'unuzu birkaç
 
 
 ```
-wget -O NodeistDefund.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Defund/NodeistDefund.sh && chmod +x NodeistDefund.sh && ./NodeistDefund.sh
+wget -O Nodeistanone.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Anone/Nodeistanone.sh && chmod +x Nodeistanone.sh && ./Nodeistanone.sh
 ```
 
 ### Kurulum Sonrası Adımlar
