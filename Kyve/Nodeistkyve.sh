@@ -36,7 +36,7 @@ binaries () {
     . $HOME/.bash_profile
     echo -e "\033[0m"
     mkdir kyvebinary && cd kyvebinary
-    wget -q https://github.com/KYVENetwork/chain/releases/download/v0.4.0/chain_linux_amd64.tar.gz
+    wget -q https://github.com/KYVENetwork/chain/releases/download/v0.5.0/chain_linux_amd64.tar.gz
     sleep 2
     tar -xzf chain_linux_amd64.tar.gz
     sleep 1
