@@ -9,7 +9,7 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Kijura/logo.png">
 </p>
 
-# kujira Node Kurulumu — harpoon-4
+# kujira Node Kurulumu — kaiyo-1
 
 Explorer:
 > https://kujira.explorers.guru/
