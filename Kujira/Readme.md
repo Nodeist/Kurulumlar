@@ -36,7 +36,7 @@ Aşağıdaki otomatik komut dosyasını kullanarak kujira fullnode'unuzu birkaç
 
 
 ```
-wget -O Nodeistkujira.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Kujira/Nodeistkujira.sh && chmod +x Nodeistkujira.sh && ./Nodeistkujira.sh
+wget -O Nodeistkujira.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Kujira(Mainnet)/Nodeistkujira.sh && chmod +x Nodeistkujira.sh && ./Nodeistkujira.sh
 ```
 
 ### Kurulum Sonrası Adımlar
