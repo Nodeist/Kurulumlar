@@ -62,8 +62,8 @@ wget -qO $HOME/.defund/config/addrbook.json "https://raw.githubusercontent.com/N
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0ufetf\"/" $HOME/.defund/config/app.toml
 
 # set peers and seeds
-peers="decba6e9907011541d56ada922b8da325a5885c2@rpc2.bonded.zone:20656"
-sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" $HOME/.defund/config/config.toml
+PEERS=5edb1d1ea619e6aca6901cdc2b5efdf7675bc203@65.108.75.237:2000,35f08f53a9951fc578ccb0d831a12f3db3e8bf9b@78.24.218.129:26656,0a210aa5877f295549fda04ffdc8a6ec30800701@38.242.220.37:26641,2db5d89ae038a9340733584c793dd39af2287e31@65.108.201.154:2070,64da25d0392f02d714b00bc2718c10e1f4176a20@185.209.228.203:26656,22e62b40fafb5ea108a5f21fe96a9190c03cd18f@49.12.246.112:26617,c0e274d771a82e1543896e46f1fa1803e039e538@46.8.220.166:26656,3964d1fb5145570c235816951f74c3a305b97ce1@95.216.39.183:26656,a7490dc2dbccb0913f8970a07591299348464d07@194.163.155.84:26651,63dd3684e5a45f6ddd93bdb80e42f26c9532f8a2@95.217.40.205:28656,f2cd8aba31e3423bd4ebe94732979571d6cc85fa@38.146.3.180:26656,019c0f713f1a3ff1e0b8ec87e40b98580f7311f7@51.91.208.59:26606,187b6c15982e0c59947278d4695d449179538b63@95.216.2.219:26656,e104f008f6d1227170d3b4ce1d73f0ea2068094f@84.201.162.168:26656,e23a7d906f45171d8bf7ca9c7785e91d4e09a4bd@77.83.92.238:60656,8e6903fe46ce8e13d582c0e01312872a2ba78a12@78.47.128.136:36656,4196d1145cfd6755d80305ce6bb3db4395f7b3f9@173.212.207.91:26656,c175754acc4d416ea0906851ab13690a5d99b61c@188.234.241.56:26656,1bf56637dcb950453c370ef7726da74436d21a61@95.214.52.200:26656,2c09aae4723bce93fff10948aed6e842b8cbce1d@89.163.223.34:26656,81015180073356e4fd62d0cd586027a2cd34d3d9@207.180.198.158:26656,3413532ad88c0d48023161eb9f8b10a9fb917673@5.164.29.175:46656
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.defund/config/config.toml
 
 # enable prometheus
 sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.defund/config/config.toml
@@ -94,16 +94,17 @@ sed -i.bak -e "s/^external_address *=.*/external_address = \"$external_address:3
 
 sleep 1 
 
-RPC="http://rpc2.bonded.zone:20657"
-LATEST_HEIGHT=$(curl -s $RPC/block | jq -r .result.block.header.height); \
+SNAP_RPC="https://defund-testnet-rpc.polkachu.com:443"
+
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
-TRUST_HASH=$(curl -s "$RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
 sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$RPC,$RPC\"| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
 s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"\"|" $HOME/.defund/config/config.toml
-
 
 sleep 1
 
