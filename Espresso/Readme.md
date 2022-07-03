@@ -1,5 +1,5 @@
 ## Tavsiye Edilen Sistem Gereksinimleri
-- İşlemleri hızlı bir şekilde halldebilmeniz için 4 CPU 8GB RAM olan bir sistemi tercih etmenizi tavsiye ediyorum.
+- 4 CPU 8GB RAM 
 - Ubuntu 20.04
 
 ## Ubuntu Masaüstü Kurulumu
@@ -23,3 +23,4 @@ sudo docker-compose pull
 sudo docker-compose up
 ```
 
+Web tarayıcınızın adres çubuğuna `localhost` yazarak işlemlere devam edin.
