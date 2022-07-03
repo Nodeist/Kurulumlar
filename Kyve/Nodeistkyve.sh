@@ -36,7 +36,7 @@ binaries () {
     . $HOME/.bash_profile
     echo -e "\033[0m"
     mkdir kyvebinary && cd kyvebinary
-    wget -q https://github.com/KYVENetwork/chain/releases/download/v0.5.0/chain_linux_amd64.tar.gz
+    wget -q https://github.com/KYVENetwork/chain/releases/download/v0.5.1/chain_linux_amd64.tar.gz
     sleep 2
     tar -xzf chain_linux_amd64.tar.gz
     sleep 1
@@ -149,20 +149,6 @@ external_address=$(wget -qO- eth0.me)
 sed -i.bak -e "s/^external_address *=.*/external_address = \"$external_address:36356\"/" $HOME/.kyve/config/config.toml
 
 sleep 1 
-
-
-SNAP_RPC1="http://135.181.6.243:26631" \
-&& SNAP_RPC2="http://135.181.6.243:26631"
-LATEST_HEIGHT=$(curl -s $SNAP_RPC2/block | jq -r .result.block.header.height) \
-&& BLOCK_HEIGHT=$((LATEST_HEIGHT - 1000)) \
-&& TRUST_HASH=$(curl -s "$SNAP_RPC2/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-
-echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC1,$SNAP_RPC2\"| ; \
-s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.kyve/config/config.toml
 
 
     kyved tendermint unsafe-reset-all
