@@ -22,7 +22,7 @@
 Yükleme ve yapılandırma
 
 ```
-wget -O gno.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Gno/gno.sh && chmod +x gno.sh && ./gno.sh
+wget -O gno.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Gno/gno.sh && chmod +x gno.sh && ./gno.sh
 
 ```
 
