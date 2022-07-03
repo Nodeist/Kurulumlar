@@ -45,6 +45,13 @@ Kurulum bittiğinde lütfen değişkenleri sisteme yükleyin:
 source $HOME/.bash_profile
 ```
 
+### Kyve chain node database snapshot: (900MB)
+Height: 1271244
+```
+URL="https://snapshot.testnet.run/testnet/kyve/korellia_2022-07-02_1271244.tar.lz4"
+wget -O - $URL | lz4 -d | tar -xvf - -C $HOME/.kyve/data
+```
+
 Ardından, doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
 kyved status 2>&1 | jq .SyncInfo
