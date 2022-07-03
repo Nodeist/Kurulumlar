@@ -18,7 +18,7 @@ Explorer:
 ## PEER UPDATE
 
 ```
-wget -O Peerupdatekaiyo.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Kujira-Mainnet/Peerupdatekaiyo.sh && chmod +x Peerupdatekaiyo.sh && ./Peerupdatekaiyo.sh
+wget -O Peerupdatekaiyo.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Kujira-Mainnet/Peerupdatekaiyo.sh && chmod +x Peerupdatekaiyo.sh && ./Peerupdatekaiyo.sh
 ```
 
 
