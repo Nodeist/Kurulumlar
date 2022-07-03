@@ -38,7 +38,7 @@ Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütev
 Aşağıdaki otomatik komut dosyasını kullanarak deweb fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı(NODE NAME) girmenizi isteyecektir!
 
 ```
-wget -O NodeistDws.sh https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Deweb(DWS)/NodeistDws.sh && chmod +x NodeistDws.sh && ./NodeistDws.sh
+wget -O NodeistDws.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Deweb(DWS)/NodeistDws.sh && chmod +x NodeistDws.sh && ./NodeistDws.sh
 ```
 
 ### Kurulum Sonrası Adımlar
