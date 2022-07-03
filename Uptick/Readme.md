@@ -35,7 +35,7 @@ Aşağıdaki otomatik komut dosyasını kullanarak uptick fullnode'unuzu birkaç
 
 
 ```
-wget -O Nodeistuptick.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Uptick/Nodeistuptick.sh && chmod +x Nodeistuptick.sh && ./Nodeistuptick.sh
+wget -O Nodeistuptick.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Uptick/Nodeistuptick.sh && chmod +x Nodeistuptick.sh && ./Nodeistuptick.sh
 ```
 
 ### Kurulum Sonrası Adımlar
