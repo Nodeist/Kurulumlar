@@ -37,7 +37,7 @@ Polkadot cüzdanı oluşturmak için:
 Aşağıdaki otomatik komut dosyasını kullanarak subspace fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı(NODE NAME), cüzdan adresi ve disk alanı girmenizi isteyecektir! minimum 10G olarak belirleyin maks 2TB
 
 ```
-wget -O Nodeistsubspace.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Subspace/Nodeistsubspace.sh && chmod +x Nodeistsubspace.sh && ./Nodeistsubspace.sh
+wget -O Nodeistsubspace.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Subspace/Nodeistsubspace.sh && chmod +x Nodeistsubspace.sh && ./Nodeistsubspace.sh
 ```
 
   ## Telemetrideki düğümünüzü kontrol edin
