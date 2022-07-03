@@ -39,7 +39,7 @@ Aşağıdaki otomatik komut dosyasını kullanarak quicksilver fullnode'unuzu bi
 
 
 ```
-wget -O Nodeistquicksilver.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Quicksilver/Nodeistquicksilver.sh && chmod +x Nodeistquicksilver.sh && ./Nodeistquicksilver.sh
+wget -O Nodeistquicksilver.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Quicksilver/Nodeistquicksilver.sh && chmod +x Nodeistquicksilver.sh && ./Nodeistquicksilver.sh
 ```
 
 ### Kurulum Sonrası Adımlar
