@@ -26,7 +26,7 @@ Aşağıdaki otomatik komut dosyasını kullanarak aura fullnode'unuzu birkaç d
 
 
 ```
-wget -O Nodeistaura.sh https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Aura/Nodeistaura.sh && chmod +x Nodeistaura.sh && ./Nodeistaura.sh
+wget -O Nodeistaura.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Aura/Nodeistaura.sh && chmod +x Nodeistaura.sh && ./Nodeistaura.sh
 ```
 
 ### Kurulum Sonrası Adımlar
