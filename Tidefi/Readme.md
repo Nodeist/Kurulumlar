@@ -107,3 +107,7 @@ sudo rm -rf /etc/systemd/system/tidechaind*
 sudo rm -rf /usr/local/bin/tidechain*
 sudo rm -rf /chain-data
 ```
+
+
+* Validatör oluşturmak için ilgili dökümana göz atın:
+https://medium.com/tidefi/running-a-validator-on-the-tidefi-lagoon-testnet-f2928731f32c
