@@ -49,7 +49,6 @@ tar -xzf chain_linux_amd64.tar.gz
 sudo mv chaind kyved
 sudo chmod +x kyved
 sudo mv $HOME/kyvebinary/kyved /usr/bin/
-kyved config chain-id kyve-beta
 cd $HOME && rm -rf kyvebinary
 
 sleep 1
@@ -58,6 +57,8 @@ wget https://github.com/KYVENetwork/chain/releases/download/v0.0.1/cosmovisor_li
 mv cosmovisor_linux_amd64 cosmovisor
 chmod +x cosmovisor
 cp cosmovisor /usr/bin
+
+sleep 1
 
 #Set variable
 echo export CHAIN_ID=korellia >> $HOME/.profile
@@ -72,12 +73,14 @@ echo 'export DAEMON_RESTART_AFTER_UPGRADE="true"' >> $HOME/.profile
 echo 'export UNSAFE_SKIP_BACKUP="true"' >> $HOME/.profile
 source ~/.profile
 
+sleep 1
+
 # config
-chaind config chain-id $CHAIN_ID
-chaind config keyring-backend file
+kyved config chain-id $CHAIN_ID
+kyved config keyring-backend file
 
 # init
-chaind init $NODENAME --chain-id $CHAIN_ID
+kyved init $NODENAME --chain-id $CHAIN_ID
 
 # download addrbook and genesis
 wget -qO $HOME/.kyve/config/genesis.json "https://github.com/KYVENetwork/chain/releases/download/v0.0.1/genesis.json"
@@ -113,8 +116,6 @@ sleep 1
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:36358\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:36357\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:6351\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:36356\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":36350\"%" $HOME/.kyve/config/config.toml
 sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:9350\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:9351\"%" $HOME/.kyve/config/app.toml
 sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:36357\"%" $HOME/.kyve/config/client.toml
-external_address=$(wget -qO- eth0.me)
-sed -i.bak -e "s/^external_address *=.*/external_address = \"$external_address:36356\"/" $HOME/.kyve/config/config.toml
 
 sleep 1
 
@@ -124,18 +125,18 @@ sed -i "s/index-events=.*/index-events=[\"tx.hash\",\"tx.height\",\"block.height
 sleep 1
 
 # reset
-chaind tendermint unsafe-reset-all --home $HOME/.kyve
+kyved tendermint unsafe-reset-all --home $HOME/.kyve
 
 echo -e "\e[1m\e[32m4. Servisler baslatiliyor... \e[0m" && sleep 1
 # create service
-tee /etc/systemd/system/kyved.service > /dev/null <<EOF  
+sudo tee /etc/systemd/system/kyved.service > /dev/null <<EOF  
 [Unit]
 Description=Kyve Daemon
 After=network-online.target
 
 [Service]
 User=$USER
-ExecStart=$(which kyved) start
+ExecStart=$(which cosmovisor) start
 Restart=always
 RestartSec=3
 LimitNOFILE=infinity
@@ -150,6 +151,7 @@ Environment="UNSAFE_SKIP_BACKUP=true"
 WantedBy=multi-user.target
 EOF
 
+sleep 1
 
 sudo mv $HOME/kyved.service /etc/systemd/system/
 
