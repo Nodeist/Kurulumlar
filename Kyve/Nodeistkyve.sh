@@ -44,7 +44,7 @@ go version
 echo -e "\e[1m\e[32m3. kutuphaneler indirilip yukleniyor... \e[0m" && sleep 1
 # download binary
 mkdir kyvebinary && cd kyvebinary
-wget -q https://github.com/KYVENetwork/chain/releases/download/v0.0.1/chain_linux_amd64.tar.gz
+wget -q https://github.com/KYVENetwork/chain/releases/download/v0.5.0/chain_linux_amd64.tar.gz
 tar -xzf chain_linux_amd64.tar.gz
 sudo mv chaind kyved
 sudo chmod +x kyved
@@ -136,7 +136,7 @@ After=network-online.target
 
 [Service]
 User=$USER
-ExecStart=$(which cosmovisor) start
+ExecStart=$(which kyved) start
 Restart=always
 RestartSec=3
 LimitNOFILE=infinity
