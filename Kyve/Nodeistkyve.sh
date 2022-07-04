@@ -43,19 +43,34 @@ go version
 
 echo -e "\e[1m\e[32m3. kutuphaneler indirilip yukleniyor... \e[0m" && sleep 1
 # download binary
-cd $HOME
-wget https://github.com/KYVENetwork/chain/releases/download/v0.5.0/chain_linux_amd64.tar.gz
-tar -xvzf chain_linux_amd64.tar.gz
-mkdir -p $HOME/go/bin
-cp chaind $HOME/go/bin
-rm /root/.kyve/config/genesis.json
+mkdir kyvebinary && cd kyvebinary
+wget -q https://github.com/KYVENetwork/chain/releases/download/v0.0.1/chain_linux_amd64.tar.gz
+tar -xzf chain_linux_amd64.tar.gz
+sudo mv chaind kyved
+sudo chmod +x kyved
+sudo mv $HOME/kyvebinary/kyved /usr/bin/
+kyved config chain-id kyve-beta
+cd $HOME && rm -rf kyvebinary
 
 sleep 1
 
-go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
-mkdir -p $HOME/.kyve/cosmovisor/genesis/bin
-mkdir $HOME/.kyve/cosmovisor/upgrades
-cp $(which chaind) $HOME/.kyve/cosmovisor/genesis/bin/
+wget https://github.com/KYVENetwork/chain/releases/download/v0.0.1/cosmovisor_linux_amd64 
+mv cosmovisor_linux_amd64 cosmovisor
+chmod +x cosmovisor
+cp cosmovisor /usr/bin
+
+#Set variable
+echo export CHAIN_ID=korellia >> $HOME/.profile
+echo export denom=tkyve >> $HOME/.profile
+mkdir -p ~/.kyve/cosmovisor/genesis/bin/
+echo "{}" > ~/.kyve/cosmovisor/genesis/upgrade-info.json
+cp /usr/bin/kyved ~/.kyve/cosmovisor/genesis/bin/
+echo 'export DAEMON_HOME="$HOME/.kyve"' >> $HOME/.profile
+echo 'export DAEMON_NAME="kyved"' >> $HOME/.profile
+echo 'export DAEMON_ALLOW_DOWNLOAD_BINARIES="true"' >> $HOME/.profile
+echo 'export DAEMON_RESTART_AFTER_UPGRADE="true"' >> $HOME/.profile
+echo 'export UNSAFE_SKIP_BACKUP="true"' >> $HOME/.profile
+source ~/.profile
 
 # config
 chaind config chain-id $CHAIN_ID
@@ -113,20 +128,28 @@ chaind tendermint unsafe-reset-all --home $HOME/.kyve
 
 echo -e "\e[1m\e[32m4. Servisler baslatiliyor... \e[0m" && sleep 1
 # create service
-tee $HOME/kyved.service > /dev/null <<EOF
+tee /etc/systemd/system/kyved.service > /dev/null <<EOF  
 [Unit]
-Description=chaind
-After=network.target
+Description=Kyve Daemon
+After=network-online.target
+
 [Service]
-Type=simple
 User=$USER
-ExecStart=$(which chaind) start
-Restart=on-failure
-RestartSec=10
-LimitNOFILE=65535
+ExecStart=$(which kyved) start
+Restart=always
+RestartSec=3
+LimitNOFILE=infinity
+
+Environment="DAEMON_HOME=$HOME/.kyve"
+Environment="DAEMON_NAME=kyved"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=true"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true" 
+Environment="UNSAFE_SKIP_BACKUP=true"
+
 [Install]
 WantedBy=multi-user.target
 EOF
+
 
 sudo mv $HOME/kyved.service /etc/systemd/system/
 
