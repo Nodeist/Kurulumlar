@@ -48,10 +48,14 @@ wget https://github.com/KYVENetwork/chain/releases/download/v0.5.0/chain_linux_a
 tar -xvzf chain_linux_amd64.tar.gz
 mkdir -p $HOME/go/bin
 cp chaind $HOME/go/bin
-chaind unsafe-reset-all
 rm /root/.kyve/config/genesis.json
-chaind init $NODENAME --chain-id korellia
-rm /root/.kyve/config/genesis.json
+
+sleep 1
+
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
+mkdir -p $HOME/.kyve/cosmovisor/genesis/bin
+mkdir $HOME/.kyve/cosmovisor/upgrades
+cp $(which chaind) $HOME/.kyve/cosmovisor/genesis/bin/
 
 # config
 chaind config chain-id $CHAIN_ID
