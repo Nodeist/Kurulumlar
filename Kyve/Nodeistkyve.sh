@@ -141,12 +141,6 @@ Restart=always
 RestartSec=3
 LimitNOFILE=infinity
 
-Environment="DAEMON_HOME=$HOME/.kyve"
-Environment="DAEMON_NAME=kyved"
-Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=true"
-Environment="DAEMON_RESTART_AFTER_UPGRADE=true" 
-Environment="UNSAFE_SKIP_BACKUP=true"
-
 [Install]
 WantedBy=multi-user.target
 EOF
