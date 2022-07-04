@@ -113,7 +113,7 @@ chaind tendermint unsafe-reset-all --home $HOME/.kyve
 
 echo -e "\e[1m\e[32m4. Servisler baslatiliyor... \e[0m" && sleep 1
 # create service
-tee $HOME/chaind.service > /dev/null <<EOF
+tee $HOME/kyved.service > /dev/null <<EOF
 [Unit]
 Description=chaind
 After=network.target
@@ -128,13 +128,13 @@ LimitNOFILE=65535
 WantedBy=multi-user.target
 EOF
 
-sudo mv $HOME/chaind.service /etc/systemd/system/
+sudo mv $HOME/kyved.service /etc/systemd/system/
 
 # start service
 sudo systemctl daemon-reload
-sudo systemctl enable chaind
-sudo systemctl restart chaind
+sudo systemctl enable kyved
+sudo systemctl restart kyved
 
 echo '=============== KURULUM BASARIYLA TAMAMLANDI ==================='
-echo -e 'Loglari kontrol et: \e[1m\e[32mjournalctl -fu chaind -o cat\e[0m'
+echo -e 'Loglari kontrol et: \e[1m\e[32mjournalctl -fu kyved -o cat\e[0m'
 echo -e 'Senkronizasyon durumu kontrol et: \e[1m\e[32mcurl -s localhost:26657/status | jq .result.sync_info\e[0m'kyve
