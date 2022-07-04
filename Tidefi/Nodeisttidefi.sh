@@ -12,9 +12,9 @@ echo "=================================================="
 sleep 2
 
 # set vars
-echo -e "\e[1m\e[32mReplace <NODENAME> below with the name of your node\e[0m"
+echo -e "\e[1m\e[32mlutfen node isminizi yazınız\e[0m"
 if [ ! $NODENAME ]; then
-	read -p "Enter node name: " NODENAME
+	read -p "node isminizi yazın: " NODENAME
 	echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
 fi
 source ~/.bash_profile
