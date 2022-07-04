@@ -54,11 +54,11 @@ chaind init $NODENAME --chain-id korellia
 rm /root/.kyve/config/genesis.json
 
 # config
-kyved config chain-id $CHAIN_ID
-kyved config keyring-backend file
+chaind config chain-id $CHAIN_ID
+chaind config keyring-backend file
 
 # init
-kyved init $NODENAME --chain-id $CHAIN_ID
+chaind init $NODENAME --chain-id $CHAIN_ID
 
 # download addrbook and genesis
 wget -qO $HOME/.kyve/config/genesis.json "https://github.com/KYVENetwork/chain/releases/download/v0.0.1/genesis.json"
@@ -105,18 +105,18 @@ sed -i "s/index-events=.*/index-events=[\"tx.hash\",\"tx.height\",\"block.height
 sleep 1
 
 # reset
-kyved tendermint unsafe-reset-all --home $HOME/.kyve
+chaind tendermint unsafe-reset-all --home $HOME/.kyve
 
 echo -e "\e[1m\e[32m4. Servisler baslatiliyor... \e[0m" && sleep 1
 # create service
-tee $HOME/kyved.service > /dev/null <<EOF
+tee $HOME/chaind.service > /dev/null <<EOF
 [Unit]
-Description=kyved
+Description=chaind
 After=network.target
 [Service]
 Type=simple
 User=$USER
-ExecStart=$(which kyved) start
+ExecStart=$(which chaind) start
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=65535
@@ -124,13 +124,13 @@ LimitNOFILE=65535
 WantedBy=multi-user.target
 EOF
 
-sudo mv $HOME/kyved.service /etc/systemd/system/
+sudo mv $HOME/chaind.service /etc/systemd/system/
 
 # start service
 sudo systemctl daemon-reload
-sudo systemctl enable kyved
-sudo systemctl restart kyved
+sudo systemctl enable chaind
+sudo systemctl restart chaind
 
 echo '=============== KURULUM BASARIYLA TAMAMLANDI ==================='
-echo -e 'Loglari kontrol et: \e[1m\e[32mjournalctl -fu kyved -o cat\e[0m'
+echo -e 'Loglari kontrol et: \e[1m\e[32mjournalctl -fu chaind -o cat\e[0m'
 echo -e 'Senkronizasyon durumu kontrol et: \e[1m\e[32mcurl -s localhost:26657/status | jq .result.sync_info\e[0m'kyve
