@@ -24,7 +24,7 @@ Aşağıdaki otomatik komut dosyasını kullanarak Cardchain fullnode'unuzu birk
 
 
 ```
-wget -O NodeistCardchain.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Cardchain/NodeistCardchain.sh && chmod +x NodeistCardchain.sh && ./NodeistCardchain.sh
+wget -O NodeistCardchain.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/CrowdControl/NodeistCardchain.sh && chmod +x NodeistCardchain.sh && ./NodeistCardchain.sh
 ```
 
 ### Kurulum Sonrası Adımlar
