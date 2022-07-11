@@ -1,4 +1,7 @@
-# Obol. Athena testnet hazırlık kılavuzu.
+# Obol Athena testnet hazırlık kılavuzu.
+
+![Obol by Nodeist](https://img3.teletype.in/files/2f/d8/2fd8b17f-23dd-4def-937b-c50b4f11c7f8.jpeg)
+
 
 Obol Network, dağıtılmış doğrulayıcı teknolojisi (DVT) aracılığıyla Ethereum'daki tek teknik arıza noktalarını ortadan kaldırma misyonuyla Ethereum POS için dağıtılmış bir protokol ve ekosistemdir.
 
