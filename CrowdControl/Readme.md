@@ -4,9 +4,7 @@
 </p>
 
 
-<p align="center">
-  <img height="100" height="auto" src="https://user-images.githubusercontent.com/50621007/165055511-83e8a2d3-1700-4d26-af27-abcc825573a7.png">
-</p>
+
 
 # CrowdControl Node Kurulumu — Cardchain
 
@@ -37,34 +35,34 @@ source $HOME/.bash_profile
 
 Ardından, doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-cardchaind status 2>&1 | jq .SyncInfo
+Cardchain status 2>&1 | jq .SyncInfo
 ```
 
 ### Cüzdan Oluşturma
 Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı(mnemonic) kaydetmeyi unutmayın.
 ```
-cardchaind keys add $WALLET
+Cardchain keys add $WALLET
 ```
 
 (İSTEĞE BAĞLI) Cüzdanınızı hatırlatıcı(mnemonic) kullanarak kurtarmak için:
 ```
-cardchaind keys add $WALLET --recover
+Cardchain keys add $WALLET --recover
 ```
 
 Mevcut cüzdan listesini almak için:
 ```
-cardchaind keys list
+Cardchain keys list
 ```
 
 ### Cüzdan Bilgilerini Kaydet
 Cüzdan Adresi Ekleyin:
 ```
-WALLET_ADDRESS=$(cardchaind keys show $WALLET -a)
+WALLET_ADDRESS=$(Cardchain keys show $WALLET -a)
 ```
 
 Valoper Adresi Ekleyin:
 ```
-VALOPER_ADDRESS=$(cardchaind keys show $WALLET --bech val -a)
+VALOPER_ADDRESS=$(Cardchain keys show $WALLET --bech val -a)
 ```
 
 Değişkenleri sisteme yükleyin:
@@ -87,7 +85,7 @@ Doğrulayıcı oluşturmadan önce lütfen en az 1 bpf'ye sahip olduğunuzdan (1
 
 Cüzdan bakiyenizi kontrol etmek için:
 ```
-cardchaind query bank balances $WALLET_ADDRESS
+Cardchain query bank balances $WALLET_ADDRESS
 ```
 > Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin. 
 
@@ -139,95 +137,95 @@ curl -sS http://localhost:26657/net_info | jq -r '.result.peers[] | "\(.node_inf
 ### Servis Yönetimi
 Logları Kontrol Et:
 ```
-journalctl -fu cardchaind -o cat
+journalctl -fu Cardchain -o cat
 ```
 
 Servisi Başlat:
 ```
-systemctl start cardchaind
+systemctl start Cardchain
 ```
 
 Servisi Durdur:
 ```
-systemctl stop cardchaind
+systemctl stop Cardchain
 ```
 
 Servisi Yeniden Başlat:
 ```
-systemctl restart cardchaind
+systemctl restart Cardchain
 ```
 
 ### Node Bilgileri
 Senkronizasyon Bilgisi:
 ```
-cardchaind status 2>&1 | jq .SyncInfo
+Cardchain status 2>&1 | jq .SyncInfo
 ```
 
 Validator Bilgisi:
 ```
-cardchaind status 2>&1 | jq .ValidatorInfo
+Cardchain status 2>&1 | jq .ValidatorInfo
 ```
 
 Node Bilgisi:
 ```
-cardchaind status 2>&1 | jq .NodeInfo
+Cardchain status 2>&1 | jq .NodeInfo
 ```
 
 Node ID Göser:
 ```
-cardchaind tendermint show-node-id
+Cardchain tendermint show-node-id
 ```
 
 ### Cüzdan İşlemleri
 Cüzdanları Listele:
 ```
-cardchaind keys list
+Cardchain keys list
 ```
 
 Mnemonic kullanarak cüzdanı kurtar:
 ```
-cardchaind keys add $WALLET --recover
+Cardchain keys add $WALLET --recover
 ```
 
 Cüzdan Silme:
 ```
-cardchaind keys delete $WALLET
+Cardchain keys delete $WALLET
 ```
 
 Cüzdan Bakiyesi Sorgulama:
 ```
-cardchaind query bank balances $WALLET_ADDRESS
+Cardchain query bank balances $WALLET_ADDRESS
 ```
 
 Cüzdandan Cüzdana Bakiye Transferi:
 ```
-cardchaind tx bank send $WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ubpf
+Cardchain tx bank send $WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ubpf
 ```
 
 ### Oylama
 ```
-cardchaind tx gov vote 1 yes --from $WALLET --chain-id=$CHAIN_ID
+Cardchain tx gov vote 1 yes --from $WALLET --chain-id=$CHAIN_ID
 ```
 
 ### Stake, Delegasyon ve Ödüller
 Delegate İşlemi:
 ```
-cardchaind tx staking delegate $VALOPER_ADDRESS 10000000ubpf --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+Cardchain tx staking delegate $VALOPER_ADDRESS 10000000ubpf --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 
 Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
 ```
-cardchaind tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ubpf --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+Cardchain tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ubpf --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 
 Tüm ödülleri çek:
 ```
-cardchaind tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+Cardchain tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 
 Komisyon ile ödülleri geri çekin:
 ```
-cardchaind tx distribution withdraw-rewards $VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$CHAIN_ID
+Cardchain tx distribution withdraw-rewards $VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$CHAIN_ID
 ```
 
 ### Doğrulayıcı Yönetimi
@@ -241,7 +239,7 @@ seid tx staking edit-validator \
 
 Hapisten Kurtul(Unjail): 
 ```
-cardchaind tx slashing unjail \
+Cardchain tx slashing unjail \
   --broadcast-mode=block \
   --from=$WALLET \
   --chain-id=$CHAIN_ID \
@@ -250,11 +248,11 @@ cardchaind tx slashing unjail \
 
 Node Tamamen Silmek:
 ```
-sudo systemctl stop cardchaind && \
-sudo systemctl disable cardchaind && \
-rm /etc/systemd/system/cardchaind.service && \
+sudo systemctl stop Cardchain && \
+sudo systemctl disable Cardchain && \
+rm /etc/systemd/system/Cardchain.service && \
 sudo systemctl daemon-reload && \
 cd $HOME && \
 rm -rf .Cardchain Cardchain && \
-rm -rf $(which cardchaind)
+rm -rf $(which Cardchain)
 ```
