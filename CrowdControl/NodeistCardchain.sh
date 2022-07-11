@@ -103,16 +103,15 @@ Cardchain tendermint unsafe-reset-all —home $HOME/.Cardchain
 
 echo -e "\e[1m\e[32m4. Servisler baslatiliyor... \e[0m" && sleep 1
 # create service
-tee $HOME/Cardchain.service > /dev/null <<EOF
+sudo tee /etc/systemd/system/Cardchain.service > /dev/null <<EOF
 [Unit]
 Description=Cardchain
-After=network.target
+After=network-online.target
 [Service]
-Type=simple
 User=$USER
 ExecStart=$(which Cardchain) start
 Restart=on-failure
-RestartSec=10
+RestartSec=3
 LimitNOFILE=65535
 [Install]
 WantedBy=multi-user.target
