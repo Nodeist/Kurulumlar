@@ -11,6 +11,8 @@ echo "=================================================="
 
 sleep 2
 
+sleep 2
+
 echo -e "\e[1m\e[32m1. Paketler güncelleniyor... \e[0m" && sleep 1
 # update
 sudo apt update && sudo apt upgrade -y
