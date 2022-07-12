@@ -124,12 +124,14 @@ Sunucunuza kimlik doğrulaması için ssh anahtarlarının nasıl kurulacağına
 
 ### Temel Güvenlik Duvarı güvenliği
 ufw'nin durumunu kontrol ederek başlayın.
-	```
+
+```
 sudo ufw status
 ```
 	
-	Varsayılanı, giden bağlantılara izin verecek, ssh ve 26656 hariç tüm gelenleri reddedecek şekilde ayarlayın. SSH oturum açma girişimlerini sınırlayın.
-	```
+Varsayılanı, giden bağlantılara izin verecek, ssh ve 26656 hariç tüm gelenleri reddedecek şekilde ayarlayın. SSH oturum açma girişimlerini sınırlayın.
+
+```
 sudo ufw default allow outgoing
 sudo ufw default deny incoming
 sudo ufw allow ssh/tcp
@@ -139,117 +141,138 @@ sudo ufw enable
 ```
 	
 	
-	## Şu anda bağlı olan eşler listesini kimlikleri ile alın
-	```
+## Şu anda bağlı olan eşler listesini kimlikleri ile alın
+
+```
 curl -sS http://localhost:26377/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}'
 ```
 	
-	## Kullanışlı Komutlar
-	### Servis Yönetimi
-	Logları Kontrol Et:
-	```
+## Kullanışlı Komutlar
+### Servis Yönetimi
+Logları Kontrol Et:
+
+```
 journalctl -fu seid -o cat
 ```
 	
-	Servisi Başlat:
-	```
+Servisi Başlat:
+
+```
 systemctl start seid
 ```
 	
-	Servisi Durdur:
-	```
+Servisi Durdur:
+
+```
 systemctl stop seid
 ```
 	
-	Servisi Yeniden Başlat:
-	```
+Servisi Yeniden Başlat:
+
+```
 systemctl restart seid
 ```
 	
-	### Node Bilgileri
-	Senkronizasyon Bilgisi:
-	```
+### Node Bilgileri
+Senkronizasyon Bilgisi:
+
+```
 seid status 2>&1 | jq .SyncInfo
 ```
 	
-	Validator Bilgisi:
-	```
+Validator Bilgisi:
+
+```
 seid status 2>&1 | jq .ValidatorInfo
 ```
 	
-	Node Bilgisi:
-	```
+Node Bilgisi:
+
+```
 seid status 2>&1 | jq .NodeInfo
 ```
 	
-	Node ID Göser:
-	```
+Node ID Göser:
+
+```
 seid tendermint show-node-id
 ```
 	
-	### Cüzdan İşlemleri
-	Cüzdanları Listele:
-	```
+### Cüzdan İşlemleri
+Cüzdanları Listele:
+
+```
 seid keys list
 ```
 	
-	Mnemonic kullanarak cüzdanı kurtar:
-	```
+Mnemonic kullanarak cüzdanı kurtar:
+
+```
 seid keys add $WALLET --recover
 ```
 	
-	Cüzdan Silme:
-	```
+Cüzdan Silme:
+
+```
 seid keys delete $WALLET
 ```
 	
-	Cüzdan Bakiyesi Sorgulama:
-	```
+Cüzdan Bakiyesi Sorgulama:
+
+```
 seid query bank balances $WALLET_ADDRESS
 ```
 	
-	Cüzdandan Cüzdana Bakiye Transferi:
-	```
+Cüzdandan Cüzdana Bakiye Transferi:
+
+```
 seid tx bank send $WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000usei
 ```
 	
-	### Oylama
-	```
+### Oylama
+
+```
 seid tx gov vote 1 yes --from $WALLET --chain-id=$CHAIN_ID
 ```
 	
-	### Stake, Delegasyon ve Ödüller
-	Delegate İşlemi:
-	```
+### Stake, Delegasyon ve Ödüller
+Delegate İşlemi:
+
+```
 seid tx staking delegate $VALOPER_ADDRESS 10000000usei --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 	
-	Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-	```
+Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
+
+```
 seid tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000usei --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 	
-	Tüm ödülleri çek:
-	```
+Tüm ödülleri çek:
+	
+```
 seid tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
 ```
 	
-	Komisyon ile ödülleri geri çekin:
-	```
+Komisyon ile ödülleri geri çekin:
+
+```
 seid tx distribution withdraw-rewards $VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$CHAIN_ID
 ```
 	
-	### Doğrulayıcı Yönetimi
-	Validatör İsmini Değiştir:
-	```
+### Doğrulayıcı Yönetimi
+Validatör İsmini Değiştir:
+
+```
 seid tx staking edit-validator \
 --moniker=NEWNODENAME \
 --chain-id=$CHAIN_ID \
 --from=$WALLET
 ```
 	
-	Hapisten Kurtul(Unjail): 
-	```
+Hapisten Kurtul(Unjail): 
+
+```
 seid tx slashing unjail \
 	--broadcast-mode=block \
 	--from=$WALLET \
@@ -258,8 +281,9 @@ seid tx slashing unjail \
 ```
 	
 	
-	Node Tamamen Silmek:
-	```
+Node Tamamen Silmek:
+
+```
 sudo systemctl stop seid && \
 sudo systemctl disable seid && \
 rm /etc/systemd/system/seid.service && \
