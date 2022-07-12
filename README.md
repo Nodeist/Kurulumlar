@@ -38,3 +38,4 @@ query staking validators --limit 2000 -o json | jq -r '.validators[] | select(.s
 | Uptick          |   40       |
 | Paloma          |   41       |
 | Another-1       |   42       |
+| CrowdControl    |   43       |
