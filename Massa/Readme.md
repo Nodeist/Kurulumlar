@@ -22,7 +22,7 @@
 Aşağıdaki otomatik komut dosyasını kullanarak defund node'unuzu birkaç dakika içinde kurabilirsiniz.
 
 ```
-wget -O Nodeistanone.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Anone/Nodeistanone.sh && chmod +x Nodeistanone.sh && ./Nodeistanone.sh
+wget -O Massa.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Massa/Massa.sh && chmod +x Massa.sh && ./Massa.sh
 ```
 
 ## Kurulum Sonrası Adımlar
