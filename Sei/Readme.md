@@ -25,7 +25,7 @@ Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütev
 - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps bol olacak - üretim için en az 100Mbps bekleniyor)
 
 
-# Quicksilver Node Kurulumu — atlantic-1
+# Sei Node Kurulumu — atlantic-1
 
 
 Gezgin:
@@ -34,7 +34,7 @@ Gezgin:
 
 ## Sei Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak quicksilver fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı(NODE NAME) girmenizi isteyecektir!
+Aşağıdaki otomatik komut dosyasını kullanarak Sei fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı(NODE NAME) girmenizi isteyecektir!
 
 
 ```
