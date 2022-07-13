@@ -49,7 +49,7 @@ go version
 echo -e "\e[1m\e[32m3. kutuphaneler indirilip yukleniyor... \e[0m" && sleep 1
 # download binary
 cd $HOME
-git clone https://github.com/ingenuity-build/quicksilver.git --branch v0.4.1
+git clone https://github.com/ingenuity-build/quicksilver.git --branch v0.4.2
 cd quicksilver
 make build
 chmod +x ./build/quicksilverd && mv ./build/quicksilverd /usr/local/bin/quicksilverd
@@ -102,10 +102,11 @@ sleep 1
 quicksilverd tendermint unsafe-reset-all --home $HOME/.quicksilverd
 
 #Snap
-cd $HOME/.quicksilverd; rm -rf data \
-&& wget http://185.187.169.194/snap-170000.tar
-tar xvf snap-170000.tar
-rm $HOME/.quicksilverd/snap-170000.tar
+cd $HOME/.quicksilverd
+rm -rf data
+
+SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/quicksilver-testnet/ | egrep -o ">killerqueen-1.*\.tar.lz4" | tr -d ">")
+curl https://snapshots1-testnet.nodejumper.io/quicksilver-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
 
 
 
