@@ -71,6 +71,7 @@ EOF
 
 
 Dockeri Başlat:
+
 Kurulum yaklaşık 10 dakika sürüyor. bu yüzden bağlantı kesintilerine karşı önlem almak adına öncesinde screen oluşturmanız önerilir.
 ```
 cd ~/validator-rust && docker-compose up -d
