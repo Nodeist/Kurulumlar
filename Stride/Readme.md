@@ -88,11 +88,12 @@ Discord sunucusunda faucet kanalından token talep edin.
 
 Musluktan token talep etmek için:
 ```
-$request <YOUR_WALLET_ADDRESS> rhapsody
+$faucet:<YOUR_WALLET_ADDRESS>
 ```
-Bakiyenizi kontrol etmek için:
+
+Bakiyenizi kontrol edin:
 ```
-$balance <YOUR_WALLET_ADDRESS> rhapsody
+$balance:<YOUR_WALLET_ADDRESS>
 ```
 
 
