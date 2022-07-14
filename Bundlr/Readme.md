@@ -22,7 +22,6 @@ Gezgin:
 
 ## Kurulum adımları: 
 Aşağıdaki otomatik komut dosyasını kullanarak Bundlr Node'unuzu birkaç dakika içinde kurabilirsiniz. 
-Kurulum yaklaşık 10 dakika sürüyor. bu yüzden bağlantı kesintilerine karşı önlem almak adına öncesinde screen oluşturmanız önerilir.
 ```
 wget -O NodeistBundlr.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Bundlr/NodeistBundlr.sh && chmod +x NodeistBundlr.sh && ./NodeistBundlr.sh
 ```
@@ -72,6 +71,7 @@ EOF
 
 
 Dockeri Başlat:
+Kurulum yaklaşık 10 dakika sürüyor. bu yüzden bağlantı kesintilerine karşı önlem almak adına öncesinde screen oluşturmanız önerilir.
 ```
 cd ~/validator-rust && docker-compose up -d
 ```
