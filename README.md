@@ -23,7 +23,7 @@ query staking validators --limit 2000 -o json | jq -r '.validators[] | select(.s
 
 ### Kullanılan portlar: 
 
-| Proje | Port          |
+| Proje           | Port       |
 | --------------- | ---------- |
 | Celestia        |   30       |
 | Aura            |   31       |
@@ -39,3 +39,4 @@ query staking validators --limit 2000 -o json | jq -r '.validators[] | select(.s
 | Paloma          |   41       |
 | Another-1       |   42       |
 | CrowdControl    |   43       |
+| CrowdControl    |   44       |
