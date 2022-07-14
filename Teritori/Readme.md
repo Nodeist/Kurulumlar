@@ -30,7 +30,7 @@ Aşağıdaki otomatik komut dosyasını kullanarak Teritori fullnode'unuzu birka
 
 
 ```
-wget -O NodeistTeritori.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Teritori/NodeistTeritori.sh && chmod +x NodeistTeritori.sh && ./NodeistTeritori.sh
+wget -O NodeistTeritori.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Teritori/Teritori.sh && chmod +x NodeistTeritori.sh && ./NodeistTeritori.sh
 ```
 
 ### Kurulum Sonrası Adımlar
