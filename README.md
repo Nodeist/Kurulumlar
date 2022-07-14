@@ -40,4 +40,4 @@ query staking validators --limit 2000 -o json | jq -r '.validators[] | select(.s
 | Another-1       |   42       |
 | CrowdControl    |   43       |
 | Stride          |   44       |
-| Teritori        |   44       |
+| Teritori        |   45       |
