@@ -38,15 +38,13 @@ Siteyi açtığınızda resimdeki gibi bir ekran gelecek onay kutucuğunu işare
 
 ![resim](https://i.hizliresim.com/mmypjxp.png)
 
-Sonraki ekranda `Open Tweet Pop-up` butonuna tıklayarak bir twit atın ve cüzdanınıza musluktan token alın.
+Sonraki ekranda `Open Tweet Pop-up` butonuna tıklayın twit atmanız için bir pencere açılacak, cüzdan adresiniz orada yazıyor olacak. 
+Cüzdan adresinizi kopyalayın. twit atmayın.
 
 ![resim](https://i.hizliresim.com/a7tw0uu.png)
 
-Arweave sitesi musluk konusunda çok titiz ve biraz gıcık. bu yüzden bazen hata verebilir ve token vermeyebilir. 
-bu durumda bir hata mesajı alırsınız. 
-
-Böyle bir durum ile karşılaşırsanız attığınız twitteki cüzdan adresinizi kopyalayın ve 
-https://bundlr.network/faucet sitesine giderek yapıştırın. ardından tekrar bu siteden twit atın. 
+Kopyaladığınız cüzdan adresini https://bundlr.network/faucet sitesine giderek yapıştırın. ardından bu siteden twit atın.
+Attığınız twitin linkini siteye gelip yapıştırın.
 
 Cüzdanımızı başarıyla bilgisayarımıza indirdik ve musluktan coin'imizi aldık. 
 
