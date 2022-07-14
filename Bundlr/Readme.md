@@ -86,12 +86,12 @@ Günlüklerin Görüntüsü Şu Şekilde Olmalı:
 
 ![resim](https://i.hizliresim.com/cyq2y47.png)
 
-Doğrulayıcıyı ağa kaydedin:
+Doğrulayıcıyı Başlatın:
 ```
 npm i -g @bundlr-network/testnet-cli
 ```
 
-Doğrulayıcıyı Başlatın `ipadresiniz` kısmını düzenleyin:
+Doğrulayıcınızı ağa katın. `ipadresiniz` kısmını düzenleyin:
 ```
 testnet-cli join RkinCLBlY4L5GZFv8gCFcrygTyd5Xm91CzKlR6qxhKA -w wallet.json -u "http://ipadresiniz:80" -s 25000000000000
 ```
