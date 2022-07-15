@@ -21,7 +21,7 @@ Kurulum sırasında sizden bir kaç bilgi istenecek. Bunlar:
 
 | ANAHTAR |DEĞER |
 |---------------|-------------|
-| **bond_denom** | Denom Degeri. Örneğin CrowdControl için `bpf` |
+| **bond_denom** | Denom Degeri. Örneğin CrowdControl için `ubpf` |
 | **bench_prefix** | Bench Prefix Değeri. Örneğin CrowdControl için `cc`. Bu değeri cüzdan adresinizden öğrenebilirsiniz. **cc**1r5g0kes6jutsydez9qw2tx6vuc8scpxn5qtyle |
 | **adresport** | Adres Portu. Default 9090'dır. app.toml'dan kontrol edin |
 | **ladrport** | Laddr Portu. Default 26657'dir. config.toml'dan kontrol edin. |
