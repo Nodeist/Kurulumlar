@@ -22,20 +22,20 @@ Kurulum sırasında sizden bir kaç bilgi istenecek. Bunlar:
 
 | ANAHTAR |DEĞER |
 |---------------|-------------|
-| **bond_denom** | Denom Degeri. Örneğin kujira için `ukuji` |
-| **bench_prefix** | Bench Prefix Değeri. Örneğin kujira için `kujira`. Bu değeri cüzdan adresinizden öğrenebilirsiniz. **kujira**1r5g0kes6jutsydez9qw2tx6vuc8scpxn5qtyle |
+| **bond_denom** | Denom Degeri. Örneğin another-1 için `uan1` |
+| **bench_prefix** | Bench Prefix Değeri. Örneğin another-1 için `one1`. Bu değeri cüzdan adresinizden öğrenebilirsiniz. **one1**jcqum902je9zwevat7zqczskwd4lhwuj9vwgsu |
 | **adresport** | Adres Portu. Default 9090'dır. app.toml'dan kontrol edin |
 | **ladrport** | Laddr Portu. Default 26657'dir. config.toml'dan kontrol edin. |
 
-** Eğer node kurulumunu bizim dökümanımızdan yaptıysanız, Kurulumlar sayfamızdan kujira port adresini kontrol edebilirsiniz. **
+** Eğer node kurulumunu bizim dökümanımızdan yaptıysanız, Kurulumlar sayfamızdan another-1 port adresini kontrol edebilirsiniz. **
 
 ![nodeist](https://i.hizliresim.com/8nedatw.png)
 
-Bu örnekte resimde gördüğünüz gibi kujira portumuz `34`.
+Bu örnekte resimde gördüğünüz gibi another-1 portumuz `42`.
 
-Bunun anlamı şudur: Sizin default hali `9090` olan `adresport` unuz eğer node kurulumunu bizim dökümanımızdan yaptıysanız `34090`dır.
+Bunun anlamı şudur: Sizin default hali `9090` olan `adresport` unuz eğer node kurulumunu bizim dökümanımızdan yaptıysanız `42090`dır.
 
-Aynı şekilde default hali `266657` olan `ladrport` unuz ise `34657`dir.
+Aynı şekilde default hali `266657` olan `ladrport` unuz ise `42657`dir.
 
 Sunucuzda aşağıdaki portların açık olduğundan emin olun:
 - `9100` (node-exporter)
