@@ -1,0 +1,170 @@
+#!/bin/bash
+echo "=================================================="
+echo "   _  ______  ___  __________________";
+echo "  / |/ / __ \/ _ \/ __/  _/ __/_  __/";
+echo " /    / /_/ / // / _/_/ /_\ \  / /   ";
+echo "/_/|_/\____/____/___/___/___/ /_/    ";
+echo -e "\e[0m"
+echo "=================================================="                                     
+
+
+sleep 2
+
+# DEGISKENLER by Nodeist
+DWS_WALLET=wallet
+DWS=dewebd
+DWS_ID=deweb-testnet-1
+DWS_PORT=33
+DWS_FOLDER=.deweb
+DWS_FOLDER2=deweb
+DWS_VER=v0.2
+DWS_REPO=https://github.com/deweb-services/deweb.git
+DWS_GENESIS=https://raw.githubusercontent.com/deweb-services/deweb/main/genesis.json
+DWS_ADDRBOOK=https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Deweb/addrbook.json
+DWS_MIN_GAS=0	
+DWS_DENOM=udws
+DWS_SEEDS=74d8f92c37ffe4c6393b3718ca531da8f0bf0594@seed1.deweb.services:26656
+DWS_PEERS=316d8e681019f25b078b36a26f349e48c916aace@161.97.104.113:26656,4172ea44cb18d7b8040c3c284d76340e9212fea7@95.214.53.225:26666,d2e9b0a8c0a07422c01e2477c8054ec7f2b509b6@128.199.49.193:26656,cba40403295977211209fb3b3037501e6f00f339@167.235.243.214:26656
+
+sleep 1
+
+echo "export DWS_WALLET=${DWS_WALLET}" >> $HOME/.bash_profile
+echo "export DWS=${DWS}" >> $HOME/.bash_profile
+echo "export DWS_ID=${DWS_ID}" >> $HOME/.bash_profile
+echo "export DWS_PORT=${DWS_PORT}" >> $HOME/.bash_profile
+echo "export DWS_FOLDER=${DWS_FOLDER}" >> $HOME/.bash_profile
+echo "export DWS_FOLDER2=${DWS_FOLDER2}" >> $HOME/.bash_profile
+echo "export DWS_VER=${DWS_VER}" >> $HOME/.bash_profile
+echo "export DWS_REPO=${DWS_REPO}" >> $HOME/.bash_profile
+echo "export DWS_GENESIS=${DWS_GENESIS}" >> $HOME/.bash_profile
+echo "export DWS_PEERS=${DWS_PEERS}" >> $HOME/.bash_profile
+echo "export DWS_SEED=${DWS_SEED}" >> $HOME/.bash_profile
+echo "export DWS_MIN_GAS=${DWS_MIN_GAS}" >> $HOME/.bash_profile
+echo "export DWS_MIN_GAS=${DWS_DENOM}" >> $HOME/.bash_profile
+source $HOME/.bash_profile
+
+sleep 1
+
+if [ ! $DWS_NODENAME ]; then
+	read -p "NODE ISMI YAZINIZ: " DWS_NODENAME
+	echo 'export DWS_NODENAME='$DWS_NODENAME >> $HOME/.bash_profile
+fi
+
+echo -e "NODE ISMINIZ: \e[1m\e[32m$DWS_NODENAME\e[0m"
+echo -e "CUZDAN ISMINIZ: \e[1m\e[32m$WALLET\e[0m"
+echo -e "CHAIN ISMI: \e[1m\e[32m$DWS_ID\e[0m"
+echo -e "PORT NUMARANIZ: \e[1m\e[32m$DWS_PORT\e[0m"
+echo '================================================='
+
+sleep 2
+
+
+# GUNCELLEMELER by Nodeist
+echo -e "\e[1m\e[32m1. GUNCELLEMELER YUKLENIYOR... \e[0m" && sleep 1
+sudo apt update && sudo apt upgrade -y
+
+
+# GEREKLI PAKETLER by Nodeist
+echo -e "\e[1m\e[32m2. GEREKLILIKLER YUKLENIYOR... \e[0m" && sleep 1
+sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
+
+# GO KURULUMU by Nodeist
+echo -e "\e[1m\e[32m1. GO KURULUYOR... \e[0m" && sleep 1
+ver="1.18.2"
+cd $HOME
+wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
+rm "go$ver.linux-amd64.tar.gz"
+echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+source ~/.bash_profile
+go version
+
+sleep 1
+
+# KUTUPHANE KURULUMU by Nodeist
+echo -e "\e[1m\e[32m1. REPO YUKLENIYOR... \e[0m" && sleep 1
+cd $HOME
+git clone $DWS_REPO
+cd $DWS_FOLDER2
+git checkout $DWS_VER
+make build
+sudo cp build/dewebd /usr/local/bin/dewebd
+
+sleep 1
+
+# KONFIGURASYON by Nodeist
+echo -e "\e[1m\e[32m1. KONFIGURASYONLAR AYARLANIYOR... \e[0m" && sleep 1
+$DWS config chain-id $DWS_ID
+$DWS config keyring-backend file
+$DWS init $DWS_NODENAME --chain-id $DWS_ID
+
+# ADDRBOOK ve GENESIS by Nodeist
+wget $DWS_GENESIS -O $HOME/$DWS_FOLDER/config/genesis.json
+wget $DWS_ADDRBOOK -O $HOME/$DWS_FOLDER/config/addrbook.json
+
+# EŞLER VE TOHUMLAR by Nodeist
+SEEDS="$DWS_SEEDS"
+PEERS="$DWS_PEERS"
+sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/$DWS_FOLDER/config/config.toml
+
+sleep 1
+
+
+# BUDAMA
+pruning="custom"
+pruning_keep_recent="100"
+pruning_keep_every="0"
+pruning_interval="50"
+sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/$DWS_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/$DWS_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/$DWS_FOLDER/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$DWS_FOLDER/config/app.toml
+
+
+# ÖZELLEŞTİRİLMİŞ PORTLAR by Nodeist
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${DWS_PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${DWS_PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${DWS_PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${DWS_PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${DWS_PORT}660\"%" $HOME/$DWS_FOLDER/config/config.toml
+sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${DWS_PORT}317\"%; s%^address = \":8080\"%address = \":${DWS_PORT}080\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${DWS_PORT}090\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${DWS_PORT}091\"%" $HOME/$DWS_FOLDER/config/app.toml
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:${DWS_PORT}657\"%" $HOME/$DWS_FOLDER/config/client.toml
+
+# PROMETHEUS AKTIVASYON by Nodeist
+sed -i -e "s/prometheus = false/prometheus = true/" $HOME/$DWS_FOLDER/config/config.toml
+
+# MINIMUM GAS AYARI by Nodeist
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.00125$DWS_DENOM\"/" $HOME/$DWS_FOLDER/config/app.toml
+
+# INDEXER AYARI by Nodeist
+indexer="null" && \
+sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/$DWS_FOLDER/config/config.toml
+
+# RESET by Nodeist
+$DWS tendermint unsafe-reset-all --home $HOME/$DWS_FOLDER
+
+# SERVİS OLUŞTURMA
+echo -e "\e[1m\e[32m4. SERVIS BASLATILIYOR... \e[0m" && sleep 1
+sudo tee /etc/systemd/system/$DWS.service > /dev/null <<EOF
+[Unit]
+Description=$DWS
+After=network.target
+[Service]
+Type=simple
+User=$USER
+ExecStart=$(which $DWS) start
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=65535
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+# SERVISLERI BASLAT by Nodeist
+sudo systemctl daemon-reload
+sudo systemctl enable $DWS
+sudo systemctl restart $DWS
+
+echo '=============== KURULUM TAMAM! by Nodeist ==================='
+echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -f $DWS\e[0m'
+echo -e "SENKRONIZASYONU KONTROL ET: \e[1m\e[32mcurl -s localhost:${DWS_PORT}657/status | jq .result.sync_info\e[0m"
+
+source $HOME/.bash_profile
