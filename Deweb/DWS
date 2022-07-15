@@ -40,7 +40,7 @@ echo "export DWS_GENESIS=${DWS_GENESIS}" >> $HOME/.bash_profile
 echo "export DWS_PEERS=${DWS_PEERS}" >> $HOME/.bash_profile
 echo "export DWS_SEED=${DWS_SEED}" >> $HOME/.bash_profile
 echo "export DWS_MIN_GAS=${DWS_MIN_GAS}" >> $HOME/.bash_profile
-echo "export DWS_MIN_GAS=${DWS_DENOM}" >> $HOME/.bash_profile
+echo "export DWS_DENOM=${DWS_DENOM}" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 sleep 1
