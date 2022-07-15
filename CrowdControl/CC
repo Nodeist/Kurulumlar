@@ -1,0 +1,165 @@
+#!/bin/bash
+echo "=================================================="
+echo "   _  ______  ___  __________________";
+echo "  / |/ / __ \/ _ \/ __/  _/ __/_  __/";
+echo " /    / /_/ / // / _/_/ /_\ \  / /   ";
+echo "/_/|_/\____/____/___/___/___/ /_/    ";
+echo -e "\e[0m"
+echo "=================================================="                                     
+
+
+sleep 2
+
+# DEGISKENLER by Nodeist
+CC_WALLET=wallet
+CC=Cardchain
+CC_ID=Cardchain
+CC_PORT=43
+CC_FOLDER=.Cardchain
+CC_FOLDER2=
+CC_VER=Cardchain@latest!
+CC_REPO=https://get.ignite.com/DecentralCardGame/$CC_VER
+CC_GENESIS=https://raw.githubusercontent.com/DecentralCardGame/Testnet1/main/genesis.json
+CC_ADDRBOOK=
+CC_MIN_GAS=0
+CC_DENOM=ubpf
+CC_SEEDS=
+CC_PEERS=a506820ea90c5b0ddb9005ef720a121e9f6bbaeb@45.136.28.158:26658,407fd08d831eaec4be840bf762740a72c5c48ea6@159.69.11.174:36656
+
+sleep 1
+
+echo "export CC_WALLET=${CC_WALLET}" >> $HOME/.bash_profile
+echo "export CC=${CC}" >> $HOME/.bash_profile
+echo "export CC_ID=${CC_ID}" >> $HOME/.bash_profile
+echo "export CC_PORT=${CC_PORT}" >> $HOME/.bash_profile
+echo "export CC_FOLDER=${CC_FOLDER}" >> $HOME/.bash_profile
+echo "export CC_FOLDER2=${CC_FOLDER2}" >> $HOME/.bash_profile
+echo "export CC_VER=${CC_VER}" >> $HOME/.bash_profile
+echo "export CC_REPO=${CC_REPO}" >> $HOME/.bash_profile
+echo "export CC_GENESIS=${CC_GENESIS}" >> $HOME/.bash_profile
+echo "export CC_PEERS=${CC_PEERS}" >> $HOME/.bash_profile
+echo "export CC_SEED=${CC_SEED}" >> $HOME/.bash_profile
+echo "export CC_MIN_GAS=${CC_MIN_GAS}" >> $HOME/.bash_profile
+echo "export CC_MIN_GAS=${CC_DENOM}" >> $HOME/.bash_profile
+source $HOME/.bash_profile
+
+sleep 1
+
+if [ ! $CC_NODENAME ]; then
+	read -p "NODE ISMI YAZINIZ: " CC_NODENAME
+	echo 'export CC_NODENAME='$CC_NODENAME >> $HOME/.bash_profile
+fi
+
+echo -e "NODE ISMINIZ: \e[1m\e[32m$CC_NODENAME\e[0m"
+echo -e "CUZDAN ISMINIZ: \e[1m\e[32m$CC_WALLET\e[0m"
+echo -e "CHAIN ISMI: \e[1m\e[32m$CC_ID\e[0m"
+echo -e "PORT NUMARANIZ: \e[1m\e[32m$CC_PORT\e[0m"
+echo '================================================='
+
+sleep 2
+
+
+# GUNCELLEMELER by Nodeist
+echo -e "\e[1m\e[32m1. GUNCELLEMELER YUKLENIYOR... \e[0m" && sleep 1
+sudo apt update && sudo apt upgrade -y
+
+
+# GEREKLI PAKETLER by Nodeist
+echo -e "\e[1m\e[32m2. GEREKLILIKLER YUKLENIYOR... \e[0m" && sleep 1
+sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
+
+# GO KURULUMU by Nodeist
+echo -e "\e[1m\e[32m1. GO KURULUYOR... \e[0m" && sleep 1
+ver="1.18.2"
+cd $HOME
+wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
+rm "go$ver.linux-amd64.tar.gz"
+echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+source ~/.bash_profile
+go version
+
+sleep 1
+
+# KUTUPHANE KURULUMU by Nodeist
+curl $CC_REPO | sudo bash
+
+
+sleep 1
+
+# KONFIGURASYON by Nodeist
+echo -e "\e[1m\e[32m1. KONFIGURASYONLAR AYARLANIYOR... \e[0m" && sleep 1
+$CC config chain-id $CC_ID
+$CC config keyring-backend file
+$CC init $CC_NODENAME --chain-id $CC_ID
+
+# ADDRBOOK ve GENESIS by Nodeist
+wget $CC_GENESIS -O $HOME/$CC_FOLDER/config/genesis.json
+wget $CC_ADDRBOOK -O $HOME/$CC_FOLDER/config/addrbook.json
+
+# EŞLER VE TOHUMLAR by Nodeist
+SEEDS="$CC_SEEDS"
+PEERS="$CC_PEERS"
+sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/$CC_FOLDER/config/config.toml
+
+sleep 1
+
+
+# config pruning
+pruning="custom"
+pruning_keep_recent="100"
+pruning_keep_every="0"
+pruning_interval="50"
+sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/$CC_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/$CC_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/$CC_FOLDER/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$CC_FOLDER/config/app.toml
+
+
+# ÖZELLEŞTİRİLMİŞ PORTLAR by Nodeist
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${CC_PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${CC_PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${CC_PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${CC_PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${CC_PORT}660\"%" $HOME/$CC_FOLDER/config/config.toml
+sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${CC_PORT}317\"%; s%^address = \":8080\"%address = \":${CC_PORT}080\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${CC_PORT}090\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${CC_PORT}091\"%" $HOME/$CC_FOLDER/config/app.toml
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:${CC_PORT}657\"%" $HOME/$CC_FOLDER/config/client.toml
+
+# PROMETHEUS AKTIVASYON by Nodeist
+sed -i -e "s/prometheus = false/prometheus = true/" $HOME/$CC_FOLDER/config/config.toml
+
+# MINIMUM GAS AYARI by Nodeist
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.00125$CC_DENOM\"/" $HOME/$CC_FOLDER/config/app.toml
+
+# INDEXER AYARI by Nodeist
+indexer="null" && \
+sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/$CC_FOLDER/config/config.toml
+
+# RESET by Nodeist
+$CC tendermint unsafe-reset-all --home $HOME/$CC_FOLDER
+
+echo -e "\e[1m\e[32m4. SERVIS BASLATILIYOR... \e[0m" && sleep 1
+# create service
+sudo tee /etc/systemd/system/$CC.service > /dev/null <<EOF
+[Unit]
+Description=$CC
+After=network.target
+[Service]
+Type=simple
+User=$USER
+ExecStart=$(which $CC) start
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=65535
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+# SERVISLERI BASLAT by Nodeist
+sudo systemctl daemon-reload
+sudo systemctl enable $CC
+sudo systemctl restart $CC
+
+echo '=============== KURULUM TAMAM! by Nodeist ==================='
+echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -f $CC\e[0m'
+echo -e "SENKRONIZASYONU KONTROL ET: \e[1m\e[32mcurl -s localhost:${CC_PORT}657/status | jq .result.sync_info\e[0m"
+
+source $HOME/.bash_profile
