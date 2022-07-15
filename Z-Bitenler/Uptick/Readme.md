@@ -89,7 +89,7 @@ uptickd tx staking create-validator \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
   --pubkey  $(uptickd tendermint show-validator) \
-  --moniker $NODENAME \
+  --moniker $UPTICK_NODENAME \
   --chain-id $UPTICK_ID \
   --fees 250auptick
 ```
