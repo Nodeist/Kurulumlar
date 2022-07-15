@@ -1,19 +1,15 @@
- <p style="font-size:14px" align="right">
-Sağ üst köşeden forklamayı ve yıldız vermeyi unutmayın ;) <br> <img src="https://i.hizliresim.com/njbmdlb.png"/></p>
-<p style="font-size:14px" align="center">
-<b>Bu sayfa, çeşitli kripto proje sunucularının nasıl çalıştırılacağına ilişkin eğitimler içerir. </b><br><br>
-<a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="64"/></a> <br>Telegrama Katıl. <br>
-<a href="https://nodeist.net/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="64"/></a> <br>Websitemizi Ziyaret et. 
+<p style="font-size:14px" align="right">
+ <a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="30"/></a><br>Telegrama Katıl<br>
+<a href="https://nodeist.site/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="30"/></a><br> Websitemizi Ziyaret Et 
 </p>
 
-# DWS Node Kurulumu — deweb-testnet-1
 
-Resmi doküman:
->- [Validator Kurulum Rehberi](https://docs.deweb.services/guides/validator-setup-guide)
 
-Gezgin:
->-  https://dws.explorers.guru/
+<p align="center">
+  <img height="100" src="https://i.hizliresim.com/8spe30n.png">
+</p>
 
+# Deweb Kurulum Rehberi
 ## Donanım Gereksinimleri
 Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
 
@@ -29,35 +25,33 @@ Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütev
  - 200 GB depolama (SSD veya NVME)
  - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
 
-
 ## Deweb Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak deweb fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı(NODE NAME) girmenizi isteyecektir!
+Aşağıdaki otomatik komut dosyasını kullanarak Deweb fullnode'unuzu birkaç dakika içinde kurabilirsiniz. 
+Script sırasında size node isminiz (NODENAME) sorulacak!
+
 
 ```
-wget -O NodeistDws.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Deweb(DWS)/NodeistDws.sh && chmod +x NodeistDws.sh && ./NodeistDws.sh
+wget -O DWS.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Deweb/DWS && chmod +x DWS.sh && ./DWS.sh
 ```
 
 ### Kurulum Sonrası Adımlar
-Kurulum bittiğinde lütfen değişkenleri sisteme yükleyin:
-```
-source $HOME/.bash_profile
-```
 
-Ardından, doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
+Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. 
+Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
 dewebd status 2>&1 | jq .SyncInfo
 ```
 
 ### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı(mnemonic) kaydetmeyi unutmayın.
+Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
 ```
-dewebd keys add $WALLET
+dewebd keys add $DWS_WALLET
 ```
 
-(İSTEĞE BAĞLI) Cüzdanınızı hatırlatıcı(mnemonic) kullanarak kurtarmak için:
+(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
 ```
-dewebd keys add $WALLET --recover
+dewebd keys add $DWS_WALLET --recover
 ```
 
 Mevcut cüzdan listesini almak için:
@@ -68,77 +62,38 @@ dewebd keys list
 ### Cüzdan Bilgilerini Kaydet
 Cüzdan Adresi Ekleyin:
 ```
-WALLET_ADDRESS=$(dewebd keys show $WALLET -a)
-```
-
-Valoper Adresi Ekleyin:
-```
-VALOPER_ADDRESS=$(dewebd keys show $WALLET --bech val -a)
-```
-
-Değişkenleri sisteme yükleyin:
-```
-echo 'export WALLET_ADDRESS='${WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export VALOPER_ADDRESS='${VALOPER_ADDRESS} >> $HOME/.bash_profile
+DWS_WALLET_ADDRESS=$(dewebd keys show $DWS_WALLET -a)
+DWS_VALOPER_ADDRESS=$(dewebd keys show $DWS_WALLET --bech val -a)
+echo 'export DWS_WALLET_ADDRESS='${DWS_WALLET_ADDRESS} >> $HOME/.bash_profile
+echo 'export DWS_VALOPER_ADDRESS='${DWS_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
-```
-
-### Musluğu kullanarak cüzdan bakiyenizi arttırın
-Doğrulayıcı oluşturmak için önce cüzdanınıza testnet jetonları ile para yatırmanız gerekir. Cüzdanınızı doldurmak ve musluklara erişmek için deweb discord sunucusuna katılın. Uygun kanalda olduğunuzdan emin olun.
-
-Musluktan token talep etmek için:
-```
-$request <YOUR_WALLET_ADDRESS> menkar
-```
-Bakiyenizi kontrol etmek için:
-```
-$balance <YOUR_WALLET_ADDRESS> menkar
 ```
 
 
 ### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 qck'ye sahip olduğunuzdan (1 qck 1000000 uqck'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+Doğrulayıcı oluşturmadan önce lütfen en az 1 dws'ye sahip olduğunuzdan (1 dws 1000000 udws'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
 
 Cüzdan bakiyenizi kontrol etmek için:
 ```
-dewebd query bank balances $WALLET_ADDRESS
+dewebd query bank balances $DWS_NODENAME_WALLET_ADDRESS
 ```
 > Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin. 
-Doğrulayıcıyı çalıştırma komutunu yazalım:
+
+Doğrulayıcı Oluşturma:
 ```
 dewebd tx staking create-validator \
-  --amount 1000000ufetf \
-  --from $WALLET \
+  --amount 1999000udws \
+  --from $DWS_WALLET \
   --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
   --pubkey  $(dewebd tendermint show-validator) \
   --moniker $NODENAME \
-  --chain-id $CHAIN_ID
+  --chain-id $DWS_NODENAME_ID \
+  --fees 250udws
 ```
 
-## Güvenlik
-Anahtarlarınızı korumak için lütfen temel güvenlik kurallarına uyduğunuzdan emin olun.
-
-### Kimlik doğrulama için ssh anahtarlarını ayarlayın
-Sunucunuza kimlik doğrulaması için ssh anahtarlarının nasıl kurulacağına dair iyi bir eğitim [burada bulunabilir](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04)
-
-### Temel Güvenlik Duvarı güvenliği
-ufw'nin durumunu kontrol ederek başlayın.
-```
-sudo ufw status
-```
-
-Varsayılanı, giden bağlantılara izin verecek, ssh ve 26656 hariç tüm gelenleri reddedecek şekilde ayarlayın. SSH oturum açma girişimlerini sınırlayın.
-```
-sudo ufw default allow outgoing
-sudo ufw default deny incoming
-sudo ufw allow ssh/tcp
-sudo ufw limit ssh/tcp
-sudo ufw allow 26656,26660/tcp
-sudo ufw enable
-```
 
 
 ## Kullanışlı Komutlar
@@ -192,48 +147,48 @@ dewebd keys list
 
 Mnemonic kullanarak cüzdanı kurtar:
 ```
-dewebd keys add $WALLET --recover
+dewebd keys add $DWS_WALLET --recover
 ```
 
 Cüzdan Silme:
 ```
-dewebd keys delete $WALLET
+dewebd keys delete $DWS_WALLET
 ```
 
 Cüzdan Bakiyesi Sorgulama:
 ```
-dewebd query bank balances $WALLET_ADDRESS
+dewebd query bank balances $DWS_NODENAME_WALLET_ADDRESS
 ```
 
 Cüzdandan Cüzdana Bakiye Transferi:
 ```
-dewebd tx bank send $WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ufetf
+dewebd tx bank send $DWS_NODENAME_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000udws
 ```
 
 ### Oylama
 ```
-dewebd tx gov vote 1 yes --from $WALLET --chain-id=$CHAIN_ID
+dewebd tx gov vote 1 yes --from $DWS_WALLET --chain-id=$DWS_NODENAME_ID
 ```
 
 ### Stake, Delegasyon ve Ödüller
 Delegate İşlemi:
 ```
-dewebd tx staking delegate $VALOPER_ADDRESS 10000000ufetf --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+dewebd tx staking delegate $DWS_NODENAME_VALOPER_ADDRESS 10000000udws --from=$DWS_WALLET --chain-id=$DWS_NODENAME_ID --gas=auto --fees 250udws
 ```
 
 Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
 ```
-dewebd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ufetf --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+dewebd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000udws --from=$DWS_WALLET --chain-id=$DWS_NODENAME_ID --gas=auto --fees 250udws
 ```
 
 Tüm ödülleri çek:
 ```
-dewebd tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+dewebd tx distribution withdraw-all-rewards --from=$DWS_WALLET --chain-id=$DWS_NODENAME_ID --gas=auto --fees 250udws
 ```
 
 Komisyon ile ödülleri geri çekin:
 ```
-dewebd tx distribution withdraw-rewards $VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$CHAIN_ID
+dewebd tx distribution withdraw-rewards $DWS_NODENAME_VALOPER_ADDRESS --from=$DWS_WALLET --commission --chain-id=$DWS_NODENAME_ID
 ```
 
 ### Doğrulayıcı Yönetimi
@@ -241,27 +196,27 @@ Validatör İsmini Değiştir:
 ```
 seid tx staking edit-validator \
 --moniker=NEWNODENAME \
---chain-id=$CHAIN_ID \
---from=$WALLET
+--chain-id=$DWS_NODENAME_ID \
+--from=$DWS_WALLET
 ```
 
 Hapisten Kurtul(Unjail): 
 ```
 dewebd tx slashing unjail \
   --broadcast-mode=block \
-  --from=$WALLET \
-  --chain-id=$CHAIN_ID \
-  --gas=auto
+  --from=$DWS_WALLET \
+  --chain-id=$DWS_NODENAME_ID \
+  --gas=auto --fees 250udws
 ```
 
 
 Node Tamamen Silmek:
 ```
-sudo systemctl stop dewebd && \
-sudo systemctl disable dewebd && \
-rm /etc/systemd/system/dewebd.service && \
-sudo systemctl daemon-reload && \
-cd $HOME && \
-rm -rf .deweb deweb && \
-rm -rf $(which dewebd)
+sudo systemctl stop dewebd
+sudo systemctl disable dewebd
+sudo rm /etc/systemd/system/deweb* -rf
+sudo rm $(which dewebd) -rf
+sudo rm $HOME/.deweb* -rf
+sudo rm $HOME/deweb -rf
+sed -i '/DWS_/d' ~/.bash_profile
 ```
