@@ -1,11 +1,15 @@
- <p style="font-size:14px" align="right">
-Sağ üst köşeden forklamayı ve yıldız vermeyi unutmayın ;) <br> <img src="https://i.hizliresim.com/njbmdlb.png"/></p>
-<p style="font-size:14px" align="center">
-<b>Bu sayfa, çeşitli kripto proje sunucularının nasıl çalıştırılacağına ilişkin eğitimler içerir. </b><br><br>
-<a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="64"/></a> <br>Telegrama Katıl. <br>
-<a href="https://nodeist.net/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="64"/></a> <br>Websitemizi Ziyaret et. 
+<p style="font-size:14px" align="right">
+ <a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="30"/></a><br>Telegrama Katıl<br>
+<a href="https://nodeist.site/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="30"/></a><br> Websitemizi Ziyaret Et 
 </p>
 
+
+
+<p align="center">
+  <img height="100" src="https://i.hizliresim.com/iz7y3vs.png">
+</p>
+
+# Paloma Kurulum Rehberi
 ## Donanım Gereksinimleri
 Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
 
@@ -13,49 +17,41 @@ Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütev
  - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
  - 4GB RAM
  - 80GB Disk
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps  olacak - üretim için en az 100Mbps bekleniyor)
+ - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
 
 ### Önerilen Donanım Gereksinimleri
  - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 16GB RAM
+ - 8GB RAM
  - 200 GB depolama (SSD veya NVME)
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps  olacak - üretim için en az 100Mbps bekleniyor)
+ - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
 
-
-# paloma Node Kurulumu — paloma-
-
-Gezgin:
->-  https://paloma.explorers.guru
-
-## paloma Full Node Kurulum Adımları
+## Paloma Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak paloma fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı(NODE NAME) girmenizi isteyecektir!
+Aşağıdaki otomatik komut dosyasını kullanarak Paloma fullnode'unuzu birkaç dakika içinde kurabilirsiniz. 
+Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
 ```
-wget -O Nodeistpaloma.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Paloma/Nodeistpaloma.sh && chmod +x Nodeistpaloma.sh && ./Nodeistpaloma.sh
+wget -O PLM.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Paloma/PLM && chmod +x PLM.sh && ./PLM.sh
 ```
 
 ### Kurulum Sonrası Adımlar
-Kurulum bittiğinde lütfen değişkenleri sisteme yükleyin:
-```
-source $HOME/.bash_profile
-```
 
-Ardından, doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
+Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. 
+Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
 palomad status 2>&1 | jq .SyncInfo
 ```
 
 ### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı(mnemonic) kaydetmeyi unutmayın.
+Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
 ```
-palomad keys add $WALLET
+palomad keys add $PLM_WALLET
 ```
 
-(İSTEĞE BAĞLI) Cüzdanınızı hatırlatıcı(mnemonic) kullanarak kurtarmak için:
+(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
 ```
-palomad keys add $WALLET --recover
+palomad keys add $PLM_WALLET --recover
 ```
 
 Mevcut cüzdan listesini almak için:
@@ -66,77 +62,38 @@ palomad keys list
 ### Cüzdan Bilgilerini Kaydet
 Cüzdan Adresi Ekleyin:
 ```
-WALLET_ADDRESS=$(palomad keys show $WALLET -a)
-```
-
-Valoper Adresi Ekleyin:
-```
-VALOPER_ADDRESS=$(palomad keys show $WALLET --bech val -a)
-```
-
-Değişkenleri sisteme yükleyin:
-```
-echo 'export WALLET_ADDRESS='${WALLET_ADDRESS} >> $HOME/.bash_profile
-
-echo 'export VALOPER_ADDRESS='${VALOPER_ADDRESS} >> $HOME/.bash_profile
-
+PLM_WALLET_ADDRESS=$(palomad keys show $PLM_WALLET -a)
+PLM_VALOPER_ADDRESS=$(palomad keys show $PLM_WALLET --bech val -a)
+echo 'export PLM_WALLET_ADDRESS='${PLM_WALLET_ADDRESS} >> $HOME/.bash_profile
+echo 'export PLM_VALOPER_ADDRESS='${PLM_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
-### Musluğu kullanarak cüzdan bakiyenizi arttırın
-```
-http://faucet.palomaswap.com
-```
 
 ### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 paloma'ye sahip olduğunuzdan (1 paloma 1000000 grain'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+Doğrulayıcı oluşturmadan önce lütfen en az 1 grain'ye sahip olduğunuzdan (1 grain 1000000 ugrain'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
 
 Cüzdan bakiyenizi kontrol etmek için:
 ```
-palomad query bank balances $WALLET_ADDRESS
+palomad query bank balances $PLM_WALLET_ADDRESS
 ```
 > Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin. 
 
-Doğrulayıcıyı çalıştırma komutunu yazalım:
+Doğrulayıcı Oluşturma:
 ```
 palomad tx staking create-validator \
---amount=950000ugrain \
---pubkey=$(palomad tendermint show-validator) \
---moniker=$NODENAME \
---chain-id=$CHAIN_ID \
---commission-rate="0.10" \
---commission-max-rate="0.20" \
---commission-max-change-rate="0.01" \
---min-self-delegation="1" \
---fees=10000ugrain \
---gas=10000000 \
---from=$WALLET \
---node "tcp://testnet.palomaswap.com:26657"
--y
-
+  --amount 10000000ugrain \
+  --from $PLM_WALLET \
+  --commission-max-change-rate "0.01" \
+  --commission-max-rate "0.2" \
+  --commission-rate "0.07" \
+  --min-self-delegation "1" \
+  --pubkey  $(palomad tendermint show-validator) \
+  --moniker $NODENAME \
+  --chain-id $PLM_ID \
+  --fees 250ugrain
 ```
 
-## Güvenlik
-Anahtarlarınızı korumak için lütfen temel güvenlik kurallarına uyduğunuzdan emin olun.
-
-### Kimlik doğrulama için ssh anahtarlarını ayarlayın
-Sunucunuza kimlik doğrulaması için ssh anahtarlarının nasıl kurulacağına dair iyi bir eğitim [burada bulunabilir](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04)
-
-### Temel Güvenlik Duvarı güvenliği
-ufw'nin durumunu kontrol ederek başlayın.
-```
-sudo ufw status
-```
-
-Varsayılanı, giden bağlantılara izin verecek, ssh ve 26656 hariç tüm gelenleri reddedecek şekilde ayarlayın. SSH oturum açma girişimlerini sınırlayın.
-```
-sudo ufw default allow outgoing
-sudo ufw default deny incoming
-sudo ufw allow ssh/tcp
-sudo ufw limit ssh/tcp
-sudo ufw allow 26656,26660/tcp
-sudo ufw enable
-```
 
 
 ## Kullanışlı Komutlar
@@ -190,48 +147,48 @@ palomad keys list
 
 Mnemonic kullanarak cüzdanı kurtar:
 ```
-palomad keys add $WALLET --recover
+palomad keys add $PLM_WALLET --recover
 ```
 
 Cüzdan Silme:
 ```
-palomad keys delete $WALLET
+palomad keys delete $PLM_WALLET
 ```
 
 Cüzdan Bakiyesi Sorgulama:
 ```
-palomad query bank balances $WALLET_ADDRESS
+palomad query bank balances $PLM_WALLET_ADDRESS
 ```
 
 Cüzdandan Cüzdana Bakiye Transferi:
 ```
-palomad tx bank send $WALLET_ADDRESS <TO_WALLET_ADDRESS> 100000000ugrain
+palomad tx bank send $PLM_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ugrain
 ```
 
 ### Oylama
 ```
-palomad tx gov vote 1 yes --from $WALLET --chain-id=$CHAIN_ID
+palomad tx gov vote 1 yes --from $PLM_WALLET --chain-id=$PLM_ID
 ```
 
 ### Stake, Delegasyon ve Ödüller
 Delegate İşlemi:
 ```
-palomad tx staking delegate $VALOPER_ADDRESS 100000000ugrain --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+palomad tx staking delegate $PLM_VALOPER_ADDRESS 10000000ugrain --from=$PLM_WALLET --chain-id=$PLM_ID --gas=auto --fees 250ugrain
 ```
 
-Payını doğrulayıcıdan başka bir doğrulayıcı	ya yeniden devretme:
+Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
 ```
-palomad tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 100000000ugrain --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+palomad tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ugrain --from=$PLM_WALLET --chain-id=$PLM_ID --gas=auto --fees 250ugrain
 ```
 
 Tüm ödülleri çek:
 ```
-palomad tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+palomad tx distribution withdraw-all-rewards --from=$PLM_WALLET --chain-id=$PLM_ID --gas=auto --fees 250ugrain
 ```
 
 Komisyon ile ödülleri geri çekin:
 ```
-palomad tx distribution withdraw-rewards $VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$CHAIN_ID
+palomad tx distribution withdraw-rewards $PLM_VALOPER_ADDRESS --from=$PLM_WALLET --commission --chain-id=$PLM_ID
 ```
 
 ### Doğrulayıcı Yönetimi
@@ -239,26 +196,27 @@ Validatör İsmini Değiştir:
 ```
 seid tx staking edit-validator \
 --moniker=NEWNODENAME \
---chain-id=$CHAIN_ID \
---from=$WALLET
+--chain-id=$PLM_ID \
+--from=$PLM_WALLET
 ```
 
 Hapisten Kurtul(Unjail): 
 ```
 palomad tx slashing unjail \
   --broadcast-mode=block \
-  --from=$WALLET \
-  --chain-id=$CHAIN_ID \
-  --gas=auto
+  --from=$PLM_WALLET \
+  --chain-id=$PLM_ID \
+  --gas=auto --fees 250ugrain
 ```
+
 
 Node Tamamen Silmek:
 ```
-sudo systemctl stop palomad && \
-sudo systemctl disable palomad && \
-rm /etc/systemd/system/palomad.service && \
-sudo systemctl daemon-reload && \
-cd $HOME && \
-rm -rf .paloma paloma && \
-rm -rf $(which palomad)
+sudo systemctl stop palomad
+sudo systemctl disable palomad
+sudo rm /etc/systemd/system/paloma* -rf
+sudo rm $(which palomad) -rf
+sudo rm $HOME/.paloma* -rf
+sudo rm $HOME/paloma -rf
+sed -i '/PLM_/d' ~/.bash_profile
 ```
