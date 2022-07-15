@@ -89,7 +89,7 @@ strided tx staking create-validator \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
   --pubkey  $(strided tendermint show-validator) \
-  --moniker $NODENAME \
+  --moniker $STRD_NODENAME \
   --chain-id $STRD_ID \
   --fees 250ustrd
 ```
