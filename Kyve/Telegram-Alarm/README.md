@@ -10,7 +10,7 @@
 	<img height="100" src="https://i.hizliresim.com/idr6y7f.png">
 </p>
 
-# Deweb Telegram Alarm Kurulum Rehberi
+# Kyve Telegram Alarm Kurulum Rehberi
 Bu sistem sizi jail veya inaktif durum hakkında telegram üzerinden uyaracaktır. Ayrıca size her saat başı node durumunuz hakkında kısa bilgi gönderir.
 
 Talimatlar:
