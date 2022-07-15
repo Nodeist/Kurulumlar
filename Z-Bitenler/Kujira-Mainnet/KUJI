@@ -45,12 +45,12 @@ source $HOME/.bash_profile
 
 sleep 1
 
-if [ ! $NODENAME ]; then
+if [ ! $KUJI_NODENAME ]; then
 	read -p "NODE ISMI YAZINIZ: " NODENAME
-	echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
+	echo 'export NODENAME='$KUJI_NODENAME >> $HOME/.bash_profile
 fi
 
-echo -e "NODE ISMINIZ: \e[1m\e[32m$NODENAME\e[0m"
+echo -e "NODE ISMINIZ: \e[1m\e[32m$KUJI_NODENAME\e[0m"
 echo -e "CUZDAN ISMINIZ: \e[1m\e[32m$WALLET\e[0m"
 echo -e "CHAIN ISMI: \e[1m\e[32m$KUJI_ID\e[0m"
 echo -e "PORT NUMARANIZ: \e[1m\e[32m$KUJI_PORT\e[0m"
@@ -96,7 +96,7 @@ sleep 1
 echo -e "\e[1m\e[32m1. KONFIGURASYONLAR AYARLANIYOR... \e[0m" && sleep 1
 $KUJI config chain-id $KUJI_ID
 $KUJI config keyring-backend file
-$KUJI init $NODENAME --chain-id $KUJI_ID
+$KUJI init $KUJI_NODENAME --chain-id $KUJI_ID
 
 # ADDRBOOK ve GENESIS by Nodeist
 wget $KUJI_GENESIS -O $HOME/$KUJI_FOLDER/config/genesis.json
