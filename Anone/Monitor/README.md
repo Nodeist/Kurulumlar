@@ -63,8 +63,6 @@ Bunu yapabilmek için eklemek istediğiniz her ağ için aşağıdaki kodu reviz
 $HOME/Nodeistor/ag_ekle.sh VALIDATOR_IP WALLET_ADDRESS VALOPER_ADDRESS PROJECT_NAME
 ```
 
-> Örneğin: ```$HOME/Nodeistor/ag_ekle.sh 1.2.3.4 seivaloper1s9rtstp8amx9vgsekhf3rk4rdr7qvg8dlxuy8v sei1s9rtstp8amx9vgsekhf3rk4rdr7qvg8d6jg3tl sei```
-
 
 ### Dockeri Başlatın
 Monitor dağıtımına başlayın.
