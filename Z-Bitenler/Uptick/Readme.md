@@ -5,7 +5,7 @@
 
 
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Uptick/logo.png">
+  <img height="100" height="auto" src="https://i.hizliresim.com/nro1l6b.jpeg">
 </p>
 
 ## Donanım Gereksinimleri
