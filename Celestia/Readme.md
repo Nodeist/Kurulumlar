@@ -62,10 +62,10 @@ celestia-appd keys list
 ### Cüzdan Bilgilerini Kaydet
 Cüzdan Adresi Ekleyin:
 ```
-KUJI_WALLET_ADDRESS=$(celestia-appd keys show $TIA_WALLET -a)
-KUJI_VALOPER_ADDRESS=$(celestia-appd keys show $TIA_WALLET --bech val -a)
-echo 'export KUJI_WALLET_ADDRESS='${KUJI_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export KUJI_VALOPER_ADDRESS='${KUJI_VALOPER_ADDRESS} >> $HOME/.bash_profile
+TIA_WALLET_ADDRESS=$(celestia-appd keys show $TIA_WALLET -a)
+TIA_VALOPER_ADDRESS=$(celestia-appd keys show $TIA_WALLET --bech val -a)
+echo 'export TIA_WALLET_ADDRESS='${TIA_WALLET_ADDRESS} >> $HOME/.bash_profile
+echo 'export TIA_VALOPER_ADDRESS='${TIA_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
