@@ -6,7 +6,7 @@
 
 
 <p align="center">
-  <img height="100" src="https://i.hizliresim.com/8spe30n.png">
+  <img height="100" src="https://i.hizliresim.com/5oh0erz.png">
 </p>
 
 # Deweb Kurulum Rehberi
@@ -75,7 +75,7 @@ Doğrulayıcı oluşturmadan önce lütfen en az 1 dws'ye sahip olduğunuzdan (1
 
 Cüzdan bakiyenizi kontrol etmek için:
 ```
-dewebd query bank balances $DWS_NODENAME_WALLET_ADDRESS
+dewebd query bank balances $DWS_WALLET_ADDRESS
 ```
 > Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin. 
 
@@ -90,7 +90,7 @@ dewebd tx staking create-validator \
   --min-self-delegation "1" \
   --pubkey  $(dewebd tendermint show-validator) \
   --moniker $NODENAME \
-  --chain-id $DWS_NODENAME_ID \
+  --chain-id $DWS_ID \
   --fees 250udws
 ```
 
@@ -157,38 +157,38 @@ dewebd keys delete $DWS_WALLET
 
 Cüzdan Bakiyesi Sorgulama:
 ```
-dewebd query bank balances $DWS_NODENAME_WALLET_ADDRESS
+dewebd query bank balances $DWS_WALLET_ADDRESS
 ```
 
 Cüzdandan Cüzdana Bakiye Transferi:
 ```
-dewebd tx bank send $DWS_NODENAME_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000udws
+dewebd tx bank send $DWS_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000udws
 ```
 
 ### Oylama
 ```
-dewebd tx gov vote 1 yes --from $DWS_WALLET --chain-id=$DWS_NODENAME_ID
+dewebd tx gov vote 1 yes --from $DWS_WALLET --chain-id=$DWS_ID
 ```
 
 ### Stake, Delegasyon ve Ödüller
 Delegate İşlemi:
 ```
-dewebd tx staking delegate $DWS_NODENAME_VALOPER_ADDRESS 10000000udws --from=$DWS_WALLET --chain-id=$DWS_NODENAME_ID --gas=auto --fees 250udws
+dewebd tx staking delegate $DWS_VALOPER_ADDRESS 10000000udws --from=$DWS_WALLET --chain-id=$DWS_ID --gas=auto --fees 250udws
 ```
 
 Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
 ```
-dewebd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000udws --from=$DWS_WALLET --chain-id=$DWS_NODENAME_ID --gas=auto --fees 250udws
+dewebd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000udws --from=$DWS_WALLET --chain-id=$DWS_ID --gas=auto --fees 250udws
 ```
 
 Tüm ödülleri çek:
 ```
-dewebd tx distribution withdraw-all-rewards --from=$DWS_WALLET --chain-id=$DWS_NODENAME_ID --gas=auto --fees 250udws
+dewebd tx distribution withdraw-all-rewards --from=$DWS_WALLET --chain-id=$DWS_ID --gas=auto --fees 250udws
 ```
 
 Komisyon ile ödülleri geri çekin:
 ```
-dewebd tx distribution withdraw-rewards $DWS_NODENAME_VALOPER_ADDRESS --from=$DWS_WALLET --commission --chain-id=$DWS_NODENAME_ID
+dewebd tx distribution withdraw-rewards $DWS_VALOPER_ADDRESS --from=$DWS_WALLET --commission --chain-id=$DWS_ID
 ```
 
 ### Doğrulayıcı Yönetimi
@@ -196,7 +196,7 @@ Validatör İsmini Değiştir:
 ```
 seid tx staking edit-validator \
 --moniker=NEWNODENAME \
---chain-id=$DWS_NODENAME_ID \
+--chain-id=$DWS_ID \
 --from=$DWS_WALLET
 ```
 
@@ -205,7 +205,7 @@ Hapisten Kurtul(Unjail):
 dewebd tx slashing unjail \
   --broadcast-mode=block \
   --from=$DWS_WALLET \
-  --chain-id=$DWS_NODENAME_ID \
+  --chain-id=$DWS_ID \
   --gas=auto --fees 250udws
 ```
 
