@@ -89,7 +89,7 @@ anoned tx staking create-validator \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
   --pubkey  $(anoned tendermint show-validator) \
-  --moniker $NODENAME \
+  --moniker $ANONE_NODENAME \
   --chain-id $ANONE_ID \
   --fees 250uan1
 ```
