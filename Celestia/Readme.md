@@ -1,27 +1,34 @@
- <p style="font-size:14px" align="right">
-Sağ üst köşeden forklamayı ve yıldız vermeyi unutmayın ;) <br> <img src="https://i.hizliresim.com/njbmdlb.png"/></p>
-<p style="font-size:14px" align="center">
-<b>Bu sayfa, çeşitli kripto proje sunucularının nasıl çalıştırılacağına ilişkin eğitimler içerir. </b><br><br>
-<a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="64"/></a> <br>Telegrama Katıl. <br>
-<a href="https://nodeist.net/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="64"/></a> <br>Websitemizi Ziyaret et. 
+<p style="font-size:14px" align="right">
+ <a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="30"/></a><br>Telegrama Katıl<br>
+<a href="https://nodeist.site/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="30"/></a><br> Websitemizi Ziyaret Et 
 </p>
 
-# Celestia Node Kurulumu — mamaki
 
 
-Gezgin:
->-  [Nodes Guru celestia Explorer](https://celestia.explorers.guru/)
+<p align="center">
+  <img height="100" src="https://i.hizliresim.com/hb4a5iv.png">
+</p>
 
+# Celestia Kurulum Rehberi
 ## Donanım Gereksinimleri
-- Bellek: 8 GB RAM
-- CPU: Dört Çekirdekli
-- Disk: 250 GB SSD Depolama
-- Bant Genişliği: İndirme için 1 Gbps/Yükleme için 100 Mbps
+Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
 
+### Minimum Donanım Gereksinimleri
+ - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
+ - 4GB RAM
+ - 80GB Disk
+ - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
 
-## celestia Full Node Kurulum Adımları
+### Önerilen Donanım Gereksinimleri
+ - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
+ - 8GB RAM
+ - 200 GB depolama (SSD veya NVME)
+ - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
+
+## Celestia Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak celestia fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı(NODE NAME) girmenizi isteyecektir!
+Aşağıdaki otomatik komut dosyasını kullanarak Celestia fullnode'unuzu birkaç dakika içinde kurabilirsiniz. 
+Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
 ```
@@ -29,23 +36,20 @@ wget -O TIA.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Celesti
 ```
 
 ### Kurulum Sonrası Adımlar
-Kurulum bittiğinde lütfen değişkenleri sisteme yükleyin:
-```
-source $HOME/.bash_profile
-```
 
-Ardından, doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
+Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. 
+Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
 celestia-appd status 2>&1 | jq .SyncInfo
 ```
 
 ### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı(mnemonic) kaydetmeyi unutmayın.
+Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
 ```
 celestia-appd keys add $WALLET
 ```
 
-(İSTEĞE BAĞLI) Cüzdanınızı hatırlatıcı(mnemonic) kullanarak kurtarmak için:
+(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
 ```
 celestia-appd keys add $WALLET --recover
 ```
@@ -58,48 +62,27 @@ celestia-appd keys list
 ### Cüzdan Bilgilerini Kaydet
 Cüzdan Adresi Ekleyin:
 ```
-WALLET_ADDRESS=$(celestia-appd keys show $WALLET -a)
-```
-
-Valoper Adresi Ekleyin:
-```
-VALOPER_ADDRESS=$(celestia-appd keys show $WALLET --bech val -a)
-```
-
-Değişkenleri sisteme yükleyin:
-```
-echo 'export WALLET_ADDRESS='${WALLET_ADDRESS} >> $HOME/.bash_profile
-
-echo 'export VALOPER_ADDRESS='${VALOPER_ADDRESS} >> $HOME/.bash_profile
-
+KUJI_WALLET_ADDRESS=$(celestia-appd keys show $WALLET -a)
+KUJI_VALOPER_ADDRESS=$(celestia-appd keys show $WALLET --bech val -a)
+echo 'export KUJI_WALLET_ADDRESS='${KUJI_WALLET_ADDRESS} >> $HOME/.bash_profile
+echo 'export KUJI_VALOPER_ADDRESS='${KUJI_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
 
-### Cüzdanınıza para yatırın
-
-Doğrulayıcı oluşturmak için önce cüzdanınıza testnet jetonları ile para yatırmanız gerekir. 
-Cüzdanınızı doldurmak için [Celestia discord sunucusuna katılın](https://discord.gg/QAsD8j4Z) ve NODE OPERATORS kategorisi altındaki #faucet kanalına gidin.
-
-```
-$request <YOUR_WALLET_ADDRESS>
-```
-
-
-
 ### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 tia'ye sahip olduğunuzdan (1 celestia 1000000 utia'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+Doğrulayıcı oluşturmadan önce lütfen en az 1 tia'ye sahip olduğunuzdan (1 tia 1000000 utia'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
 
 Cüzdan bakiyenizi kontrol etmek için:
 ```
-celestia-appd query bank balances $WALLET_ADDRESS
+celestia-appd query bank balances $TIA_NODENAME_WALLET_ADDRESS
 ```
 > Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin. 
 
-Doğrulayıcıyı çalıştırma komutunu yazalım:
+Doğrulayıcı Oluşturma:
 ```
 celestia-appd tx staking create-validator \
-  --amount 1000000utia \
+  --amount 1999000utia \
   --from $WALLET \
   --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
@@ -107,30 +90,10 @@ celestia-appd tx staking create-validator \
   --min-self-delegation "1" \
   --pubkey  $(celestia-appd tendermint show-validator) \
   --moniker $NODENAME \
-  --chain-id $CHAIN_ID
+  --chain-id $TIA_NODENAME_ID \
+  --fees 250utia
 ```
 
-## Güvenlik (Opsiyonel)
-Anahtarlarınızı korumak için lütfen temel güvenlik kurallarına uyduğunuzdan emin olun.
-
-### Kimlik doğrulama için ssh anahtarlarını ayarlayın
-Sunucunuza kimlik doğrulaması için ssh anahtarlarının nasıl kurulacağına dair iyi bir eğitim [burada bulunabilir](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04)
-
-### Temel Güvenlik Duvarı güvenliği
-ufw'nin durumunu kontrol ederek başlayın.
-```
-sudo ufw status
-```
-
-Varsayılanı, giden bağlantılara izin verecek, ssh ve 26656 hariç tüm gelenleri reddedecek şekilde ayarlayın. SSH oturum açma girişimlerini sınırlayın.
-```
-sudo ufw default allow outgoing
-sudo ufw default deny incoming
-sudo ufw allow ssh/tcp
-sudo ufw limit ssh/tcp
-sudo ufw allow 26656,26660/tcp
-sudo ufw enable
-```
 
 
 ## Kullanışlı Komutlar
@@ -194,38 +157,38 @@ celestia-appd keys delete $WALLET
 
 Cüzdan Bakiyesi Sorgulama:
 ```
-celestia-appd query bank balances $WALLET_ADDRESS
+celestia-appd query bank balances $TIA_NODENAME_WALLET_ADDRESS
 ```
 
 Cüzdandan Cüzdana Bakiye Transferi:
 ```
-celestia-appd tx bank send $WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000utia
+celestia-appd tx bank send $TIA_NODENAME_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000utia
 ```
 
 ### Oylama
 ```
-celestia-appd tx gov vote 1 yes --from $WALLET --chain-id=$CHAIN_ID
+celestia-appd tx gov vote 1 yes --from $WALLET --chain-id=$TIA_NODENAME_ID
 ```
 
 ### Stake, Delegasyon ve Ödüller
 Delegate İşlemi:
 ```
-celestia-appd tx staking delegate $VALOPER_ADDRESS 10000000utia --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+celestia-appd tx staking delegate $TIA_NODENAME_VALOPER_ADDRESS 10000000utia --from=$WALLET --chain-id=$TIA_NODENAME_ID --gas=auto --fees 250utia
 ```
 
 Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
 ```
-celestia-appd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000utia --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+celestia-appd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000utia --from=$WALLET --chain-id=$TIA_NODENAME_ID --gas=auto --fees 250utia
 ```
 
 Tüm ödülleri çek:
 ```
-celestia-appd tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+celestia-appd tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$TIA_NODENAME_ID --gas=auto --fees 250utia
 ```
 
 Komisyon ile ödülleri geri çekin:
 ```
-celestia-appd tx distribution withdraw-rewards $VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$CHAIN_ID
+celestia-appd tx distribution withdraw-rewards $TIA_NODENAME_VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$TIA_NODENAME_ID
 ```
 
 ### Doğrulayıcı Yönetimi
@@ -233,28 +196,27 @@ Validatör İsmini Değiştir:
 ```
 seid tx staking edit-validator \
 --moniker=NEWNODENAME \
---chain-id=$CHAIN_ID \
+--chain-id=$TIA_NODENAME_ID \
 --from=$WALLET
 ```
-
 
 Hapisten Kurtul(Unjail): 
 ```
 celestia-appd tx slashing unjail \
   --broadcast-mode=block \
   --from=$WALLET \
-  --chain-id=$CHAIN_ID \
-  --gas=auto
+  --chain-id=$TIA_NODENAME_ID \
+  --gas=auto --fees 250utia
 ```
 
 
-Node Tamamen Silmek: 
+Node Tamamen Silmek:
 ```
-sudo systemctl stop celestia-appd && \
-sudo systemctl disable celestia-appd && \
-rm /etc/systemd/system/celestia-appd.service && \
-sudo systemctl daemon-reload && \
-cd $HOME && \
-rm -rf .celestia-app celestia-app && \
-rm -rf $(which celestia-appd)
+sudo systemctl stop celestia-appd
+sudo systemctl disable celestia-appd
+sudo rm /etc/systemd/system/celestia-app* -rf
+sudo rm $(which celestia-appd) -rf
+sudo rm $HOME/.celestia-app* -rf
+sudo rm $HOME/core -rf
+sed -i '/KUJI_/d' ~/.bash_profile
 ```
