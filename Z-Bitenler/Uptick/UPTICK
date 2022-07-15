@@ -158,8 +158,8 @@ EOF
 
 # SERVISLERI BASLAT by Nodeist
 sudo systemctl daemon-reload
-sudo systemctl enable kujirad
-sudo systemctl restart kujirad
+sudo systemctl enable $UPTICK
+sudo systemctl restart $UPTICK
 
 echo '=============== KURULUM TAMAM! by Nodeist ==================='
 echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -f $UPTICK\e[0m'
