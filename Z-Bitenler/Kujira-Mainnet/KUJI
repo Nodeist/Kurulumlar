@@ -46,8 +46,8 @@ source $HOME/.bash_profile
 sleep 1
 
 if [ ! $KUJI_NODENAME ]; then
-	read -p "NODE ISMI YAZINIZ: " NODENAME
-	echo 'export NODENAME='$KUJI_NODENAME >> $HOME/.bash_profile
+	read -p "NODE ISMI YAZINIZ: " KUJI_NODENAME
+	echo 'export KUJI_NODENAME='$KUJI_NODENAME >> $HOME/.bash_profile
 fi
 
 echo -e "NODE ISMINIZ: \e[1m\e[32m$KUJI_NODENAME\e[0m"
