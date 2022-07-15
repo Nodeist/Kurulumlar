@@ -89,7 +89,7 @@ kyved tx staking create-validator \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
   --pubkey  $(kyved tendermint show-validator) \
-  --moniker $NODENAME \
+  --moniker $KYVE_NODENAME \
   --chain-id $KYVE_ID \
   --fees 250tkyve
 ```
