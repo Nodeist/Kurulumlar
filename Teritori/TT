@@ -40,7 +40,7 @@ echo "export TT_GENESIS=${TT_GENESIS}" >> $HOME/.bash_profile
 echo "export TT_PEERS=${TT_PEERS}" >> $HOME/.bash_profile
 echo "export TT_SEED=${TT_SEED}" >> $HOME/.bash_profile
 echo "export TT_MIN_GAS=${TT_MIN_GAS}" >> $HOME/.bash_profile
-echo "export TT_MIN_GAS=${TT_DENOM}" >> $HOME/.bash_profile
+echo "export TT_DENOM=${TT_DENOM}" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 sleep 1
