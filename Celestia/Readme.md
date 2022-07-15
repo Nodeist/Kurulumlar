@@ -46,12 +46,12 @@ celestia-appd status 2>&1 | jq .SyncInfo
 ### Cüzdan Oluşturma
 Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
 ```
-celestia-appd keys add $WALLET
+celestia-appd keys add $TIA_WALLET
 ```
 
 (OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
 ```
-celestia-appd keys add $WALLET --recover
+celestia-appd keys add $TIA_WALLET --recover
 ```
 
 Mevcut cüzdan listesini almak için:
@@ -62,8 +62,8 @@ celestia-appd keys list
 ### Cüzdan Bilgilerini Kaydet
 Cüzdan Adresi Ekleyin:
 ```
-KUJI_WALLET_ADDRESS=$(celestia-appd keys show $WALLET -a)
-KUJI_VALOPER_ADDRESS=$(celestia-appd keys show $WALLET --bech val -a)
+KUJI_WALLET_ADDRESS=$(celestia-appd keys show $TIA_WALLET -a)
+KUJI_VALOPER_ADDRESS=$(celestia-appd keys show $TIA_WALLET --bech val -a)
 echo 'export KUJI_WALLET_ADDRESS='${KUJI_WALLET_ADDRESS} >> $HOME/.bash_profile
 echo 'export KUJI_VALOPER_ADDRESS='${KUJI_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
@@ -83,7 +83,7 @@ Doğrulayıcı Oluşturma:
 ```
 celestia-appd tx staking create-validator \
   --amount 1999000utia \
-  --from $WALLET \
+  --from $TIA_WALLET \
   --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
   --commission-rate "0.07" \
@@ -147,12 +147,12 @@ celestia-appd keys list
 
 Mnemonic kullanarak cüzdanı kurtar:
 ```
-celestia-appd keys add $WALLET --recover
+celestia-appd keys add $TIA_WALLET --recover
 ```
 
 Cüzdan Silme:
 ```
-celestia-appd keys delete $WALLET
+celestia-appd keys delete $TIA_WALLET
 ```
 
 Cüzdan Bakiyesi Sorgulama:
@@ -167,28 +167,28 @@ celestia-appd tx bank send $TIA_NODENAME_WALLET_ADDRESS <TO_WALLET_ADDRESS> 1000
 
 ### Oylama
 ```
-celestia-appd tx gov vote 1 yes --from $WALLET --chain-id=$TIA_NODENAME_ID
+celestia-appd tx gov vote 1 yes --from $TIA_WALLET --chain-id=$TIA_NODENAME_ID
 ```
 
 ### Stake, Delegasyon ve Ödüller
 Delegate İşlemi:
 ```
-celestia-appd tx staking delegate $TIA_NODENAME_VALOPER_ADDRESS 10000000utia --from=$WALLET --chain-id=$TIA_NODENAME_ID --gas=auto --fees 250utia
+celestia-appd tx staking delegate $TIA_NODENAME_VALOPER_ADDRESS 10000000utia --from=$TIA_WALLET --chain-id=$TIA_NODENAME_ID --gas=auto --fees 250utia
 ```
 
 Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
 ```
-celestia-appd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000utia --from=$WALLET --chain-id=$TIA_NODENAME_ID --gas=auto --fees 250utia
+celestia-appd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000utia --from=$TIA_WALLET --chain-id=$TIA_NODENAME_ID --gas=auto --fees 250utia
 ```
 
 Tüm ödülleri çek:
 ```
-celestia-appd tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$TIA_NODENAME_ID --gas=auto --fees 250utia
+celestia-appd tx distribution withdraw-all-rewards --from=$TIA_WALLET --chain-id=$TIA_NODENAME_ID --gas=auto --fees 250utia
 ```
 
 Komisyon ile ödülleri geri çekin:
 ```
-celestia-appd tx distribution withdraw-rewards $TIA_NODENAME_VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$TIA_NODENAME_ID
+celestia-appd tx distribution withdraw-rewards $TIA_NODENAME_VALOPER_ADDRESS --from=$TIA_WALLET --commission --chain-id=$TIA_NODENAME_ID
 ```
 
 ### Doğrulayıcı Yönetimi
@@ -197,14 +197,14 @@ Validatör İsmini Değiştir:
 seid tx staking edit-validator \
 --moniker=NEWNODENAME \
 --chain-id=$TIA_NODENAME_ID \
---from=$WALLET
+--from=$TIA_WALLET
 ```
 
 Hapisten Kurtul(Unjail): 
 ```
 celestia-appd tx slashing unjail \
   --broadcast-mode=block \
-  --from=$WALLET \
+  --from=$TIA_WALLET \
   --chain-id=$TIA_NODENAME_ID \
   --gas=auto --fees 250utia
 ```
@@ -218,5 +218,5 @@ sudo rm /etc/systemd/system/celestia-app* -rf
 sudo rm $(which celestia-appd) -rf
 sudo rm $HOME/.celestia-app* -rf
 sudo rm $HOME/core -rf
-sed -i '/KUJI_/d' ~/.bash_profile
+sed -i '/TIA_/d' ~/.bash_profile
 ```
