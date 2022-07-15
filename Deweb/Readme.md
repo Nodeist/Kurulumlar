@@ -89,7 +89,7 @@ dewebd tx staking create-validator \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
   --pubkey  $(dewebd tendermint show-validator) \
-  --moniker $NODENAME \
+  --moniker $DWS_NODENAME \
   --chain-id $DWS_ID \
   --fees 250udws
 ```
