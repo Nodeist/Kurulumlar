@@ -14,7 +14,7 @@ sleep 2
 KUJI_WALLET=wallet
 KUJI=kujirad
 KUJI_ID=kaiyo-1
-KUJI_PORT=10
+KUJI_PORT=34
 KUJI_FOLDER=.kujira
 KUJI_VER=v0.4.1
 KUJI_REPO=https://github.com/Team-Kujira/core.git
