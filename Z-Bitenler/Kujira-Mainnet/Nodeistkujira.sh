@@ -158,5 +158,5 @@ sudo systemctl enable kujirad
 sudo systemctl restart kujirad
 
 echo '=============== KURULUM TAMAM! by Nodeist ==================='
-echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -fu ${KUJI} -o cat\e[0m'
+echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -f $KUJI\e[0m'
 echo -e "SENKRONIZASYONU KONTROL ET: \e[1m\e[32mcurl -s localhost:${KUJI_PORT}657/status | jq .result.sync_info\e[0m"
