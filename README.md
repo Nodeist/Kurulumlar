@@ -25,7 +25,7 @@ query staking validators --limit 2000 -o json | jq -r '.validators[] | select(.s
 
 ### Kullanılan portlar: 
 
-| Proje           | Port       |
+| Network           | Port       |
 | --------------- | ---------- |
 | Celestia        |   30       |
 | BOŞ             |   31       |
