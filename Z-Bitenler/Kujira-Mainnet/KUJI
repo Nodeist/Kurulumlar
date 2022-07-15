@@ -40,7 +40,7 @@ echo "export KUJI_GENESIS=${KUJI_GENESIS}" >> $HOME/.bash_profile
 echo "export KUJI_PEERS=${KUJI_PEERS}" >> $HOME/.bash_profile
 echo "export KUJI_SEED=${KUJI_SEED}" >> $HOME/.bash_profile
 echo "export KUJI_MIN_GAS=${KUJI_MIN_GAS}" >> $HOME/.bash_profile
-echo "export KUJI_MIN_GAS=${KUJI_DENOM}" >> $HOME/.bash_profile
+echo "export KUJI_DENOM=${KUJI_DENOM}" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 sleep 1
