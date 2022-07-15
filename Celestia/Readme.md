@@ -75,7 +75,7 @@ Doğrulayıcı oluşturmadan önce lütfen en az 1 tia'ye sahip olduğunuzdan (1
 
 Cüzdan bakiyenizi kontrol etmek için:
 ```
-celestia-appd query bank balances $TIA_NODENAME_WALLET_ADDRESS
+celestia-appd query bank balances $TIA_WALLET_ADDRESS
 ```
 > Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin. 
 
@@ -90,7 +90,7 @@ celestia-appd tx staking create-validator \
   --min-self-delegation "1" \
   --pubkey  $(celestia-appd tendermint show-validator) \
   --moniker $NODENAME \
-  --chain-id $TIA_NODENAME_ID \
+  --chain-id $TIA_ID \
   --fees 250utia
 ```
 
@@ -157,38 +157,38 @@ celestia-appd keys delete $TIA_WALLET
 
 Cüzdan Bakiyesi Sorgulama:
 ```
-celestia-appd query bank balances $TIA_NODENAME_WALLET_ADDRESS
+celestia-appd query bank balances $TIA_WALLET_ADDRESS
 ```
 
 Cüzdandan Cüzdana Bakiye Transferi:
 ```
-celestia-appd tx bank send $TIA_NODENAME_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000utia
+celestia-appd tx bank send $TIA_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000utia
 ```
 
 ### Oylama
 ```
-celestia-appd tx gov vote 1 yes --from $TIA_WALLET --chain-id=$TIA_NODENAME_ID
+celestia-appd tx gov vote 1 yes --from $TIA_WALLET --chain-id=$TIA_ID
 ```
 
 ### Stake, Delegasyon ve Ödüller
 Delegate İşlemi:
 ```
-celestia-appd tx staking delegate $TIA_NODENAME_VALOPER_ADDRESS 10000000utia --from=$TIA_WALLET --chain-id=$TIA_NODENAME_ID --gas=auto --fees 250utia
+celestia-appd tx staking delegate $TIA_VALOPER_ADDRESS 10000000utia --from=$TIA_WALLET --chain-id=$TIA_ID --gas=auto --fees 250utia
 ```
 
 Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
 ```
-celestia-appd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000utia --from=$TIA_WALLET --chain-id=$TIA_NODENAME_ID --gas=auto --fees 250utia
+celestia-appd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000utia --from=$TIA_WALLET --chain-id=$TIA_ID --gas=auto --fees 250utia
 ```
 
 Tüm ödülleri çek:
 ```
-celestia-appd tx distribution withdraw-all-rewards --from=$TIA_WALLET --chain-id=$TIA_NODENAME_ID --gas=auto --fees 250utia
+celestia-appd tx distribution withdraw-all-rewards --from=$TIA_WALLET --chain-id=$TIA_ID --gas=auto --fees 250utia
 ```
 
 Komisyon ile ödülleri geri çekin:
 ```
-celestia-appd tx distribution withdraw-rewards $TIA_NODENAME_VALOPER_ADDRESS --from=$TIA_WALLET --commission --chain-id=$TIA_NODENAME_ID
+celestia-appd tx distribution withdraw-rewards $TIA_VALOPER_ADDRESS --from=$TIA_WALLET --commission --chain-id=$TIA_ID
 ```
 
 ### Doğrulayıcı Yönetimi
@@ -196,7 +196,7 @@ Validatör İsmini Değiştir:
 ```
 seid tx staking edit-validator \
 --moniker=NEWNODENAME \
---chain-id=$TIA_NODENAME_ID \
+--chain-id=$TIA_ID \
 --from=$TIA_WALLET
 ```
 
@@ -205,7 +205,7 @@ Hapisten Kurtul(Unjail):
 celestia-appd tx slashing unjail \
   --broadcast-mode=block \
   --from=$TIA_WALLET \
-  --chain-id=$TIA_NODENAME_ID \
+  --chain-id=$TIA_ID \
   --gas=auto --fees 250utia
 ```
 
