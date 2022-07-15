@@ -40,7 +40,7 @@ echo "export CC_GENESIS=${CC_GENESIS}" >> $HOME/.bash_profile
 echo "export CC_PEERS=${CC_PEERS}" >> $HOME/.bash_profile
 echo "export CC_SEED=${CC_SEED}" >> $HOME/.bash_profile
 echo "export CC_MIN_GAS=${CC_MIN_GAS}" >> $HOME/.bash_profile
-echo "export CC_MIN_GAS=${CC_DENOM}" >> $HOME/.bash_profile
+echo "export CC_DENOM=${CC_DENOM}" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 sleep 1
