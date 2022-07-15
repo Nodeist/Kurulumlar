@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/nnooddeeiisstt/Testnet_Kurulumlar/main/Subspace/logo.png">
+  <img height="100" height="auto" src="https://i.hizliresim.com/an4fwuw.jpeg">
 </p>
 
 
