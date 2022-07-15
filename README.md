@@ -1,4 +1,4 @@
-<p style="font-size:14px" align="right">
+<p style="font-size:14px" align="center">
  100$ Free VPS for 2 Month <br>
  <a target="_blank" href="https://www.digitalocean.com/?refcode=410c988c8b3e&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a></br>
 </p>
