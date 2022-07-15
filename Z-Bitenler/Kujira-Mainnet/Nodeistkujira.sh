@@ -91,9 +91,9 @@ make install
 sleep 1
 
 # KONFIGURASYON by Nodeist
-$KUJI config chain-id $KUJI_ID
-$KUJI config keyring-backend file
-$KUJI init $NODENAME --chain-id $KUJI_ID
+kujirad config chain-id $KUJI_ID
+kujirad config keyring-backend file
+kujirad init $NODENAME --chain-id $KUJI_ID
 
 # ADDRBOOK ve GENESIS by Nodeist
 wget $KUJI_GENESIS -O $HOME/$KUJI_FOLDER/config/genesis.json
@@ -134,7 +134,7 @@ indexer="null" && \
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/$KUJI_FOLDER/config/config.toml
 
 # RESET by Nodeist
-$KUJI tendermint unsafe-reset-all --home $HOME/$KUJI_FOLDER
+kujirad tendermint unsafe-reset-all --home $HOME/$KUJI_FOLDER
 
 echo -e "\e[1m\e[32m4. Servisler baslatiliyor... \e[0m" && sleep 1
 # create service
@@ -156,9 +156,9 @@ EOF
 
 # SERVISLERI BASLAT by Nodeist
 sudo systemctl daemon-reload
-sudo systemctl enable $KUJI
-sudo systemctl restart $KUJI
+sudo systemctl enable kujirad
+sudo systemctl restart kujirad
 
 echo '=============== KURULUM TAMAM! by Nodeist ==================='
-echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -fu $KUJI -o cat\e[0m'
+echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -fu ${KUJI} -o cat\e[0m'
 echo -e "SENKRONIZASYONU KONTROL ET: \e[1m\e[32mcurl -s localhost:${KUJI_PORT}657/status | jq .result.sync_info\e[0m"
