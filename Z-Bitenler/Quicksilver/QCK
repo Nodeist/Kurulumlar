@@ -45,12 +45,12 @@ source $HOME/.bash_profile
 
 sleep 1
 
-if [ ! $NODENAME ]; then
-	read -p "NODE ISMI YAZINIZ: " NODENAME
-	echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
+if [ ! $QCK_NODENAME ]; then
+	read -p "NODE ISMI YAZINIZ: " QCK_NODENAME
+	echo 'export QCK_NODENAME='$QCK_NODENAME >> $HOME/.bash_profile
 fi
 
-echo -e "NODE ISMINIZ: \e[1m\e[32m$NODENAME\e[0m"
+echo -e "NODE ISMINIZ: \e[1m\e[32m$QCK_NODENAME\e[0m"
 echo -e "CUZDAN ISMINIZ: \e[1m\e[32m$WALLET\e[0m"
 echo -e "CHAIN ISMI: \e[1m\e[32m$QCK_ID\e[0m"
 echo -e "PORT NUMARANIZ: \e[1m\e[32m$QCK_PORT\e[0m"
@@ -97,7 +97,7 @@ sleep 1
 echo -e "\e[1m\e[32m1. KONFIGURASYONLAR AYARLANIYOR... \e[0m" && sleep 1
 $QCK config chain-id $QCK_ID
 $QCK config keyring-backend file
-$QCK init $NODENAME --chain-id $QCK_ID
+$QCK init $QCK_NODENAME --chain-id $QCK_ID
 
 # ADDRBOOK ve GENESIS by Nodeist
 wget $QCK_GENESIS -O $HOME/$QCK_FOLDER/config/genesis.json
