@@ -25,7 +25,7 @@ Aşağıdaki otomatik komut dosyasını kullanarak celestia fullnode'unuzu birka
 
 
 ```
-wget -O Nodeistcelestia.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Celestia/Nodeistcelestia.sh && chmod +x Nodeistcelestia.sh && ./Nodeistcelestia.sh
+wget -O TIA.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Celestia/TIA && chmod +x TIA.sh && ./TIA.sh
 ```
 
 ### Kurulum Sonrası Adımlar
