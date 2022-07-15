@@ -1,9 +1,9 @@
 #!/bin/bash
 echo "=================================================="
-echo "\e[5;97m   _  ______  ___  __________________";
-echo "\e[5;97m  / |/ / __ \/ _ \/ __/  _/ __/_  __/";
-echo "\e[5;33m /    / /_/ / // / _/_/ /_\ \  / /   ";
-echo "\e[5;33m/_/|_/\____/____/___/___/___/ /_/    ";
+echo "   _  ______  ___  __________________";
+echo "  / |/ / __ \/ _ \/ __/  _/ __/_  __/";
+echo " /    / /_/ / // / _/_/ /_\ \  / /   ";
+echo "/_/|_/\____/____/___/___/___/ /_/    ";
 echo -e "\e[0m"
 echo "=================================================="                                     
 
@@ -27,7 +27,7 @@ KUJI_PEERS: 9813378d0dceb86e57018bfdfbade9d863f6f3c8@3.38.73.119:26656,ccffabe81
 
 sleep 1
 
-echo "export KUJI=${KUJI}" >> $HOME/.bash_profile
+echo "export KUJI=$KUJI" >> $HOME/.bash_profile
 echo "export KUJI_ID=${KUJI_ID}" >> $HOME/.bash_profile
 echo "export KUJI_PORT=${KUJI_PORT}" >> $HOME/.bash_profile
 echo "export KUJI_FOLDER=${KUJI_FOLDER}" >> $HOME/.bash_profile
