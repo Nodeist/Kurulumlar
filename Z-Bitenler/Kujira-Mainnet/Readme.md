@@ -89,7 +89,7 @@ kujirad tx staking create-validator \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
   --pubkey  $(kujirad tendermint show-validator) \
-  --moniker $NODENAME \
+  --moniker $KUJI_NODENAME \
   --chain-id $KUJI_ID \
   --fees 250ukuji
 ```
