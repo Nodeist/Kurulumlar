@@ -85,7 +85,7 @@ sleep 1
 echo -e "\e[1m\e[32m1. REPO YUKLENIYOR... \e[0m" && sleep 1
 cd $HOME
 git clone $UPTICK_REPO
-cd core
+cd $UPTICK_FOLDER2
 git checkout $UPTICK_VER
 make install
 
