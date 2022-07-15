@@ -51,7 +51,7 @@ if [ ! $DWS_NODENAME ]; then
 fi
 
 echo -e "NODE ISMINIZ: \e[1m\e[32m$DWS_NODENAME\e[0m"
-echo -e "CUZDAN ISMINIZ: \e[1m\e[32m$WALLET\e[0m"
+echo -e "CUZDAN ISMINIZ: \e[1m\e[32m$DWS_WALLET\e[0m"
 echo -e "CHAIN ISMI: \e[1m\e[32m$DWS_ID\e[0m"
 echo -e "PORT NUMARANIZ: \e[1m\e[32m$DWS_PORT\e[0m"
 echo '================================================='
