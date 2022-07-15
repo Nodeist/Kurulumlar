@@ -217,6 +217,6 @@ sudo systemctl disable quicksilverd
 sudo rm /etc/systemd/system/quicksilver* -rf
 sudo rm $(which quicksilverd) -rf
 sudo rm $HOME/.quicksilverd* -rf
-sudo rm $HOME/core -rf
+sudo rm $HOME/quicksilver -rf
 sed -i '/QCK_/d' ~/.bash_profile
 ```
