@@ -23,7 +23,7 @@ Kurulum sırasında sizden bir kaç bilgi istenecek. Bunlar:
 | ANAHTAR |DEĞER |
 |---------------|-------------|
 | **bond_denom** | Denom Degeri. Örneğin another-1 için `uan1` |
-| **bench_prefix** | Bench Prefix Değeri. Örneğin another-1 için `one1`. Bu değeri cüzdan adresinizden öğrenebilirsiniz. **one1**jcqum902je9zwevat7zqczskwd4lhwuj9vwgsu |
+| **bench_prefix** | Bench Prefix Değeri. Örneğin another-1 için `one`. Bu değeri cüzdan adresinizden öğrenebilirsiniz. **one1**jcqum902je9zwevat7zqczskwd4lhwuj9vwgsu |
 | **adresport** | Adres Portu. Default 9090'dır. app.toml'dan kontrol edin |
 | **ladrport** | Laddr Portu. Default 26657'dir. config.toml'dan kontrol edin. |
 
