@@ -94,6 +94,33 @@ strided tx staking create-validator \
   --fees 250ustrd
 ```
 
+## Likit hisseli işlemler
+### Likidite stake edin
+Likidite, ATOM'unuzu stATOM için Stride'da stake edin:
+```
+strided tx stakeibc liquid-stake 1000 uatom --from $WALLET --chain-id $STRIDE_CHAIN_ID
+```
+
+> Not: 1000 uatom likit stake yaparsanız, karşılığında sadece 990 (az ya da çok olabilir) stATOM alabilirsiniz! Bunun nedeni döviz kurumuzun çalışma şeklidir. 990 stATOM'unuz hala 1000 uatom değerindedir (veya stake ödülleri kazandıkça daha fazla!)
+### Redeem işlemi
+Bazı staking ödüllerini topladıktan sonra, jetonlarınızı geri alabilirsiniz. Şu anda Gaia (Cosmos Hub) test ağımızdaki bağlanma süresi yaklaşık 30 dakikadır.
+```
+strided tx stakeibc redeem-stake 999 GAIA <cosmos_address_you_want_to_redeem_to> --chain-id $STRIDE_CHAIN_ID --from $WALLET
+```
+
+### Jetonların talep edilebilir olup olmadığını kontrol edin
+Belirteçlerinizin talep edilmeye hazır olup olmadığını görmek istiyorsanız, "<your_stride_account>" ile anahtarlanmış "UserRedemptionRecord"unuzu arayın.
+```
+strided q records list-user-redemption-record --output json | jq --arg WALLET_ADDRESS "$STRIDE_WALLET_ADDRESS" '.UserRedemptionRecord | map(select(.sender == $WALLET_ADDRESS))'
+```
+Kaydınız "isClaimable=true" özelliğine sahipse, hak talebinde bulunulmaya hazırdır!
+
+### Talep belirteçleri
+Belirteçlerinizin bağı çözüldükten sonra, talep sürecini tetikleyerek talep edilebilirler.
+```
+strided tx stakeibc claim-undelegated-tokens GAIA 5 --chain-id $STRIDE_CHAIN_ID --from $WALLET
+```
+> Not: Bu işlev, bir FIFO kuyruğundaki talepleri tetikler, yani talebiniz 20. sıradaysa, jetonlarınızın hesabınızda görünmesini görmeden önce diğer talepleri işleme koymuş olursunuz.
 
 
 ## Kullanışlı Komutlar
