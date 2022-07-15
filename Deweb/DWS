@@ -131,7 +131,7 @@ sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:${DW
 sed -i -e "s/prometheus = false/prometheus = true/" $HOME/$DWS_FOLDER/config/config.toml
 
 # MINIMUM GAS AYARI by Nodeist
-sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.00125$DWS_DENOM\"/" $HOME/$DWS_FOLDER/config/app.toml
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"$DWS_MIN_GAS$DWS_DENOM\"/" $HOME/$DWS_FOLDER/config/app.toml
 
 # INDEXER AYARI by Nodeist
 indexer="null" && \
