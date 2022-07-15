@@ -40,7 +40,7 @@ echo "export TIA_GENESIS=${TIA_GENESIS}" >> $HOME/.bash_profile
 echo "export TIA_PEERS=${TIA_PEERS}" >> $HOME/.bash_profile
 echo "export TIA_SEED=${TIA_SEED}" >> $HOME/.bash_profile
 echo "export TIA_MIN_GAS=${TIA_MIN_GAS}" >> $HOME/.bash_profile
-echo "export TIA_MIN_GAS=${TIA_DENOM}" >> $HOME/.bash_profile
+echo "export TIA_DENOM=${TIA_DENOM}" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 sleep 1
