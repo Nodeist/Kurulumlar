@@ -39,7 +39,7 @@ echo "export UPTICK_GENESIS=${UPTICK_GENESIS}" >> $HOME/.bash_profile
 echo "export UPTICK_PEERS=${UPTICK_PEERS}" >> $HOME/.bash_profile
 echo "export UPTICK_SEED=${UPTICK_SEED}" >> $HOME/.bash_profile
 echo "export UPTICK_MIN_GAS=${UPTICK_MIN_GAS}" >> $HOME/.bash_profile
-echo "export UPTICK_MIN_GAS=${UPTICK_DENOM}" >> $HOME/.bash_profile
+echo "export UPTICK_DENOM=${UPTICK_DENOM}" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 sleep 1
