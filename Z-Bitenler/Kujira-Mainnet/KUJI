@@ -159,8 +159,8 @@ EOF
 
 # SERVISLERI BASLAT by Nodeist
 sudo systemctl daemon-reload
-sudo systemctl enable kujirad
-sudo systemctl restart kujirad
+sudo systemctl enable $KUJI
+sudo systemctl restart $KUJI
 
 echo '=============== KURULUM TAMAM! by Nodeist ==================='
 echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -f $KUJI\e[0m'
