@@ -40,7 +40,7 @@ echo "export PLM_GENESIS=${PLM_GENESIS}" >> $HOME/.bash_profile
 echo "export PLM_PEERS=${PLM_PEERS}" >> $HOME/.bash_profile
 echo "export PLM_SEED=${PLM_SEED}" >> $HOME/.bash_profile
 echo "export PLM_MIN_GAS=${PLM_MIN_GAS}" >> $HOME/.bash_profile
-echo "export PLM_MIN_GAS=${PLM_DENOM}" >> $HOME/.bash_profile
+echo "export PLM_DENOM=${PLM_DENOM}" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 sleep 1
