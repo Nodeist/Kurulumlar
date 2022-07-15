@@ -11,6 +11,7 @@ echo "=================================================="
 sleep 2
 
 # DEGISKENLER by Nodeist
+KUJI_WALLET=wallet
 KUJI=kujirad
 KUJI_ID=kaiyo-1
 KUJI_PORT=10
@@ -37,6 +38,8 @@ echo "export KUJI_PEERS=${KUJI_PEERS}" >> $HOME/.bash_profile
 echo "export KUJI_SEED=${KUJI_SEED}" >> $HOME/.bash_profile
 echo "export KUJI_MIN_GAS=${KUJI_MIN_GAS}" >> $HOME/.bash_profile
 echo "export KUJI_MIN_GAS=${KUJI_DENOM}" >> $HOME/.bash_profile
+echo "export KUJI_WALLET=${KUJI_WALLET}" >> $HOME/.bash_profile
+
 source $HOME/.bash_profile
 
 sleep 1
@@ -44,10 +47,6 @@ sleep 1
 if [ ! $NODENAME ]; then
 	read -p "NODE ISMI YAZINIZ: " NODENAME
 	echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
-fi
-if [ ! $WALLET ]; then
-	echo "export WALLET=wallet" >> $HOME/.bash_profile
-fi
 
 
 echo -e "NODE ISMINIZ: \e[1m\e[32m$NODENAME\e[0m"
