@@ -6,7 +6,7 @@
 
 
 <p align="center">
-  <img height="100" src="https://i.hizliresim.com/hb4a5iv.png">
+  <img height="100" src="https://i.hizliresim.com/5oh0erz.png">
 </p>
 
 # Celestia Kurulum Rehberi
