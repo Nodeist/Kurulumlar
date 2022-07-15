@@ -6,22 +6,10 @@
 
 
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Kijura/logo.png">
+  <img height="100" src="https://i.hizliresim.com/hb4a5iv.png">
 </p>
 
-# kujira Node Kurulumu — kaiyo-1
-
-Explorer:
-> https://kujira.explorers.guru/
-
-
-## PEER UPDATE
-
-```
-wget -O Peerupdatekaiyo.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Kujira-Mainnet/Peerupdatekaiyo.sh && chmod +x Peerupdatekaiyo.sh && ./Peerupdatekaiyo.sh
-```
-
-
+# Kujira Kurulum Rehberi
 ## Donanım Gereksinimleri
 Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
 
@@ -37,33 +25,31 @@ Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütev
  - 200 GB depolama (SSD veya NVME)
  - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
 
-## kujira Full Node Kurulum Adımları
+## Kujira Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak kujira fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı(NODE NAME) girmenizi isteyecektir!
+Aşağıdaki otomatik komut dosyasını kullanarak Kujira fullnode'unuzu birkaç dakika içinde kurabilirsiniz. 
+Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
 ```
-wget -O Nodeistkujira.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Z-Bitenler/Kujira-Mainnet/Nodeistkujira.sh && chmod +x Nodeistkujira.sh && ./Nodeistkujira.sh
+wget -O KUJI.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Z-Bitenler/Kujira-Mainnet/KUJI && chmod +x KUJI.sh && ./KUJI.sh
 ```
 
 ### Kurulum Sonrası Adımlar
-Kurulum bittiğinde lütfen değişkenleri sisteme yükleyin:
-```
-source $HOME/.bash_profile
-```
 
-Ardından, doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
+Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. 
+Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
 kujirad status 2>&1 | jq .SyncInfo
 ```
 
 ### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı(mnemonic) kaydetmeyi unutmayın.
+Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
 ```
 kujirad keys add $WALLET
 ```
 
-(İSTEĞE BAĞLI) Cüzdanınızı hatırlatıcı(mnemonic) kullanarak kurtarmak için:
+(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
 ```
 kujirad keys add $WALLET --recover
 ```
@@ -76,37 +62,24 @@ kujirad keys list
 ### Cüzdan Bilgilerini Kaydet
 Cüzdan Adresi Ekleyin:
 ```
-WALLET_ADDRESS=$(kujirad keys show $WALLET -a)
-```
-
-Valoper Adresi Ekleyin:
-```
-VALOPER_ADDRESS=$(kujirad keys show $WALLET --bech val -a)
-```
-
-Değişkenleri sisteme yükleyin:
-```
-echo 'export WALLET_ADDRESS='${WALLET_ADDRESS} >> $HOME/.bash_profile
-
-echo 'export VALOPER_ADDRESS='${VALOPER_ADDRESS} >> $HOME/.bash_profile
-
+KUJI_WALLET_ADDRESS=$(kujirad keys show $WALLET -a)
+KUJI_VALOPER_ADDRESS=$(kujirad keys show $WALLET --bech val -a)
+echo 'export KUJI_WALLET_ADDRESS='${KUJI_WALLET_ADDRESS} >> $HOME/.bash_profile
+echo 'export KUJI_VALOPER_ADDRESS='${KUJI_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
-### Musluğu kullanarak cüzdan bakiyenizi arttırın
-
-Dc kanalına katılın ve adminden isteyin. şimdilik faucet bulunmuyor.
 
 ### Doğrulayıcı oluştur
 Doğrulayıcı oluşturmadan önce lütfen en az 1 kuji'ye sahip olduğunuzdan (1 kuji 1000000 ukuji'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
 
 Cüzdan bakiyenizi kontrol etmek için:
 ```
-kujirad query bank balances $WALLET_ADDRESS
+kujirad query bank balances $KUJI_WALLET_ADDRESS
 ```
 > Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin. 
 
-Doğrulayıcıyı çalıştırma komutunu yazalım:
+Doğrulayıcı Oluşturma:
 ```
 kujirad tx staking create-validator \
   --amount 1999000ukuji \
@@ -117,35 +90,11 @@ kujirad tx staking create-validator \
   --min-self-delegation "1" \
   --pubkey  $(kujirad tendermint show-validator) \
   --moniker $NODENAME \
-  --chain-id $CHAIN_ID --fees 250ukuji
+  --chain-id $KUJI_ID \
+  --fees 250ukuji
 ```
 
-## Güvenlik
-Anahtarlarınızı korumak için lütfen temel güvenlik kurallarına uyduğunuzdan emin olun.
 
-### Kimlik doğrulama için ssh anahtarlarını ayarlayın
-Sunucunuza kimlik doğrulaması için ssh anahtarlarının nasıl kurulacağına dair iyi bir eğitim [burada bulunabilir](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04)
-
-### Temel Güvenlik Duvarı güvenliği
-ufw'nin durumunu kontrol ederek başlayın.
-```
-sudo ufw status
-```
-
-Varsayılanı, giden bağlantılara izin verecek, ssh ve 26656 hariç tüm gelenleri reddedecek şekilde ayarlayın. SSH oturum açma girişimlerini sınırlayın.
-```
-sudo ufw default allow outgoing
-sudo ufw default deny incoming
-sudo ufw allow ssh/tcp
-sudo ufw limit ssh/tcp
-sudo ufw allow 26656,26660/tcp
-sudo ufw enable
-```
-
-## Şu anda bağlı olan eşler listesini kimlikleri ile alın
-```
-curl -sS http://localhost:26657/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}'
-```
 
 ## Kullanışlı Komutlar
 ### Servis Yönetimi
@@ -208,38 +157,38 @@ kujirad keys delete $WALLET
 
 Cüzdan Bakiyesi Sorgulama:
 ```
-kujirad query bank balances $WALLET_ADDRESS
+kujirad query bank balances $KUJI_WALLET_ADDRESS
 ```
 
 Cüzdandan Cüzdana Bakiye Transferi:
 ```
-kujirad tx bank send $WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ukuji
+kujirad tx bank send $KUJI_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ukuji
 ```
 
 ### Oylama
 ```
-kujirad tx gov vote 1 yes --from $WALLET --chain-id=$CHAIN_ID
+kujirad tx gov vote 1 yes --from $WALLET --chain-id=$KUJI_ID
 ```
 
 ### Stake, Delegasyon ve Ödüller
 Delegate İşlemi:
 ```
-kujirad tx staking delegate $VALOPER_ADDRESS 10000000ukuji --from=$WALLET --chain-id=$CHAIN_ID --gas=auto --fees 250ukuji
+kujirad tx staking delegate $KUJI_VALOPER_ADDRESS 10000000ukuji --from=$WALLET --chain-id=$KUJI_ID --gas=auto --fees 250ukuji
 ```
 
 Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
 ```
-kujirad tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ukuji --from=$WALLET --chain-id=$CHAIN_ID --gas=auto --fees 250ukuji
+kujirad tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ukuji --from=$WALLET --chain-id=$KUJI_ID --gas=auto --fees 250ukuji
 ```
 
 Tüm ödülleri çek:
 ```
-kujirad tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$CHAIN_ID --gas=auto --fees 250ukuji
+kujirad tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$KUJI_ID --gas=auto --fees 250ukuji
 ```
 
 Komisyon ile ödülleri geri çekin:
 ```
-kujirad tx distribution withdraw-rewards $VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$CHAIN_ID
+kujirad tx distribution withdraw-rewards $KUJI_VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$KUJI_ID
 ```
 
 ### Doğrulayıcı Yönetimi
@@ -247,7 +196,7 @@ Validatör İsmini Değiştir:
 ```
 seid tx staking edit-validator \
 --moniker=NEWNODENAME \
---chain-id=$CHAIN_ID \
+--chain-id=$KUJI_ID \
 --from=$WALLET
 ```
 
@@ -256,18 +205,18 @@ Hapisten Kurtul(Unjail):
 kujirad tx slashing unjail \
   --broadcast-mode=block \
   --from=$WALLET \
-  --chain-id=$CHAIN_ID \
+  --chain-id=$KUJI_ID \
   --gas=auto --fees 250ukuji
 ```
 
 
 Node Tamamen Silmek:
 ```
-sudo systemctl stop kujirad && \
-sudo systemctl disable kujirad && \
-rm /etc/systemd/system/kujirad.service && \
-sudo systemctl daemon-reload && \
-cd $HOME && \
-rm -rf .kujira kujira-core && \
-rm -rf $(which kujirad)
+sudo systemctl stop kujirad
+sudo systemctl disable kujirad
+sudo rm /etc/systemd/system/kujira* -rf
+sudo rm $(which kujirad) -rf
+sudo rm $HOME/.kujira* -rf
+sudo rm $HOME/core -rf
+sed -i '/KUJIRA_/d' ~/.bash_profile
 ```
