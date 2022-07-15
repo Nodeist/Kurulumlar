@@ -6,10 +6,10 @@
 
 
 <p align="center">
-  <img height="100" src="https://i.hizliresim.com/5oh0erz.png">
+  <img height="100" src="https://i.hizliresim.com/qa5txaz.png">
 </p>
 
-# Celestia Kurulum Rehberi
+# Stride Kurulum Rehberi
 ## Donanım Gereksinimleri
 Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
 
@@ -25,14 +25,14 @@ Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütev
  - 200 GB depolama (SSD veya NVME)
  - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
 
-## Celestia Full Node Kurulum Adımları
+## Stride Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Celestia fullnode'unuzu birkaç dakika içinde kurabilirsiniz. 
+Aşağıdaki otomatik komut dosyasını kullanarak Stride fullnode'unuzu birkaç dakika içinde kurabilirsiniz. 
 Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
 ```
-wget -O TIA.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Celestia/TIA && chmod +x TIA.sh && ./TIA.sh
+wget -O STRD.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Stride/STRD && chmod +x STRD.sh && ./STRD.sh
 ```
 
 ### Kurulum Sonrası Adımlar
@@ -40,58 +40,58 @@ wget -O TIA.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Celesti
 Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. 
 Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-celestia-appd status 2>&1 | jq .SyncInfo
+strided status 2>&1 | jq .SyncInfo
 ```
 
 ### Cüzdan Oluşturma
 Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
 ```
-celestia-appd keys add $TIA_WALLET
+strided keys add $STRD_WALLET
 ```
 
 (OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
 ```
-celestia-appd keys add $TIA_WALLET --recover
+strided keys add $STRD_WALLET --recover
 ```
 
 Mevcut cüzdan listesini almak için:
 ```
-celestia-appd keys list
+strided keys list
 ```
 
 ### Cüzdan Bilgilerini Kaydet
 Cüzdan Adresi Ekleyin:
 ```
-TIA_WALLET_ADDRESS=$(celestia-appd keys show $TIA_WALLET -a)
-TIA_VALOPER_ADDRESS=$(celestia-appd keys show $TIA_WALLET --bech val -a)
-echo 'export TIA_WALLET_ADDRESS='${TIA_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export TIA_VALOPER_ADDRESS='${TIA_VALOPER_ADDRESS} >> $HOME/.bash_profile
+STRD_WALLET_ADDRESS=$(strided keys show $STRD_WALLET -a)
+STRD_VALOPER_ADDRESS=$(strided keys show $STRD_WALLET --bech val -a)
+echo 'export STRD_WALLET_ADDRESS='${STRD_WALLET_ADDRESS} >> $HOME/.bash_profile
+echo 'export STRD_VALOPER_ADDRESS='${STRD_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
 
 ### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 tia'ye sahip olduğunuzdan (1 tia 1000000 utia'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+Doğrulayıcı oluşturmadan önce lütfen en az 1 strd'ye sahip olduğunuzdan (1 strd 1000000 ustrd'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
 
 Cüzdan bakiyenizi kontrol etmek için:
 ```
-celestia-appd query bank balances $TIA_WALLET_ADDRESS
+strided query bank balances $STRD_WALLET_ADDRESS
 ```
 > Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin. 
 
 Doğrulayıcı Oluşturma:
 ```
-celestia-appd tx staking create-validator \
-  --amount 1999000utia \
-  --from $TIA_WALLET \
+strided tx staking create-validator \
+  --amount 1999000ustrd \
+  --from $STRD_WALLET \
   --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
-  --pubkey  $(celestia-appd tendermint show-validator) \
+  --pubkey  $(strided tendermint show-validator) \
   --moniker $NODENAME \
-  --chain-id $TIA_ID \
-  --fees 250utia
+  --chain-id $STRD_ID \
+  --fees 250ustrd
 ```
 
 
@@ -100,123 +100,123 @@ celestia-appd tx staking create-validator \
 ### Servis Yönetimi
 Logları Kontrol Et:
 ```
-journalctl -fu celestia-appd -o cat
+journalctl -fu strided -o cat
 ```
 
 Servisi Başlat:
 ```
-systemctl start celestia-appd
+systemctl start strided
 ```
 
 Servisi Durdur:
 ```
-systemctl stop celestia-appd
+systemctl stop strided
 ```
 
 Servisi Yeniden Başlat:
 ```
-systemctl restart celestia-appd
+systemctl restart strided
 ```
 
 ### Node Bilgileri
 Senkronizasyon Bilgisi:
 ```
-celestia-appd status 2>&1 | jq .SyncInfo
+strided status 2>&1 | jq .SyncInfo
 ```
 
 Validator Bilgisi:
 ```
-celestia-appd status 2>&1 | jq .ValidatorInfo
+strided status 2>&1 | jq .ValidatorInfo
 ```
 
 Node Bilgisi:
 ```
-celestia-appd status 2>&1 | jq .NodeInfo
+strided status 2>&1 | jq .NodeInfo
 ```
 
 Node ID Göser:
 ```
-celestia-appd tendermint show-node-id
+strided tendermint show-node-id
 ```
 
 ### Cüzdan İşlemleri
 Cüzdanları Listele:
 ```
-celestia-appd keys list
+strided keys list
 ```
 
 Mnemonic kullanarak cüzdanı kurtar:
 ```
-celestia-appd keys add $TIA_WALLET --recover
+strided keys add $STRD_WALLET --recover
 ```
 
 Cüzdan Silme:
 ```
-celestia-appd keys delete $TIA_WALLET
+strided keys delete $STRD_WALLET
 ```
 
 Cüzdan Bakiyesi Sorgulama:
 ```
-celestia-appd query bank balances $TIA_WALLET_ADDRESS
+strided query bank balances $STRD_WALLET_ADDRESS
 ```
 
 Cüzdandan Cüzdana Bakiye Transferi:
 ```
-celestia-appd tx bank send $TIA_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000utia
+strided tx bank send $STRD_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ustrd
 ```
 
 ### Oylama
 ```
-celestia-appd tx gov vote 1 yes --from $TIA_WALLET --chain-id=$TIA_ID
+strided tx gov vote 1 yes --from $STRD_WALLET --chain-id=$STRD_ID
 ```
 
 ### Stake, Delegasyon ve Ödüller
 Delegate İşlemi:
 ```
-celestia-appd tx staking delegate $TIA_VALOPER_ADDRESS 10000000utia --from=$TIA_WALLET --chain-id=$TIA_ID --gas=auto --fees 250utia
+strided tx staking delegate $STRD_VALOPER_ADDRESS 10000000ustrd --from=$STRD_WALLET --chain-id=$STRD_ID --gas=auto --fees 250ustrd
 ```
 
 Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
 ```
-celestia-appd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000utia --from=$TIA_WALLET --chain-id=$TIA_ID --gas=auto --fees 250utia
+strided tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ustrd --from=$STRD_WALLET --chain-id=$STRD_ID --gas=auto --fees 250ustrd
 ```
 
 Tüm ödülleri çek:
 ```
-celestia-appd tx distribution withdraw-all-rewards --from=$TIA_WALLET --chain-id=$TIA_ID --gas=auto --fees 250utia
+strided tx distribution withdraw-all-rewards --from=$STRD_WALLET --chain-id=$STRD_ID --gas=auto --fees 250ustrd
 ```
 
 Komisyon ile ödülleri geri çekin:
 ```
-celestia-appd tx distribution withdraw-rewards $TIA_VALOPER_ADDRESS --from=$TIA_WALLET --commission --chain-id=$TIA_ID
+strided tx distribution withdraw-rewards $STRD_VALOPER_ADDRESS --from=$STRD_WALLET --commission --chain-id=$STRD_ID
 ```
 
 ### Doğrulayıcı Yönetimi
 Validatör İsmini Değiştir:
 ```
-celestia-appd tx staking edit-validator \
+strided tx staking edit-validator \
 --moniker=NEWNODENAME \
---chain-id=$TIA_ID \
---from=$TIA_WALLET
+--chain-id=$STRD_ID \
+--from=$STRD_WALLET
 ```
 
 Hapisten Kurtul(Unjail): 
 ```
-celestia-appd tx slashing unjail \
+strided tx slashing unjail \
   --broadcast-mode=block \
-  --from=$TIA_WALLET \
-  --chain-id=$TIA_ID \
-  --gas=auto --fees 250utia
+  --from=$STRD_WALLET \
+  --chain-id=$STRD_ID \
+  --gas=auto --fees 250ustrd
 ```
 
 
 Node Tamamen Silmek:
 ```
-sudo systemctl stop celestia-appd
-sudo systemctl disable celestia-appd
-sudo rm /etc/systemd/system/celestia-app* -rf
-sudo rm $(which celestia-appd) -rf
-sudo rm $HOME/.celestia-app* -rf
-sudo rm $HOME/core -rf
-sed -i '/TIA_/d' ~/.bash_profile
+sudo systemctl stop strided
+sudo systemctl disable strided
+sudo rm /etc/systemd/system/stride* -rf
+sudo rm $(which strided) -rf
+sudo rm $HOME/.stride* -rf
+sudo rm $HOME/stride -rf
+sed -i '/STRD_/d' ~/.bash_profile
 ```
