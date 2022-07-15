@@ -19,7 +19,7 @@ TIA_FOLDER=.celestia-app
 TIA_FOLDER2=celestia-app
 TIA_VER=v0.6.0
 TIA_REPO=https://github.com/celestiaorg/celestia-app.git
-TIA_GENESIS=
+TIA_GENESIS=https://raw.githubusercontent.com/celestiaorg/networks/master/mamaki/genesis.json
 TIA_ADDRBOOK=
 TIA_MIN_GAS=0
 TIA_DENOM=utia
@@ -99,7 +99,7 @@ $TIA config keyring-backend file
 $TIA init $TIA_NODENAME --chain-id $TIA_ID
 
 # ADDRBOOK ve GENESIS by Nodeist
-cp $HOME/networks/$TIA_ID/genesis.json $HOME/$TIA_FOLDER/config
+wget $TIA_GENESIS -O $HOME/$TIA_FOLDER/config/genesis.json
 wget $TIA_ADDRBOOK -O $HOME/$TIA_FOLDER/config/addrbook.json
 
 # EŞLER VE TOHUMLAR by Nodeist
