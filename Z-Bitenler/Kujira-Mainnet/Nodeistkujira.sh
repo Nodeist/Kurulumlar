@@ -15,7 +15,6 @@ KUJI=kujirad
 KUJI_ID=kaiyo-1
 KUJI_PORT=10
 KUJI_FOLDER=.kujira
-KUJI_FOLDER2=kujira
 KUJI_VER=v0.4.1
 KUJI_REPO=https://github.com/Team-Kujira/core.git
 KUJI_GENESIS=https://raw.githubusercontent.com/Team-Kujira/networks/master/mainnet/kaiyo-1.json
@@ -50,7 +49,7 @@ if [ ! $WALLET ]; then
 	echo "export WALLET=wallet" >> $HOME/.bash_profile
 fi
 
-echo '================================================='
+
 echo -e "NODE ISMINIZ: \e[1m\e[32m$NODENAME\e[0m"
 echo -e "CUZDAN ISMINIZ: \e[1m\e[32m$WALLET\e[0m"
 echo -e "CHAIN ISMI: \e[1m\e[32m$KUJI_ID\e[0m"
@@ -135,7 +134,7 @@ indexer="null" && \
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/$KUJI_FOLDER/config/config.toml
 
 # RESET by Nodeist
-$KUJI unsafe-reset-all --home $HOME/$KUJI_FOLDER
+$KUJI tendermint unsafe-reset-all --home $HOME/$KUJI_FOLDER
 
 echo -e "\e[1m\e[32m4. Servisler baslatiliyor... \e[0m" && sleep 1
 # create service
@@ -161,5 +160,5 @@ sudo systemctl enable $KUJI
 sudo systemctl restart $KUJI
 
 echo '=============== KURULUM TAMAM! by Nodeist ==================='
-echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -u $KUJI -f -o cat\e[0m'
+echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -fu $KUJI -o cat\e[0m'
 echo -e "SENKRONIZASYONU KONTROL ET: \e[1m\e[32mcurl -s localhost:${KUJI_PORT}657/status | jq .result.sync_info\e[0m"
