@@ -40,7 +40,7 @@ echo "export ANONE_GENESIS=${ANONE_GENESIS}" >> $HOME/.bash_profile
 echo "export ANONE_PEERS=${ANONE_PEERS}" >> $HOME/.bash_profile
 echo "export ANONE_SEED=${ANONE_SEED}" >> $HOME/.bash_profile
 echo "export ANONE_MIN_GAS=${ANONE_MIN_GAS}" >> $HOME/.bash_profile
-echo "export ANONE_MIN_GAS=${ANONE_DENOM}" >> $HOME/.bash_profile
+echo "export ANONE_DENOM=${ANONE_DENOM}" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 sleep 1
