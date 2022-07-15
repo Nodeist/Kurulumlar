@@ -89,7 +89,7 @@ celestia-appd tx staking create-validator \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
   --pubkey  $(celestia-appd tendermint show-validator) \
-  --moniker $NODENAME \
+  --moniker $TIA_NODENAME \
   --chain-id $TIA_ID \
   --fees 250utia
 ```
