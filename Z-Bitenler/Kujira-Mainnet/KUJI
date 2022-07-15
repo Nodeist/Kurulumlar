@@ -16,6 +16,7 @@ KUJI=kujirad
 KUJI_ID=kaiyo-1
 KUJI_PORT=34
 KUJI_FOLDER=.kujira
+KUJI_FOLDER2=core
 KUJI_VER=v0.4.1
 KUJI_REPO=https://github.com/Team-Kujira/core.git
 KUJI_GENESIS=https://raw.githubusercontent.com/Team-Kujira/networks/master/mainnet/kaiyo-1.json
@@ -32,6 +33,7 @@ echo "export KUJI=${KUJI}" >> $HOME/.bash_profile
 echo "export KUJI_ID=${KUJI_ID}" >> $HOME/.bash_profile
 echo "export KUJI_PORT=${KUJI_PORT}" >> $HOME/.bash_profile
 echo "export KUJI_FOLDER=${KUJI_FOLDER}" >> $HOME/.bash_profile
+echo "export KUJI_FOLDER2=${KUJI_FOLDER2}" >> $HOME/.bash_profile
 echo "export KUJI_VER=${KUJI_VER}" >> $HOME/.bash_profile
 echo "export KUJI_REPO=${KUJI_REPO}" >> $HOME/.bash_profile
 echo "export KUJI_GENESIS=${KUJI_GENESIS}" >> $HOME/.bash_profile
@@ -84,7 +86,7 @@ sleep 1
 echo -e "\e[1m\e[32m1. REPO YUKLENIYOR... \e[0m" && sleep 1
 cd $HOME
 git clone $KUJI_REPO
-cd core
+cd $KUJI_FOLDER2
 git checkout $KUJI_VER
 make install
 
