@@ -1,0 +1,35 @@
+# doğrulayıcı takma adı
+MONIKER="berkcaNode"
+
+# Doğrulayıcı adresiniz
+VALIDATOR_ADDRESS="XXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+# Log için proje adını giriniz.
+PROJECT="KUJIRA"
+
+# örnek: maksimum aktif doğrulayıcı grubu 200 ise, doğrulayıcınız 191. olduğunda bir alarm alırsınız, devre dışı bırakmak için 0'ı ayarlayın
+POSITION_ALARM="10"
+
+# jeton ismi
+TOKEN="ukuji"
+
+# null sayısı
+DENOM="1000000"
+
+# bin yolu
+COSMOS="/root/go/bin/kujirad"
+
+# yapılandırma klasörüne giden yol
+CONFIG="/root/.kujira/config/"
+
+# explorer API'sine bağlantı, curl.md'ye gidin ve durumunuz için bağlantıyı bulun
+CURL="https://kujira.api.explorers.guru/api/blocks/latest"
+
+# bildirim etkinleştirilmiş alarm mesajları için sohbet kimliği
+CHAT_ID_ALARM="1179521599"
+
+# günlük mesajları için sohbet kimliği
+CHAT_ID_STATUS="1179521599"
+
+# mesaj göndermek için bot jetonu
+BOT_TOKEN="5530737635:AAGfqe1OhvkufL9EVrlfvaBo9BlTUTAsNV8"
