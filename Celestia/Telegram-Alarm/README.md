@@ -9,7 +9,7 @@
 	<img height="100" src="https://i.hizliresim.com/5oh0erz.png">
 </p>
 
-# Celestia Kurulum Rehberi
+# Celestia Telegram Alarm Kurulum Rehberi
 Bu sistem sizi jail veya inaktif durum hakkında telegram üzerinden uyaracaktır. Ayrıca size her saat başı node durumunuz hakkında kısa bilgi gönderir.
 
 Talimatlar:
