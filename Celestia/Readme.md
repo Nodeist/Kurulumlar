@@ -194,7 +194,7 @@ celestia-appd tx distribution withdraw-rewards $TIA_VALOPER_ADDRESS --from=$TIA_
 ### Doğrulayıcı Yönetimi
 Validatör İsmini Değiştir:
 ```
-seid tx staking edit-validator \
+celestia-appd tx staking edit-validator \
 --moniker=NEWNODENAME \
 --chain-id=$TIA_ID \
 --from=$TIA_WALLET
