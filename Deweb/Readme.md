@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img height="100" src="https://i.hizliresim.com/5oh0erz.png">
+  <img height="100" src="https://i.hizliresim.com/kitpt1x.png">
 </p>
 
 # Deweb Kurulum Rehberi
