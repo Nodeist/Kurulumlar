@@ -88,7 +88,8 @@ cd $HOME
 git clone $QCK_REPO
 cd $QCK_FOLDER2
 git checkout $QCK_VER
-make install
+make build
+sudo chmod +x ./build/$QCK && sudo mv ./build/$QCK /usr/local/bin/$QCK
 
 sleep 1
 
@@ -159,8 +160,8 @@ EOF
 
 # SERVISLERI BASLAT by Nodeist
 sudo systemctl daemon-reload
-sudo systemctl enable kujirad
-sudo systemctl restart kujirad
+sudo systemctl enable $QCK
+sudo systemctl restart $QCK
 
 echo '=============== KURULUM TAMAM! by Nodeist ==================='
 echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -f $QCK\e[0m'
