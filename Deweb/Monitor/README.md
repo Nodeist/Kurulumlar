@@ -20,7 +20,7 @@ Kurulum sırasında sizden bir kaç bilgi istenecek. Bunlar:
 
 | ANAHTAR |DEĞER |
 |---------------|-------------|
-| **bond_denom** | Denom Degeri. Örneğin Deweb için `dws` |
+| **bond_denom** | Denom Degeri. Örneğin Deweb için `udws` |
 | **bench_prefix** | Bench Prefix Değeri. Örneğin Deweb için `deweb`. Bu değeri cüzdan adresinizden öğrenebilirsiniz. **deweb**1r5g0kes6jutsydez9qw2tx6vuc8scpxn5qtyle |
 | **adresport** | Adres Portu. Default 9090'dır. app.toml'dan kontrol edin |
 | **ladrport** | Laddr Portu. Default 26657'dir. config.toml'dan kontrol edin. |
