@@ -89,7 +89,7 @@ teritorid tx staking create-validator \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
   --pubkey  $(teritorid tendermint show-validator) \
-  --moniker $NODENAME \
+  --moniker $TT_NODENAME \
   --chain-id $TT_ID \
   --fees 250utori
 ```
