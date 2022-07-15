@@ -6,7 +6,7 @@
 
 
 <p align="center">
-  <img height="100" src="https://i.hizliresim.com/k3u6tzn.jpeg">
+  <img height="100" src="https://i.hizliresim.com/nro1l6b.jpeg">
 </p>
 
 # Uptick Kurulum Rehberi
