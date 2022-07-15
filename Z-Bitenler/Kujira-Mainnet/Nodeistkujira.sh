@@ -27,6 +27,7 @@ KUJI_PEERS=9813378d0dceb86e57018bfdfbade9d863f6f3c8@3.38.73.119:26656,ccffabe81f
 
 sleep 1
 
+echo "export KUJI_WALLET=${KUJI_WALLET}" >> $HOME/.bash_profile
 echo "export KUJI=${KUJI}" >> $HOME/.bash_profile
 echo "export KUJI_ID=${KUJI_ID}" >> $HOME/.bash_profile
 echo "export KUJI_PORT=${KUJI_PORT}" >> $HOME/.bash_profile
@@ -38,8 +39,6 @@ echo "export KUJI_PEERS=${KUJI_PEERS}" >> $HOME/.bash_profile
 echo "export KUJI_SEED=${KUJI_SEED}" >> $HOME/.bash_profile
 echo "export KUJI_MIN_GAS=${KUJI_MIN_GAS}" >> $HOME/.bash_profile
 echo "export KUJI_MIN_GAS=${KUJI_DENOM}" >> $HOME/.bash_profile
-echo "export KUJI_WALLET=${KUJI_WALLET}" >> $HOME/.bash_profile
-
 source $HOME/.bash_profile
 
 sleep 1
@@ -47,7 +46,7 @@ sleep 1
 if [ ! $NODENAME ]; then
 	read -p "NODE ISMI YAZINIZ: " NODENAME
 	echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
-
+fi
 
 echo -e "NODE ISMINIZ: \e[1m\e[32m$NODENAME\e[0m"
 echo -e "CUZDAN ISMINIZ: \e[1m\e[32m$WALLET\e[0m"
