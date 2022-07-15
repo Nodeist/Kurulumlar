@@ -86,7 +86,7 @@ sleep 1
 echo -e "\e[1m\e[32m1. REPO YUKLENIYOR... \e[0m" && sleep 1
 cd $HOME
 git clone $QCK_REPO
-cd core
+cd $QCK_FOLDER2
 git checkout $QCK_VER
 make install
 
