@@ -89,7 +89,7 @@ palomad tx staking create-validator \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
   --pubkey  $(palomad tendermint show-validator) \
-  --moniker $NODENAME \
+  --moniker $PLM_NODENAME \
   --chain-id $PLM_ID \
   --fees 250ugrain
 ```
