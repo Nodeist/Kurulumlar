@@ -89,7 +89,7 @@ Cardchain tx staking create-validator \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
   --pubkey  $(Cardchain tendermint show-validator) \
-  --moniker $NODENAME \
+  --moniker $CC_NODENAME \
   --chain-id $CC_ID \
   --fees 250ubpf
 ```
