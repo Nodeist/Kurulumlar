@@ -89,7 +89,7 @@ seid tx staking create-validator \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
   --pubkey  $(seid tendermint show-validator) \
-  --moniker $NODENAME \
+  --moniker $SEI_NODENAME \
   --chain-id $SEI_ID \
   --fees 250usei
 ```
