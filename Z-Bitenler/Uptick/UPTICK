@@ -1,0 +1,168 @@
+#!/bin/bash
+echo "=================================================="
+echo "   _  ______  ___  __________________";
+echo "  / |/ / __ \/ _ \/ __/  _/ __/_  __/";
+echo " /    / /_/ / // / _/_/ /_\ \  / /   ";
+echo "/_/|_/\____/____/___/___/___/ /_/    ";
+echo -e "\e[0m"
+echo "=================================================="                                     
+
+
+sleep 2
+
+# DEGISKENLER by Nodeist
+UPTICK_WALLET=wallet
+UPTICK=uptickd
+UPTICK_ID=uptick_7776-1
+UPTICK_PORT=40
+UPTICK_FOLDER=.uptickd
+UPTICK_FOLDER2=uptick
+UPTICK_VER=v0.2.0
+UPTICK_REPO=https://github.com/UptickNetwork/uptick.git
+UPTICK_GENESIS=https://raw.githubusercontent.com/UptickNetwork/uptick-testnet/main/uptick_7776-1/genesis.json
+UPTICK_ADDRBOOK=
+UPTICK_MIN_GAS=0
+UPTICK_DENOM=auptick
+UPTICK_SEEDS=7aad751eb956d65388f0cc37ab2ea179e2143e41@seed0.testnet.uptick.network:26656,7e6c759bcf03641c65659f1b9b2f05ec9de7391b@seed1.testnet.uptick.network:26656
+UPTICK_PEERS=f046ee3ead7e709b0fd6d5b30898e96959c1144d@peer0.testnet.uptick.network:26656,02ee3a0f3a2002d11c5eeb7aa813b64c59d6b60e@peer1.testnet.uptick.network:26656,51c2c58bba454c2fc7dcd6f6c32125c6b1ef3f87@161.97.130.125:26656,1f6f368a3e8973017cbb6b4878887b170fbef28c@78.46.108.181:26656,3c65d7e9dbf1e079cf73dad44c798c2057535f12@185.215.167.227:26656,6322143ca13c2e665a22007b156f6da03c5d5d96@89.163.218.107:26656
+sleep 1
+
+echo "export UPTICK_WALLET=${UPTICK_WALLET}" >> $HOME/.bash_profile
+echo "export UPTICK=${UPTICK}" >> $HOME/.bash_profile
+echo "export UPTICK_ID=${UPTICK_ID}" >> $HOME/.bash_profile
+echo "export UPTICK_PORT=${UPTICK_PORT}" >> $HOME/.bash_profile
+echo "export UPTICK_FOLDER=${UPTICK_FOLDER}" >> $HOME/.bash_profile
+echo "export UPTICK_FOLDER2=${UPTICK_FOLDER2}" >> $HOME/.bash_profile
+echo "export UPTICK_VER=${UPTICK_VER}" >> $HOME/.bash_profile
+echo "export UPTICK_REPO=${UPTICK_REPO}" >> $HOME/.bash_profile
+echo "export UPTICK_GENESIS=${UPTICK_GENESIS}" >> $HOME/.bash_profile
+echo "export UPTICK_PEERS=${UPTICK_PEERS}" >> $HOME/.bash_profile
+echo "export UPTICK_SEED=${UPTICK_SEED}" >> $HOME/.bash_profile
+echo "export UPTICK_MIN_GAS=${UPTICK_MIN_GAS}" >> $HOME/.bash_profile
+echo "export UPTICK_MIN_GAS=${UPTICK_DENOM}" >> $HOME/.bash_profile
+source $HOME/.bash_profile
+
+sleep 1
+
+if [ ! $NODENAME ]; then
+	read -p "NODE ISMI YAZINIZ: " NODENAME
+	echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
+fi
+
+echo -e "NODE ISMINIZ: \e[1m\e[32m$NODENAME\e[0m"
+echo -e "CUZDAN ISMINIZ: \e[1m\e[32m$WALLET\e[0m"
+echo -e "CHAIN ISMI: \e[1m\e[32m$UPTICK_ID\e[0m"
+echo -e "PORT NUMARANIZ: \e[1m\e[32m$UPTICK_PORT\e[0m"
+echo '================================================='
+
+sleep 2
+
+
+# GUNCELLEMELER by Nodeist
+echo -e "\e[1m\e[32m1. GUNCELLEMELER YUKLENIYOR... \e[0m" && sleep 1
+sudo apt update && sudo apt upgrade -y
+
+
+# GEREKLI PAKETLER by Nodeist
+echo -e "\e[1m\e[32m2. GEREKLILIKLER YUKLENIYOR... \e[0m" && sleep 1
+sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
+
+# GO KURULUMU by Nodeist
+echo -e "\e[1m\e[32m1. GO KURULUYOR... \e[0m" && sleep 1
+ver="1.18.2"
+cd $HOME
+wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
+rm "go$ver.linux-amd64.tar.gz"
+echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+source ~/.bash_profile
+go version
+
+sleep 1
+
+# KUTUPHANE KURULUMU by Nodeist
+echo -e "\e[1m\e[32m1. REPO YUKLENIYOR... \e[0m" && sleep 1
+cd $HOME
+git clone $UPTICK_REPO
+cd core
+git checkout $UPTICK_VER
+make install
+
+sleep 1
+
+# KONFIGURASYON by Nodeist
+echo -e "\e[1m\e[32m1. KONFIGURASYONLAR AYARLANIYOR... \e[0m" && sleep 1
+$UPTICK config chain-id $UPTICK_ID
+$UPTICK config keyring-backend file
+$UPTICK init $NODENAME --chain-id $UPTICK_ID
+
+# ADDRBOOK ve GENESIS by Nodeist
+wget $UPTICK_GENESIS -O $HOME/$UPTICK_FOLDER/config/genesis.json
+wget $UPTICK_ADDRBOOK -O $HOME/$UPTICK_FOLDER/config/addrbook.json
+
+# EŞLER VE TOHUMLAR by Nodeist
+SEEDS="$UPTICK_SEEDS"
+PEERS="$UPTICK_PEERS"
+sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/$UPTICK_FOLDER/config/config.toml
+
+sleep 1
+
+
+# config pruning
+pruning="custom"
+pruning_keep_recent="100"
+pruning_keep_every="0"
+pruning_interval="50"
+sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/$UPTICK_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/$UPTICK_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/$UPTICK_FOLDER/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$UPTICK_FOLDER/config/app.toml
+
+
+# ÖZELLEŞTİRİLMİŞ PORTLAR by Nodeist
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${UPTICK_PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${UPTICK_PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${UPTICK_PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${UPTICK_PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${UPTICK_PORT}660\"%" $HOME/$UPTICK_FOLDER/config/config.toml
+sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${UPTICK_PORT}317\"%; s%^address = \":8080\"%address = \":${UPTICK_PORT}080\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${UPTICK_PORT}090\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${UPTICK_PORT}091\"%" $HOME/$UPTICK_FOLDER/config/app.toml
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:${UPTICK_PORT}657\"%" $HOME/$UPTICK_FOLDER/config/client.toml
+
+# PROMETHEUS AKTIVASYON by Nodeist
+sed -i -e "s/prometheus = false/prometheus = true/" $HOME/$UPTICK_FOLDER/config/config.toml
+
+# MINIMUM GAS AYARI by Nodeist
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.00125$UPTICK_DENOM\"/" $HOME/$UPTICK_FOLDER/config/app.toml
+
+# INDEXER AYARI by Nodeist
+indexer="null" && \
+sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/$UPTICK_FOLDER/config/config.toml
+
+# RESET by Nodeist
+$UPTICK tendermint unsafe-reset-all --home $HOME/$UPTICK_FOLDER
+
+echo -e "\e[1m\e[32m4. SERVIS BASLATILIYOR... \e[0m" && sleep 1
+# create service
+sudo tee /etc/systemd/system/$UPTICK.service > /dev/null <<EOF
+[Unit]
+Description=$UPTICK
+After=network.target
+[Service]
+Type=simple
+User=$USER
+ExecStart=$(which $UPTICK) start
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=65535
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+# SERVISLERI BASLAT by Nodeist
+sudo systemctl daemon-reload
+sudo systemctl enable kujirad
+sudo systemctl restart kujirad
+
+echo '=============== KURULUM TAMAM! by Nodeist ==================='
+echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -f $UPTICK\e[0m'
+echo -e "SENKRONIZASYONU KONTROL ET: \e[1m\e[32mcurl -s localhost:${UPTICK_PORT}657/status | jq .result.sync_info\e[0m"
+
+source $HOME/.bash_profile
