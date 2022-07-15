@@ -91,9 +91,9 @@ make install
 sleep 1
 
 # KONFIGURASYON by Nodeist
-kujirad config chain-id $KUJI_ID
-kujirad config keyring-backend file
-kujirad init $NODENAME --chain-id $KUJI_ID
+$KUJI config chain-id $KUJI_ID
+$KUJI config keyring-backend file
+$KUJI init $NODENAME --chain-id $KUJI_ID
 
 # ADDRBOOK ve GENESIS by Nodeist
 wget $KUJI_GENESIS -O $HOME/$KUJI_FOLDER/config/genesis.json
@@ -121,7 +121,7 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 # ÖZELLEŞTİRİLMİŞ PORTLAR by Nodeist
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${KUJI_PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${KUJI_PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${KUJI_PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${KUJI_PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${KUJI_PORT}660\"%" $HOME/$KUJI_FOLDER/config/config.toml
 sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${KUJI_PORT}317\"%; s%^address = \":8080\"%address = \":${KUJI_PORT}080\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${KUJI_PORT}090\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${KUJI_PORT}091\"%" $HOME/$KUJI_FOLDER/config/app.toml
-
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:${KUJI_PORT}657\"%" $HOME/$KUJI_FOLDER/config/client.toml
 
 # PROMETHEUS AKTIVASYON by Nodeist
 sed -i -e "s/prometheus = false/prometheus = true/" $HOME/$KUJI_FOLDER/config/config.toml
@@ -134,7 +134,7 @@ indexer="null" && \
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/$KUJI_FOLDER/config/config.toml
 
 # RESET by Nodeist
-kujirad tendermint unsafe-reset-all --home $HOME/$KUJI_FOLDER
+$KUJI tendermint unsafe-reset-all --home $HOME/$KUJI_FOLDER
 
 echo -e "\e[1m\e[32m4. Servisler baslatiliyor... \e[0m" && sleep 1
 # create service
