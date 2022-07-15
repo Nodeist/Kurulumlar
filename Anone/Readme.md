@@ -1,52 +1,57 @@
- <p style="font-size:14px" align="right">
-Sağ üst köşeden forklamayı ve yıldız vermeyi unutmayın ;) <br> <img src="https://i.hizliresim.com/njbmdlb.png"/></p>
-<p style="font-size:14px" align="center">
-<b>Bu sayfa, çeşitli kripto proje sunucularının nasıl çalıştırılacağına ilişkin eğitimler içerir. </b><br><br>
-<a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="64"/></a> <br>Telegrama Katıl. <br>
-<a href="https://nodeist.net/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="64"/></a> <br>Websitemizi Ziyaret et. 
+<p style="font-size:14px" align="right">
+ <a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="30"/></a><br>Telegrama Katıl<br>
+<a href="https://nodeist.site/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="30"/></a><br> Websitemizi Ziyaret Et 
 </p>
 
-# Anone Node Kurulumu — anone-testnet-1
 
 
-Gezgin:
->-  https://anone.explorers.guru/
+<p align="center">
+  <img height="100" src="https://i.hizliresim.com/cdpen5h.png">
+</p>
 
+# Another-1 Kurulum Rehberi
 ## Donanım Gereksinimleri
-- Bellek: 8 GB RAM
-- CPU: Dört Çekirdekli
-- Disk: 250 GB SSD Depolama
-- Bant Genişliği: İndirme için 1 Gbps/Yükleme için 100 Mbps
+Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
+
+### Minimum Donanım Gereksinimleri
+ - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
+ - 4GB RAM
+ - 80GB Disk
+ - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
+
+### Önerilen Donanım Gereksinimleri
+ - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
+ - 8GB RAM
+ - 200 GB depolama (SSD veya NVME)
+ - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
 
 ## Anone Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak defund fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Doğrulayıcı düğüm adınızı(NODE NAME) girmenizi isteyecektir!
+Aşağıdaki otomatik komut dosyasını kullanarak Anone fullnode'unuzu birkaç dakika içinde kurabilirsiniz. 
+Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
 ```
-wget -O Nodeistanone.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Anone/Nodeistanone.sh && chmod +x Nodeistanone.sh && ./Nodeistanone.sh
+wget -O ANONE.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Anone/ANONE && chmod +x ANONE.sh && ./ANONE.sh
 ```
 
 ### Kurulum Sonrası Adımlar
-Kurulum bittiğinde lütfen değişkenleri sisteme yükleyin:
-```
-source $HOME/.bash_profile
-```
 
-Ardından, doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
+Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. 
+Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
 anoned status 2>&1 | jq .SyncInfo
 ```
 
 ### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı(mnemonic) kaydetmeyi unutmayın.
+Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
 ```
-anoned keys add $WALLET
+anoned keys add $ANONE_WALLET
 ```
 
-(İSTEĞE BAĞLI) Cüzdanınızı hatırlatıcı(mnemonic) kullanarak kurtarmak için:
+(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
 ```
-anoned keys add $WALLET --recover
+anoned keys add $ANONE_WALLET --recover
 ```
 
 Mevcut cüzdan listesini almak için:
@@ -57,81 +62,39 @@ anoned keys list
 ### Cüzdan Bilgilerini Kaydet
 Cüzdan Adresi Ekleyin:
 ```
-WALLET_ADDRESS=$(anoned keys show $WALLET -a)
-```
-
-Valoper Adresi Ekleyin:
-```
-VALOPER_ADDRESS=$(anoned keys show $WALLET --bech val -a)
-```
-
-Değişkenleri sisteme yükleyin:
-```
-echo 'export WALLET_ADDRESS='${WALLET_ADDRESS} >> $HOME/.bash_profile
-
-echo 'export VALOPER_ADDRESS='${VALOPER_ADDRESS} >> $HOME/.bash_profile
-
+ANONE_WALLET_ADDRESS=$(anoned keys show $ANONE_WALLET -a)
+ANONE_VALOPER_ADDRESS=$(anoned keys show $ANONE_WALLET --bech val -a)
+echo 'export ANONE_WALLET_ADDRESS='${ANONE_WALLET_ADDRESS} >> $HOME/.bash_profile
+echo 'export ANONE_VALOPER_ADDRESS='${ANONE_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
 
 ### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 anl'ye sahip olduğunuzdan (1 anl 1000000 uanl'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+Doğrulayıcı oluşturmadan önce lütfen en az 1 an1'ye sahip olduğunuzdan (1 an1 1000000 uan1'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
 
 Cüzdan bakiyenizi kontrol etmek için:
 ```
-anoned query bank balances $WALLET_ADDRESS
+anoned query bank balances $ANONE_WALLET_ADDRESS
 ```
 > Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin. 
 
-Doğrulayıcıyı çalıştırma komutunu yazalım:
+Doğrulayıcı Oluşturma:
 ```
 anoned tx staking create-validator \
-  --amount 1000000uanl \
-  --from $WALLET \
+  --amount 1000000uan1 \
+  --from $ANONE_WALLET \
   --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
   --pubkey  $(anoned tendermint show-validator) \
   --moniker $NODENAME \
-  --chain-id $CHAIN_ID
+  --chain-id $ANONE_ID \
+  --fees 250uan1
 ```
 
-## Güvenlik
-Anahtarlarınızı korumak için lütfen temel güvenlik kurallarına uyduğunuzdan emin olun.
 
-### Kimlik doğrulama için ssh anahtarlarını ayarlayın
-Sunucunuza kimlik doğrulaması için ssh anahtarlarının nasıl kurulacağına dair iyi bir eğitim [burada bulunabilir](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04)
-
-### Temel Güvenlik Duvarı güvenliği
-ufw'nin durumunu kontrol ederek başlayın.
-```
-sudo ufw status
-```
-
-Varsayılanı, giden bağlantılara izin verecek, ssh ve 26656 hariç tüm gelenleri reddedecek şekilde ayarlayın. SSH oturum açma girişimlerini sınırlayın.
-```
-sudo ufw default allow outgoing
-sudo ufw default deny incoming
-sudo ufw allow ssh/tcp
-sudo ufw limit ssh/tcp
-sudo ufw allow 26656,26660/tcp
-sudo ufw enable
-```
-
-## Senkronizasyon süresini hesaplayın
-
-Bu komut dosyası, düğümünüzü tam olarak senkronize etmenin ne kadar zaman alacağını tahmin etmenize yardımcı olacaktır. 
-5 dakikalık bir süre boyunca senkronize edilen dakika başına ortalama blokları ölçer ve ardından size sonuçlar verir.
-```
-wget -O senkronizesurehesapla.py https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/Defund/senkronizesurehesapla.py && python3 ./senkronizesurehesapla.py
-```
-
-## Şu anda bağlı olan eşler listesini kimlikleri ile alın
-```
-curl -sS http://localhost:26657/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}'
-```
 
 ## Kullanışlı Komutlar
 ### Servis Yönetimi
@@ -184,75 +147,76 @@ anoned keys list
 
 Mnemonic kullanarak cüzdanı kurtar:
 ```
-anoned keys add $WALLET --recover
+anoned keys add $ANONE_WALLET --recover
 ```
 
 Cüzdan Silme:
 ```
-anoned keys delete $WALLET
+anoned keys delete $ANONE_WALLET
 ```
 
 Cüzdan Bakiyesi Sorgulama:
 ```
-anoned query bank balances $WALLET_ADDRESS
+anoned query bank balances $ANONE_WALLET_ADDRESS
 ```
 
 Cüzdandan Cüzdana Bakiye Transferi:
 ```
-anoned tx bank send $WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000uanl
+anoned tx bank send $ANONE_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000uan1
 ```
 
 ### Oylama
 ```
-anoned tx gov vote 1 yes --from $WALLET --chain-id=$CHAIN_ID
+anoned tx gov vote 1 yes --from $ANONE_WALLET --chain-id=$ANONE_ID
 ```
 
 ### Stake, Delegasyon ve Ödüller
 Delegate İşlemi:
 ```
-anoned tx staking delegate $VALOPER_ADDRESS 10000000uanl --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+anoned tx staking delegate $ANONE_VALOPER_ADDRESS 10000000uan1 --from=$ANONE_WALLET --chain-id=$ANONE_ID --gas=auto --fees 250uan1
 ```
 
 Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
 ```
-anoned tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000uanl --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+anoned tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000uan1 --from=$ANONE_WALLET --chain-id=$ANONE_ID --gas=auto --fees 250uan1
 ```
 
 Tüm ödülleri çek:
 ```
-anoned tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$CHAIN_ID --gas=auto
+anoned tx distribution withdraw-all-rewards --from=$ANONE_WALLET --chain-id=$ANONE_ID --gas=auto --fees 250uan1
 ```
 
 Komisyon ile ödülleri geri çekin:
 ```
-anoned tx distribution withdraw-rewards $VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$CHAIN_ID
+anoned tx distribution withdraw-rewards $ANONE_VALOPER_ADDRESS --from=$ANONE_WALLET --commission --chain-id=$ANONE_ID
 ```
 
 ### Doğrulayıcı Yönetimi
 Validatör İsmini Değiştir:
 ```
-seid tx staking edit-validator \
+anoned tx staking edit-validator \
 --moniker=NEWNODENAME \
---chain-id=$CHAIN_ID \
---from=$WALLET
+--chain-id=$ANONE_ID \
+--from=$ANONE_WALLET
 ```
 
 Hapisten Kurtul(Unjail): 
 ```
 anoned tx slashing unjail \
   --broadcast-mode=block \
-  --from=$WALLET \
-  --chain-id=$CHAIN_ID \
-  --gas=auto
+  --from=$ANONE_WALLET \
+  --chain-id=$ANONE_ID \
+  --gas=auto --fees 250uan1
 ```
+
 
 Node Tamamen Silmek:
 ```
-sudo systemctl stop anoned && \
-sudo systemctl disable anoned && \
-rm /etc/systemd/system/anoned.service && \
-sudo systemctl daemon-reload && \
-cd $HOME && \
-rm -rf .anone defund && \
-rm -rf $(which anoned)
+sudo systemctl stop anoned
+sudo systemctl disable anoned
+sudo rm /etc/systemd/system/anone* -rf
+sudo rm $(which anoned) -rf
+sudo rm $HOME/.anone* -rf
+sudo rm $HOME/anone -rf
+sed -i '/ANONE_/d' ~/.bash_profile
 ```
