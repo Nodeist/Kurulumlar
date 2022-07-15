@@ -85,7 +85,7 @@ quicksilverd tx staking create-validator \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
   --pubkey  $(quicksilverd tendermint show-validator) \
-  --moniker $NODENAME \
+  --moniker $QCK_NODENAME \
   --chain-id $QCK_ID \
   --fees 250uqck
 ```
