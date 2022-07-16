@@ -192,7 +192,7 @@ Withdraw rewards with commission:
 Cardchain tx distribution withdraw-rewards $CC_VALOPER_ADDRESS --from=$CC_WALLET --commission --chain-id=$CC_ID
 ```
 
-### Verifier Management
+### Validator Management
 Change Validator Name:
 ```
 Cardchain tx staking edit-validator \
