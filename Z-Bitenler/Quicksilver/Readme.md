@@ -7,6 +7,7 @@
 <p align="center">
   <img height="100" src="https://i.hizliresim.com/k29umk7.png">
 </p>
+
 # Quicksilver Kurulum Rehberi
 ## Donanım Gereksinimleri
 Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
