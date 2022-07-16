@@ -33,7 +33,7 @@ Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
 ```
-wget -O KUJI.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Z-Bitenler/Kujira-Mainnet/KUJI && chmod +x KUJI.sh && ./KUJI.sh
+https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Z-Bitenler/Kujira-Mainnet/KUJI
 ```
 
 ### Kurulum Sonrası Adımlar
