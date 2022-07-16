@@ -192,7 +192,7 @@ Withdraw rewards with commission:
 celestia-appd tx distribution withdraw-rewards $TIA_VALOPER_ADDRESS --from=$TIA_WALLET --commission --chain-id=$TIA_ID
 ```
 
-### Verifier Management
+### Validator Management
 Change Validator Name:
 ```
 celestia-appd tx staking edit-validator \
