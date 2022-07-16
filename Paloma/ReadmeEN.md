@@ -192,7 +192,7 @@ Withdraw rewards with commission:
 palomad tx distribution withdraw-rewards $PLM_VALOPER_ADDRESS --from=$PLM_WALLET --commission --chain-id=$PLM_ID
 ```
 
-### Verifier Management
+### Validator Management
 Change Validator Name:
 ```
 palomad tx staking edit-validator \
