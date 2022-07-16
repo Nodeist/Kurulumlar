@@ -192,7 +192,7 @@ Withdraw rewards with commission:
 anoned tx distribution withdraw-rewards $ANONE_VALOPER_ADDRESS --from=$ANONE_WALLET --commission --chain-id=$ANONE_ID
 ```
 
-### Verifier Management
+### Validator Management
 Change Validator Name:
 ```
 anoned tx staking edit-validator \
