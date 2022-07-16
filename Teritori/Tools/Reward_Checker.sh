@@ -27,7 +27,7 @@ rewards=$(teritorid query distribution rewards $(teritorid keys show $wallet -a)
 	
 	echo "Checking validator commission..."
 	
-	commission=$(teritorid query distribution commission $(strteritoridided keys show $wallet --bech val -a) -o json | jq '.commission | to_entries' | jq -r ".[] | select(.value.denom == \"utori\") | .value.amount")
+	commission=$(teritorid query distribution commission $(teritorid keys show $wallet --bech val -a) -o json | jq '.commission | to_entries' | jq -r ".[] | select(.value.denom == \"utori\") | .value.amount")
 		if [[ -n "$commission" ]]; then
 			commission_quick=$(echo "$commission / 1000000" | bc)
 			
