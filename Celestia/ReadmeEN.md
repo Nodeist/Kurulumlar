@@ -8,7 +8,7 @@
 
 
 <p align="center">
-  <img height="100" src="https://i.hizliresim.com/cdpen5h.png">
+  <img height="100" src="https://i.hizliresim.com/5oh0erz.png">
 </p>
 
 # Celestia Installation Guide
