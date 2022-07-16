@@ -211,9 +211,9 @@ celestia-appd tx slashing unjail \
 ```
 sudo systemctl stop celestia-appd
 sudo systemctl disable celestia-appd
-sudo rm /etc/systemd/system/anone* -rf
+sudo rm /etc/systemd/system/celestia-app* -rf
 sudo rm $(which celestia-appd) -rf
-sudo rm $HOME/.anone* -rf
-sudo rm $HOME/anone -rf
+sudo rm $HOME/.celestia-app* -rf
+sudo rm $HOME/core -rf
 sed -i '/TIA_/d' ~/.bash_profile
 ```
