@@ -32,7 +32,7 @@ Talimatlar:
 7. Status klasörünüzün içine girip, ayarlarınızı görmek için `bash cosmos.sh` komutunu çalıştırın. Her şey doğru ise çıktı aşağıdaki gibi veya benzer olmalıdır: 
 
 ```
-root@v1131623:~/status# bash cosmos.sh 
+root@Nodeist:~/status# bash cosmos.sh 
  
 /// 2022-05-21 14:16:44 ///
  
@@ -49,8 +49,21 @@ sync >>> 512287/512287.
 place >> 47/100.
 stake >> 118.12 fis.
 
-root@v1131623:~/status# 
+root@Nodeist:~/status# 
 ```
+
+8. `slash.sh` dosyamızı oluşturalım; `nano $HOME/status/slash.sh` .
+> Bu depoda `slash.sh.ornek` dosyasını bulabilirsiniz.
+9. Bazı kurallar ekleyin; `chmod u+x cosmos.sh slash.sh`.
+10. Crontab'ı düzenleyin (1 numaralı seçeneği seçiyoruz); `crontab -e`.
+> Bu depoda `crontab.ornek` dosyasını bulabilirsiniz.
+11. Günlüklerinizi `cat $HOME/status/cosmos.log` veya `tail $HOME/status/cosmos.log -f` ile kontrol edebilirsiniz.
+
+
+## Referans Listesi
+Bu projede kullanılan kaynaklar:
+- Status [By Cyberomanov](https://github.com/cyberomanov)
+
 
 8. `slash.sh` dosyamızı oluşturalım; `nano $HOME/status/slash.sh` .
 > Bu depoda `slash.sh.ornek` dosyasını bulabilirsiniz.
