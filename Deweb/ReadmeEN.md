@@ -192,7 +192,7 @@ Withdraw rewards with commission:
 dewebd tx distribution withdraw-rewards $DWS_VALOPER_ADDRESS --from=$DWS_WALLET --commission --chain-id=$DWS_ID
 ```
 
-### Verifier Management
+### Validator Management
 Change Validator Name:
 ```
 dewebd tx staking edit-validator \
