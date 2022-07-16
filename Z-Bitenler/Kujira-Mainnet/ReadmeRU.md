@@ -33,7 +33,7 @@
 Вам будет предложено ввести имя вашего узла (NODENAME) во время скрипта!
 
 ```
-wget -O KUJI.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Kujira/KUJI && chmod +x KUJI.sh && ./KUJI.sh
+https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Z-Bitenler/Kujira-Mainnet/KUJI
 ```
 ### Действия после установки
 
