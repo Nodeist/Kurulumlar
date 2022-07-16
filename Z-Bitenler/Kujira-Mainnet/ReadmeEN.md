@@ -33,7 +33,7 @@ You can set up your Kujira fullnode in a few minutes using the automated script 
 You will be asked for your node name (NODENAME) during the script!
 
 ```
-wget -O KUJI.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Kujira/KUJI && chmod +x KUJI.sh && ./KUJI.sh
+https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Z-Bitenler/Kujira-Mainnet/KUJI
 ```
 
 ### Post-Installation Steps
