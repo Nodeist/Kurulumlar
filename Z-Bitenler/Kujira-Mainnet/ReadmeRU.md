@@ -8,212 +8,60 @@
 
 
 <p align="center">
-<img height="100" src="https://i.hizliresim.com/hb4a5iv.png">
+  <img height="100" src="https://i.hizliresim.com/hb4a5iv.png">
 </p>
 
-# Kujira Руководство по установке
-## Аппаратные требования
-Как и у любой цепочки Cosmos-SDK, требования к оборудованию довольно скромные.
 
-### Минимальные аппаратные требования
-  - 3x ЦП; чем выше тактовая частота, тем лучше
-  - 4 ГБ ОЗУ
-  - 80 ГБ Диск
-  - Постоянное подключение к Интернету (трафик будет не менее 10 Мбит / с во время тестовой сети - ожидается не менее 100 Мбит / с для производства)
+# Kujira Telegram Alarm Установка Руководство
+Эта система предупредит вас о тюрьме или неактивном статусе через телеграмму. Он также отправляет вам краткую информацию о состоянии вашего узла каждый час.
 
-### Рекомендуемые аппаратные требования
-  - 4x ЦП; чем выше тактовая частота, тем лучше
-  - 8 ГБ ОЗУ
-  - 200 ГБ памяти (SSD или NVME)
-  - Постоянное подключение к Интернету (трафик будет не менее 10 Мбит / с во время тестовой сети - ожидается не менее 100 Мбит / с для производства)
+Инструкции:
 
-## Этапы установки Kujira Full Node
-### Автоматическая установка с помощью одного скрипта
-Вы можете настроить полную ноду Kujira за несколько минут, используя приведенный ниже автоматизированный скрипт.
-Вам будет предложено ввести имя вашего узла (NODENAME) во время скрипта!
+1. Создайте бота телеграммы с помощью `@BotFather`, настройте его и `получите токен API бота` ([если вы не знаете, как](https://www.siteguarding.com/en/how-to-get-telegram-bot-api-token)).
 
-```
-wget -O KUJI.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Z-Bitenler/Kujira-Mainnet/KUJI && chmod +x KUJI.sh && ./KUJI.sh
-```
-### Действия после установки
+2. Создайте как минимум 2 группы: `alarm` и `log` (вы можете использовать одного и того же телеграмм-бота для будильника и лога, если хотите). Настройте их, добавьте своего бота в свои чаты и `получите идентификаторы чатов` ([если вы не знаете, как](https://stackoverflow.com/questions/32423837/telegram-bot-how-to-get-a-group-chat-id)) .
 
-Вы должны убедиться, что ваш валидатор синхронизирует блоки.
-Вы можете использовать следующую команду для проверки состояния синхронизации.
-```
-kujirad status 2>&1 | jq .SyncInfo
-```
+3. Подключитесь к вашему серверу и создайте папку `status` с `mkdir $HOME/status/`.
 
-### Создание кошелька
-Вы можете использовать следующую команду для создания нового кошелька. Не забудьте сохранить напоминание (мнемонику).
-```
-kujirad keys add $KUJI_WALLET
-```
+4. Вам необходимо создать файл `cosmos.sh` в этой папке; `nano $HOME/status/cosmos.sh`. Никаких изменений вносить не нужно, файл `cosmos.sh` готов к использованию.
+> Вы можете найти файл `cosmos.sh` в этом репозитории.
 
-(НЕОБЯЗАТЕЛЬНО) Чтобы восстановить кошелек с помощью мнемоники:
-```
-kujirad keys add $KUJI_WALLET --recover
-```
+5. Нам нужен файл `cosmos.conf` для определения информации о нашем узле; `nano $HOME/status/cosmos.conf` . Настройте информацию в файле.
+> Вы можете найти файлы `cosmos.conf.ornek` и `curl.md` в этом репозитории.
 
-Чтобы получить текущий список кошельков:
-```
-kujirad keys list
-```
-### Сохранить информацию о кошельке
-Добавить адрес кошелька:
-```
-KUJI_WALLET_ADDRESS=$(kujirad keys show $KUJI_WALLET -a)
-KUJI_VALOPER_ADDRESS=$(kujirad keys show $KUJI_WALLET --bech val -a)
-echo 'export KUJI_WALLET_ADDRESS='${KUJI_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export KUJI_VALOPER_ADDRESS='${KUJI_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
-```
+6. Установите пакеты `jq` и `bc`; `sudo apt-get install jq bc -y`.
 
+7. Перейдите в папку «status» и запустите команду «bash Cosmos.sh», чтобы увидеть свои настройки. Если все правильно, вывод должен быть следующим или подобным:
+```
+root@Nodeist:~/status# bash cosmos.sh 
+ 
+/// 2022-05-21 14:16:44 ///
+ 
+pylons-testnet-3
 
-### Создать валидатор
-Перед созданием валидатора убедитесь, что у вас есть как минимум 1 kuji (1 kuji равен 1000000 ukuji) и ваш узел синхронизирован.
-Чтобы проверить баланс кошелька:
-```
-kujirad query bank balances $KUJI_WALLET_ADDRESS
-```
-> Если вы не видите свой баланс в кошельке, скорее всего, ваш узел все еще синхронизируется. Подождите, пока синхронизация завершится, а затем продолжите.
+sync >>> 373010/373010.
+jailed > true.
+ 
+/// 2022-05-21 14:16:48 ///
+ 
+stafihub-public-testnet-2
 
-Создание валидатора:
-```
-kujirad tx staking create-validator \
-  --amount 1000000ukuji \
-  --from $KUJI_WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(kujirad tendermint show-validator) \
-  --moniker $KUJI_NODENAME \
-  --chain-id $KUJI_ID \
-  --fees 250ukuji
-```
+sync >>> 512287/512287.
+place >> 47/100.
+stake >> 118.12 fis.
 
+root@Nodeist:~/status# 
+```
+8. Давайте создадим наш файл `slash.sh`; `nano $HOME/status/slash.sh` .
+> Вы можете найти файл `slash.sh.ornek` в этом репозитории.
 
-## Полезные команды
-### Управление услугами
-Проверить журналы:
-```
-journalctl -fu kujirad -o cat
-```
+9. Добавьте несколько правил; `chmod u+x cosmos.sh slash.sh`.
 
-Запустить службу:
-```
-systemctl start kujirad
-```
+10. Редактируем кронтаб (выбираем вариант №1); `crontab-е`.
+> Вы можете найти файл `crontab.ornek` в этом репозитории.
 
-Остановить службу:
-```
-systemctl stop kujirad
-```
+12. Вы можете проверить свои журналы с помощью `cat $HOME/status/cosmos.log` или `tail $HOME/status/cosmos.log -f`.
 
-Перезапустить службу:
-```
-systemctl restart kujirad
-```
-
-### Информация об узле
-Информация о синхронизации:
-```
-kujirad status 2>&1 | jq .SyncInfo
-```
-
-Информация о валидаторе:
-```
-kujirad status 2>&1 | jq .ValidatorInfo
-```
-
-Информация об узле:
-```
-kujirad status 2>&1 | jq .NodeInfo
-```
-
-Показать идентификатор узла:
-```
-kujirad tendermint show-node-id
-```
-
-### Транзакции кошелька
-Список кошельков:
-```
-kujirad keys list
-```
-
-Восстановить кошелек с помощью Mnemonic:
-```
-kujirad keys add $KUJI_WALLET --recover
-```
-
-Удаление кошелька:
-```
-kujirad keys delete $KUJI_WALLET
-```
-
-Запрос баланса кошелька:
-```
-kujirad query bank balances $KUJI_WALLET_ADDRESS
-```
-
-Перевод баланса с кошелька на кошелек:
-```
-kujirad tx bank send $KUJI_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ukuji
-```
-
-### Голосование
-```
-kujirad tx gov vote 1 yes --from $KUJI_WALLET --chain-id=$KUJI_ID
-```
-
-### Ставка, делегирование и вознаграждение
-Процесс делегирования:
-```
-kujirad tx staking delegate $KUJI_VALOPER_ADDRESS 10000000ukuji --from=$KUJI_WALLET --chain-id=$KUJI_ID --gas=auto --fees 250ukuji
-```
-
-Повторно передать долю от валидатора другому валидатору:
-```
-kujirad tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ukuji --from=$KUJI_WALLET --chain-id=$KUJI_ID --gas=auto --fees 250ukuji
-```
-
-Вывести все награды:
-```
-kujirad tx distribution withdraw-all-rewards --from=$KUJI_WALLET --chain-id=$KUJI_ID --gas=auto --fees 250ukuji
-```
-
-Вывод вознаграждений с комиссией:
-```
-kujirad tx distribution withdraw-rewards $KUJI_VALOPER_ADDRESS --from=$KUJI_WALLET --commission --chain-id=$KUJI_ID
-```
-
-### Управление верификатором
-Изменить имя валидатора:
-```
-kujirad tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$KUJI_ID \
---from=$KUJI_WALLET
-```
-
-Выйти из тюрьмы (Unjail):
-```
-kujirad tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$KUJI_WALLET \
-  --chain-id=$KUJI_ID \
-  --gas=auto --fees 250ukuji
-```
-
-
-Чтобы полностью удалить узел:
-```
-sudo systemctl stop kujirad
-sudo systemctl disable kujirad
-sudo rm /etc/systemd/system/kujira* -rf
-sudo rm $(which kujirad) -rf
-sudo rm $HOME/.kujira* -rf
-sudo rm $HOME/core -rf
-sed -i '/KUJI_/d' ~/.bash_profile
-```
+## Справочный список
+Ресурсы, используемые в этом проекте:
+- Статус [by Cyberomanov](https://github.com/cyberomanov)
