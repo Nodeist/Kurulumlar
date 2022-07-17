@@ -24,7 +24,7 @@ During the installation you will be asked for some information. These:
 | KEY |VALUE |
 |----------|-------------|
 | **bond_denom** | Denom Value. For example `ubpf` for CrowdControl |
-| **bench_prefix** | Bench Prefix Value. For example `cc` for CrowdControl. You can learn this value from your wallet address. **one1**jcqum902je9zwevat7zqczskwd4lhwuj9vwgsu |
+| **bench_prefix** | Bench Prefix Value. For example `cc` for CrowdControl. You can learn this value from your wallet address. **cc**jcqum902je9zwevat7zqczskwd4lhwuj9vwgsu |
 | **adresport** | Address Port. Default is 9090. check on app.toml |
 | **ladrport** | Laddr Port. The default is 26657. Check in config.toml. |
 
