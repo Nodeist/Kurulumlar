@@ -11,7 +11,7 @@
 	<img height="100" src="https://i.hizliresim.com/4mmj0u4.png">
 </p>
 
-# Another-1 Telegram Alarm Kurulum Rehberi
+# Defund Telegram Alarm Kurulum Rehberi
 Bu sistem sizi jail veya inaktif durum hakkında telegram üzerinden uyaracaktır. Ayrıca size her saat başı node durumunuz hakkında kısa bilgi gönderir.
 
 Talimatlar:
