@@ -6,7 +6,7 @@
 </p>
 
 
-<p hizalama="merkez">
+<p align="center">
   <img height="100" height="auto" src="https://user-images.githubusercontent.com/50621007/176684496-cee59c96-79be-4185-af80-c418ac4dbe63.png">
 </p>
 
