@@ -10,7 +10,12 @@
 <b>Эта страница содержит руководства по работе с различными серверами криптографических проектов. </b> <br>
 <a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="64"/></a> <br>Telegrama Katıl.<br>Join Telegram.<br>Присоединяйтесь к Telegram.<br> <br>
 <a href="https://nodeist.net/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="64"/></a> <br>Websitemizi Ziyaret et. <br>Visit Our Website. <br>Посетите наш сайт. <br>
+<br> 
+<a href="https://discord.gg/ypx7mJ6Zzb" target="_blank"><img src="https://cdn.logojoy.com/wp-content/uploads/20210422095037/discord-mascot.png" width="64"/></a> <br>Discord'a katıl <br>Join Discord <br>Присоединяйтесь к Discord <br>
+
 </p>
+
+
 
 Peer bul
 ```
