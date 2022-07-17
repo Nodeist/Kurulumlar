@@ -137,4 +137,4 @@ docker volume prune -f
 - Статистика Grafana Validator [Cosmos Validator от freak12techno](https://grafana.com/grafana/dashboards/14914)
 - Состояние оборудования Grafana [AgoricTools от Chainode](https://github.com/Chainode/AgoricTools)
 - Стек инструментов мониторинга, конфигурация докера [node_tooling от Xiphiar](https://github.com/Xiphiar/node_tooling/)
-- И [Kristaps](https://github.com/kj89), который собирает все воедино
+- И , который собирает все воедино [Kristaps](https://github.com/kj89)
