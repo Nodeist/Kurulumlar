@@ -1,8 +1,8 @@
 <p style="font-size:14px" align="right">
  100$ Free VPS for 2 Month <br>
  <a target="_blank" href="https://www.digitalocean.com/?refcode=410c988c8b3e&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a></br>
-<a href="https://discord.gg/ypx7mJ6Zzb" target="_blank"><img src="https://cdn.logojoy.com/wp-content/uploads/20210422095037/discord-mascot.png" width="30"/></a><br> Discord'a Katıl <br>
-<a href="https://nodeist.site/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="30"/></a><br> Websitemizi Ziyaret Et <br>
+ <a href="https://t.me/nodeistt" target="_blank"><img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="30"/></a><br>Join Telegram<br>
+<a href="https://nodeist.site/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="30"/></a><br> Visit Our Website
 </p>
 
 
@@ -11,58 +11,57 @@
   <img height="100" src="https://i.hizliresim.com/4mmj0u4.png">
 </p>
 
-# Another-1 Kurulum Rehberi
-## Donanım Gereksinimleri
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
+# Another-1 Installation Guide
+## Hardware Requirements
+Like any Cosmos-SDK chain, the hardware requirements are pretty modest.
 
-### Minimum Donanım Gereksinimleri
- - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 4GB RAM
- - 80GB Disk
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
+### Minimum Hardware Requirements
+  - 3x CPU; the higher the clock speed the better
+  - 4GB of RAM
+  - 80GB Disk
+  - Persistent Internet connection (traffic will be minimum 10Mbps during testnet - at least 100Mbps expected for production)
 
-### Önerilen Donanım Gereksinimleri
- - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 8GB RAM
- - 200 GB depolama (SSD veya NVME)
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
+### Recommended Hardware Requirements
+  - 4x CPU; the higher the clock speed the better
+  - 8GB of RAM
+  - 200 GB storage (SSD or NVME)
+  - Persistent Internet connection (traffic will be minimum 10Mbps during testnet - at least 100Mbps expected for production)
 
-## Defund Full Node Kurulum Adımları
-### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Defund fullnode'unuzu birkaç dakika içinde kurabilirsiniz. 
-Script sırasında size node isminiz (NODENAME) sorulacak!
-
+## Defund Full Node Installation Steps
+### Automatic Installation with a Single Script
+You can set up your Defund fullnode in a few minutes using the automated script below.
+You will be asked for your node name (NODENAME) during the script!
 
 ```
 wget -O FETF.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Defund/FETF && chmod +x FETF.sh && ./FETF.sh
 ```
 
-### Kurulum Sonrası Adımlar
+### Post-Installation Steps
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. 
-Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
+You should make sure your validator syncs blocks.
+You can use the following command to check the sync status.
 ```
 defundd status 2>&1 | jq .SyncInfo
 ```
 
-### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
+### Creating a Wallet
+You can use the following command to create a new wallet. Do not forget to save the reminder (mnemonic).
 ```
 defundd keys add $FETF_WALLET
 ```
 
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
+(OPTIONAL) To recover your wallet using mnemonic:
 ```
 defundd keys add $FETF_WALLET --recover
 ```
 
-Mevcut cüzdan listesini almak için:
+To get the current wallet list:
 ```
 defundd keys list
 ```
 
-### Cüzdan Bilgilerini Kaydet
-Cüzdan Adresi Ekleyin:
+### Save Wallet Information
+Add Wallet Address:
 ```
 FETF_WALLET_ADDRESS=$(defundd keys show $FETF_WALLET -a)
 FETF_VALOPER_ADDRESS=$(defundd keys show $FETF_WALLET --bech val -a)
@@ -72,16 +71,16 @@ source $HOME/.bash_profile
 ```
 
 
-### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 fetf'ye sahip olduğunuzdan (1 fetf 1000000 ufetf'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+### Create validator
+Before creating a validator please make sure you have at least 1 fetf (1 fetf equals 1000000 ufetf) and your node is in sync.
 
-Cüzdan bakiyenizi kontrol etmek için:
+To check your wallet balance:
 ```
 defundd query bank balances $FETF_WALLET_ADDRESS
 ```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin. 
+> If you can't see your balance in your wallet, chances are your node is still syncing. Please wait for the sync to finish and then continue.
 
-Doğrulayıcı Oluşturma:
+Creating a Validator:
 ```
 defundd tx staking create-validator \
   --amount 1000000ufetf \
@@ -98,66 +97,66 @@ defundd tx staking create-validator \
 
 
 
-## Kullanışlı Komutlar
-### Servis Yönetimi
-Logları Kontrol Et:
+## Useful Commands
+### Service Management
+Check Logs:
 ```
 journalctl -fu defundd -o cat
 ```
 
-Servisi Başlat:
+Start Service:
 ```
 systemctl start defundd
 ```
 
-Servisi Durdur:
+Stop Service:
 ```
 systemctl stop defundd
 ```
 
-Servisi Yeniden Başlat:
+Restart Service:
 ```
 systemctl restart defundd
 ```
 
-### Node Bilgileri
-Senkronizasyon Bilgisi:
+### Node Information
+Sync Information:
 ```
 defundd status 2>&1 | jq .SyncInfo
 ```
 
-Validator Bilgisi:
+Validator Information:
 ```
 defundd status 2>&1 | jq .ValidatorInfo
 ```
 
-Node Bilgisi:
+Node Information:
 ```
 defundd status 2>&1 | jq .NodeInfo
 ```
 
-Node ID Göser:
+Show Node ID:
 ```
 defundd tendermint show-node-id
 ```
 
-### Cüzdan İşlemleri
-Cüzdanları Listele:
+### Wallet Transactions
+List Wallets:
 ```
 defundd keys list
 ```
 
-Mnemonic kullanarak cüzdanı kurtar:
+Recover wallet using Mnemonic:
 ```
 defundd keys add $FETF_WALLET --recover
 ```
 
-Cüzdan Silme:
+Wallet Delete:
 ```
 defundd keys delete $FETF_WALLET
 ```
 
-Cüzdan Bakiyesi Sorgulama:
+Show Wallet Balance:
 ```
 defundd query bank balances $FETF_WALLET_ADDRESS
 ```
@@ -167,34 +166,34 @@ Cüzdandan Cüzdana Bakiye Transferi:
 defundd tx bank send $FETF_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ufetf
 ```
 
-### Oylama
+### Voting
 ```
 defundd tx gov vote 1 yes --from $FETF_WALLET --chain-id=$FETF_ID
 ```
 
-### Stake, Delegasyon ve Ödüller
-Delegate İşlemi:
+### Stake, Delegation and Rewards
+Delegate Process:
 ```
 defundd tx staking delegate $FETF_VALOPER_ADDRESS 10000000ufetf --from=$FETF_WALLET --chain-id=$FETF_ID --gas=auto --fees 250ufetf
 ```
 
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
+Redelegate from validator to another validator:
 ```
 defundd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ufetf --from=$FETF_WALLET --chain-id=$FETF_ID --gas=auto --fees 250ufetf
 ```
 
-Tüm ödülleri çek:
+Withdraw all rewards:
 ```
 defundd tx distribution withdraw-all-rewards --from=$FETF_WALLET --chain-id=$FETF_ID --gas=auto --fees 250ufetf
 ```
 
-Komisyon ile ödülleri geri çekin:
+Withdraw rewards with commission:
 ```
 defundd tx distribution withdraw-rewards $FETF_VALOPER_ADDRESS --from=$FETF_WALLET --commission --chain-id=$FETF_ID
 ```
 
-### Doğrulayıcı Yönetimi
-Validatör İsmini Değiştir:
+### Validator Management
+Change Validator Name:
 ```
 defundd tx staking edit-validator \
 --moniker=NEWNODENAME \
@@ -202,7 +201,7 @@ defundd tx staking edit-validator \
 --from=$FETF_WALLET
 ```
 
-Hapisten Kurtul(Unjail): 
+Get Out Of Jail(Unjail): 
 ```
 defundd tx slashing unjail \
   --broadcast-mode=block \
@@ -211,14 +210,13 @@ defundd tx slashing unjail \
   --gas=auto --fees 250ufetf
 ```
 
-
-Node Tamamen Silmek:
+To Delete Node Completely:
 ```
 sudo systemctl stop defundd
 sudo systemctl disable defundd
-sudo rm /etc/systemd/system/defund* -rf
+sudo rm /etc/systemd/system/anone* -rf
 sudo rm $(which defundd) -rf
-sudo rm $HOME/.defund* -rf
-sudo rm $HOME/defund -rf
+sudo rm $HOME/.anone* -rf
+sudo rm $HOME/anone -rf
 sed -i '/FETF_/d' ~/.bash_profile
 ```

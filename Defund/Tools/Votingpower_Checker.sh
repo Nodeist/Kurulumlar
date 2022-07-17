@@ -13,7 +13,7 @@ sleep 2
 
 set -e
 
-vp=$(defundd status | jq '.ValidatorInfo.VotingPower')
+vp=$(anoned status | jq '.ValidatorInfo.VotingPower')
 if [[ $vp = "0" ]]
 then
 	status="JAILED"

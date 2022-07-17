@@ -12,7 +12,7 @@ sleep 2
 
 set -e
 
-defundd query staking validators -o json | \
+anoned query staking validators -o json | \
 jq .validators[] | \
 jq -s 'sort_by(.tokens) | reverse' | \
 jq -r '["Validator", "VP"], ["----------------", "------------"], (.[] | [.description.moniker, (.tokens|tonumber/1000000)]) | @tsv' | \
