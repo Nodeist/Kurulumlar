@@ -24,7 +24,7 @@ wget -O NodeistorExporter.sh https://raw.githubusercontent.com/Nodeist/Nodeistor
 | КЛЮЧ | ЗНАЧЕНИЕ |
 |----------|--------------|
 | **bench_denom** | Номинальная стоимость. Например, `utia` для Celestia |
-| **bench_prefix** | Значение префикса скамейки. Например `celestia` для Celestia. Узнать это значение можно по адресу вашего кошелька. **celesita**jcqum902je9zwevat7zqczskwd4lhwuj9vwgsu |
+| **bench_prefix** | Значение префикса скамейки. Например `celestia` для Celestia. Узнать это значение можно по адресу вашего кошелька. **celestia**jcqum902je9zwevat7zqczskwd4lhwuj9vwgsu |
 | **adresport** | address порт. По умолчанию 9090. проверить app.toml |
 | **ladrport** | ladr Порт. По умолчанию 26657. Проверьте в config.toml. |
 
