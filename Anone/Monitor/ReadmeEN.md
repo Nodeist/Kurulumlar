@@ -19,7 +19,7 @@
 ```
 wget -O NodeistorExporter.sh https://raw.githubusercontent.com/Nodeist/Nodeistor/main/NodeistorExporter && chmod +x NodeistorExporter.sh && ./NodeistorExporter.sh
 ```
-Kurulum sırasında sizden bir kaç bilgi istenecek. Bunlar:
+During the installation you will be asked for some information. These:
 
 | KEY |VALUE |
 |----------|-------------|
