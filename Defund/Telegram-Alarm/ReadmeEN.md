@@ -11,7 +11,7 @@
   <img height="100" src="https://i.hizliresim.com/4mmj0u4.png">
 </p>
 
-# Another-1 Telegram Alarm Installation Guide
+# Defund Telegram Alarm Installation Guide
 This system will alert you with telegram about jails and inactive status. Also it sends you every hour short info about your node status.
 	
 Instruction:
