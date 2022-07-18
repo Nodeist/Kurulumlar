@@ -11,7 +11,7 @@ echo "=================================================="
 sleep 2
 
 # DEGISKENLER by Nodeist
-	_WALLET=wallet
+CLAN_WALLET=wallet
 CLAN=cland
 CLAN_ID=playstation-2
 CLAN_PORT=31
