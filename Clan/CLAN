@@ -1,0 +1,182 @@
+#!/bin/bash
+echo "=================================================="
+echo "   _  ______  ___  __________________";
+echo "  / |/ / __ \/ _ \/ __/  _/ __/_  __/";
+echo " /    / /_/ / // / _/_/ /_\ \  / /   ";
+echo "/_/|_/\____/____/___/___/___/ /_/    ";
+echo -e "\e[0m"
+echo "=================================================="                                     
+
+
+sleep 2
+
+# DEGISKENLER by Nodeist
+FETF_WALLET=wallet
+FETF=cland
+FETF_ID=playstation-2
+FETF_PORT=31
+FETF_FOLDER=clan
+FETF_FOLDER2=clan-network
+FETF_VER=v1.0.4-alpha
+FETF_REPO=https://github.com/ClanNetwork/clan-network
+FETF_GENESIS=https://raw.githubusercontent.com/ClanNetwork/testnets/main/playstation-2/genesis.json
+FETF_ADDRBOOK=
+FETF_MIN_GAS=0
+FETF_DENOM=clan
+FETF_SEEDS=
+FETF_PEERS=be8f9c8ff85674de396075434862d31230adefa4@35.231.178.87:26656,0cb936b2e3256c8d9d90362f2695688b9d3a1b9e@34.73.151.40:26656,e85dc5ec5b77e86265b5b731d4c555ef2430472a@23.88.43.130:26656,9d7ec4cb534717bfa51cdb1136875d17d10f93c3@116.203.60.243:26656,3049356ee6e6d7b2fa5eef03555a620f6ff7591b@65.108.98.218:56656,61db9dede0dff74af9309695b190b556a4266ebf@34.76.96.82:26656,d97c9ac4a8bb0744c7e7c1a17ac77e9c33dc6c34@34.116.229.135:26656
+
+sleep 1
+
+echo "export FETF_WALLET=${FETF_WALLET}" >> $HOME/.bash_profile
+echo "export FETF=${FETF}" >> $HOME/.bash_profile
+echo "export FETF_ID=${FETF_ID}" >> $HOME/.bash_profile
+echo "export FETF_PORT=${FETF_PORT}" >> $HOME/.bash_profile
+echo "export FETF_FOLDER=${FETF_FOLDER}" >> $HOME/.bash_profile
+echo "export FETF_FOLDER2=${FETF_FOLDER2}" >> $HOME/.bash_profile
+echo "export FETF_VER=${FETF_VER}" >> $HOME/.bash_profile
+echo "export FETF_REPO=${FETF_REPO}" >> $HOME/.bash_profile
+echo "export FETF_GENESIS=${FETF_GENESIS}" >> $HOME/.bash_profile
+echo "export FETF_PEERS=${FETF_PEERS}" >> $HOME/.bash_profile
+echo "export FETF_SEED=${FETF_SEED}" >> $HOME/.bash_profile
+echo "export FETF_MIN_GAS=${FETF_MIN_GAS}" >> $HOME/.bash_profile
+echo "export FETF_DENOM=${FETF_DENOM}" >> $HOME/.bash_profile
+source $HOME/.bash_profile
+
+sleep 1
+
+if [ ! $FETF_NODENAME ]; then
+	read -p "NODE ISMI YAZINIZ: " FETF_NODENAME
+	echo 'export FETF_NODENAME='$FETF_NODENAME >> $HOME/.bash_profile
+fi
+
+echo -e "NODE ISMINIZ: \e[1m\e[32m$FETF_NODENAME\e[0m"
+echo -e "CUZDAN ISMINIZ: \e[1m\e[32m$FETF_WALLET\e[0m"
+echo -e "CHAIN ISMI: \e[1m\e[32m$FETF_ID\e[0m"
+echo -e "PORT NUMARANIZ: \e[1m\e[32m$FETF_PORT\e[0m"
+echo '================================================='
+
+sleep 2
+
+
+# GUNCELLEMELER by Nodeist
+echo -e "\e[1m\e[32m1. GUNCELLEMELER YUKLENIYOR... \e[0m" && sleep 1
+sudo apt update && sudo apt upgrade -y
+
+
+# GEREKLI PAKETLER by Nodeist
+echo -e "\e[1m\e[32m2. GEREKLILIKLER YUKLENIYOR... \e[0m" && sleep 1
+sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
+
+# GO KURULUMU by Nodeist
+echo -e "\e[1m\e[32m1. GO KURULUYOR... \e[0m" && sleep 1
+ver="1.18.2"
+cd $HOME
+wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
+rm "go$ver.linux-amd64.tar.gz"
+echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+source ~/.bash_profile
+go version
+
+sleep 1
+
+# KUTUPHANE KURULUMU by Nodeist
+echo -e "\e[1m\e[32m1. REPO YUKLENIYOR... \e[0m" && sleep 1
+cd $HOME
+git clone $FETF_REPO
+cd $FETF_FOLDER2
+make install
+
+sleep 1
+
+# KONFIGURASYON by Nodeist
+echo -e "\e[1m\e[32m1. KONFIGURASYONLAR AYARLANIYOR... \e[0m" && sleep 1
+$FETF config chain-id $FETF_ID
+$FETF config keyring-backend file
+$FETF init $FETF_NODENAME --chain-id $FETF_ID
+
+# ADDRBOOK ve GENESIS by Nodeist
+wget $FETF_GENESIS -O $HOME/$FETF_FOLDER/config/genesis.json
+wget $FETF_ADDRBOOK -O $HOME/$FETF_FOLDER/config/addrbook.json
+
+# EŞLER VE TOHUMLAR by Nodeist
+SEEDS="$FETF_SEEDS"
+PEERS="$FETF_PEERS"
+sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/$FETF_FOLDER/config/config.toml
+
+sleep 1
+
+
+# config pruning
+pruning="custom"
+pruning_keep_recent="100"
+pruning_keep_every="0"
+pruning_interval="50"
+sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/$FETF_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/$FETF_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/$FETF_FOLDER/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$FETF_FOLDER/config/app.toml
+
+
+# ÖZELLEŞTİRİLMİŞ PORTLAR by Nodeist
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${FETF_PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${FETF_PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${FETF_PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${FETF_PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${FETF_PORT}660\"%" $HOME/$FETF_FOLDER/config/config.toml
+sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${FETF_PORT}317\"%; s%^address = \":8080\"%address = \":${FETF_PORT}080\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${FETF_PORT}090\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${FETF_PORT}091\"%" $HOME/$FETF_FOLDER/config/app.toml
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:${FETF_PORT}657\"%" $HOME/$FETF_FOLDER/config/client.toml
+
+# PROMETHEUS AKTIVASYON by Nodeist
+sed -i -e "s/prometheus = false/prometheus = true/" $HOME/$FETF_FOLDER/config/config.toml
+
+# MINIMUM GAS AYARI by Nodeist
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.00125$FETF_DENOM\"/" $HOME/$FETF_FOLDER/config/app.toml
+
+# INDEXER AYARI by Nodeist
+indexer="null" && \
+sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/$FETF_FOLDER/config/config.toml
+
+# SNAPSHOT
+SNAP_RPC="http://rpc1-testnet.nodejumper.io:26657"
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
+
+sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/$FETF_FOLDER	/config/config.toml
+
+
+# RESET by Nodeist
+$FETF tendermint unsafe-reset-all --home $HOME/$FETF_FOLDER
+
+echo -e "\e[1m\e[32m4. SERVIS BASLATILIYOR... \e[0m" && sleep 1
+# create service
+sudo tee /etc/systemd/system/$FETF.service > /dev/null <<EOF
+[Unit]
+Description=$FETF
+After=network.target
+[Service]
+Type=simple
+User=$USER
+ExecStart=$(which $FETF) start
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=65535
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+# SERVISLERI BASLAT by Nodeist
+sudo systemctl daemon-reload
+sudo systemctl enable $FETF
+sudo systemctl restart $FETF
+
+echo '=============== KURULUM TAMAM! by Nodeist ==================='
+echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -f $FETF\e[0m'
+echo -e "SENKRONIZASYONU KONTROL ET: \e[1m\e[32mcurl -s localhost:${FETF_PORT}657/status | jq .result.sync_info\e[0m"
+
+source $HOME/.bash_profile
