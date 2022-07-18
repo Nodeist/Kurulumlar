@@ -25,18 +25,18 @@ FEE_VALUE="300uclan"
 # Withdraw
 while :
 do
-	echo $PASS | anoned tx distribution withdraw-rewards "${VALIDATOR}"  --from "${KEY_NAME}" --commission --chain-id=${CHAIN_ID} --gas="${GAS_VALUE}" --fees="${FEE_VALUE}" -y
+	echo $PASS | cland tx distribution withdraw-rewards "${VALIDATOR}"  --from "${KEY_NAME}" --commission --chain-id=${CHAIN_ID} --gas="${GAS_VALUE}" --fees="${FEE_VALUE}" -y
 	
 	sleep 20s
 	
-	AVAILABLE_COIN=$(anoned query bank balances ${ADDRESS} --output json | jq -r '.balances | map(select(.denom == "uclan")) | .[].amount' | tr -cd [:digit:])
+	AVAILABLE_COIN=$(cland query bank balances ${ADDRESS} --output json | jq -r '.balances | map(select(.denom == "uclan")) | .[].amount' | tr -cd [:digit:])
 	KEEP_FOR_FEES=100000
 	AMOUNT=$(($AVAILABLE_COIN - $KEEP_FOR_FEES))
 	AMOUNT_FINAL=$AMOUNT"uclan"
 	
 	
 	# Delegate
-	echo $PASS | anoned tx staking delegate "${VALIDATOR}" "${AMOUNT_FINAL}" --from "${KEY_NAME}" --chain-id=${CHAIN_ID} --fees="${FEE_VALUE}" -y
+	echo $PASS | cland tx staking delegate "${VALIDATOR}" "${AMOUNT_FINAL}" --from "${KEY_NAME}" --chain-id=${CHAIN_ID} --fees="${FEE_VALUE}" -y
 	date
 	sleep 90s
 done;
