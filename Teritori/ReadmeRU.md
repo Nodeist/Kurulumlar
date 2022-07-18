@@ -30,7 +30,7 @@
 Официальная документация:
 >- [Инструкции по настройке валидатора](https://github.com/TERITORI/teritori-chain/blob/main/testnet/teritori-testnet-v2/README.md)
 
-Проводник:
+исследователь:
 >- https://teritori.explorers.guru/
 
 
