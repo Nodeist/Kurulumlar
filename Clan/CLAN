@@ -85,11 +85,10 @@ sleep 1
 
 # KUTUPHANE KURULUMU by Nodeist
 echo -e "\e[1m\e[32m1. REPO YUKLENIYOR... \e[0m" && sleep 1
-cd $HOME
-git clone $CLAN_REPO
-cd $CLAN_FOLDER2
-git checkout $CLAN_VER
+git clone https://github.com/ClanNetwork/clan-network && cd clan-network
+git checkout v1.0.4-alpha
 make install
+
 
 sleep 1
 
