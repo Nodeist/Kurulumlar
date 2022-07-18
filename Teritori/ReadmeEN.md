@@ -27,6 +27,12 @@ Like any Cosmos-SDK chain, the hardware requirements are pretty modest.
   - 200 GB storage (SSD or NVME)
   - Persistent Internet connection (traffic will be minimum 10Mbps during testnet - at least 100Mbps expected for production)
 
+Official documentation:
+>- [Validator setup instructions](https://github.com/TERITORI/teritori-chain/blob/main/testnet/teritori-testnet-v2/README.md)
+
+Explorer:
+>- https://teritori.explorers.guru/
+
 ## Teritori Full Node Installation Steps
 ### Automatic Installation with a Single Script
 You can set up your Teritori fullnode in a few minutes using the automated script below.
