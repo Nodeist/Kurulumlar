@@ -29,7 +29,7 @@ Kurulum sırasında sizden bir kaç bilgi istenecek. Bunlar:
 
 ** Eğer node kurulumunu bizim dökümanımızdan yaptıysanız, Kurulumlar sayfamızdan Clan port adresini kontrol edebilirsiniz. **
 
-![nodeist](https://i.hizliresim.com/8nedatw.png)
+![nodeist](https://i.hizliresim.com/99v8b63.png)
 
 Bu örnekte resimde gördüğünüz gibi Clan portumuz `31`.
 
