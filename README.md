@@ -37,7 +37,7 @@ query staking validators --limit 2000 -o json | jq -r '.validators[] | select(.s
 | Network           | Port       |
 | --------------- | ---------- |
 | Celestia        |   30       |
-| BOŞ             |   31       |
+| Clan            |   31       |
 | Defund          |   32       |
 | Deweb           |   33       |
 | Kujira          |   34       |
