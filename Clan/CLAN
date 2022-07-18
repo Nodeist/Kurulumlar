@@ -12,7 +12,7 @@ sleep 2
 
 # DEGISKENLER by Nodeist
 CLAN_WALLET=wallet
-CLAN=cland
+CLAN=CLANd
 CLAN_ID=playstation-2
 CLAN_PORT=31
 CLAN_FOLDER=.clan
@@ -95,9 +95,9 @@ sleep 1
 
 # KONFIGURASYON by Nodeist
 echo -e "\e[1m\e[32m1. KONFIGURASYONLAR AYARLANIYOR... \e[0m" && sleep 1
-cland config chain-id $CLAN_ID
-cland config keyring-backend file
-cland init $CLAN_NODENAME --chain-id $CLAN_ID
+$CLAN config chain-id $CLAN_ID
+$CLAN config keyring-backend file
+$CLAN init $CLAN_NODENAME --chain-id $CLAN_ID
 
 # ADDRBOOK ve GENESIS by Nodeist
 wget $CLAN_GENESIS -O $HOME/$CLAN_FOLDER/config/genesis.json
@@ -136,6 +136,20 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.00125$CLAN_DENOM\
 # INDEXER AYARI by Nodeist
 indexer="null" && \
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/$CLAN_FOLDER/config/config.toml
+
+# SNAPSHOT
+SNAP_RPC="http://rpc1-testnet.nodejumper.io:26657"
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
+
+sed -i -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/$CLAN_FOLDER	/config/config.toml
+
 
 # RESET by Nodeist
 $CLAN tendermint unsafe-reset-all --home $HOME/$CLAN_FOLDER
