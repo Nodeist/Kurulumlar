@@ -13,20 +13,20 @@ sleep 2
 
 set -e
 
-wallet="second" # your wallet name
-current_proposal=$(anoned q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
+wallet="wallet" # your wallet name
+current_proposal=$(cland q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
 	
 	echo "Last proposal is: $current_proposal"
 	
 	while true
 	do
-		last_proposal=$(anoned q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
+		last_proposal=$(cland q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
 			
 			if [[ $current_proposal -lt $last_proposal ]]
 			then
 				echo "New proposal: $last_proposal"
 				echo "Voting YES..."
-				anoned tx gov vote $last_proposal yes --from $wallet -y
+				cland tx gov vote $last_proposal yes --from $wallet -y
 				
 				current_proposal=$last_proposal
 			fi
