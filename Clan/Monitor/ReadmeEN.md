@@ -30,7 +30,7 @@ During the installation you will be asked for some information. These:
 
 ** If you have installed the node from our document, you can check Clan port address on our Installations page. **
 
-![nodeist](https://i.hizliresim.com/8nedatw.png)
+![nodeist](https://i.hizliresim.com/99v8b63.png)
 
 In this example, as you can see in the picture, our Clan port is `31`.
 
