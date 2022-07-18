@@ -30,7 +30,7 @@ wget -O NodeistorExporter.sh https://raw.githubusercontent.com/Nodeist/Nodeistor
 
 ** Если вы установили наш узел из нашего документа, вы можете проверить адрес порта «clan» на нашей странице установки. **
 
-![nodeist](https://i.hizliresim.com/8nedatw.png)
+![nodeist](https://i.hizliresim.com/99v8b63.png)
 
 В этом примере наш порт clan — «31», как вы можете видеть на рисунке.
 
