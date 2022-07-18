@@ -26,6 +26,12 @@ Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütev
  - 200 GB depolama (SSD veya NVME)
  - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
 
+Resmi belgeler:
+>> [Doğrulayıcı kurulum talimatları](https://github.com/TERITORI/teritori-chain/blob/main/testnet/teritori-testnet-v2/README.md)
+
+Gezgin:
+>> https://teritori.explorers.guru/
+
 ## Teritori Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
 Aşağıdaki otomatik komut dosyasını kullanarak Teritori fullnode'unuzu birkaç dakika içinde kurabilirsiniz. 
