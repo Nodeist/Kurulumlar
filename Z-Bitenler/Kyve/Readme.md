@@ -32,7 +32,7 @@ Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
 ```
-wget -O KYVE.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Kyve/KYVE && chmod +x KYVE.sh && ./KYVE.sh
+wget -O KYVE.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Z-Bitenler/Kyve/KYVE && chmod +x KYVE.sh && ./KYVE.sh
 ```
 
 ### Kurulum Sonrası Adımlar
