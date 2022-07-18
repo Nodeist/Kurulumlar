@@ -17,7 +17,7 @@ KYVE_ID=korellia
 KYVE_PORT=35
 KYVE_FOLDER=.kyve
 KYVE_FOLDER2=
-KYVE_VER=v0.0.1
+KYVE_VER=v0.6.2
 KYVE_REPO=https://github.com/KYVENetwork/chain/releases/download/$KYVE_VER/chain_linux_amd64.tar.gz
 KYVE_GENESIS=https://github.com/KYVENetwork/chain/releases/download/v0.0.1/genesis.json
 KYVE_ADDRBOOK=https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Kyve/addrbook.json
@@ -169,6 +169,11 @@ Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=true"
 WantedBy=multi-user.target
 EOF
 
+#Snap
+cd $HOME/.kyved; rm -rf data \
+&& wget https://snapshot.testnet.run/testnet/kyve/korellia_2022-07-18.tar 
+
+tar xvf korellia_2022-07-18.tar
 
 # SERVISLERI BASLAT by Nodeist
 sudo systemctl daemon-reload
