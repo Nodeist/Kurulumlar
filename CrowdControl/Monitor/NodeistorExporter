@@ -9,7 +9,7 @@ read -p "Enter grpc_port value or hit Enter for default port [9090]: " GRPC_PORT
 echo "export BOND_DENOM=${BOND_DENOM}" >> $HOME/.bash_profile
 echo "export BENCH_PREFIX=${BENCH_PREFIX}" >> $HOME/.bash_profile
 echo "export RPC_PORT=${RPC_PORT}" >> $HOME/.bash_profile
-echo "export GRPC_PORT=${RPC_PORT}" >> $HOME/.bash_profile
+echo "export GRPC_PORT=${GRPC_PORT}" >> $HOME/.bash_profile
 
 echo '================================================='
 echo -e "bond_denom: \e[1m\e[32m$BOND_DENOM\e[0m"
