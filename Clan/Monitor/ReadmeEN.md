@@ -25,18 +25,9 @@ During the installation you will be asked for some information. These:
 |----------|-------------|
 | **bond_denom** | Denom Value. For example `uclan` for Clan |
 | **bench_prefix** | Bench Prefix Value. For example `clan` for Clan. You can learn this value from your wallet address. **Clan**jcqum902je9zwevat7zqczskwd4lhwuj9vwgsu |
-| **adresport** | Address Port. Default is 9090. check on app.toml |
-| **ladrport** | Laddr Port. The default is 26657. Check in config.toml. |
+| **grpc_port** | Your validator `grpc` port that is defined in `app.toml` file. Default value is `31090` |
+| **rpc_port** | Your validator `rpc` port that is defined in `config.toml` file. Default value is `31657` |
 
-** If you have installed the node from our document, you can check Clan port address on our Installations page. **
-
-![nodeist](https://i.hizliresim.com/99v8b63.png)
-
-In this example, as you can see in the picture, our Clan port is `31`.
-
-This means: Your 'address', which is '9090' by default, is '31090' if you have installed the node from our document.
-
-Likewise, your 'ladrport' which defaults to '26657' is '31657'.
 
 Make sure the following ports are open on your server:
 - `9100` (node-exporter)

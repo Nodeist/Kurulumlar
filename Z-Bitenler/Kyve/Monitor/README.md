@@ -22,18 +22,8 @@ Kurulum sırasında sizden bir kaç bilgi istenecek. Bunlar:
 |---------------|-------------|
 | **bond_denom** | Denom Degeri. Örneğin Kyve için `tkyve` |
 | **bench_prefix** | Bench Prefix Değeri. Örneğin Kyve için `kyve`. Bu değeri cüzdan adresinizden öğrenebilirsiniz. **kyve**1r5g0kes6jutsydez9qw2tx6vuc8scpxn5qtyle |
-| **adresport** | Adres Portu. Default 9090'dır. app.toml'dan kontrol edin |
-| **ladrport** | Laddr Portu. Default 26657'dir. config.toml'dan kontrol edin. |
-
-** Eğer node kurulumunu bizim dökümanımızdan yaptıysanız, Kurulumlar sayfamızdan Kyve port adresini kontrol edebilirsiniz. **
-
-![nodeist](https://i.hizliresim.com/8nedatw.png)
-
-Bu örnekte resimde gördüğünüz gibi Kyve portumuz `35`.
-
-Bunun anlamı şudur: Sizin default hali `9090` olan `adresport` unuz eğer node kurulumunu bizim dökümanımızdan yaptıysanız `35090`dır.
-
-Aynı şekilde default hali `266657` olan `ladrport` unuz ise `35657`dir.
+| **grpc_port** | "app.toml" dosyasında tanımlanan doğrulayıcı "grpc" bağlantı noktanız. Varsayılan değer `35090`dır |
+| **rpc_port** | "config.toml" dosyasında tanımlanan doğrulayıcı "rpc" bağlantı noktanız. Varsayılan değer `35657`dir |
 
 Sunucuzda aşağıdaki portların açık olduğundan emin olun:
 - `9100` (node-exporter)

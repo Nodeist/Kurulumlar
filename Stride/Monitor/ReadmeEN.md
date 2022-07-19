@@ -25,18 +25,9 @@ During the installation you will be asked for some information. These:
 |----------|-------------|
 | **bond_denom** | Denom Value. For example `ustrd` for Stride |
 | **bench_prefix** | Bench Prefix Value. For example `stride` for Stride. You can learn this value from your wallet address. **stride**jcqum902je9zwevat7zqczskwd4lhwuj9vwgsu |
-| **adresport** | Address Port. Default is 9090. check on app.toml |
-| **ladrport** | Laddr Port. The default is 26657. Check in config.toml. |
+| **grpc_port** | Your validator `grpc` port that is defined in `app.toml` file. Default value is `44090` |
+| **rpc_port** | Your validator `rpc` port that is defined in `config.toml` file. Default value is `44657` |
 
-** If you have installed the node from our document, you can check Stride port address on our Installations page. **
-
-![nodeist](https://i.hizliresim.com/8nedatw.png)
-
-In this example, as you can see in the picture, our Stride port is `44`.
-
-This means: Your 'address', which is '9090' by default, is '44090' if you have installed the node from our document.
-
-Likewise, your 'ladrport' which defaults to '26657' is '44657'.
 
 Make sure the following ports are open on your server:
 - `9100` (node-exporter)

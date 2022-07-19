@@ -25,18 +25,9 @@ During the installation you will be asked for some information. These:
 |----------|-------------|
 | **bond_denom** | Denom Value. For example `usei` for Sei |
 | **bench_prefix** | Bench Prefix Value. For example `sei` for Sei. You can learn this value from your wallet address. **sei**jcqum902je9zwevat7zqczskwd4lhwuj9vwgsu |
-| **adresport** | Address Port. Default is 9090. check on app.toml |
-| **ladrport** | Laddr Port. The default is 26657. Check in config.toml. |
+| **grpc_port** | Your validator `grpc` port that is defined in `app.toml` file. Default value is `37090` |
+| **rpc_port** | Your validator `rpc` port that is defined in `config.toml` file. Default value is `37657` |
 
-** If you have installed the node from our document, you can check Sei port address on our Installations page. **
-
-![nodeist](https://i.hizliresim.com/8nedatw.png)
-
-In this example, as you can see in the picture, our Sei port is `37`.
-
-This means: Your 'address', which is '9090' by default, is '37090' if you have installed the node from our document.
-
-Likewise, your 'ladrport' which defaults to '26657' is '37657'.
 
 Make sure the following ports are open on your server:
 - `9100` (node-exporter)
