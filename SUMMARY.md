@@ -18,13 +18,13 @@
   * [Discord Alarm Setup RU](Anone/Nodecord-Discord-Alarm/ReadmeRU.md)
 * [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Anone/Tools)
 
-## Bundlr
+## 🔵 Bundlr
 
 * [Node Setup TR](Bundlr/Readme.md)
   * [Node Setup EN](Bundlr/ReadmeEN.md)
   * [Node Setup RU](Bundlr/ReadmeRU.md)
 
-## Celestia
+## 🔵 Celestia
 
 * [Node Setup TR](Celestia/Readme.md)
   * [Node Setup EN](Celestia/ReadmeEN.md)
@@ -40,7 +40,7 @@
   * [Discord Alarm Setup RU](Celestia/Nodecord-Discord-Alarm/ReadmeRU.md)
 * [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Celestia/Tools)
 
-## Clan
+## 🔵 Clan
 
 * [Node Setup TR](Clan/Readme.md)
   * [Node Setup EN](Clan/ReadmeEN.md)
@@ -56,7 +56,7 @@
   * [Discord Alarm Setup RU](Clan/Nodecord-Discord-Alarm/ReadmeRU.md)
 * [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Clan/Tools)
 
-## CrowdControl
+## 🔵 CrowdControl
 
 * [Node Setup TR](CrowdControl/Readme.md)
   * [Node Setup EN](CrowdControl/ReadmeEN.md)
@@ -72,7 +72,7 @@
   * [Discord Alarm Setup RU](CrowdControl/Nodecord-Discord-Alarm/ReadmeRU.md)
 * [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/CrowdControl/Tools)
 
-## Defund
+## 🔵 Defund
 
 * [Node Setup TR](Defund/Readme.md)
   * [Node Setup EN](Defund/ReadmeEN.md)
@@ -88,7 +88,7 @@
   * [Discord Alarm Setup RU](Defund/Nodecord-Discord-Alarm/ReadmeRU.md)
 * [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Defund/Tools)
 
-## Deweb
+## 🔵 Deweb
 
 * [Node Setup TR](Deweb/Readme.md)
   * [Node Setup EN](Deweb/ReadmeEN.md)
@@ -104,31 +104,31 @@
   * [Discord Alarm Setup RU](Deweb/Nodecord-Discord-Alarm/ReadmeRU.md)
 * [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Deweb/Tools)
 
-## GNO.Land
+## 🔵 GNO.Land
 
 * [Node Setup TR](Gno/Readme.md)
   * [Node Setup EN](Gno/ReadmeEN.md)
   * [Node Setup RU](Gno/ReadmeRU.md)
 
-## Masa
+## 🔵 Masa
 
 * [Node Setup TR](Masa/Readme.md)
   * [Node Setup EN](Masa/ReadmeEN.md)
   * [Node Setup RU](Masa/ReadmeRU.md)
 
-## Massa
+## 🔵 Massa
 
 * [Node Setup TR](Massa/Readme.md)
   * [Node Setup EN](Massa/ReadmeEN.md)
   * [Node Setup RU](Massa/ReadmeRU.md)
 
-## Obol
+## 🔵 Obol
 
 * [Node Setup TR](Obol/Readme.md)
   * [Node Setup EN](Obol/ReadmeEN.md)
   * [Node Setup RU](Obol/ReadmeRU.md)
 
-## Paloma
+## 🔵 Paloma
 
 * [Node Setup TR](Paloma/Readme.md)
   * [Node Setup EN](Paloma/ReadmeEN.md)
@@ -144,7 +144,7 @@
   * [Discord Alarm Setup RU](Paloma/Nodecord-Discord-Alarm/ReadmeRU.md)
 * [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Paloma/Tools)
 
-## Sei
+## 🔵 Sei
 
 * [Node Setup TR](Sei/Readme.md)
   * [Node Setup EN](Sei/ReadmeEN.md)
@@ -160,7 +160,7 @@
   * [Discord Alarm Setup RU](Sei/Nodecord-Discord-Alarm/ReadmeRU.md)
 * [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Sei/Tools)
 
-## Stride
+## 🔵 Stride
 
 * [Node Setup TR](Stride/Readme.md)
   * [Node Setup EN](Stride/ReadmeEN.md)
@@ -176,13 +176,13 @@
   * [Discord Alarm Setup RU](Stride/Nodecord-Discord-Alarm/ReadmeRU.md)
 * [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Stride/Tools)
 
-## Sui
+## 🔵 Sui
 
 * [Node Setup TR](Sui/Readme.md)
   * [Node Setup EN](Sui/ReadmeEN.md)
   * [Node Setup RU](Sui/ReadmeRU.md)
 
-## Teritori
+## 🔵 Teritori
 
 * [Node Setup TR](Teritori/Readme.md)
   * [Node Setup EN](Teritori/ReadmeEN.md)
@@ -198,7 +198,7 @@
   * [Discord Alarm Setup RU](Teritori/Nodecord-Discord-Alarm/ReadmeRU.md)
 * [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Teritori/Tools)
 
-## Tidefi
+## 🔵 Tidefi
 
 * [Node Setup TR](Tidefi/Readme.md)
   * [Node Setup EN](Tidefi/ReadmeEN.md)
