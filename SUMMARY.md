@@ -20,9 +20,9 @@
 
 ## 🔵 Bundlr
 
-* [Node Setup TR](Bundlr/Readme.md)
-  * [Node Setup EN](Bundlr/ReadmeEN.md)
-  * [Node Setup RU](Bundlr/ReadmeRU.md)
+* [Node Setup TR](/Bundlr/Readme.md)
+  * [Node Setup EN](/Bundlr/ReadmeEN.md)
+  * [Node Setup RU](/Bundlr/ReadmeRU.md)
 
 ## 🔵 Celestia
 
