@@ -1,28 +1,16 @@
 # README
 
-2 Aylık 100$ Kredili Ücretsiz VPS\
 100$ Free VPS for 2 Month\
-100$ бесплатно VPS на 2 месяца\
-[<img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" data-size="line">](https://www.digitalocean.com/?refcode=410c988c8b3e\&utm\_campaign=Referral\_Invite\&utm\_medium=Referral\_Program\&utm\_source=badge)\
-
-
-**Bu sayfa, çeşitli kripto proje sunucularının nasıl çalıştırılacağına ilişkin eğitimler içerir.**\
+[<img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" width="128" alt="DigitalOcean Referral Badge" data-size="line">](https://www.digitalocean.com/?refcode=410c988c8b3e\&utm\_campaign=Referral\_Invite\&utm\_medium=Referral\_Program\&utm\_source=badge) \
 **This page contains tutorials on how to operate various crypto project servers.**\
-**Эта страница содержит руководства по работе с различными серверами криптографических проектов.**\
-[<img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" alt="" data-size="line">](https://t.me/nodeistt)\
-Telegrama Katıl.\
+[<img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="64" alt="" data-size="line">](https://t.me/nodeistt)\
 Join Telegram.\
-Присоединяйтесь к Telegram.\
 \
-[<img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" alt="" data-size="line">](https://nodeist.net/)\
-Websitemizi Ziyaret et.\
+[<img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="64" alt="" data-size="line">](https://nodeist.net/)\
 Visit Our Website.\
-Посетите наш сайт.\
 \
-[<img src="https://cdn.logojoy.com/wp-content/uploads/20210422095037/discord-mascot.png" alt="" data-size="line">](https://discord.gg/ypx7mJ6Zzb)\
-Discord'a katıl\
-Join Discord\
-Присоединяйтесь к Discord\
+[<img src="https://cdn.logojoy.com/wp-content/uploads/20210422095037/discord-mascot.png" width="64" alt="" data-size="line">](https://discord.gg/ypx7mJ6Zzb)\
+Join Discord
 
 
 Peer bul
