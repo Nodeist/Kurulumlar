@@ -11,6 +11,7 @@
 <p align="center">
   <img height="100" src="https://i.hizliresim.com/cdpen5h.png">
 </p>
+
 ## Another-1 Kurulum Rehberi
 
 ### Donanım Gereksinimleri
