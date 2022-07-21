@@ -1,42 +1,44 @@
 # Table of contents
 
-## Another-1
+* [🔅 README](README.md)
 
-  * [Node Setup TR](Anone/Readme.md)
-    * [Node Setup EN](Anone/ReadmeEN.md)
-    * [Node Setup RU](Anone/ReadmeRU.md)
-  * [Grafana Monitor Setup TR](Anone/Monitor/README.md)
-    * [Grafana Monitor Setup EN](Anone/Monitor/ReadmeEN.md)
-    * [Grafana Monitor Setup RU](Anone/Monitor/ReadmeRU.md)
-  * [Telegram Alarm Setup TR](Anone/Telegram-Alarm/README.md)
-    * [Telegram Alarm Setup EN](Anone/Telegram-Alarm/ReadmeEN.md)
-    * [Telegram Alarm Setup RU](Anone/Telegram-Alarm/ReadmeRU.md)
-  * [Discord Alarm Setup TR](Anone/Nodecord-Discord-Alarm/README.md)
-    * [Discord Alarm Setup EN](Anone/Nodecord-Discord-Alarm/ReadmeEN.md)
-    * [Discord Alarm Setup RU](Anone/Nodecord-Discord-Alarm/ReadmeRU.md)
-  * [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Anone/Tools)
+## 🔵 Another-1
+
+* [Node Setup TR](Anone/Readme.md)
+  * [Node Setup EN](Anone/ReadmeEN.md)
+  * [Node Setup RU](Anone/ReadmeRU.md)
+* [Grafana Monitor Setup TR](Anone/Monitor/README.md)
+  * [Grafana Monitor Setup EN](Anone/Monitor/ReadmeEN.md)
+  * [Grafana Monitor Setup RU](Anone/Monitor/ReadmeRU.md)
+* [Telegram Alarm Setup TR](Anone/Telegram-Alarm/README.md)
+  * [Telegram Alarm Setup EN](Anone/Telegram-Alarm/ReadmeEN.md)
+  * [Telegram Alarm Setup RU](Anone/Telegram-Alarm/ReadmeRU.md)
+* [Discord Alarm Setup TR](Anone/Nodecord-Discord-Alarm/README.md)
+  * [Discord Alarm Setup EN](Anone/Nodecord-Discord-Alarm/ReadmeEN.md)
+  * [Discord Alarm Setup RU](Anone/Nodecord-Discord-Alarm/ReadmeRU.md)
+* [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Anone/Tools)
 
 ## Bundlr
 
-  * [Node Setup TR](Bundlr/Readme.md)
-    * [Node Setup EN](Bundlr/ReadmeEN.md)
-    * [Node Setup RU](Bundlr/ReadmeRU.md)
+* [Node Setup TR](Bundlr/Readme.md)
+  * [Node Setup EN](Bundlr/ReadmeEN.md)
+  * [Node Setup RU](Bundlr/ReadmeRU.md)
 
 ## Celestia
 
-  * [Node Setup TR](Celestia/Readme.md)
-    * [Node Setup EN](Celestia/ReadmeEN.md)
-    * [Node Setup RU](Celestia/ReadmeRU.md)
-  * [Grafana Monitor Setup TR](Celestia/Monitor/README.md)
-    * [Grafana Monitor Setup EN](Celestia/Monitor/ReadmeEN.md)
-    * [Grafana Monitor Setup RU](Celestia/Monitor/ReadmeRU.md)
-  * [Telegram Alarm Setup TR](Celestia/Telegram-Alarm/README.md)
-    * [Telegram Alarm Setup EN](Celestia/Telegram-Alarm/ReadmeEN.md)
-    * [Telegram Alarm Setup RU](Celestia/Telegram-Alarm/ReadmeRU.md)
-  * [Discord Alarm Setup TR](Celestia/Nodecord-Discord-Alarm/README.md)
-    * [Discord Alarm Setup EN](Celestia/Nodecord-Discord-Alarm/ReadmeEN.md)
-    * [Discord Alarm Setup RU](Celestia/Nodecord-Discord-Alarm/ReadmeRU.md)
-  * [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Celestia/Tools)
+* [Node Setup TR](Celestia/Readme.md)
+  * [Node Setup EN](Celestia/ReadmeEN.md)
+  * [Node Setup RU](Celestia/ReadmeRU.md)
+* [Grafana Monitor Setup TR](Celestia/Monitor/README.md)
+  * [Grafana Monitor Setup EN](Celestia/Monitor/ReadmeEN.md)
+  * [Grafana Monitor Setup RU](Celestia/Monitor/ReadmeRU.md)
+* [Telegram Alarm Setup TR](Celestia/Telegram-Alarm/README.md)
+  * [Telegram Alarm Setup EN](Celestia/Telegram-Alarm/ReadmeEN.md)
+  * [Telegram Alarm Setup RU](Celestia/Telegram-Alarm/ReadmeRU.md)
+* [Discord Alarm Setup TR](Celestia/Nodecord-Discord-Alarm/README.md)
+  * [Discord Alarm Setup EN](Celestia/Nodecord-Discord-Alarm/ReadmeEN.md)
+  * [Discord Alarm Setup RU](Celestia/Nodecord-Discord-Alarm/ReadmeRU.md)
+* [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Celestia/Tools)
 
 ## Clan
 
@@ -125,7 +127,6 @@
 * [Node Setup TR](Obol/Readme.md)
   * [Node Setup EN](Obol/ReadmeEN.md)
   * [Node Setup RU](Obol/ReadmeRU.md)
-
 
 ## Paloma
 
