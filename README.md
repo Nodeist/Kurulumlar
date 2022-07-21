@@ -2,14 +2,9 @@
 **This page contains tutorials on how to operate various crypto project servers.** 
 
 
-[<img align="right" src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" width="256" alt="DigitalOcean Referral Badge" data-size="line"></p>](https://www.digitalocean.com/?refcode=410c988c8b3e\&utm\_campaign=Referral\_Invite\&utm\_medium=Referral\_Program\&utm\_source=badge) 
+&#x20;                                                       [<mark style="color:red;">**Website**</mark>](https://nodeist.net/) | [<mark style="color:blue;">**Discord**</mark>](https://discord.gg/ypx7mJ6Zzb) | [<mark style="color:green;">**Telegram**</mark>](https://t.me/noodeist)
 
-
-[<img align="right" src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="64" alt="" data-size="line">](https://nodeist.net/)
-
-[<img align="right" src="https://cdn.logojoy.com/wp-content/uploads/20210422095037/discord-mascot.png" width="64" alt="" data-size="line">](https://discord.gg/ypx7mJ6Zzb) 
-
-
+&#x20;                                     [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://www.digitalocean.com/?refcode=410c988c8b3e&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
 
 Peer bul
 
