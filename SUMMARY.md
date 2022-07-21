@@ -13,7 +13,7 @@
     * [Telegram Alarm Setup RU](Anone/Telegram-Alarm/ReadmeRU.md)
   * [Discord Alarm Setup TR](Anone/Nodecord-Discord-Alarm/README.md)
     * [Discord Alarm Setup EN](Anone/Nodecord-Discord-Alarm/ReadmeEN.md)
-    * [Discord Alarm Setup RU](AAnone/Nodecord-Discord-Alarm/ReadmeRU.md)
+    * [Discord Alarm Setup RU](Anone/Nodecord-Discord-Alarm/ReadmeRU.md)
   * [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Anone/Tools)
 
 ## Bundlr
