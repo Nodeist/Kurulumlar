@@ -16,7 +16,7 @@
 * [Discord Alarm Setup TR](Anone/Nodecord-Discord-Alarm/README.md)
   * [Discord Alarm Setup EN](Anone/Nodecord-Discord-Alarm/ReadmeEN.md)
   * [Discord Alarm Setup RU](Anone/Nodecord-Discord-Alarm/ReadmeRU.md)
-* [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Anone/Tools)
+* [🔗 Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Anone/Tools)
 
 ## 🔵 Bundlr
 
@@ -38,7 +38,7 @@
 * [Discord Alarm Setup TR](Celestia/Nodecord-Discord-Alarm/README.md)
   * [Discord Alarm Setup EN](Celestia/Nodecord-Discord-Alarm/ReadmeEN.md)
   * [Discord Alarm Setup RU](Celestia/Nodecord-Discord-Alarm/ReadmeRU.md)
-* [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Celestia/Tools)
+* [🔗 Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Celestia/Tools)
 
 ## 🔵 Clan
 
@@ -54,7 +54,7 @@
 * [Discord Alarm Setup TR](Clan/Nodecord-Discord-Alarm/README.md)
   * [Discord Alarm Setup EN](Clan/Nodecord-Discord-Alarm/ReadmeEN.md)
   * [Discord Alarm Setup RU](Clan/Nodecord-Discord-Alarm/ReadmeRU.md)
-* [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Clan/Tools)
+* [🔗 Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Clan/Tools)
 
 ## 🔵 CrowdControl
 
@@ -70,7 +70,7 @@
 * [Discord Alarm Setup TR](CrowdControl/Nodecord-Discord-Alarm/README.md)
   * [Discord Alarm Setup EN](CrowdControl/Nodecord-Discord-Alarm/ReadmeEN.md)
   * [Discord Alarm Setup RU](CrowdControl/Nodecord-Discord-Alarm/ReadmeRU.md)
-* [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/CrowdControl/Tools)
+* [🔗 Tools](https://github.com/Nodeist/Kurulumlar/tree/main/CrowdControl/Tools)
 
 ## 🔵 Defund
 
@@ -86,7 +86,7 @@
 * [Discord Alarm Setup TR](Defund/Nodecord-Discord-Alarm/README.md)
   * [Discord Alarm Setup EN](Defund/Nodecord-Discord-Alarm/ReadmeEN.md)
   * [Discord Alarm Setup RU](Defund/Nodecord-Discord-Alarm/ReadmeRU.md)
-* [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Defund/Tools)
+* [🔗 Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Defund/Tools)
 
 ## 🔵 Deweb
 
@@ -102,7 +102,7 @@
 * [Discord Alarm Setup TR](Deweb/Nodecord-Discord-Alarm/README.md)
   * [Discord Alarm Setup EN](Deweb/Nodecord-Discord-Alarm/ReadmeEN.md)
   * [Discord Alarm Setup RU](Deweb/Nodecord-Discord-Alarm/ReadmeRU.md)
-* [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Deweb/Tools)
+* [🔗 Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Deweb/Tools)
 
 ## 🔵 GNO.Land
 
@@ -142,7 +142,7 @@
 * [Discord Alarm Setup TR](Paloma/Nodecord-Discord-Alarm/README.md)
   * [Discord Alarm Setup EN](Paloma/Nodecord-Discord-Alarm/ReadmeEN.md)
   * [Discord Alarm Setup RU](Paloma/Nodecord-Discord-Alarm/ReadmeRU.md)
-* [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Paloma/Tools)
+* [🔗 Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Paloma/Tools)
 
 ## 🔵 Sei
 
@@ -158,7 +158,7 @@
 * [Discord Alarm Setup TR](Sei/Nodecord-Discord-Alarm/README.md)
   * [Discord Alarm Setup EN](Sei/Nodecord-Discord-Alarm/ReadmeEN.md)
   * [Discord Alarm Setup RU](Sei/Nodecord-Discord-Alarm/ReadmeRU.md)
-* [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Sei/Tools)
+* [🔗 Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Sei/Tools)
 
 ## 🔵 Stride
 
@@ -174,7 +174,7 @@
 * [Discord Alarm Setup TR](Stride/Nodecord-Discord-Alarm/README.md)
   * [Discord Alarm Setup EN](Stride/Nodecord-Discord-Alarm/ReadmeEN.md)
   * [Discord Alarm Setup RU](Stride/Nodecord-Discord-Alarm/ReadmeRU.md)
-* [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Stride/Tools)
+* [🔗 Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Stride/Tools)
 
 ## 🔵 Sui
 
@@ -196,7 +196,7 @@
 * [Discord Alarm Setup TR](Teritori/Nodecord-Discord-Alarm/README.md)
   * [Discord Alarm Setup EN](Teritori/Nodecord-Discord-Alarm/ReadmeEN.md)
   * [Discord Alarm Setup RU](Teritori/Nodecord-Discord-Alarm/ReadmeRU.md)
-* [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Teritori/Tools)
+* [🔗 Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Teritori/Tools)
 
 ## 🔵 Tidefi
 
