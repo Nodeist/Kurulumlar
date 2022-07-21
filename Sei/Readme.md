@@ -1,7 +1,6 @@
 # Node Setup TR
-[**<mark style="color:blue;">**Discord**</mark>**](https://discord.gg/ypx7mJ6Zzb) | [**<mark style="color:green;">**Telegram**</mark>**](https://t.me/noodeist) | [**<mark style="color:red;">**Website**</mark>**](https://nodeist.net/) | [**<mark style="color:red;">**100$ Credit Free VPS for 2 Months**</mark>**](https://nodeist.net/)
 
-
+&#x20;                             [<mark style="color:blue;">**Discord**</mark>](https://discord.gg/ypx7mJ6Zzb) | [<mark style="color:green;">**Telegram**</mark>](https://t.me/noodeist) | [<mark style="color:red;">**Website**</mark>](https://nodeist.net/) | [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months**</mark>](https://nodeist.net/)<mark style="color:purple;"></mark>
 
 ![](https://i.hizliresim.com/gsu0zju.png)
 
