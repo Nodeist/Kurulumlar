@@ -1,6 +1,6 @@
 # Table of contents
 
-* [🔅 Home](Home.md)
+* [🔅 Home](Readme.md)
 
 ## 🔵 Another-1
 
