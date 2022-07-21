@@ -1,2 +1,0 @@
-# Nodecord-Discord-Alarm
-

@@ -1,2 +1,0 @@
-# Kujira-Mainnet
-
