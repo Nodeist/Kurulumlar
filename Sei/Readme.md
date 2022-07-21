@@ -1,11 +1,9 @@
 # Node Setup TR
 
-100$ Free VPS for 2 Month\
-[![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg)](https://www.digitalocean.com/?refcode=410c988c8b3e\&utm\_campaign=Referral\_Invite\&utm\_medium=Referral\_Program\&utm\_source=badge)\
-[![](https://cdn.logojoy.com/wp-content/uploads/20210422095037/discord-mascot.png)](https://discord.gg/ypx7mJ6Zzb)\
-Discord'a Katıl\
-[![](https://raw.githubusercontent.com/Nodeist/Testnet\_Kurulumlar/main/logo.png)](https://nodeist.site/)\
-Websitemizi Ziyaret Et\
+<mark style="color:blue;">**Discord**</mark>** | **<mark style="color:green;">**Telegram**</mark>** | **<mark style="color:red;">**Website**</mark>
+
+
+
 
 
 ![](https://i.hizliresim.com/gsu0zju.png)
