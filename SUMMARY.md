@@ -20,7 +20,7 @@
 
 ## 🔵 Bundlr
 
-* [Node Setup TR](Readme.md)
+* [Node Setup TR](/Readme.md)
   * [Node Setup EN](/Bundlr/ReadmeEN.md)
   * [Node Setup RU](/Bundlr/ReadmeRU.md)
 
