@@ -14,4 +14,4 @@
   * [Node Setup TR](Anone/Nodecord-Discord-Alarm/README.md)
     * [Node Setup EN](Anone/Nodecord-Discord-Alarm/ReadmeEN.md)
     * [Node Setup RU](AAnone/Nodecord-Discord-Alarm/ReadmeRU.md)
-  * [Tools](Anone/Tools)
+  * [Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Anone/Tools)
