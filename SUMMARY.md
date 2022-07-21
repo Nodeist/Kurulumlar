@@ -1,6 +1,6 @@
 # Table of contents
 
-* [🔅 Readme](Readme.md)
+* [🔅 README](README.md)
 
 ## 🔵 Another-1
 
@@ -20,9 +20,9 @@
 
 ## 🔵 Bundlr
 
-* [Node Setup TR](/Bundlr/Readme.md)
-  * [Node Setup EN](/Bundlr/ReadmeEN.md)
-  * [Node Setup RU](/Bundlr/ReadmeRU.md)
+* [Node Setup TR](Bundlr/Readme.md)
+  * [Node Setup EN](Bundlr/ReadmeEN.md)
+  * [Node Setup RU](Bundlr/ReadmeRU.md)
 
 ## 🔵 Celestia
 
