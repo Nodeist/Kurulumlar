@@ -1,16 +1,17 @@
 # README
+**This page contains tutorials on how to operate various crypto project servers.** 
 
-100$ Free VPS for 2 Month\
-[<img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" width="128" alt="DigitalOcean Referral Badge" data-size="line">](https://www.digitalocean.com/?refcode=410c988c8b3e\&utm\_campaign=Referral\_Invite\&utm\_medium=Referral\_Program\&utm\_source=badge) \
-**This page contains tutorials on how to operate various crypto project servers.**\
-[<img src="https://github.com/Nodeist/Testnet_Kurulumlar/blob/fee87fe32609c1704206721b9fb16e4c5de75a96/telegramlogo.png" width="64" alt="" data-size="line">](https://t.me/nodeistt)\
-Join Telegram.\
+
+[<p align="center">100$ Free VPS for 2 Month \
+  <img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" width="256" alt="DigitalOcean Referral Badge" data-size="line"></p>](https://www.digitalocean.com/?refcode=410c988c8b3e\&utm\_campaign=Referral\_Invite\&utm\_medium=Referral\_Program\&utm\_source=badge) 
+
 \
-[<img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="64" alt="" data-size="line">](https://nodeist.net/)\
-Visit Our Website.\
-\
-[<img src="https://cdn.logojoy.com/wp-content/uploads/20210422095037/discord-mascot.png" width="64" alt="" data-size="line">](https://discord.gg/ypx7mJ6Zzb)\
-Join Discord
+[<p align="center">Visit Our Website. \
+  <img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="64" alt="" data-size="line">](https://nodeist.net/)
+
+[<p align="center">Join Discord \
+  <img src="https://cdn.logojoy.com/wp-content/uploads/20210422095037/discord-mascot.png" width="64" alt="" data-size="line">](https://discord.gg/ypx7mJ6Zzb)
+
 
 
 Peer bul
