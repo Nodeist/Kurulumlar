@@ -1,32 +1,34 @@
-&#x20;                             [<mark style="color:red;">**Website**</mark>](https://nodeist.net/) | [<mark style="color:blue;">**Discord**</mark>](https://discord.gg/ypx7mJ6Zzb) | [<mark style="color:green;">**Telegram**</mark>](https://t.me/noodeist) | [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://nodeist.net/)<mark style="color:purple;"></mark>
+# Node Setup TR
+
+&#x20;                                                       [<mark style="color:red;">**Website**</mark>](https://nodeist.net/) | [<mark style="color:blue;">**Discord**</mark>](https://discord.gg/ypx7mJ6Zzb) | [<mark style="color:green;">**Telegram**</mark>](https://t.me/noodeist)
+
+&#x20;                                     [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://nodeist.net/)
 
 ![](https://i.hizliresim.com/cdpen5h.png)
 
+### Another-1 Kurulum Rehberi
 
-
-## Another-1 Kurulum Rehberi
-
-### Donanım Gereksinimleri
+#### Donanım Gereksinimleri
 
 Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
 
-#### Minimum Donanım Gereksinimleri
+**Minimum Donanım Gereksinimleri**
 
 * 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
 * 4GB RAM
 * 80GB Disk
 * Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
 
-#### Önerilen Donanım Gereksinimleri
+**Önerilen Donanım Gereksinimleri**
 
 * 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
 * 8GB RAM
 * 200 GB depolama (SSD veya NVME)
 * Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
 
-### Anone Full Node Kurulum Adımları
+#### Anone Full Node Kurulum Adımları
 
-#### Tek Script İle Otomatik Kurulum
+**Tek Script İle Otomatik Kurulum**
 
 Aşağıdaki otomatik komut dosyasını kullanarak Anone fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Script sırasında size node isminiz (NODENAME) sorulacak!
 
@@ -34,7 +36,7 @@ Aşağıdaki otomatik komut dosyasını kullanarak Anone fullnode'unuzu birkaç 
 wget -O ANONE.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Anone/ANONE && chmod +x ANONE.sh && ./ANONE.sh
 ```
 
-#### Kurulum Sonrası Adımlar
+**Kurulum Sonrası Adımlar**
 
 Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 
@@ -42,7 +44,7 @@ Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. Senk
 anoned status 2>&1 | jq .SyncInfo
 ```
 
-#### Cüzdan Oluşturma
+**Cüzdan Oluşturma**
 
 Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
 
@@ -62,7 +64,7 @@ Mevcut cüzdan listesini almak için:
 anoned keys list
 ```
 
-#### Cüzdan Bilgilerini Kaydet
+**Cüzdan Bilgilerini Kaydet**
 
 Cüzdan Adresi Ekleyin:
 
@@ -74,7 +76,7 @@ echo 'export ANONE_VALOPER_ADDRESS='${ANONE_VALOPER_ADDRESS} >> $HOME/.bash_prof
 source $HOME/.bash_profile
 ```
 
-#### Doğrulayıcı oluştur
+**Doğrulayıcı oluştur**
 
 Doğrulayıcı oluşturmadan önce lütfen en az 1 an1'ye sahip olduğunuzdan (1 an1 1000000 uan1'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
 
@@ -102,9 +104,9 @@ anoned tx staking create-validator \
   --fees 250uan1
 ```
 
-### Kullanışlı Komutlar
+#### Kullanışlı Komutlar
 
-#### Servis Yönetimi
+**Servis Yönetimi**
 
 Logları Kontrol Et:
 
@@ -130,7 +132,7 @@ Servisi Yeniden Başlat:
 systemctl restart anoned
 ```
 
-#### Node Bilgileri
+**Node Bilgileri**
 
 Senkronizasyon Bilgisi:
 
@@ -156,7 +158,7 @@ Node ID Göser:
 anoned tendermint show-node-id
 ```
 
-#### Cüzdan İşlemleri
+**Cüzdan İşlemleri**
 
 Cüzdanları Listele:
 
@@ -188,13 +190,13 @@ Cüzdandan Cüzdana Bakiye Transferi:
 anoned tx bank send $ANONE_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000uan1
 ```
 
-#### Oylama
+**Oylama**
 
 ```
 anoned tx gov vote 1 yes --from $ANONE_WALLET --chain-id=$ANONE_ID
 ```
 
-#### Stake, Delegasyon ve Ödüller
+**Stake, Delegasyon ve Ödüller**
 
 Delegate İşlemi:
 
@@ -220,7 +222,7 @@ Komisyon ile ödülleri geri çekin:
 anoned tx distribution withdraw-rewards $ANONE_VALOPER_ADDRESS --from=$ANONE_WALLET --commission --chain-id=$ANONE_ID
 ```
 
-#### Doğrulayıcı Yönetimi
+**Doğrulayıcı Yönetimi**
 
 Validatör İsmini Değiştir:
 
