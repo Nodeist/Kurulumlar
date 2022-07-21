@@ -1,9 +1,16 @@
 # Node Setup TR
+<p style="font-size:14px" align="right">
+ 100$ Free VPS for 2 Month <br>
+ <a target="_blank" href="https://www.digitalocean.com/?refcode=410c988c8b3e&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a></br>
+<a href="https://discord.gg/ypx7mJ6Zzb" target="_blank"><img src="https://cdn.logojoy.com/wp-content/uploads/20210422095037/discord-mascot.png" width="30"/></a><br> Discord'a Katıl <br>
+<a href="https://nodeist.site/" target="_blank"><img src="https://raw.githubusercontent.com/Nodeist/Testnet_Kurulumlar/main/logo.png" width="30"/></a><br> Websitemizi Ziyaret Et <br>
+</p>
 
-![100$ Free VPS for 2 Month](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg)
 
-![](https://i.hizliresim.com/cdpen5h.png) ![](https://raw.githubusercontent.com/Nodeist/Testnet\_Kurulumlar/main/logo.png) ![](https://camo.githubusercontent.com/a211454a3e1d77188f00bcfdf9e36cc99f2f946c3bc811572ace9c19a5489f8f/68747470733a2f2f63646e2e6c6f676f6a6f792e636f6d2f77702d636f6e74656e742f75706c6f6164732f32303231303432323039353033372f646973636f72642d6d6173636f742e706e67)
 
+<p align="center">
+  <img height="100" src="https://i.hizliresim.com/cdpen5h.png">
+</p>
 ## Another-1 Kurulum Rehberi
 
 ### Donanım Gereksinimleri
