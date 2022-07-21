@@ -1,6 +1,6 @@
 &#x20;                             [<mark style="color:red;">**Website**</mark>](https://nodeist.net/) | [<mark style="color:blue;">**Discord**</mark>](https://discord.gg/ypx7mJ6Zzb) | [<mark style="color:green;">**Telegram**</mark>](https://t.me/noodeist) | [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://nodeist.net/)<mark style="color:purple;"></mark>
 
-![](https://i.hizliresim.com/gsu0zju.png)
+![](https://i.hizliresim.com/7ffu92z.jpeg)
 
 # Teritori Telegram Alarm Kurulum Rehberi
 Bu sistem sizi jail veya inaktif durum hakkında telegram üzerinden uyaracaktır. Ayrıca size her saat başı node durumunuz hakkında kısa bilgi gönderir.
