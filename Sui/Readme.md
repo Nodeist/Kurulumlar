@@ -96,7 +96,7 @@ https://explorer.devnet.sui.io/addresses/<YOUR_WALLET_ADDRESS>
 ## Objelerle işlemler
 ### İki objeyi tek bir objede birleştirin
 ```
-JSON=$(sui client gas --json)
+JSON=$(sui client gas --json | jq -r)
 FIRST_OBJECT_ID=$(sui client gas --json | jq -r .[0].id.id)
 SECOND_OBJECT_ID=$(sui client gas --json | jq -r .[1].id.id)
 sui client merge-coin --primary-coin ${FIRST_OBJECT_ID} --coin-to-merge ${SECOND_OBJECT_ID} --gas-budget 1000
