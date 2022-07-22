@@ -84,7 +84,7 @@ sleep 1
 
 # KUTUPHANE KURULUMU by Nodeist
 sudo wget -O - $PLM_REPO | \
-sudo tar -C /usr/local/bin -xvzf - $PLM
+sudo tar -C /usr/local/bin -xvzf - $PLM_REPO
 sudo chmod +x /usr/local/bin/$PLM
 sudo wget -P /usr/lib https://github.com/CosmWasm/wasmvm/raw/main/api/libwasmvm.x86_64.so
 
