@@ -88,8 +88,8 @@ cd $HOME
 git clone $STRD_REPO
 cd $STRD_FOLDER2
 git checkout $STRD_VER
+mkdir -p $HOME/go/bin
 go build -mod=readonly -trimpath -o $HOME/go/bin ./...
-
 
 sleep 1
 
