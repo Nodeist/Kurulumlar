@@ -16,7 +16,7 @@
 | Kyve         | 35   |
 | Quicksilver  | 36   |
 | Sei          | 37   |
-| BOŞ          | 38   |
+| Rebus        | 38   |
 | BOŞ          | 39   |
 | Uptick       | 40   |
 | Paloma       | 41   |
