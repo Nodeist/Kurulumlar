@@ -13,7 +13,7 @@ sleep 2
 # DEGISKENLER by Nodeist
 RBS_WALLET=wallet
 RBS=reb_3333-1
-RBS_ID=RBS-testnet-1
+RBS_ID=reb_3333-1
 RBS_PORT=38
 RBS_FOLDER=.rebusd
 RBS_FOLDER2=rebus.core
