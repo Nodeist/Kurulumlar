@@ -25,18 +25,18 @@ GAS_VALUE="auto"
 # Withdraw
 while :
 do
-	echo $PASS | anoned tx distribution withdraw-rewards "${VALIDATOR}"  --from "${KEY_NAME}" --commission --chain-id=${CHAIN_ID} --gas="${GAS_VALUE}" -y
+	echo $PASS | rebusd tx distribution withdraw-rewards "${VALIDATOR}"  --from "${KEY_NAME}" --commission --chain-id=${CHAIN_ID} --gas="${GAS_VALUE}" -y
 	
 	sleep 20s
 	
-	AVAILABLE_COIN=$(anoned query bank balances ${ADDRESS} --output json | jq -r '.balances | map(select(.denom == "uan1")) | .[].amount' | tr -cd [:digit:])
+	AVAILABLE_COIN=$(rebusd query bank balances ${ADDRESS} --output json | jq -r '.balances | map(select(.denom == "arebus")) | .[].amount' | tr -cd [:digit:])
 	KEEP_FOR_FEES=100000
 	AMOUNT=$(($AVAILABLE_COIN - $KEEP_FOR_FEES))
-	AMOUNT_FINAL=$AMOUNT"uan1"
+	AMOUNT_FINAL=$AMOUNT"arebus"
 	
 	
 	# Delegate
-	echo $PASS | anoned tx staking delegate "${VALIDATOR}" "${AMOUNT_FINAL}" --from "${KEY_NAME}" --chain-id=${CHAIN_ID} -y
+	echo $PASS | rebusd tx staking delegate "${VALIDATOR}" "${AMOUNT_FINAL}" --from "${KEY_NAME}" --chain-id=${CHAIN_ID} -y
 	date
 	sleep 90s
 done;
