@@ -2,6 +2,22 @@
 
 * [🔅 README](README.md)
 
+## 🔵 Rebus
+
+* [Node Setup TR](Rebus/Readme.md)
+  * [Node Setup EN](Rebus/ReadmeEN.md)
+  * [Node Setup RU](Rebus/ReadmeRU.md)
+* [Grafana Monitor Setup TR](Rebus/Monitor/README.md)
+  * [Grafana Monitor Setup EN](Rebus/Monitor/ReadmeEN.md)
+  * [Grafana Monitor Setup RU](Rebus/Monitor/ReadmeRU.md)
+* [Telegram Alarm Setup TR](Rebus/Telegram-Alarm/README.md)
+  * [Telegram Alarm Setup EN](Rebus/Telegram-Alarm/ReadmeEN.md)
+  * [Telegram Alarm Setup RU](Rebus/Telegram-Alarm/ReadmeRU.md)
+* [Discord Alarm Setup TR](Rebus/Nodecord-Discord-Alarm/README.md)
+  * [Discord Alarm Setup EN](Rebus/Nodecord-Discord-Alarm/ReadmeEN.md)
+  * [Discord Alarm Setup RU](Rebus/Nodecord-Discord-Alarm/ReadmeRU.md)
+* [🔗 Tools](https://github.com/Nodeist/Kurulumlar/tree/main/Rebus/Tools)
+
 ## 🔵 Another-1
 
 * [Node Setup TR](Anone/Readme.md)
