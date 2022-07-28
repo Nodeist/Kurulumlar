@@ -16,13 +16,13 @@ Aktarıcıyı kurmadan önce aşağıdakilere sahip olduğunuzdan emin olmanız 
 #### RPC yapılandırması `config.toml` dosyasında bulunur.
 Rpc ayarını aşağıdaki gibi yaparak kaydedin.
 ```
-laddr = "tcp://0.0.0.0:12657"
+laddr = "tcp://0.0.0.0:10657"
 ```
 
 #### GRPC yapılandırması `app.toml` dosyasında bulunur
 Grpc ayarını aşağıdaki gibi yaparak kaydedin.
 ```
-address = "0.0.0.0:12090"
+address = "0.0.0.0:10090"
 ```
 
 3. Indexer'ı iki düğümde de `kv` olarak ayarlayın. `Config.toml` dosyası.
@@ -58,8 +58,8 @@ RELAYER_NAME='Nodeist#3299'
 Stride node'unuz için RPC ve GRPC kısımlarına kendi nodeunuza ait ipadresi+port yazın. ayrıca strd mnemoniclerinizi ekleyin. 
 ```
 CHAIN_ID_A='STRIDE-TESTNET-2'
-RPC_ADDR_A='127.0.0.1:16657'
-GRPC_ADDR_A='127.0.0.1:16090'
+RPC_ADDR_A='127.0.0.1:44657'
+GRPC_ADDR_A='127.0.0.1:44090'
 ACCOUNT_PREFIX_A='stride'
 TRUSTING_PERIOD_A='8hours'
 DENOM_A='ustrd'
@@ -71,8 +71,8 @@ Gaia node'unuz için RPC ve GRPC kısımlarına kendi nodeunuza ait ipadresi+por
 
 ```
 CHAIN_ID_B='GAIA'
-RPC_ADDR_B='127.0.0.1:23657'
-GRPC_ADDR_B='127.0.0.1:23090'
+RPC_ADDR_B='127.0.0.1:10657'
+GRPC_ADDR_B='127.0.0.1:10090'
 ACCOUNT_PREFIX_B='cosmos'
 TRUSTING_PERIOD_B='8hours'
 DENOM_B='uatom'
