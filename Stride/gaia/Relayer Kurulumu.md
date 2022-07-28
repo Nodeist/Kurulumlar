@@ -67,7 +67,7 @@ MNEMONIC_A='mnemonic gelecek'
 ```
 
 ### Chain B
-Gaia node'unuz için RPC ve GRPC kısımlarına kendi nodeunuza ait ipadresi+port yazın. ayrıca strd mnemoniclerinizi ekleyin. 
+Gaia node'unuz için RPC ve GRPC kısımlarına kendi nodeunuza ait ipadresi+port yazın. ayrıca gaia mnemoniclerinizi ekleyin. 
 
 ```
 CHAIN_ID_B='GAIA'
