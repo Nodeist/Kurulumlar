@@ -72,7 +72,7 @@ Sağlıklı düğüm şöyle görünmelidir:
 
 ## Cüzdan oluştur
 ```
-echo -e "y\n" | sui client
+sui client new-address
 ```
 > !Lütfen `$HOME/.sui/sui_config/` dizininde bulunan cüzdan anahtarı dosyalarınızı yedekleyin!
 
