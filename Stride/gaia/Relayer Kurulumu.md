@@ -195,7 +195,8 @@ Success: performed health check for all chains in the config
 ```
 
 ## Anımsatıcı dosyaları kullanarak cüzdanları kurtarın
-Bu adıma geçmeden önce, lütfen her zincirde ayrı cüzdanlar oluşturduğunuzdan ve tokenlerle finanse ettiğinizden emin olun.
+Bu adıma geçmeden önce, yukarıda mnemoniclerini yazdığınız cüzdanların hepsinde bir miktar token olduğundan emin olun. 
+relayer çalışırken fee ödemesi için gerekiyor.
 ```
 sudo tee $HOME/.hermes/${CHAIN_ID_A}.mnemonic > /dev/null <<EOF
 ${MNEMONIC_A}
