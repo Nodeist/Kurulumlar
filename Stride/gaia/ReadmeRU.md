@@ -5,7 +5,7 @@
 ![](https://i.hizliresim.com/qa5txaz.png)
 
 
-# Stride Руководство по установке
+# Gaia Руководство по установке
 ## Аппаратные требования
 Как и у любой цепочки Cosmos-SDK, требования к оборудованию довольно скромные.
 
@@ -21,69 +21,69 @@
   - 200 ГБ памяти (SSD или NVME)
   - Постоянное подключение к Интернету (трафик будет не менее 10 Мбит / с во время тестовой сети - ожидается не менее 100 Мбит / с для производства)
 
-## Этапы установки Stride Full Node
+## Этапы установки Gaia Full Node
 ### Автоматическая установка с помощью одного скрипта
-Вы можете настроить полную ноду Stride за несколько минут, используя приведенный ниже автоматизированный скрипт.
+Вы можете настроить полную ноду Gaia за несколько минут, используя приведенный ниже автоматизированный скрипт.
 Вам будет предложено ввести имя вашего узла (NODENAME) во время скрипта!
 
 ```
-wget -O STRD.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Stride/STRD && chmod +x STRD.sh && ./STRD.sh
+wget -O GAIA.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Stride/gaia/GAIA && chmod +x GAIA.sh && ./GAIA.sh
 ```
 ### Действия после установки
 
 Вы должны убедиться, что ваш валидатор синхронизирует блоки.
 Вы можете использовать следующую команду для проверки состояния синхронизации.
 ```
-strided status 2>&1 | jq .SyncInfo
+gaiad status 2>&1 | jq .SyncInfo
 ```
 
 ### Создание кошелька
 Вы можете использовать следующую команду для создания нового кошелька. Не забудьте сохранить напоминание (мнемонику).
 ```
-strided keys add $STRD_WALLET
+gaiad keys add $GAIA_WALLET
 ```
 
 (НЕОБЯЗАТЕЛЬНО) Чтобы восстановить кошелек с помощью мнемоники:
 ```
-strided keys add $STRD_WALLET --recover
+gaiad keys add $GAIA_WALLET --recover
 ```
 
 Чтобы получить текущий список кошельков:
 ```
-strided keys list
+gaiad keys list
 ```
 ### Сохранить информацию о кошельке
 Добавить адрес кошелька:
 ```
-STRD_WALLET_ADDRESS=$(strided keys show $STRD_WALLET -a)
-STRD_VALOPER_ADDRESS=$(strided keys show $STRD_WALLET --bech val -a)
-echo 'export STRD_WALLET_ADDRESS='${STRD_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export STRD_VALOPER_ADDRESS='${STRD_VALOPER_ADDRESS} >> $HOME/.bash_profile
+GAIA_WALLET_ADDRESS=$(gaiad keys show $GAIA_WALLET -a)
+GAIA_VALOPER_ADDRESS=$(gaiad keys show $GAIA_WALLET --bech val -a)
+echo 'export GAIA_WALLET_ADDRESS='${GAIA_WALLET_ADDRESS} >> $HOME/.bash_profile
+echo 'export GAIA_VALOPER_ADDRESS='${GAIA_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
 
 ### Создать валидатор
-Перед созданием валидатора убедитесь, что у вас есть как минимум 1 strd (1 strd равен 1000000 ustrd) и ваш узел синхронизирован.
+Перед созданием валидатора убедитесь, что у вас есть как минимум 1 atom (1 atom равен 1000000 uatom) и ваш узел синхронизирован.
 Чтобы проверить баланс кошелька:
 ```
-strided query bank balances $STRD_WALLET_ADDRESS
+gaiad query bank balances $GAIA_WALLET_ADDRESS
 ```
 > Если вы не видите свой баланс в кошельке, скорее всего, ваш узел все еще синхронизируется. Подождите, пока синхронизация завершится, а затем продолжите.
 
 Создание валидатора:
 ```
-strided tx staking create-validator \
-  --amount 1000000ustrd \
-  --from $STRD_WALLET \
+gaiad tx staking create-validator \
+  --amount 1000000uatom \
+  --from $GAIA_WALLET \
   --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
-  --pubkey  $(strided tendermint show-validator) \
-  --moniker $STRD_NODENAME \
-  --chain-id $STRD_ID \
-  --fees 250ustrd
+  --pubkey  $(gaiad tendermint show-validator) \
+  --moniker $GAIA_NODENAME \
+  --chain-id $GAIA_ID \
+  --fees 250uatom
 ```
 
 
@@ -91,124 +91,124 @@ strided tx staking create-validator \
 ### Управление услугами
 Проверить журналы:
 ```
-journalctl -fu strided -o cat
+journalctl -fu gaiad -o cat
 ```
 
 Запустить службу:
 ```
-systemctl start strided
+systemctl start gaiad
 ```
 
 Остановить службу:
 ```
-systemctl stop strided
+systemctl stop gaiad
 ```
 
 Перезапустить службу:
 ```
-systemctl restart strided
+systemctl restart gaiad
 ```
 
 ### Информация об узле
 Информация о синхронизации:
 ```
-strided status 2>&1 | jq .SyncInfo
+gaiad status 2>&1 | jq .SyncInfo
 ```
 
 Информация о валидаторе:
 ```
-strided status 2>&1 | jq .ValidatorInfo
+gaiad status 2>&1 | jq .ValidatorInfo
 ```
 
 Информация об узле:
 ```
-strided status 2>&1 | jq .NodeInfo
+gaiad status 2>&1 | jq .NodeInfo
 ```
 
 Показать идентификатор узла:
 ```
-strided tendermint show-node-id
+gaiad tendermint show-node-id
 ```
 
 ### Транзакции кошелька
 Список кошельков:
 ```
-strided keys list
+gaiad keys list
 ```
 
 Восстановить кошелек с помощью Mnemonic:
 ```
-strided keys add $STRD_WALLET --recover
+gaiad keys add $GAIA_WALLET --recover
 ```
 
 Удаление кошелька:
 ```
-strided keys delete $STRD_WALLET
+gaiad keys delete $GAIA_WALLET
 ```
 
 Запрос баланса кошелька:
 ```
-strided query bank balances $STRD_WALLET_ADDRESS
+gaiad query bank balances $GAIA_WALLET_ADDRESS
 ```
 
 Перевод баланса с кошелька на кошелек:
 ```
-strided tx bank send $STRD_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ustrd
+gaiad tx bank send $GAIA_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000uatom
 ```
 
 ### Голосование
 ```
-strided tx gov vote 1 yes --from $STRD_WALLET --chain-id=$STRD_ID
+gaiad tx gov vote 1 yes --from $GAIA_WALLET --chain-id=$GAIA_ID
 ```
 
 ### Ставка, делегирование и вознаграждение
 Процесс делегирования:
 ```
-strided tx staking delegate $STRD_VALOPER_ADDRESS 10000000ustrd --from=$STRD_WALLET --chain-id=$STRD_ID --gas=auto --fees 250ustrd
+gaiad tx staking delegate $GAIA_VALOPER_ADDRESS 10000000uatom --from=$GAIA_WALLET --chain-id=$GAIA_ID --gas=auto --fees 250uatom
 ```
 
 Повторно передать долю от валидатора другому валидатору:
 ```
-strided tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ustrd --from=$STRD_WALLET --chain-id=$STRD_ID --gas=auto --fees 250ustrd
+gaiad tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000uatom --from=$GAIA_WALLET --chain-id=$GAIA_ID --gas=auto --fees 250uatom
 ```
 
 Вывести все награды:
 ```
-strided tx distribution withdraw-all-rewards --from=$STRD_WALLET --chain-id=$STRD_ID --gas=auto --fees 250ustrd
+gaiad tx distribution withdraw-all-rewards --from=$GAIA_WALLET --chain-id=$GAIA_ID --gas=auto --fees 250uatom
 ```
 
 Вывод вознаграждений с комиссией:
 ```
-strided tx distribution withdraw-rewards $STRD_VALOPER_ADDRESS --from=$STRD_WALLET --commission --chain-id=$STRD_ID
+gaiad tx distribution withdraw-rewards $GAIA_VALOPER_ADDRESS --from=$GAIA_WALLET --commission --chain-id=$GAIA_ID
 ```
 
 ### Управление верификатором
 Изменить имя валидатора:
 ```
-strided tx staking edit-validator \
+gaiad tx staking edit-validator \
 --moniker=NEWNODENAME \
---chain-id=$STRD_ID \
---from=$STRD_WALLET
+--chain-id=$GAIA_ID \
+--from=$GAIA_WALLET
 ```
 
 Выйти из тюрьмы (Unjail):
 ```
-strided tx slashing unjail \
+gaiad tx slashing unjail \
   --broadcast-mode=block \
-  --from=$STRD_WALLET \
-  --chain-id=$STRD_ID \
-  --gas=auto --fees 250ustrd
+  --from=$GAIA_WALLET \
+  --chain-id=$GAIA_ID \
+  --gas=auto --fees 250uatom
 ```
 
 
 Чтобы полностью удалить узел:
 ```
-sudo systemctl stop strided
-sudo systemctl disable strided
-sudo rm /etc/systemd/system/stride* -rf
-sudo rm $(which strided) -rf
-sudo rm $HOME/.stride* -rf
-sudo rm $HOME/stride -rf
-sed -i '/STRD_/d' ~/.bash_profile
+sudo systemctl stop gaiad
+sudo systemctl disable gaiad
+sudo rm /etc/systemd/system/gaia* -rf
+sudo rm $(which gaiad) -rf
+sudo rm $HOME/.gaia* -rf
+sudo rm $HOME/gaia -rf
+sed -i '/GAIA_/d' ~/.bash_profile
 ```
   

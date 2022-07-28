@@ -5,7 +5,7 @@
 ![](https://i.hizliresim.com/qa5txaz.png)
 
 
-# Stride Installation Guide
+# Gaia Installation Guide
 ## Hardware Requirements
 Like any Cosmos-SDK chain, the hardware requirements are pretty modest.
 
@@ -21,13 +21,13 @@ Like any Cosmos-SDK chain, the hardware requirements are pretty modest.
   - 200 GB storage (SSD or NVME)
   - Persistent Internet connection (traffic will be minimum 10Mbps during testnet - at least 100Mbps expected for production)
 
-## Stride Full Node Installation Steps
+## Gaia Full Node Installation Steps
 ### Automatic Installation with a Single Script
-You can set up your Stride fullnode in a few minutes using the automated script below.
+You can set up your Gaia fullnode in a few minutes using the automated script below.
 You will be asked for your node name (NODENAME) during the script!
 
 ```
-wget -O STRD.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Stride/STRD && chmod +x STRD.sh && ./STRD.sh
+wget -O GAIA.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Stride/gaia/GAIA && chmod +x GAIA.sh && ./GAIA.sh
 ```
 
 ### Post-Installation Steps
@@ -35,58 +35,58 @@ wget -O STRD.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Stride
 You should make sure your validator syncs blocks.
 You can use the following command to check the sync status.
 ```
-strided status 2>&1 | jq .SyncInfo
+gaiad status 2>&1 | jq .SyncInfo
 ```
 
 ### Creating a Wallet
 You can use the following command to create a new wallet. Do not forget to save the reminder (mnemonic).
 ```
-strided keys add $STRD_WALLET
+gaiad keys add $GAIA_WALLET
 ```
 
 (OPTIONAL) To recover your wallet using mnemonic:
 ```
-strided keys add $STRD_WALLET --recover
+gaiad keys add $GAIA_WALLET --recover
 ```
 
 To get the current wallet list:
 ```
-strided keys list
+gaiad keys list
 ```
 
 ### Save Wallet Information
 Add Wallet Address:
 ```
-STRD_WALLET_ADDRESS=$(strided keys show $STRD_WALLET -a)
-STRD_VALOPER_ADDRESS=$(strided keys show $STRD_WALLET --bech val -a)
-echo 'export STRD_WALLET_ADDRESS='${STRD_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export STRD_VALOPER_ADDRESS='${STRD_VALOPER_ADDRESS} >> $HOME/.bash_profile
+GAIA_WALLET_ADDRESS=$(gaiad keys show $GAIA_WALLET -a)
+GAIA_VALOPER_ADDRESS=$(gaiad keys show $GAIA_WALLET --bech val -a)
+echo 'export GAIA_WALLET_ADDRESS='${GAIA_WALLET_ADDRESS} >> $HOME/.bash_profile
+echo 'export GAIA_VALOPER_ADDRESS='${GAIA_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
 
 ### Create validator
-Before creating a validator please make sure you have at least 1 strd (1 strd equals 1000000 ustrd) and your node is in sync.
+Before creating a validator please make sure you have at least 1 atom (1 atom equals 1000000 uatom) and your node is in sync.
 
 To check your wallet balance:
 ```
-strided query bank balances $STRD_WALLET_ADDRESS
+gaiad query bank balances $GAIA_WALLET_ADDRESS
 ```
 > If you can't see your balance in your wallet, chances are your node is still syncing. Please wait for the sync to finish and then continue.
 
 Creating a Validator:
 ```
-strided tx staking create-validator \
-  --amount 1000000ustrd \
-  --from $STRD_WALLET \
+gaiad tx staking create-validator \
+  --amount 1000000uatom \
+  --from $GAIA_WALLET \
   --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
-  --pubkey  $(strided tendermint show-validator) \
-  --moniker $STRD_NODENAME \
-  --chain-id $STRD_ID \
-  --fees 250ustrd
+  --pubkey  $(gaiad tendermint show-validator) \
+  --moniker $GAIA_NODENAME \
+  --chain-id $GAIA_ID \
+  --fees 250uatom
 ```
 
 
@@ -95,123 +95,123 @@ strided tx staking create-validator \
 ### Service Management
 Check Logs:
 ```
-journalctl -fu strided -o cat
+journalctl -fu gaiad -o cat
 ```
 
 Start Service:
 ```
-systemctl start strided
+systemctl start gaiad
 ```
 
 Stop Service:
 ```
-systemctl stop strided
+systemctl stop gaiad
 ```
 
 Restart Service:
 ```
-systemctl restart strided
+systemctl restart gaiad
 ```
 
 ### Node Information
 Sync Information:
 ```
-strided status 2>&1 | jq .SyncInfo
+gaiad status 2>&1 | jq .SyncInfo
 ```
 
 Validator Information:
 ```
-strided status 2>&1 | jq .ValidatorInfo
+gaiad status 2>&1 | jq .ValidatorInfo
 ```
 
 Node Information:
 ```
-strided status 2>&1 | jq .NodeInfo
+gaiad status 2>&1 | jq .NodeInfo
 ```
 
 Show Node ID:
 ```
-strided tendermint show-node-id
+gaiad tendermint show-node-id
 ```
 
 ### Wallet Transactions
 List Wallets:
 ```
-strided keys list
+gaiad keys list
 ```
 
 Recover wallet using Mnemonic:
 ```
-strided keys add $STRD_WALLET --recover
+gaiad keys add $GAIA_WALLET --recover
 ```
 
 Wallet Delete:
 ```
-strided keys delete $STRD_WALLET
+gaiad keys delete $GAIA_WALLET
 ```
 
 Show Wallet Balance:
 ```
-strided query bank balances $STRD_WALLET_ADDRESS
+gaiad query bank balances $GAIA_WALLET_ADDRESS
 ```
 
 Cüzdandan Cüzdana Bakiye Transferi:
 ```
-strided tx bank send $STRD_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ustrd
+gaiad tx bank send $GAIA_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000uatom
 ```
 
 ### Voting
 ```
-strided tx gov vote 1 yes --from $STRD_WALLET --chain-id=$STRD_ID
+gaiad tx gov vote 1 yes --from $GAIA_WALLET --chain-id=$GAIA_ID
 ```
 
 ### Stake, Delegation and Rewards
 Delegate Process:
 ```
-strided tx staking delegate $STRD_VALOPER_ADDRESS 10000000ustrd --from=$STRD_WALLET --chain-id=$STRD_ID --gas=auto --fees 250ustrd
+gaiad tx staking delegate $GAIA_VALOPER_ADDRESS 10000000uatom --from=$GAIA_WALLET --chain-id=$GAIA_ID --gas=auto --fees 250uatom
 ```
 
 Redelegate from validator to another validator:
 ```
-strided tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ustrd --from=$STRD_WALLET --chain-id=$STRD_ID --gas=auto --fees 250ustrd
+gaiad tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000uatom --from=$GAIA_WALLET --chain-id=$GAIA_ID --gas=auto --fees 250uatom
 ```
 
 Withdraw all rewards:
 ```
-strided tx distribution withdraw-all-rewards --from=$STRD_WALLET --chain-id=$STRD_ID --gas=auto --fees 250ustrd
+gaiad tx distribution withdraw-all-rewards --from=$GAIA_WALLET --chain-id=$GAIA_ID --gas=auto --fees 250uatom
 ```
 
 Withdraw rewards with commission:
 ```
-strided tx distribution withdraw-rewards $STRD_VALOPER_ADDRESS --from=$STRD_WALLET --commission --chain-id=$STRD_ID
+gaiad tx distribution withdraw-rewards $GAIA_VALOPER_ADDRESS --from=$GAIA_WALLET --commission --chain-id=$GAIA_ID
 ```
 
 ### Validator Management
 Change Validator Name:
 ```
-strided tx staking edit-validator \
+gaiad tx staking edit-validator \
 --moniker=NEWNODENAME \
---chain-id=$STRD_ID \
---from=$STRD_WALLET
+--chain-id=$GAIA_ID \
+--from=$GAIA_WALLET
 ```
 
 Get Out Of Jail(Unjail): 
 ```
-strided tx slashing unjail \
+gaiad tx slashing unjail \
   --broadcast-mode=block \
-  --from=$STRD_WALLET \
-  --chain-id=$STRD_ID \
-  --gas=auto --fees 250ustrd
+  --from=$GAIA_WALLET \
+  --chain-id=$GAIA_ID \
+  --gas=auto --fees 250uatom
 ```
 
 To Delete Node Completely:
 ```
-sudo systemctl stop strided
-sudo systemctl disable strided
-sudo rm /etc/systemd/system/stride* -rf
-sudo rm $(which strided) -rf
-sudo rm $HOME/.stride* -rf
-sudo rm $HOME/stride -rf
-sed -i '/STRD_/d' ~/.bash_profile
+sudo systemctl stop gaiad
+sudo systemctl disable gaiad
+sudo rm /etc/systemd/system/gaia* -rf
+sudo rm $(which gaiad) -rf
+sudo rm $HOME/.gaia* -rf
+sudo rm $HOME/gaia -rf
+sed -i '/GAIA_/d' ~/.bash_profile
 ```
   
