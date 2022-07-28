@@ -247,3 +247,4 @@ journalctl -fu hermesd -o cat
 Ayrıca, https://stride.explorers.guru/account/$STRD_WALLET_ADDRESS explorer'ında görünen "Update Client (Ibc)" işlemlerini görmelisiniz.
 
 ![image](https://i.hizliresim.com/ad562wi.png)
+![image](https://i.hizliresim.com/pgz94lr.png)
