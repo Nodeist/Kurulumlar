@@ -76,7 +76,7 @@ GRPC_ADDR_B='127.0.0.1:10090'
 ACCOUNT_PREFIX_B='cosmos'
 TRUSTING_PERIOD_B='8hours'
 DENOM_B='uatom'
-MNEMONIC_A='mnemonic gelecek'
+MNEMONIC_B='mnemonic gelecek'
 ```
 
 ## Hermes'i indirin
