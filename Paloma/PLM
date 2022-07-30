@@ -83,10 +83,14 @@ go version
 sleep 1
 
 # KUTUPHANE KURULUMU by Nodeist
-sudo wget -O - $PLM_REPO | \
-sudo tar -C /usr/local/bin -xvzf - $PLM_REPO
-sudo chmod +x /usr/local/bin/$PLM
-sudo wget -P /usr/lib https://github.com/CosmWasm/wasmvm/raw/main/api/libwasmvm.x86_64.so
+cd || return
+curl -L https://github.com/CosmWasm/wasmvm/raw/main/api/libwasmvm.x86_64.so > libwasmvm.x86_64.so
+sudo mv -f libwasmvm.x86_64.so /usr/lib/libwasmvm.x86_64.so
+curl -L https://github.com/palomachain/paloma/releases/download/v0.4.1-alpha/paloma_0.4.1-alpha_Linux_x86_64.tar.gz > paloma.tar.gz
+tar -xvzf paloma.tar.gz
+rm -rf paloma.tar.gz
+sudo mv -f palomad /usr/local/bin/palomad
+palomad version 
 
 sleep 1
 
