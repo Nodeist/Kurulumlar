@@ -204,9 +204,9 @@ rebusd tx slashing unjail \
 ```
 sudo systemctl stop rebusd
 sudo systemctl disable rebusd
-sudo rm /etc/systemd/system/anone* -rf
+sudo rm /etc/systemd/system/rebusd* -rf
 sudo rm $(which rebusd) -rf
-sudo rm $HOME/.anone* -rf
-sudo rm $HOME/anone -rf
+sudo rm $HOME/.rebusd* -rf
+sudo rm $HOME/rebus.core -rf
 sed -i '/RBS_/d' ~/.bash_profile
 ```
