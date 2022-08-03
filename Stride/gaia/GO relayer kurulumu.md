@@ -174,7 +174,8 @@ sudo tee /etc/systemd/system/rlyd.service > /dev/null <<EOF
     [Install]
     WantedBy=multi-user.target
     EOF
-    
+```
+```
     sudo systemctl daemon-reload
     sudo systemctl enable rlyd
     sudo systemctl restart rlyd
