@@ -5,7 +5,7 @@
 
 ![](https://i.hizliresim.com/qa5txaz.png)
 
-# Mevcut belirli kanallarda Stride ve GAIA arasında Hermes Relayer'ı kurun.
+# Mevcut belirli kanallarda Stride ve GAIA arasında GO Relayer'ı kurun.
 
 İndeksleyiciyi her node'da `kv` olarak ayarlayın.
 ```
