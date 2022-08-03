@@ -1,3 +1,10 @@
+
+[<mark style="color:red;">**Website**</mark>](https://nodeist.net/) | [<mark style="color:blue;">**Discord**</mark>](https://discord.gg/ypx7mJ6Zzb) | [<mark style="color:green;">**Telegram**</mark>](https://t.me/noodeist)
+
+[<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://www.digitalocean.com/?refcode=410c988c8b3e\&utm\_campaign=Referral\_Invite\&utm\_medium=Referral\_Program\&utm\_source=badge)
+
+![](https://i.hizliresim.com/qa5txaz.png)
+
 # Mevcut belirli kanallarda Stride ve GAIA arasında Hermes Relayer'ı kurun.
 
 İndeksleyiciyi her node'da `kv` olarak ayarlayın.
