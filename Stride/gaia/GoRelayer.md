@@ -68,7 +68,8 @@ rly config init
 # Öncelikle ihtiyacımız olan zincir için gerekli ayarların olduğu bir dosya ekleyelim, bunun için şu komutu yazıyoruz:
 `nano stride.json` 
 
-İp adresş+port ve cüzdan isminizi düzenleyin. herhangi bir cüzdan ismi belirleyebilirsiniz.
+İp adresş+port ve cüzdan isminizi düzenleyin. herhangi bir cüzdan ismi belirleyebilirsiniz. 
+ThanksNodeist#1234 kısmına discord id yazın.
 ```
 {
   "type": "cosmos",
@@ -84,6 +85,8 @@ rly config init
     "timeout": "20s",
     "output-format": "json",
     "sign-mode": "direct"
+    "memo-prefix": "ThanksNodeist#1234"
+
   }
 }
 ```
@@ -105,7 +108,8 @@ rly config init
     "debug": true,
     "timeout": "20s",
     "output-format": "json",
-    "sign-mode": "direct"
+    "sign-mode": "direct" 
+    "memo-prefix": "ThanksNodeist#1234"
   }
 }
 ```
