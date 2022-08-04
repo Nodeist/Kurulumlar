@@ -68,7 +68,7 @@ rly config init
 # Öncelikle ihtiyacımız olan zincir için gerekli ayarların olduğu bir dosya ekleyelim, bunun için şu komutu yazıyoruz:
 `nano stride.json` 
 
-İp adresş+port ve cüzdan isminizi düzenleyin. herhangi bir cüzdan ismi belirleyebilirsiniz. 
+İp adresi+port ve cüzdan isminizi düzenleyin. herhangi bir cüzdan ismi belirleyebilirsiniz. 
 ThanksNodeist#1234 kısmına discord id yazın.
 ```
 {
