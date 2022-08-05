@@ -63,7 +63,7 @@ Testnet ile ilgili sorulara YALNIZCA **#testnet-tasks** kanalında izin verilir.
 | # | Puan | Görev | Kanıt | Talimatlar |
 | ----- | --- | ----------------------------------------------------------------------------------------------------------------- |:----------------------------------------------------------------------------------:| ----------------- |
 | **7** | 100 | en az 7 gün boyunca #validator-duyurularında belirtilen ICA kanallarında bir aktarıcı(relayer) çalıştırın | Kanıt Gerekmiyor. | [Görev 7](./7.md)  |
-| **8** | 250 | yeni [v2 go aktarıcı](https://github.com/cosmos/relayer/releases/tag/v2.0.0-rc4) kullanarak aktarma | aktarılan paketlere bağlantı ve github'ınızdaki yapılandırılmış aktarıcı forkuna bağlantı | Yok |
+| **8** | 250 | yeni [v2 go aktarıcı](https://github.com/cosmos/relayer/releases/tag/v2.0.0-rc4) kullanarak aktarma | aktarılan paketlere bağlantı ve github'ınızdaki yapılandırılmış aktarıcı forkuna bağlantı |[Görev 8](./8.md) |
 | **9** | 750 | yeni [v2 go geçiş aracını](https://github.com/cosmos/relayer/releases/tag/v2.0.0-rc4) kullanarak zincirler arası sorguları aktarın | aktarılan ICQ paketlerine bağlantı ve github'ınızdaki yapılandırılmış aktarıcı forkuna bağlantı | Yok |
 
 ## ⚡ Doğrulayıcı Görevleri
