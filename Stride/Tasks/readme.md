@@ -20,7 +20,7 @@ Onchain verilerini kullanarak doğrulayıcılarınızı ve vericilerinizi belirl
 
 
 ### Sorumluluk Reddi
-1. Tanıtılan test ağı bitene kadar gönderinizin geçerli olduğunu DOĞRULANMAYACAKTIR.
+1. Tanıtılan test ağı bitene kadar gönderinizin geçerli olup olmadığı DOĞRULANMAYACAKTIR.
 2. Görevde listelenen puanlar, görevi yüksek kalitede tamamlayarak kazanabileceğiniz maksimum puanlardır. Çoğu gönderi, düşük kalite için daha az puan kazanacak veya kuralları çiğnedikleri takdirde puan kazanmayacaktır.
 3. Görevi tamamlayan hesapla ilişkili adresin size ait olduğunu kanıtlamanız istenecektir.
 4. Sybil saldırılarını önlemek için sizden birkaç başka doğrulama istenecektir.
