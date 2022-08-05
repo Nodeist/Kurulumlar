@@ -56,7 +56,7 @@ Testnet ile ilgili sorulara YALNIZCA **#testnet-tasks** kanalında izin verilir.
 ## 🌊 Ürün Görevleri
 | # | Puan | Görev | Kanıt | Talimatlar |
 | ----- | --- | -------------------------------------------------------------------- |:--------------------------------------------:| ----------------- |
-| **6** | 50 | hisseyi tamamlayın, parayı kullanın ve talep akışını (6 saatlik bağ çözme dahil) tamamlayın | tüm tx'lere bağlantı: liquidstake, redeem, claim | Yok |
+| **6** | 50 | hisseyi tamamlayın, parayı kullanın ve talep akışını (6 saatlik bağ çözme dahil) tamamlayın | tüm tx'lere bağlantı: liquidstake, redeem, claim | [Görev 6](./6.md) |
 
 ## 🛰 Aktarıcı Görevleri
 
