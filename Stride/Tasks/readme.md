@@ -62,7 +62,7 @@ Testnet ile ilgili sorulara YALNIZCA **#testnet-tasks** kanalında izin verilir.
 
 | # | Puan | Görev | Kanıt | Talimatlar |
 | ----- | --- | ----------------------------------------------------------------------------------------------------------------- |:----------------------------------------------------------------------------------:| ----------------- |
-| **7** | 100 | en az 7 gün boyunca #validator-duyurularında belirtilen ICA kanallarında bir aktarıcı(relayer) çalıştırın | Stride relayer hesap linki  ve bir adet tx gönderin. | Yok |
+| **7** | 100 | en az 7 gün boyunca #validator-duyurularında belirtilen ICA kanallarında bir aktarıcı(relayer) çalıştırın | Stride relayer hesap linki  ve bir adet tx gönderin. | [Görev 7](./7.md)  |
 | **8** | 250 | yeni [v2 go aktarıcı](https://github.com/cosmos/relayer/releases/tag/v2.0.0-rc4) kullanarak aktarma | aktarılan paketlere bağlantı ve github'ınızdaki yapılandırılmış aktarıcı forkuna bağlantı | Yok |
 | **9** | 750 | yeni [v2 go geçiş aracını](https://github.com/cosmos/relayer/releases/tag/v2.0.0-rc4) kullanarak zincirler arası sorguları aktarın | aktarılan ICQ paketlerine bağlantı ve github'ınızdaki yapılandırılmış aktarıcı forkuna bağlantı | Yok |
 
