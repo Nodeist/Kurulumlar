@@ -70,5 +70,5 @@ Testnet ile ilgili sorulara YALNIZCA **#testnet-tasks** kanalında izin verilir.
 
 | # | Puan | Görev | Kanıt | Talimatlar |
 | ------ | --- | ---------------------------------------------------------------------------- |:----------------------------------:| ------------------ |
-| **10** | 100 | doğrulayıcıyı en az 7 gün çalıştırın (etkin olmamak sorun değil, yine de uygun) | Kanıt Gerekmiyor. | Yok |
+| **10** | 100 | doğrulayıcıyı en az 7 gün çalıştırın (etkin olmamak sorun değil, yine de uygun) | Kanıt Gerekmiyor. | [Görev 10](https://github.com/Nodeist/Kurulumlar/tree/main/Stride)  |
 | **11** | 10 | başka bir doğrulayıcıya yetki verme | delegasyon işlemine bağlantı | [Görev 11](./11.md) |
