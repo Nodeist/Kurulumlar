@@ -49,8 +49,8 @@ Testnet ile ilgili sorulara YALNIZCA **#testnet-tasks** kanalında izin verilir.
 ## 📚 Topluluk Görevleri
 | # | Puan | Görev | Kanıt | Talimatlar |
 | ----- | --- | ---------------------------------------------------------------------------------- |:------------------------------------------------------:| ------------ |
-| **4** | 50 | anlaşmazlık içinde 20'den fazla kullanıcının sorusunu çözün (yalnızca yüksek kaliteli yanıtlar) | Anlaşmazlığınızı yönetin ve birkaç mesaja bağlantı verin | Yok |
-| **5** | 200 | adım destek laboratuvarının oluşturulmasına katkıda bulunun (başlamak için samuel'e Discord'dan mesaj gönderin) | katkılarınız hakkında yazı gönderin | Yok |
+| **4** | 50 | Discord içinde 20'den fazla kullanıcının sorusunu çözün (yalnızca yüksek kaliteli yanıtlar) | Anlaşmazlığınızı yönetin ve birkaç mesaja bağlantı verin | [Discord'a Katıl](https://discord.gg/B9SgpFFtup) |
+| **5** | 200 | adım destek laboratuvarının oluşturulmasına katkıda bulunun (başlamak için samuel'e Discord'dan mesaj gönderin) | katkılarınız hakkında yazı gönderin | [Discord'a Katıl](https://discord.gg/B9SgpFFtup) |
 
 
 ## 🌊 Ürün Görevleri
