@@ -7,11 +7,11 @@
 
 | Task Name                                                                                                                                      | Points                              | Link      |   
 |------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|-----------|
-| Connect wallet to Seinami Testnet                                                                                                              | 5                                   | [Rehber](./1.md)      |   
-| Place limit order on Vortex (long or short in any market)                                                                                      | 5                                   | N/A       |   
-| Place market order on Vortex (long or short in any market)                                                                                     | 5                                   | N/A       |   
-| Place multiple Long/Short orders in one transaction (bundled order placement) in any market on Vortex. Currently this needs to be done via CLI | 10                                  | N/A       | 
-| Transfer aUSDC from ethereum testnet to sei atlantic-1                                                                                         | 5                                   | N/A       |   
+| Connect wallet to Seinami Testnet                                                                                                              | 5                                   | [Link](./1.md)      |   
+| Place limit order on Vortex (long or short in any market)                                                                                      | 5                                   | [Link](./2.md)       |   
+| Place market order on Vortex (long or short in any market)                                                                                     | 5                                   | [Link](./3.md)       |   
+| Place multiple Long/Short orders in one transaction (bundled order placement) in any market on Vortex. Currently this needs to be done via CLI | 10                                  | [Link](./4.md)       | 
+| Transfer aUSDC from ethereum testnet to sei atlantic-1                                                                                         | 5                                   | [Link](./5.md)       |   
 | Withdraw collateral from Vortex                                                                                                                | 5                                   | N/A       |    
 | Get liquidated on Vortex                                                                                                                       | 5                                   | N/A       |  
 | Suggestions                                                                                                                                    | 10                                  | N/A       | 
