@@ -117,7 +117,7 @@ The Grafana dashboard is divided into 4 sections:
 
 ## Reset Statistics
 ```
-cd $HOME/cosmos_node_monitoring
+cd $HOME/Nodeistor
 docker compose down
 docker volume prune -f
 ```

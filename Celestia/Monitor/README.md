@@ -118,7 +118,7 @@ Grafana panosu 4 bölüme ayrılmıştır:
 
 ## İstatistikleri Sıfırlayın
 ```
-cd $HOME/cosmos_node_monitoring
+cd $HOME/Nodeistor
 docker compose down
 docker volume prune -f
 ```
