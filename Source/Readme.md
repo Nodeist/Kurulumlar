@@ -77,7 +77,7 @@ sourced query bank balances $SRC_WALLET_ADDRESS
 Doğrulayıcı Oluşturma:
 ```
 sourced tx staking create-validator \
-  --amount 1999000usource \
+  --amount 999750usource \
   --from $SRC_WALLET \
   --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
