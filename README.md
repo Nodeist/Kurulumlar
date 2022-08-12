@@ -6,7 +6,7 @@
 
 [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://www.digitalocean.com/?refcode=410c988c8b3e\&utm\_campaign=Referral\_Invite\&utm\_medium=Referral\_Program\&utm\_source=badge)
 
-| Network      | Port | DC Alarm                                              | TG Alarm                                     | Monitor | Tools |  
+| Network      | Port | Guide                                              | TG Alarm                                     | Monitor | Tools |  
 | ------------ | ---- | ----------------------------------------------------- | ---------------------------------------- | ------- | ----- |
 | Celestia     | 30   | [Tıkla](./Celestia/Readme.md)                         |[Tıkla](./Celestia/Telegram-Alarm/README.md)|[Tıkla](./Celestia/Monitor/README.md)| [Tıkla](./Celestia/Tools)          
 | Clan         | 31   | [Tıkla](./Clan/Readme.md)                             |[Tıkla](./Clan/Telegram-Alarm/README.md)| [Tıkla](./Clan/Monitor/README.md) | [Tıkla](./Clan/Tools) 
