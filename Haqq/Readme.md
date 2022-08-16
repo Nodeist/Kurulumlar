@@ -27,7 +27,7 @@ Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
 ```
-wget -O HAQQ.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Haqq/HAQQ && chmod +x HAQQ.sh && ./HAQQ.sh
+wget -O HAQ.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Haqq/HAQQ && chmod +x HAQ.sh && ./HAQ.sh
 ```
 
 ### Kurulum Sonrası Adımlar
