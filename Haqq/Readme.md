@@ -77,7 +77,7 @@ haqqd query bank balances $HAQQ_WALLET_ADDRESS
 Doğrulayıcı Oluşturma:
 ```
 haqqd tx staking create-validator \
-  --amount 1999000aISLM \
+  --amount 999968499995832000aISLM \
   --from $HAQQ_WALLET \
   --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
