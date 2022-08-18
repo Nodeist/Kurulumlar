@@ -13,18 +13,18 @@ sleep 2
 # DEGISKENLER by Nodeist
 STRD_WALLET=wallet
 STRD=strided
-STRD_ID=STRIDE-1
+STRD_ID=STRIDE-TESTNET-3
 STRD_PORT=44
 STRD_FOLDER=.stride
 STRD_FOLDER2=stride
-STRD_VER=4ec1b0ca818561cef04f8e6df84069b14399590e
+STRD_VER=3cb77a79f74e0b797df5611674c3fbd000dfeaa1
 STRD_REPO=https://github.com/Stride-Labs/stride.git
 STRD_GENESIS=https://raw.githubusercontent.com/Stride-Labs/testnet/main/poolparty/genesis.json
 STRD_ADDRBOOK=
 STRD_MIN_GAS=0
 STRD_DENOM=ustrd
-STRD_SEEDS=baee9ccc2496c2e3bebd54d369c3b788f9473be9@seedv1.poolparty.stridenet.co:26656
-STRD_PEERS=b11187784240586475422b132a3dcbc970a996dd@stride-node1.poolparty.stridenet.co:26656,2312417b613c44164bf167cb232795e7d8815be7@65.108.76.44:11523,84ff28824a911409e2c24f2f5ede87ae1b859b5f@5.189.178.222:46656
+STRD_SEEDS=
+STRD_PEERS=916349b5391df1426d1035185e7ea99e67224e06@10.1.1.112:26656
 
 sleep 1
 
