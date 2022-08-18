@@ -17,14 +17,14 @@ STRD_ID=STRIDE-TESTNET-3
 STRD_PORT=44
 STRD_FOLDER=.stride
 STRD_FOLDER2=stride
-STRD_VER=d46f69ee87dec1ab9ab3507b72e33dacd004e426
+STRD_VER=poolparty-v3
 STRD_REPO=https://github.com/Stride-Labs/stride.git
 STRD_GENESIS=https://raw.githubusercontent.com/Stride-Labs/testnet/main/poolparty/genesis.json
-STRD_ADDRBOOK=
+STRD_ADDRBOOK=https://raw.githubusercontent.com/StakeTake/guidecosmos/main/stride/STRIDE-TESTNET-3/addrbook.json
 STRD_MIN_GAS=0
 STRD_DENOM=ustrd
 STRD_SEEDS=
-STRD_PEERS=916349b5391df1426d1035185e7ea99e67224e06@10.1.1.112:26656
+STRD_PEERS=da123c6eeb8a2c681890a42de20427899a2c12ef@34.69.179.243:26656
 
 sleep 1
 
@@ -89,7 +89,8 @@ git clone $STRD_REPO
 cd $STRD_FOLDER2
 git checkout $STRD_VER
 make build
-sudo cp $HOME/stride/build/strided /usr/local/bin
+mkdir -p $HOME/go/bin
+cp $HOME/stride/build/strided $HOME/go/bin
 
 
 sleep 1
