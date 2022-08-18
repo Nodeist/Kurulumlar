@@ -17,7 +17,7 @@ STRD_ID=STRIDE-TESTNET-3
 STRD_PORT=44
 STRD_FOLDER=.stride
 STRD_FOLDER2=stride
-STRD_VER=d720aaec27226bfbedf343fe7e3d163664caedb3
+STRD_VER=v0.0.7
 STRD_REPO=https://github.com/Stride-Labs/stride.git
 STRD_GENESIS=https://raw.githubusercontent.com/Stride-Labs/testnet/main/poolparty/genesis.json
 STRD_ADDRBOOK=
@@ -88,7 +88,8 @@ cd $HOME
 git clone $STRD_REPO
 cd $STRD_FOLDER2
 git checkout $STRD_VER
-sh ./scripts-local/build.sh -s $HOME/go/bin
+make build
+sudo cp $HOME/stride/build/strided /usr/local/bin
 
 
 sleep 1
