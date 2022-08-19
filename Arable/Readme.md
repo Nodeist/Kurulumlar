@@ -27,7 +27,7 @@ Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
 ```
-wget -O ARB.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Arable Protocol/ARB && chmod +x ARB.sh && ./ARB.sh
+wget -O ARB.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Arable/ARB && chmod +x ARB.sh && ./ARB.sh
 ```
 
 ### Kurulum Sonrası Adımlar
