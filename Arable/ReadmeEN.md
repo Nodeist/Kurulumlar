@@ -26,7 +26,7 @@ You can set up your Arable Protocol fullnode in a few minutes using the automate
 You will be asked for your node name (NODENAME) during the script!
 
 ```
-wget -O ARB.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Arable Protocol/ARB && chmod +x ARB.sh && ./ARB.sh
+wget -O ARB.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Arable/ARB && chmod +x ARB.sh && ./ARB.sh
 ```
 
 ### Post-Installation Steps
