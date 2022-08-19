@@ -8,6 +8,8 @@
 
 | Network      | Port | Guide                                              | TG Alarm                                     | Monitor | Tools |  
 | ------------ | ---- | ----------------------------------------------------- | ---------------------------------------- | ------- | ----- |
+| Arable Protocol     | 28   | [Tıkla](./Arable/Readme.md)                         |[Tıkla](./Arable/Telegram-Alarm/README.md)|[Tıkla](./Arable/Monitor/README.md)| [Tıkla](./Arable/Tools)     
+| Islamıc Coin     | 29   | [Tıkla](./Haqq/Readme.md)                         |[Tıkla](./Haqq/Telegram-Alarm/README.md)|[Tıkla](./Haqq/Monitor/README.md)| [Tıkla](./Haqq/Tools)     
 | Celestia     | 30   | [Tıkla](./Celestia/Readme.md)                         |[Tıkla](./Celestia/Telegram-Alarm/README.md)|[Tıkla](./Celestia/Monitor/README.md)| [Tıkla](./Celestia/Tools)          
 | Clan         | 31   | [Tıkla](./Clan/Readme.md)                             |[Tıkla](./Clan/Telegram-Alarm/README.md)| [Tıkla](./Clan/Monitor/README.md) | [Tıkla](./Clan/Tools) 
 | Defund       | 32   | [Tıkla](./Defund/Readme.md)                           |[Tıkla](./Defund/Telegram-Alarm/README.md)| [Tıkla](./Defund/Monitor/README.md) |[Tıkla](./Defund/Tools) 
