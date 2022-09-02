@@ -99,4 +99,23 @@ quicksilverd gentx $WALLET 50000000uqck \
 3. Create a file `<VALIDATOR_NAME>.json` under the `/gentxs/` folder in the forked repo, paste the copied text into the file.
 4. Create a Pull Request to the main branch of the repository
 
-### Await further instructions!
+### Launch day
+
+1. Check to see if there has been a later release. 
+  If we have had to push any last minute tweaks, ensure you have the latest version of the codebase.
+
+2. Download genesis 
+  Fetch genesis.json into quicksilverd's config directory (default: `~/.quicksilverd`). It shall be released 24h before the network starts.
+
+  ```sh
+  curl -s https://raw.githubusercontent.com/ingenuity-build/mainnet/main/genesis/genesis.tar.gz > genesis.tar.gz
+  tar -C ~/.quicksilverd/config/ -xvf genesis.tar.gz
+   ```
+3. Check genesis
+
+  ```sh
+  shasum -a 256 ~/.quicksilverd/config/genesis.json
+  ## XXX  /home/<user>/.quicksilverd/config/genesis.json
+  ```
+
+4. Start your node and get ready to play!
