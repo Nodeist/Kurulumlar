@@ -13,7 +13,7 @@ sleep 2
 # DEGISKENLER by Nodeist
 STRD_WALLET=wallet
 STRD=strided
-STRD_ID=STRIDE-1
+STRD_ID=stride-1
 STRD_PORT=44
 STRD_FOLDER=.stride
 STRD_FOLDER2=stride
