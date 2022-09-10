@@ -135,6 +135,6 @@ Gentx TX, `/home/$USER/.hid-node/config/gentx/gentx-xxxx.json"` klasörüne kayd
 - Ana depoya bir Çekme Talebi oluşturun
  
 ## Talimatları bekleyin
-Kalifiye olmak için [FORM]'u doldurun(https://app.fyre.hypersign.id/form/hidnet-validator-interest?referrer=ZWxhbmcuMjA5QGdtYWlsLmNvbQ==)
+Kalifiye olmak için [FORM](https://app.fyre.hypersign.id/form/hidnet-validator-interest?referrer=ZWxhbmcuMjA5QGdtYWlsLmNvbQ==)'u doldurun
   
 ## Config klasörünü yedeklemeyi unutmayın!
