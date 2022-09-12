@@ -33,7 +33,7 @@ Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütev
 Aşağıdaki otomatik komut dosyasını kullanarak Rebus fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Script sırasında size node isminiz (NODENAME) sorulacak!
 
 ```
-wget -O RBS.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Rebus/RBS && chmod +x RBS.sh && ./RBS.sh
+wget -O RBS.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Z-Bitenler/Rebus/RBS && chmod +x RBS.sh && ./RBS.sh
 ```
 
 **Kurulum Sonrası Adımlar**
