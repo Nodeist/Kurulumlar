@@ -13,13 +13,13 @@ sleep 2
 # DEGISKENLER by Nodeist
 RBS_WALLET=wallet
 RBS=rebusd
-RBS_ID=reb_3333-1
+RBS_ID=reb_1111-1
 RBS_PORT=38
 RBS_FOLDER=.rebusd
 RBS_FOLDER2=rebus.core
 RBS_VER=v0.1.0
 RBS_REPO=https://github.com/rebuschain/rebus.core.git
-RBS_GENESIS=https://raw.githubusercontent.com/rebuschain/rebus.testnet/master/rebus_3333-1/genesis.json
+RBS_GENESIS=
 RBS_ADDRBOOK=
 RBS_MIN_GAS=0
 RBS_DENOM=arebus
@@ -82,7 +82,7 @@ sudo apt update && sudo apt upgrade -y
 
 # GEREKLI PAKETLER by Nodeist
 echo -e "\e[1m\e[32m2. GEREKLILIKLER YUKLENIYOR... \e[0m" && sleep 1
-sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
+sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git unzip make ncdu gcc git jq chrony liblz4-tool -y
 
 # GO KURULUMU by Nodeist
 echo -e "\e[1m\e[32m1. GO KURULUYOR... \e[0m" && sleep 1
@@ -115,8 +115,8 @@ $RBS config keyring-backend file
 $RBS init $RBS_NODENAME --chain-id $RBS_ID
 
 # ADDRBOOK ve GENESIS by Nodeist
-wget $RBS_GENESIS -O $HOME/$RBS_FOLDER/config/genesis.json
-wget $RBS_ADDRBOOK -O $HOME/$RBS_FOLDER/config/addrbook.json
+curl https://raw.githubusercontent.com/rebuschain/rebus.mainnet/master/reb_1111-1/genesis.zip > ~/.rebusd/config/genesis.zip
+unzip genesis.zip
 
 # EŞLER VE TOHUMLAR by Nodeist
 SEEDS="$RBS_SEEDS"
