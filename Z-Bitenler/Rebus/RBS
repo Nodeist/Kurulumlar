@@ -17,7 +17,7 @@ RBS_ID=reb_1111-1
 RBS_PORT=38
 RBS_FOLDER=.rebusd
 RBS_FOLDER2=rebus.core
-RBS_VER=v0.1.0
+RBS_VER=master
 RBS_REPO=https://github.com/rebuschain/rebus.core.git
 RBS_GENESIS=
 RBS_ADDRBOOK=
@@ -116,7 +116,9 @@ $RBS init $RBS_NODENAME --chain-id $RBS_ID
 
 # ADDRBOOK ve GENESIS by Nodeist
 curl https://raw.githubusercontent.com/rebuschain/rebus.mainnet/master/reb_1111-1/genesis.zip > ~/.rebusd/config/genesis.zip
+rm -rf genesis.json
 unzip genesis.zip
+rm -rf genesis.zip
 
 # EŞLER VE TOHUMLAR by Nodeist
 SEEDS="$RBS_SEEDS"
