@@ -12,11 +12,11 @@ sleep 2
 
 ############ SET PROPERTIES #########
 
-ADDRESS="walletadress"
-VALIDATOR="valoperadress"
-KEY_NAME="walletname"
+ADDRESS="stride10dahvqtd229q8ndggjk0upcjnkjckdjaup0uw0"
+VALIDATOR="stridevaloper10dahvqtd229q8ndggjk0upcjnkjckdjal5tqz2"
+KEY_NAME="wallet"
 PASS="walletpass"
-CHAIN_ID="chainid"
+CHAIN_ID="stride-1"
 GAS_VALUE="auto"
 #FEE_VALUE=""
 
@@ -38,5 +38,5 @@ do
 	# Delegate
 	echo $PASS | strided tx staking delegate "${VALIDATOR}" "${AMOUNT_FINAL}" --from "${KEY_NAME}" --chain-id=${CHAIN_ID} -y
 	date
-	sleep 90s
+	sleep 3600s
 done;
