@@ -12,11 +12,11 @@ sleep 2
 
 ############ SET PROPERTIES #########
 
-ADDRESS="walletadress"
-VALIDATOR="valoperadress"
-KEY_NAME="walletname"
+ADDRESS="rebus1cvn7ldc24lvhhkyxz75x66hmmuppm2hpgzfjc8"
+VALIDATOR="rebusvaloper1cvn7ldc24lvhhkyxz75x66hmmuppm2hpk44ddy"
+KEY_NAME="wallet"
 PASS="walletpass"
-CHAIN_ID="chainid"
+CHAIN_ID="reb_1111-1"
 GAS_VALUE="auto"
 #FEE_VALUE=""
 
