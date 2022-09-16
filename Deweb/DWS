@@ -13,18 +13,18 @@ sleep 2
 # DEGISKENLER by Nodeist
 DWS_WALLET=wallet
 DWS=dewebd
-DWS_ID=deweb-testnet-2
+DWS_ID=deweb-testnet-sirius
 DWS_PORT=33
 DWS_FOLDER=.deweb
 DWS_FOLDER2=deweb
-DWS_VER=v0.3
+DWS_VER=v0.3.1
 DWS_REPO=https://github.com/deweb-services/deweb.git
 DWS_GENESIS=https://raw.githubusercontent.com/deweb-services/deweb/main/genesis.json
 DWS_ADDRBOOK=
 DWS_MIN_GAS=0	
 DWS_DENOM=udws
-DWS_SEEDS=08b7968ec375444f86912c2d9c3d28e04a5f14c4@seed1.deweb.services:26656
-DWS_PEERS=
+DWS_SEEDS=
+DWS_PEERS=2b1aebd0029570c20932bf7a17b3d7e67cbacc52@31.44.6.134:26656
 
 sleep 1
 
