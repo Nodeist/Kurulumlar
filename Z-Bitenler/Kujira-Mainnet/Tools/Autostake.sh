@@ -12,11 +12,11 @@ sleep 2
 
 ############ SET PROPERTIES #########
 
-ADDRESS="walletadress"
-VALIDATOR="valoperadress"
-KEY_NAME="walletname"
+ADDRESS="kujira13vyvwfc5es7wx723z5j0xtgagy4k42s60g9r63"
+VALIDATOR="kujiravaloper13vyvwfc5es7wx723z5j0xtgagy4k42s6gaksx7"
+KEY_NAME="wallet"
 PASS="walletpass"
-CHAIN_ID="chainid"
+CHAIN_ID="kaiyo-1"
 GAS_VALUE="auto"
 #FEE_VALUE=""
 
@@ -38,5 +38,5 @@ do
 	# Delegate
 	echo $PASS | kujirad tx staking delegate "${VALIDATOR}" "${AMOUNT_FINAL}" --from "${KEY_NAME}" --chain-id=${CHAIN_ID} -y
 	date
-	sleep 90s
+	sleep 36000s
 done;
