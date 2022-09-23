@@ -88,7 +88,7 @@ cd $HOME
 git clone $NOIS_REPO
 cd $NOIS_FOLDER2
 git checkout $NOIS_VER
-make install
+make build
 
 sleep 1
 
