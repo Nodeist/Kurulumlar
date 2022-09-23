@@ -209,9 +209,9 @@ Node Tamamen Silmek:
 ```
 sudo systemctl stop noisd
 sudo systemctl disable noisd
-sudo rm /etc/systemd/system/celesnois-app* -rf
+sudo rm /etc/systemd/system/nois* -rf
 sudo rm $(which noisd) -rf
-sudo rm $HOME/.celesnois-app* -rf
-sudo rm $HOME/core -rf
+sudo rm $HOME/.nois* -rf
+sudo rm $HOME/full-node -rf
 sed -i '/NOIS_/d' ~/.bash_profile
 ```
