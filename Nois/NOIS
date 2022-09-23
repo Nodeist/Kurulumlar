@@ -17,7 +17,7 @@ NOIS_ID=nois-testnet-002
 NOIS_PORT=10
 NOIS_FOLDER=.noisd
 NOIS_FOLDER2=full-node/full-node/
-NOIS_VER=v0.6.0
+NOIS_VER=
 NOIS_REPO=https://github.com/noislabs/full-node.git
 NOIS_GENESIS=https://raw.githubusercontent.com/noislabs/testnets/main/nois-testnet-002/genesis.json
 NOIS_ADDRBOOK=
@@ -87,8 +87,7 @@ echo -e "\e[1m\e[32m1. REPO YUKLENIYOR... \e[0m" && sleep 1
 cd $HOME
 git clone $NOIS_REPO
 cd $NOIS_FOLDER2
-git checkout $NOIS_VER
-make install
+bash https://raw.githubusercontent.com/noislabs/full-node/main/full-node/setup.sh
 
 sleep 1
 
