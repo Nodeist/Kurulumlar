@@ -89,6 +89,9 @@ git clone $NOIS_REPO
 cd $NOIS_FOLDER2
 https://raw.githubusercontent.com/noislabs/full-node/main/full-node/setup.sh
 bash setup.sh
+mkdir -p $HOME/go/bin
+mv out/noisd $HOME/go/bin/
+export PATH=$HOME/go/bin:$PATH
 
 sleep 1
 
