@@ -8,6 +8,7 @@
 
 | Network      | Port | Guide                                              | TG Alarm                                     | Monitor | Tools |  
 | ------------ | ---- | ----------------------------------------------------- | ---------------------------------------- | ------- | ----- |
+| Nois     | 10   | [Tıkla](./Nois/Readme.md)                         |[Tıkla](./Nois/Telegram-Alarm/README.md)|[Tıkla](./Nois/Monitor/README.md)| [Tıkla](./Nois/Tools)    
 | Arable Protocol     | 28   | [Tıkla](./Arable/Readme.md)                         |[Tıkla](./Arable/Telegram-Alarm/README.md)|[Tıkla](./Arable/Monitor/README.md)| [Tıkla](./Arable/Tools)     
 | Islamıc Coin     | 29   | [Tıkla](./Haqq/Readme.md)                         |[Tıkla](./Haqq/Telegram-Alarm/README.md)|[Tıkla](./Haqq/Monitor/README.md)| [Tıkla](./Haqq/Tools)     
 | Celestia     | 30   | [Tıkla](./Celestia/Readme.md)                         |[Tıkla](./Celestia/Telegram-Alarm/README.md)|[Tıkla](./Celestia/Monitor/README.md)| [Tıkla](./Celestia/Tools)          
