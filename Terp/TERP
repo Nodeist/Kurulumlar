@@ -1,0 +1,168 @@
+#!/bin/bash
+echo "=================================================="
+echo "   _  ______  ___  __________________";
+echo "  / |/ / __ \/ _ \/ __/  _/ __/_  __/";
+echo " /    / /_/ / // / _/_/ /_\ \  / /   ";
+echo "/_/|_/\____/____/___/___/___/ /_/    ";
+echo -e "\e[0m"
+echo "=================================================="
+
+
+sleep 2
+
+# DEGISKENLER by Nodeist
+TERP_WALLET=wallet
+TERP=terpd
+TERP_ID=athena-1
+TERP_PORT=11
+TERP_FOLDER=.terp
+TERP_FOLDER2=terp-core
+TERP_VER=v0.1.0
+TERP_REPO=https://github.com/terpnetwork/terp-core.git
+TERP_GENESIS=https://raw.githubusercontent.com/terpnetwork/test-net/master/athena-1/genesis.json
+TERP_ADDRBOOK=
+TERP_MIN_GAS=0
+TERP_DENOM=uterpx
+TERP_SEEDS=5a6f4f80c7a29055028fc503216a1539594ad33f@89.111.15.146:11513
+TERP_PEERS=a24cbc18af3f3558719e2f479ff412f60e126683@181.41.142.78:11503,7e5c0b9384a1b9636f1c670d5dc91ba4721ab1ca@23.88.53.28:36656
+
+sleep 1
+
+echo "export TERP_WALLET=${TERP_WALLET}" >> $HOME/.bash_profile
+echo "export TERP=${TERP}" >> $HOME/.bash_profile
+echo "export TERP_ID=${TERP_ID}" >> $HOME/.bash_profile
+echo "export TERP_PORT=${TERP_PORT}" >> $HOME/.bash_profile
+echo "export TERP_FOLDER=${TERP_FOLDER}" >> $HOME/.bash_profile
+echo "export TERP_FOLDER2=${TERP_FOLDER2}" >> $HOME/.bash_profile
+echo "export TERP_VER=${TERP_VER}" >> $HOME/.bash_profile
+echo "export TERP_REPO=${TERP_REPO}" >> $HOME/.bash_profile
+echo "export TERP_GENESIS=${TERP_GENESIS}" >> $HOME/.bash_profile
+echo "export TERP_PEERS=${TERP_PEERS}" >> $HOME/.bash_profile
+echo "export TERP_SEED=${TERP_SEED}" >> $HOME/.bash_profile
+echo "export TERP_MIN_GAS=${TERP_MIN_GAS}" >> $HOME/.bash_profile
+echo "export TERP_DENOM=${TERP_DENOM}" >> $HOME/.bash_profile
+source $HOME/.bash_profile
+
+sleep 1
+
+if [ ! $TERP_NODENAME ]; then
+	read -p "NODE ISMI YAZINIZ: " TERP_NODENAME
+	echo 'export TERP_NODENAME='$TERP_NODENAME >> $HOME/.bash_profile
+fi
+
+echo -e "NODE ISMINIZ: \e[1m\e[32m$TERP_NODENAME\e[0m"
+echo -e "CUZDAN ISMINIZ: \e[1m\e[32m$TERP_WALLET\e[0m"
+echo -e "CHAIN ISMI: \e[1m\e[32m$TERP_ID\e[0m"
+echo -e "PORT NUMARANIZ: \e[1m\e[32m$TERP_PORT\e[0m"
+echo '================================================='
+
+sleep 2
+
+
+# GUNCELLEMELER by Nodeist
+echo -e "\e[1m\e[32m1. GUNCELLEMELER YUKLENIYOR... \e[0m" && sleep 1
+sudo apt update && sudo apt upgrade -y
+
+
+# GEREKLI PAKETLER by Nodeist
+echo -e "\e[1m\e[32m2. GEREKLILIKLER YUKLENIYOR... \e[0m" && sleep 1
+sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
+
+# GO KURULUMU by Nodeist
+echo -e "\e[1m\e[32m1. GO KURULUYOR... \e[0m" && sleep 1
+ver="1.18.2"
+cd $HOME
+wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
+rm "go$ver.linux-amd64.tar.gz"
+echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+source ~/.bash_profile
+go version
+
+sleep 1
+
+# KUTUPHANE KURULUMU by Nodeist
+echo -e "\e[1m\e[32m1. REPO YUKLENIYOR... \e[0m" && sleep 1
+cd $HOME
+git clone $TERP_REPO
+cd $TERP_FOLDER2
+make install
+
+sleep 1
+
+# KONFIGURASYON by Nodeist
+echo -e "\e[1m\e[32m1. KONFIGURASYONLAR AYARLANIYOR... \e[0m" && sleep 1
+$TERP config chain-id $TERP_ID
+$TERP config keyring-backend file
+$TERP init $TERP_NODENAME --chain-id $TERP_ID
+
+# ADDRBOOK ve GENESIS by Nodeist
+wget $TERP_GENESIS -O $HOME/$TERP_FOLDER/config/genesis.json
+wget $TERP_ADDRBOOK -O $HOME/$TERP_FOLDER/config/addrbook.json
+
+# EŞLER VE TOHUMLAR by Nodeist
+SEEDS="$TERP_SEEDS"
+PEERS="$TERP_PEERS"
+sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/$TERP_FOLDER/config/config.toml
+
+sleep 1
+
+
+# config pruning
+pruning="custom"
+pruning_keep_recent="100"
+pruning_keep_every="0"
+pruning_interval="50"
+sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/$TERP_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/$TERP_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/$TERP_FOLDER/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$TERP_FOLDER/config/app.toml
+
+
+# ÖZELLEŞTİRİLMİŞ PORTLAR by Nodeist
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${TERP_PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${TERP_PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${TERP_PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${TERP_PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${TERP_PORT}660\"%" $HOME/$TERP_FOLDER/config/config.toml
+sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${TERP_PORT}317\"%; s%^address = \":8080\"%address = \":${TERP_PORT}080\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${TERP_PORT}090\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${TERP_PORT}091\"%" $HOME/$TERP_FOLDER/config/app.toml
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:${TERP_PORT}657\"%" $HOME/$TERP_FOLDER/config/client.toml
+
+# PROMETHEUS AKTIVASYON by Nodeist
+sed -i -e "s/prometheus = false/prometheus = true/" $HOME/$TERP_FOLDER/config/config.toml
+
+# MINIMUM GAS AYARI by Nodeist
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.00125$TERP_DENOM\"/" $HOME/$TERP_FOLDER/config/app.toml
+
+# INDEXER AYARI by Nodeist
+indexer="null" && \
+sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/$TERP_FOLDER/config/config.toml
+
+# RESET by Nodeist
+$TERP tendermint unsafe-reset-all --home $HOME/$TERP_FOLDER
+
+echo -e "\e[1m\e[32m4. SERVIS BASLATILIYOR... \e[0m" && sleep 1
+# create service
+sudo tee /etc/systemd/system/$TERP.service > /dev/null <<EOF
+[Unit]
+Description=$TERP
+After=network.target
+[Service]
+Type=simple
+User=$USER
+ExecStart=$(which $TERP) start
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=65535
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+# SERVISLERI BASLAT by Nodeist
+sudo systemctl daemon-reload
+sudo systemctl enable $TERP
+sudo systemctl restart $TERP
+
+echo '=============== KURULUM TAMAM! by Nodeist ==================='
+echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -fu terpd -o cat\e[0m'
+echo -e "SENKRONIZASYONU KONTROL ET: \e[1m\e[32mcurl -s localhost:${TERP_PORT}657/status | jq .result.sync_info\e[0m"
+
+source $HOME/.bash_profile
