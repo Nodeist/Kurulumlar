@@ -2,31 +2,31 @@
 
 &#x20;                                     [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://www.digitalocean.com/?refcode=410c988c8b3e&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
 
-![](https://i.hizliresim.com/f0yifkf.png)
+![](https://i.hizliresim.com/itxl39j.png)
 
 
-# Yaklaşan test ağı için bir Gentx kurma
+# Setting up a Gentx for upcoming testnet
 
-## İşletim sistemi
-* Linux (Ubuntu 20.04+ Önerilen)
-* Mac os işletim sistemi
+## Operating System
+* Linux (Ubuntu 20.04+ Recommended)
+* MacOS
 
-## Donanım Gereksinimleri
-* Minimum Gereksinimler
-     * 4GB RAM
-     * 250 GB SSD
-     * 1.4 GHz x2 CPU
-* Önerilen
-     * 8GB RAM
-     * 500 GB SDD
-     * 2.0 GHz x4 CPU
-## değişkenleri ayarlama
+## Hardware Requirements
+* Minimum Requirements
+    * 4 GB RAM
+    * 250 GB SSD
+    * 1.4 GHz x2 CPU
+* Recommended
+    * 8 GB RAM
+    * 500 GB SDD
+    * 2.0 GHz x4 CPU
+## Setting up vars
 ```
 NODENAME=<YOUR MONIKER>
 ```
-`<YOUR MONİKER>` ifadesini istediğiniz herhangi bir şeyle değiştirin
+Change `<YOUR MONIKER>` To anything you like
 
-Değişkenleri sisteme kaydedin ve içe aktarın
+Save and import vars into system
 ```
 echo "export NODENAME=$NODENAME" >> $HOME/.bash_profile
 if [ ! $WALLET ]; then
@@ -35,16 +35,16 @@ fi
 echo "export HID_CHAIN_ID=jagrat" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
-## Paketleri Güncelle
+## Update Packages
 ```
 sudo apt update && sudo apt upgrade -y
 ```
 
-## Yükleme Ön Koşulları
+## Install Prerequisites
 ```
 sudo apt install curl tar wget clang pkg-config libssl-dev libleveldb-dev jq build-essential bsdmainutils git make ncdu htop screen unzip bc fail2ban htop -y
 ```
-## GO'yu yükleyin (Tek komut)
+## Install GO (One command)
 ```
 if ! [ -x "$(command -v go)" ]; then
   ver="1.18.3"
@@ -57,38 +57,38 @@ if ! [ -x "$(command -v go)" ]; then
   source ~/.bash_profile
 fi
 ```
-## İkili Dosyaları İndirin ve Oluşturun
+## Download and Build Binaries
 ```
 cd $HOME
 git clone https://github.com/hypersign-protocol/hid-node.git
 cd hid-node
 make install
 ```
-### Sürümü kontrol edin
-Ver `v0.1.0` göstermelidir
+### Check version
+It should show ver `v0.1.0`
 ```
 hid-noded version
 ```
-### Cüzdan yap
-Yeni cüzdan oluşturmak için çalıştırın:
+### Make wallet
+To create new wallet run :
 ```
 hid-noded keys add wallet
 ```
-ANILARI KAYDETMEYİ UNUTMAYIN!
+DONT FORGET TO SAVE MNEMONICS!
 
-Eski cüzdanı kurtarmak için şunu çalıştırın:
+To recover old wallet run:
 ```
 hid-noded keys add wallet --recover
 ```
-Mnemonic'inizi kopyalayın
-Anahtar adres bilgilerini şu komutu kullanarak görüntüleyebilirsiniz: "gizli düğümlü anahtarlar listesi"
+copy your Mnemonic
+You can view the key address information using the command: `hid-noded keys list`
 
-## Doğrulayıcı Kurulumu (Genesis Öncesi)
-başlangıç düğümü
+## Validator Setup (Pre-Genesis)
+Init node
 ```
 hid-noded init $NODENAME --chain-id $HID_CHAIN_ID
 ```
-Oluşturulan "genesis.json" dosyasındaki jeton değerini "hisse"den "uhid"e değiştirmek için aşağıdakileri çalıştırın.
+Run the following to change the coin denom from `stake` to `uhid `in the generated `genesis.json`
 ```
 cat $HOME/.hid-node/config/genesis.json | jq '.app_state["crisis"]["constant_fee"]["denom"]="uhid"' > $HOME/.hid-node/config/tmp_genesis.json && mv $HOME/.hid-node/config/tmp_genesis.json $HOME/.hid-node/config/genesis.json
 ```
@@ -105,12 +105,12 @@ cat $HOME/.hid-node/config/genesis.json | jq '.app_state["staking"]["params"]["b
 cat $HOME/.hid-node/config/genesis.json | jq '.app_state["ssi"]["chain_namespace"]="jagrat"' > $HOME/.hid-node/config/tmp_genesis.json && mv $HOME/.hid-node/config/tmp_genesis.json $HOME/.hid-node/config/genesis.json
 ```
 
-### Gentx Hesabı Oluşturun
-Genesis hesabı ekle
+### Create Gentx Account
+Add Genesis account
 ```
 hid-noded add-genesis-account wallet 100000000000uhid
 ```
-Gentx oluştur
+Create Gentx
 ```
 hid-noded gentx wallet 100000000000uhid \
 --chain-id $HID_CHAIN_ID \
@@ -123,18 +123,20 @@ hid-noded gentx wallet 100000000000uhid \
 --security-contact=" " \
 --website=" "
 ```
---details , --security-contact ve --website'yi istediğiniz gibi değiştirebilir veya boş bırakabilirsiniz.
+You can change `--details , --security-contact , and --website` as you like or leave it empty
 
-Gentx TX, `/home/$USER/.hid-node/config/gentx/gentx-xxxx.json"` klasörüne kaydedilecektir.
+Gentx TX will be saved in `/home/$USER/.hid-node/config/gentx/gentx-xxxx.json"`
 
-## PR Oluşturun
-- [Depoyu](https://github.com/hypersign-protocol/networks) forklayın.
-- `${HOME}/.hid-node/config/gentx/gentx-XXXXXXXX.json.` içeriğini kopyalayın.
-- Forklu repo'da 'testnet/jagrat/gentxs' klasörü altında 'gentx-<validator-name-with-out-spaces>.json' dosyasını oluşturun ve son adımdan kopyalanan metni dosyaya yapıştırın.
-- Forklu repodaki 'testnet/jagrat/peers' dizini altında 'peers-<validator-name>.txt' dosyasını oluşturun.
-- Ana depoya bir Çekme Talebi oluşturun
- 
-## Talimatları bekleyin
-Kalifiye olmak için [FORM](https://app.fyre.hypersign.id/form/hidnet-validator-interest?referrer=ZWxhbmcuMjA5QGdtYWlsLmNvbQ==)'u doldurun
-  
-## Config klasörünü yedeklemeyi unutmayın!
+## Create PR
+- Fork the [repository](https://github.com/hypersign-protocol/networks)
+- Copy the contents of `${HOME}/.hid-node/config/gentx/gentx-XXXXXXXX.json.`
+- Create a file `gentx-<validator-name-without-spaces>.json` under the `testnet/jagrat/gentxs` folder in the forked repo and paste the copied text from the last step into the file.
+- Create a file `peers-<validator-name>.txt` under the `testnet/jagrat/peers` directory in the forked repo.
+- Run `hid-noded tendermint show-node-id` and copy the output.
+- Run `ifconfig` or `curl ipinfo.io/ip` and copy your IP address.
+- Form the complete node address in the format: `<node-id>@<IP ADDRESS>:<p2p-port>`. Example: `31a2699a153e60fcdbed8a47e060c1e1d4751616@<IP ADDRESS>:26656`. Note: The default P2P port is `26656`. If you want to change the port configuration, open `${HOME}/.hid-node/config/config.toml` and under `[p2p]`, change the port in `laddr` attribute.
+- Paste the complete node address from the last step into the file `testnet/jagrat/peers/peer-<validator-name-without-spaces>.txt`.
+- Create a Pull Request to the main branch of the repository
+
+## Wait for Instructions and qualify
+To qualify fill the [FORM](https://app.fyre.hypersign.id/form/hidnet-validator-interest?referrer=ZWxhbmcuMjA5QGdtYWlsLmNvbQ==)
