@@ -17,7 +17,7 @@ HS_ID=jagrat
 HS_PORT=12
 HS_FOLDER=.hid-node
 HS_FOLDER2=hid-node
-HS_VER=v0.6.0
+HS_VER=
 HS_REPO=https://github.com/hypersign-protocol/hid-node.git
 HS_GENESIS=https://raw.githubusercontent.com/hypersign-protocol/networks/master/testnet/jagrat/final_genesis.json
 HS_ADDRBOOK=
@@ -87,7 +87,6 @@ echo -e "\e[1m\e[32m1. REPO YUKLENIYOR... \e[0m" && sleep 1
 cd $HOME
 git clone $HS_REPO
 cd $HS_FOLDER2
-git checkout $HS_VER
 make install
 
 sleep 1
@@ -97,6 +96,7 @@ echo -e "\e[1m\e[32m1. KONFIGURASYONLAR AYARLANIYOR... \e[0m" && sleep 1
 $HS config chain-id $HS_ID
 $HS config keyring-backend file
 $HS init $HS_NODENAME --chain-id $HS_ID
+
 
 # ADDRBOOK ve GENESIS by Nodeist
 wget $HS_GENESIS -O $HOME/$HS_FOLDER/config/genesis.json
