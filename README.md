@@ -10,6 +10,8 @@
 | ------------ | ---- | ----------------------------------------------------- | ---------------------------------------- | ------- | ----- |
 | Nois     | 10   | [Tıkla](./Nois/Readme.md)                         |[Tıkla](./Nois/Telegram-Alarm/README.md)|[Tıkla](./Nois/Monitor/README.md)| [Tıkla](./Nois/Tools)   
 | Terp     | 11   | [Tıkla](./Terp/Readme.md)                         |[Tıkla](./Terp/Telegram-Alarm/README.md)|[Tıkla](./Terp/Monitor/README.md)| [Tıkla](./Terp/Tools)   
+| Terp     | 14   | [Tıkla](./Andromeda/Readme.md)                         |[Tıkla](./Andromeda/Telegram-Alarm/README.md)|[Tıkla](./Andromeda/Monitor/README.md)| [Tıkla](./Andromeda/Tools) 
+| Terp     | 15   | [Tıkla](./Realio/Readme.md)                         |[Tıkla](./Realio/Telegram-Alarm/README.md)|[Tıkla](./Realio/Monitor/README.md)| [Tıkla](./Realio/Tools)   
 | Arable Protocol     | 28   | [Tıkla](./Arable/Readme.md)                         |[Tıkla](./Arable/Telegram-Alarm/README.md)|[Tıkla](./Arable/Monitor/README.md)| [Tıkla](./Arable/Tools)     
 | Islamıc Coin     | 29   | [Tıkla](./Haqq/Readme.md)                         |[Tıkla](./Haqq/Telegram-Alarm/README.md)|[Tıkla](./Haqq/Monitor/README.md)| [Tıkla](./Haqq/Tools)     
 | Celestia     | 30   | [Tıkla](./Celestia/Readme.md)                         |[Tıkla](./Celestia/Telegram-Alarm/README.md)|[Tıkla](./Celestia/Monitor/README.md)| [Tıkla](./Celestia/Tools)          
