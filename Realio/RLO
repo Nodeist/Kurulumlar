@@ -14,7 +14,7 @@ sleep 2
 RLO_WALLET=wallet
 RLO=realio-networkd
 RLO_ID=realionetwork_1110-1
-RLO_PORT=15
+RLO_PORT=16
 RLO_FOLDER=.realio-network
 RLO_FOLDER2=realio-network
 RLO_VER=v0.4.0
