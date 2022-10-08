@@ -1,0 +1,175 @@
+#!/bin/bash
+echo "=================================================="
+echo "   _  ______  ___  __________________";
+echo "  / |/ / __ \/ _ \/ __/  _/ __/_  __/";
+echo " /    / /_/ / // / _/_/ /_\ \  / /   ";
+echo "/_/|_/\____/____/___/___/___/ /_/    ";
+echo -e "\e[0m"
+echo "=================================================="
+
+
+sleep 2
+
+# DEGISKENLER by Nodeist
+AM_WALLET=wallet
+AM=andromad
+AM_ID=androma-1
+AM_PORT=13
+AM_FOLDER=.androma
+AM_FOLDER2=testnet
+AM_VER=
+AM_REPO=https://github.com/AndromaverseLabs/testnet
+AM_GENESIS=https://raw.githubusercontent.com/AndromaverseLabs/testnet/main/genesis.json
+AM_ADDRBOOK=
+AM_MIN_GAS=0
+AM_DENOM=
+AM_SEEDS=
+AM_PEERS=4d6e5790be281a584c9226749a4d09ce14fabd02@65.108.194.40:32656,9943fed25f830a8c0eaa63efa9e637c1875bfdc8@38.242.219.158:26656
+
+
+
+sleep 1
+
+echo "export AM_WALLET=${AM_WALLET}" >> $HOME/.bash_profile
+echo "export AM=${AM}" >> $HOME/.bash_profile
+echo "export AM_ID=${AM_ID}" >> $HOME/.bash_profile
+echo "export AM_PORT=${AM_PORT}" >> $HOME/.bash_profile
+echo "export AM_FOLDER=${AM_FOLDER}" >> $HOME/.bash_profile
+echo "export AM_FOLDER2=${AM_FOLDER2}" >> $HOME/.bash_profile
+echo "export AM_VER=${AM_VER}" >> $HOME/.bash_profile
+echo "export AM_REPO=${AM_REPO}" >> $HOME/.bash_profile
+echo "export AM_GENESIS=${AM_GENESIS}" >> $HOME/.bash_profile
+echo "export AM_PEERS=${AM_PEERS}" >> $HOME/.bash_profile
+echo "export AM_SEED=${AM_SEED}" >> $HOME/.bash_profile
+echo "export AM_MIN_GAS=${AM_MIN_GAS}" >> $HOME/.bash_profile
+echo "export AM_DENOM=${AM_DENOM}" >> $HOME/.bash_profile
+source $HOME/.bash_profile
+
+sleep 1
+
+if [ ! $AM_NODENE ]; then
+	read -p "NODE ISMI YAZINIZ: " AM_NODENE
+	echo 'export AM_NODENE='$AM_NODENE >> $HOME/.bash_profile
+fi
+
+echo -e "NODE ISMINIZ: \e[1m\e[32m$AM_NODENE\e[0m"
+echo -e "CUZDAN ISMINIZ: \e[1m\e[32m$AM_WALLET\e[0m"
+echo -e "CHAIN ISMI: \e[1m\e[32m$AM_ID\e[0m"
+echo -e "PORT NUMARANIZ: \e[1m\e[32m$AM_PORT\e[0m"
+echo '================================================='
+
+sleep 2
+
+
+# GUNCELLEMELER by Nodeist
+echo -e "\e[1m\e[32m1. GUNCELLEMELER YUKLENIYOR... \e[0m" && sleep 1
+sudo apt update && sudo apt upgrade -y
+
+
+# GEREKLI PAKETLER by Nodeist
+echo -e "\e[1m\e[32m2. GEREKLILIKLER YUKLENIYOR... \e[0m" && sleep 1
+sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
+
+# GO KURULUMU by Nodeist
+echo -e "\e[1m\e[32m1. GO KURULUYOR... \e[0m" && sleep 1
+ver="1.18.2"
+cd $HOME
+wget "https://golang.org/dl/go$ver.linux-d64.tar.gz"
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf "go$ver.linux-d64.tar.gz"
+rm "go$ver.linux-d64.tar.gz"
+echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+source ~/.bash_profile
+go version
+
+sleep 1
+
+# KUTUPHANE KURULUMU by Nodeist
+echo -e "\e[1m\e[32m1. REPO YUKLENIYOR... \e[0m" && sleep 1
+git clone https://github.com/ignite/cli --depth=1
+cd cli
+make install
+
+cd $HOME
+git clone $AM_REPO
+cd $AM_FOLDER2 && cd Chain
+ignite chain build
+
+
+sleep 1
+
+# KONFIGURASYON by Nodeist
+echo -e "\e[1m\e[32m1. KONFIGURASYONLAR AYARLANIYOR... \e[0m" && sleep 1
+$AM config chain-id $AM_ID
+$AM config keyring-backend file
+$AM init $AM_NODENE --chain-id $AM_ID
+
+# ADDRBOOK ve GENESIS by Nodeist
+wget $AM_GENESIS -O $HOME/$AM_FOLDER/config/genesis.json
+wget $AM_ADDRBOOK -O $HOME/$AM_FOLDER/config/addrbook.json
+
+# EŞLER VE TOHUMLAR by Nodeist
+SEEDS="$AM_SEEDS"
+PEERS="$AM_PEERS"
+sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/$AM_FOLDER/config/config.toml
+
+sleep 1
+
+
+# config pruning
+pruning="custom"
+pruning_keep_recent="100"
+pruning_keep_every="0"
+pruning_interval="50"
+sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/$AM_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/$AM_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/$AM_FOLDER/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$AM_FOLDER/config/app.toml
+
+
+# ÖZELLEŞTİRİLMİŞ PORTLAR by Nodeist
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${AM_PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${AM_PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${AM_PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${AM_PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${AM_PORT}660\"%" $HOME/$AM_FOLDER/config/config.toml
+sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${AM_PORT}317\"%; s%^address = \":8080\"%address = \":${AM_PORT}080\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${AM_PORT}090\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${AM_PORT}091\"%" $HOME/$AM_FOLDER/config/app.toml
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:${AM_PORT}657\"%" $HOME/$AM_FOLDER/config/client.toml
+
+# PROMETHEUS AKTIVASYON by Nodeist
+sed -i -e "s/prometheus = false/prometheus = true/" $HOME/$AM_FOLDER/config/config.toml
+
+# MINIMUM GAS AYARI by Nodeist
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.00125$AM_DENOM\"/" $HOME/$AM_FOLDER/config/app.toml
+
+# INDEXER AYARI by Nodeist
+indexer="null" && \
+sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/$AM_FOLDER/config/config.toml
+
+# RESET by Nodeist
+$AM tendermint unsafe-reset-all --home $HOME/$AM_FOLDER
+
+echo -e "\e[1m\e[32m4. SERVIS BASLATILIYOR... \e[0m" && sleep 1
+# create service
+sudo tee /etc/systemd/system/$AM.service > /dev/null <<EOF
+[Unit]
+Description=$AM
+After=network.target
+[Service]
+Type=simple
+User=$USER
+ExecStart=$(which $AM) start
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=65535
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+# SERVISLERI BASLAT by Nodeist
+sudo systemctl daemon-reload
+sudo systemctl enable $AM
+sudo systemctl restart $AM
+
+echo '=============== KURULUM T! by Nodeist ==================='
+echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -fu andromad -o cat\e[0m'
+echo -e "SENKRONIZASYONU KONTROL ET: \e[1m\e[32mcurl -s localhost:${AM_PORT}657/status | jq .result.sync_info\e[0m"
+
+source $HOME/.bash_profile
