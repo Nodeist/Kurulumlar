@@ -22,7 +22,7 @@ AM_REPO=https://github.com/AndromaverseLabs/testnet
 AM_GENESIS=https://raw.githubusercontent.com/AndromaverseLabs/testnet/main/genesis.json
 AM_ADDRBOOK=
 AM_MIN_GAS=0
-AM_DENOM=
+AM_DENOM=uandr
 AM_SEEDS=
 AM_PEERS=4d6e5790be281a584c9226749a4d09ce14fabd02@65.108.194.40:32656,9943fed25f830a8c0eaa63efa9e637c1875bfdc8@38.242.219.158:26656
 
