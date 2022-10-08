@@ -27,7 +27,7 @@ Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
 ```
-wget -O AM.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Androma/AM && chmod +x AM.sh && ./AM.sh
+wget -O AM.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Andromeda/AM && chmod +x AM.sh && ./AM.sh
 ```
 
 ### Kurulum Sonrası Adımlar
