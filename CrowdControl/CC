@@ -13,18 +13,19 @@ sleep 2
 # DEGISKENLER by Nodeist
 CC_WALLET=wallet
 CC=Cardchain
-CC_ID=Cardchain
+CC_ID=Testnet3
 CC_PORT=43
 CC_FOLDER=.Cardchain
 CC_FOLDER2=
-CC_VER=Cardchain@latest!
-CC_REPO=https://get.ignite.com/DecentralCardGame/$CC_VER
+CC_VER=
+CC_REPO=
 CC_GENESIS=https://raw.githubusercontent.com/DecentralCardGame/Testnet1/main/genesis.json
 CC_ADDRBOOK=
 CC_MIN_GAS=0
 CC_DENOM=ubpf
 CC_SEEDS=
-CC_PEERS=61f05a01167b1aec59275f74c3d7c3dc7e9388d4@45.136.28.158:26658,8776166bdb78b5f16309ef4ed690c0000d4a3851@138.201.139.175:21206,fc228f6b9ebc388ecb034bfe607b6c779b2c3e7f@144.76.97.251:26786,c607c5a781bd36805b8898411396f9fabc4eac60@135.181.154.42:26656
+CC_PEERS=56d11635447fa77163f31119945e731c55e256a4@45.136.28.158:26658
+
 
 sleep 1
 
@@ -83,8 +84,11 @@ go version
 sleep 1
 
 # KUTUPHANE KURULUMU by Nodeist
-curl $CC_REPO | sudo bash
-
+wget https://github.com/DecentralCardGame/Cardchain/releases/download/v0.81/Cardchain_latest_linux_amd64.tar.gz
+tar xzf Cardchain_latest_linux_amd64.tar.gz
+chmod 775 Cardchaind
+sudo mv Cardchaind /usr/local/bin/
+sudo rm Cardchain_latest_linux_amd64.tar.gz
 
 sleep 1
 
@@ -95,7 +99,7 @@ $CC config keyring-backend file
 $CC init $CC_NODENAME --chain-id $CC_ID
 
 # ADDRBOOK ve GENESIS by Nodeist
-wget $CC_GENESIS -O $HOME/$CC_FOLDER/config/genesis.json
+cp $HOME/Testnet/genesis.json $HOME/.Cardchain/config/genesis.json
 wget $CC_ADDRBOOK -O $HOME/$CC_FOLDER/config/addrbook.json
 
 # EŞLER VE TOHUMLAR by Nodeist
