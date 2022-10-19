@@ -2,9 +2,10 @@
 
 &#x20;                                     [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://www.digitalocean.com/?refcode=410c988c8b3e&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
 
-![](https://i.hizliresim.com/n5iirpq.png)
+![](https://i.hizliresim.com/nro1l6b.jpeg)
 
-# Mande Kurulum Rehberi
+
+# Uptick Kurulum Rehberi
 ## Donanım Gereksinimleri
 Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
 
@@ -20,14 +21,14 @@ Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütev
  - 200 GB depolama (SSD veya NVME)
  - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
 
-## Mande Full Node Kurulum Adımları
+## Uptick Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Mande fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
+Aşağıdaki otomatik komut dosyasını kullanarak Uptick fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
 Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
 ```
-wget -O MND.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Mande/MND && chmod +x MND.sh && ./MND.sh
+wget -O UPTICK.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Uptick/UPTICK && chmod +x UPTICK.sh && ./UPTICK.sh
 ```
 
 ### Kurulum Sonrası Adımlar
@@ -35,55 +36,58 @@ wget -O MND.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Mande/M
 Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
 Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-mande-chaind status 2>&1 | jq .SyncInfo
+uptickd status 2>&1 | jq .SyncInfo
 ```
 
 ### Cüzdan Oluşturma
 Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
 ```
-mande-chaind keys add $MND_WALLET
+uptickd keys add $WALLET
 ```
 
 (OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
 ```
-mande-chaind keys add $MND_WALLET --recover
+uptickd keys add $WALLET --recover
 ```
 
 Mevcut cüzdan listesini almak için:
 ```
-mande-chaind keys list
+uptickd keys list
 ```
 
 ### Cüzdan Bilgilerini Kaydet
 Cüzdan Adresi Ekleyin:
 ```
-MND_WALLET_ADDRESS=$(mande-chaind keys show $MND_WALLET -a)
-MND_VALOPER_ADDRESS=$(mande-chaind keys show $MND_WALLET --bech val -a)
-echo 'export MND_WALLET_ADDRESS='${MND_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export MND_VALOPER_ADDRESS='${MND_VALOPER_ADDRESS} >> $HOME/.bash_profile
+UPTICK_WALLET_ADDRESS=$(uptickd keys show $WALLET -a)
+UPTICK_VALOPER_ADDRESS=$(uptickd keys show $WALLET --bech val -a)
+echo 'export UPTICK_WALLET_ADDRESS='${UPTICK_WALLET_ADDRESS} >> $HOME/.bash_profile
+echo 'export UPTICK_VALOPER_ADDRESS='${UPTICK_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
 
 ### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 mand'ye sahip olduğunuzdan (1 mand 1000000 umand'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+Doğrulayıcı oluşturmadan önce lütfen en az 1 qck'ye sahip olduğunuzdan (1 qck 1000000 auptick'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
 
 Cüzdan bakiyenizi kontrol etmek için:
 ```
-mande-chaind query bank balances $MND_WALLET_ADDRESS
+uptickd query bank balances $UPTICK_WALLET_ADDRESS
 ```
 > Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
 
 Doğrulayıcı Oluşturma:
 ```
-mande-chaind tx staking create-validator \
-  --amount 0cred \
-  --from $MND_WALLET \
+uptickd tx staking create-validator \
+  --amount 1999000auptick \
+  --from $WALLET \
+  --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
   --commission-rate "0.07" \
-  --pubkey  $(mande-chaind tendermint show-validator) \
-  --moniker $MND_NODENAME \
-  --chain-id $MND_ID
+  --min-self-delegation "1" \
+  --pubkey  $(uptickd tendermint show-validator) \
+  --moniker $UPTICK_NODENAME \
+  --chain-id $UPTICK_ID \
+  --fees 250auptick
 ```
 
 
@@ -92,122 +96,123 @@ mande-chaind tx staking create-validator \
 ### Servis Yönetimi
 Logları Kontrol Et:
 ```
-journalctl -fu mande-chaind -o cat
+journalctl -fu uptickd -o cat
 ```
 
 Servisi Başlat:
 ```
-systemctl start mande-chaind
+systemctl start uptickd
 ```
 
 Servisi Durdur:
 ```
-systemctl stop mande-chaind
+systemctl stop uptickd
 ```
 
 Servisi Yeniden Başlat:
 ```
-systemctl restart mande-chaind
+systemctl restart uptickd
 ```
 
 ### Node Bilgileri
 Senkronizasyon Bilgisi:
 ```
-mande-chaind status 2>&1 | jq .SyncInfo
+uptickd status 2>&1 | jq .SyncInfo
 ```
 
 Validator Bilgisi:
 ```
-mande-chaind status 2>&1 | jq .ValidatorInfo
+uptickd status 2>&1 | jq .ValidatorInfo
 ```
 
 Node Bilgisi:
 ```
-mande-chaind status 2>&1 | jq .NodeInfo
+uptickd status 2>&1 | jq .NodeInfo
 ```
 
 Node ID Göser:
 ```
-mande-chaind tendermint show-node-id
+uptickd tendermint show-node-id
 ```
 
 ### Cüzdan İşlemleri
 Cüzdanları Listele:
 ```
-mande-chaind keys list
+uptickd keys list
 ```
 
 Mnemonic kullanarak cüzdanı kurtar:
 ```
-mande-chaind keys add $MND_WALLET --recover
+uptickd keys add $WALLET --recover
 ```
 
 Cüzdan Silme:
 ```
-mande-chaind keys delete $MND_WALLET
+uptickd keys delete $WALLET
 ```
 
 Cüzdan Bakiyesi Sorgulama:
 ```
-mande-chaind query bank balances $MND_WALLET_ADDRESS
+uptickd query bank balances $UPTICK_WALLET_ADDRESS
 ```
 
 Cüzdandan Cüzdana Bakiye Transferi:
 ```
-mande-chaind tx bank send $MND_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000umand
+uptickd tx bank send $UPTICK_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000auptick
 ```
 
 ### Oylama
 ```
-mande-chaind tx gov vote 1 yes --from $MND_WALLET --chain-id=$MND_ID
+uptickd tx gov vote 1 yes --from $WALLET --chain-id=$UPTICK_ID
 ```
 
 ### Stake, Delegasyon ve Ödüller
 Delegate İşlemi:
 ```
-mande-chaind tx staking delegate $MND_VALOPER_ADDRESS 10000000umand --from=$MND_WALLET --chain-id=$MND_ID --gas=auto --fees 250umand
+uptickd tx staking delegate $UPTICK_VALOPER_ADDRESS 10000000auptick --from=$WALLET --chain-id=$UPTICK_ID --gas=auto --fees 250auptick
 ```
 
 Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
 ```
-mande-chaind tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000umand --from=$MND_WALLET --chain-id=$MND_ID --gas=auto --fees 250umand
+uptickd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000auptick --from=$WALLET --chain-id=$UPTICK_ID --gas=auto --fees 250auptick
 ```
 
 Tüm ödülleri çek:
 ```
-mande-chaind tx distribution withdraw-all-rewards --from=$MND_WALLET --chain-id=$MND_ID --gas=auto --fees 250umand
+uptickd tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$UPTICK_ID --gas=auto --fees 250auptick
 ```
 
 Komisyon ile ödülleri geri çekin:
 ```
-mande-chaind tx distribution withdraw-rewards $MND_VALOPER_ADDRESS --from=$MND_WALLET --commission --chain-id=$MND_ID
+uptickd tx distribution withdraw-rewards $UPTICK_VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$UPTICK_ID
 ```
 
 ### Doğrulayıcı Yönetimi
 Validatör İsmini Değiştir:
 ```
-mande-chaind tx staking edit-validator \
+seid tx staking edit-validator \
 --moniker=NEWNODENAME \
---chain-id=$MND_ID \
---from=$MND_WALLET
+--chain-id=$UPTICK_ID \
+--from=$WALLET
 ```
 
 Hapisten Kurtul(Unjail):
 ```
-mande-chaind tx slashing unjail \
+uptickd tx slashing unjail \
   --broadcast-mode=block \
-  --from=$MND_WALLET \
-  --chain-id=$MND_ID \
-  --gas=auto --fees 250umand
+  --from=$WALLET \
+  --chain-id=$UPTICK_ID \
+  --gas=auto --fees 250auptick
 ```
 
 
 Node Tamamen Silmek:
 ```
-sudo systemctl stop mande-chaind
-sudo systemctl disable mande-chaind
-sudo rm /etc/systemd/system/mande-chaind* -rf
-sudo rm $(which mande-chaind) -rf
-sudo rm $HOME/.mande-chain* -rf
-sed -i '/MND_/d' ~/.bash_profile
+sudo systemctl stop uptickd
+sudo systemctl disable uptickd
+sudo rm /etc/systemd/system/uptick* -rf
+sudo rm $(which uptickd) -rf
+sudo rm $HOME/.uptickd* -rf
+sudo rm $HOME/uptick -rf
+sed -i '/UPTICK_/d' ~/.bash_profile
 ```
