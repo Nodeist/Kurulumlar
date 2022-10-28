@@ -8,7 +8,7 @@ echo -e "\e[0m"
 echo "=================================================="
 
 
-sleep 2
+sleep 1
 
 # DEGISKENLER by Nodeist
 JKL_WALLET=wallet
