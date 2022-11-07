@@ -13,18 +13,19 @@ sleep 2
 # DEGISKENLER by Nodeist
 TT_WALLET=wallet
 TT=teritorid
-TT_ID=teritori-testnet-v2
+TT_ID=teritori-1
 TT_PORT=45
 TT_FOLDER=.teritorid
 TT_FOLDER2=teritori-chain
-TT_VER=teritori-testnet-v2
+TT_VER=v1.3.0
 TT_REPO=https://github.com/TERITORI/teritori-chain
-TT_GENESIS=https://raw.githubusercontent.com/TERITORI/teritori-chain/main/testnet/teritori-testnet-v2/genesis.json
+TT_GENESIS=https://media.githubusercontent.com/media/TERITORI/teritori-chain/v1.1.2/mainnet/teritori-1/genesis.json
 TT_ADDRBOOK=
 TT_MIN_GAS=0
 TT_DENOM=utori
 TT_SEEDS=
-TT_PEERS=96b55467792a143e0169684f0e8da9a9aeb97af4@23.88.77.188:28656,4eb8b8bed6aecc52dccf21fd1e9432e071659db2@38.242.154.39:36656,986cdc276eea5fcb205ea3c66503c0610f99895d@95.216.140.117:26656,545b1fe982b92aeb9f1eadd05ab0954b38eba402@194.163.177.240:26656,0d19829b0dd1fc324cfde1f7bc15860c896b7ac1@65.108.121.240:27656,34df38933c32ee21078c1d79787d76668f398b9e@89.163.231.30:36656,0248e2989a8a4f6ad87cbe0490c08908a2c2da7f@5.199.133.165:26656,691efb2bee7b585c1f434d934abf18428d0b8ff1@161.97.91.254:26656,cd363d841f4dab90f290aab21c97f8d80a93a028@38.242.154.35:36656,a1c845585abbd8490ecbbcc7f96ff3b027cbed88@38.242.154.40:36656
+TT_PEERS=3069b058b5ed85c3cdb2cf18fb1d255d966b53af@193.149.187.8:26656,a06fbbb9ace823ae28a696a91daa2d0644653c28@65.21.32.200:26756,d856120f262134ebf13e1d2632d778b69e704208@65.108.4.188:15956,20e1000e88125698264454a884812746c2eb4807@seeds.lavenderfive.com:15956
+
 sleep 1
 
 echo "export TT_WALLET=${TT_WALLET}" >> $HOME/.bash_profile
