@@ -120,9 +120,9 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 
 
 # ÖZELLEŞTİRİLMİŞ PORTLAR by Nodeist
-sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${QCK_PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${QCK_PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${QCK_PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${QCK_PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${QCK_PORT}660\"%" $HOME/$QCK_FOLDER/config/config.toml
-sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${QCK_PORT}317\"%; s%^address = \":8080\"%address = \":${QCK_PORT}080\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${QCK_PORT}090\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${QCK_PORT}091\"%" $HOME/$QCK_FOLDER/config/app.toml
-sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:${QCK_PORT}657\"%" $HOME/$QCK_FOLDER/config/client.toml
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:2${QCK_PORT}8\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:2${QCK_PORT}7\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${QCK_PORT}60\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:2${QCK_PORT}6\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":2${QCK_PORT}0\"%" $HOME/$QCK_FOLDER/config/config.toml
+sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${QCK_PORT}7\"%; s%^address = \":8080\"%address = \":${QCK_PORT}80\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${QCK_PORT}90\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${QCK_PORT}91\"%" $HOME/$QCK_FOLDER/config/app.toml
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:2${QCK_PORT}7\"%" $HOME/$QCK_FOLDER/config/client.toml
 
 # PROMETHEUS AKTIVASYON by Nodeist
 sed -i -e "s/prometheus = false/prometheus = true/" $HOME/$QCK_FOLDER/config/config.toml
