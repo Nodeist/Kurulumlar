@@ -5,7 +5,7 @@ echo "  / |/ / __ \/ _ \/ __/  _/ __/_  __/";
 echo " /    / /_/ / // / _/_/ /_\ \  / /   ";
 echo "/_/|_/\____/____/___/___/___/ /_/    ";
 echo -e "\e[0m"
-echo "=================================================="                                     
+echo "=================================================="
 
 
 sleep 2
@@ -13,7 +13,7 @@ sleep 2
 
 set -e
 
-vp=$(celestia-appd status | jq '.ValidatorInfo.VotingPower')
+vp=$(gitopiad status | jq '.ValidatorInfo.VotingPower')
 if [[ $vp = "0" ]]
 then
 	status="JAILED"

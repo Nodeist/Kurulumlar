@@ -5,14 +5,14 @@ echo "  / |/ / __ \/ _ \/ __/  _/ __/_  __/";
 echo " /    / /_/ / // / _/_/ /_\ \  / /   ";
 echo "/_/|_/\____/____/___/___/___/ /_/    ";
 echo -e "\e[0m"
-echo "=================================================="                                     
+echo "=================================================="
 
 
 sleep 2
 
 set -e
 
-celestia-appd query staking validators -o json | \
+gitopiad query staking validators -o json | \
 jq .validators[] | \
 jq -s 'sort_by(.tokens) | reverse' | \
 jq -r '["Validator", "VP"], ["----------------", "------------"], (.[] | [.description.moniker, (.tokens|tonumber/1000000)]) | @tsv' | \
