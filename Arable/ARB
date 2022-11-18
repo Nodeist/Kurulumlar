@@ -1,0 +1,169 @@
+#!/bin/bash
+echo "=================================================="
+echo "   _  ______  ___  __________________";
+echo "  / |/ / __ \/ _ \/ __/  _/ __/_  __/";
+echo " /    / /_/ / // / _/_/ /_\ \  / /   ";
+echo "/_/|_/\____/____/___/___/___/ /_/    ";
+echo -e "\e[0m"
+echo "=================================================="
+
+
+sleep 2
+
+# DEGISKENLER by Nodeist
+ARB_WALLET=wallet
+ARB=acred
+ARB_ID=acre_9052-1
+ARB_PORT=28
+ARB_FOLDER=.acred
+ARB_FOLDER2=acrechain
+ARB_VER=v1.1.1
+ARB_REPO=https://github.com/ArableProtocol/acrechain
+ARB_GENESIS=https://raw.githubusercontent.com/ArableProtocol/acrechain/main/networks/mainnet/acre_9052-1/genesis.json
+ARB_ADDRBOOK=
+ARB_MIN_GAS=0
+ARB_DENOM=uacre
+ARB_SEEDS=
+ARB_PEERS=ef28f065e24d60df275b06ae9f7fed8ba0823448@46.4.81.204:34656,e29de0ba5c6eb3cc813211887af4e92a71c54204@65.108.1.225:46656,276be584b4a8a3fd9c3ee1e09b7a447a60b201a4@116.203.29.162:26656,e2d029c95a3476a23bad36f98b316b6d04b26001@49.12.33.189:36656,1264ee73a2f40a16c2cbd80c1a824aad7cb082e4@149.102.146.252:26656,dbe9c383a709881f6431242de2d805d6f0f60c9e@65.109.52.156:7656,d01fb8d008cb5f194bc27c054e0246c4357256b3@31.7.196.72:26656,91c0b06f0539348a412e637ebb8208a1acdb71a9@178.162.165.193:21095,bac90a590452337700e0033315e96430d19a3ffa@23.106.238.167:26656
+
+sleep 1
+
+echo "export ARB_WALLET=${ARB_WALLET}" >> $HOME/.bash_profile
+echo "export ARB=${ARB}" >> $HOME/.bash_profile
+echo "export ARB_ID=${ARB_ID}" >> $HOME/.bash_profile
+echo "export ARB_PORT=${ARB_PORT}" >> $HOME/.bash_profile
+echo "export ARB_FOLDER=${ARB_FOLDER}" >> $HOME/.bash_profile
+echo "export ARB_FOLDER2=${ARB_FOLDER2}" >> $HOME/.bash_profile
+echo "export ARB_VER=${ARB_VER}" >> $HOME/.bash_profile
+echo "export ARB_REPO=${ARB_REPO}" >> $HOME/.bash_profile
+echo "export ARB_GENESIS=${ARB_GENESIS}" >> $HOME/.bash_profile
+echo "export ARB_PEERS=${ARB_PEERS}" >> $HOME/.bash_profile
+echo "export ARB_SEED=${ARB_SEED}" >> $HOME/.bash_profile
+echo "export ARB_MIN_GAS=${ARB_MIN_GAS}" >> $HOME/.bash_profile
+echo "export ARB_DENOM=${ARB_DENOM}" >> $HOME/.bash_profile
+source $HOME/.bash_profile
+
+sleep 1
+
+if [ ! $ARB_NODENAME ]; then
+	read -p "NODE ISMI YAZINIZ: " ARB_NODENAME
+	echo 'export ARB_NODENAME='$ARB_NODENAME >> $HOME/.bash_profile
+fi
+
+echo -e "NODE ISMINIZ: \e[1m\e[32m$ARB_NODENAME\e[0m"
+echo -e "CUZDAN ISMINIZ: \e[1m\e[32m$ARB_WALLET\e[0m"
+echo -e "CHAIN ISMI: \e[1m\e[32m$ARB_ID\e[0m"
+echo -e "PORT NUMARANIZ: \e[1m\e[32m$ARB_PORT\e[0m"
+echo '================================================='
+
+sleep 2
+
+
+# GUNCELLEMELER by Nodeist
+echo -e "\e[1m\e[32m1. GUNCELLEMELER YUKLENIYOR... \e[0m" && sleep 1
+sudo apt update && sudo apt upgrade -y
+
+
+# GEREKLI PAKETLER by Nodeist
+echo -e "\e[1m\e[32m2. GEREKLILIKLER YUKLENIYOR... \e[0m" && sleep 1
+sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
+
+# GO KURULUMU by Nodeist
+echo -e "\e[1m\e[32m1. GO KURULUYOR... \e[0m" && sleep 1
+ver="1.18.2"
+cd $HOME
+wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
+rm "go$ver.linux-amd64.tar.gz"
+echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+source ~/.bash_profile
+go version
+
+sleep 1
+
+# KUTUPHANE KURULUMU by Nodeist
+echo -e "\e[1m\e[32m1. REPO YUKLENIYOR... \e[0m" && sleep 1
+cd $HOME
+git clone $ARB_REPO
+cd $ARB_FOLDER2
+git checkout $ARB_VER
+make install
+
+sleep 1
+
+# KONFIGURASYON by Nodeist
+echo -e "\e[1m\e[32m1. KONFIGURASYONLAR AYARLANIYOR... \e[0m" && sleep 1
+$ARB config chain-id $ARB_ID
+$ARB config keyring-backend file
+$ARB init $ARB_NODENAME --chain-id $ARB_ID
+
+# ADDRBOOK ve GENESIS by Nodeist
+wget $ARB_GENESIS -O $HOME/$ARB_FOLDER/config/genesis.json
+wget $ARB_ADDRBOOK -O $HOME/$ARB_FOLDER/config/addrbook.json
+
+# EŞLER VE TOHUMLAR by Nodeist
+SEEDS="$ARB_SEEDS"
+PEERS="$ARB_PEERS"
+sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/$ARB_FOLDER/config/config.toml
+
+sleep 1
+
+
+# config pruning
+pruning="custom"
+pruning_keep_recent="100"
+pruning_keep_every="0"
+pruning_interval="50"
+sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/$ARB_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/$ARB_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/$ARB_FOLDER/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$ARB_FOLDER/config/app.toml
+
+
+# ÖZELLEŞTİRİLMİŞ PORTLAR by Nodeist
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:2${ARB_PORT}8\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:2${ARB_PORT}7\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${ARB_PORT}60\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:2${ARB_PORT}6\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":2${ARB_PORT}0\"%" $HOME/$ARB_FOLDER/config/config.toml
+sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${ARB_PORT}7\"%; s%^address = \":8080\"%address = \":${ARB_PORT}80\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${ARB_PORT}90\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${ARB_PORT}91\"%" $HOME/$ARB_FOLDER/config/app.toml
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:2${ARB_PORT}7\"%" $HOME/$ARB_FOLDER/config/client.toml
+
+# PROMETHEUS AKTIVASYON by Nodeist
+sed -i -e "s/prometheus = false/prometheus = true/" $HOME/$ARB_FOLDER/config/config.toml
+
+# MINIMUM GAS AYARI by Nodeist
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.00125$ARB_DENOM\"/" $HOME/$ARB_FOLDER/config/app.toml
+
+# INDEXER AYARI by Nodeist
+indexer="null" && \
+sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/$ARB_FOLDER/config/config.toml
+
+# RESET by Nodeist
+$ARB tendermint unsafe-reset-all --home $HOME/$ARB_FOLDER
+
+echo -e "\e[1m\e[32m4. SERVIS BASLATILIYOR... \e[0m" && sleep 1
+# create service
+sudo tee /etc/systemd/system/$ARB.service > /dev/null <<EOF
+[Unit]
+Description=$ARB
+After=network.target
+[Service]
+Type=simple
+User=$USER
+ExecStart=$(which $ARB) start
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=65535
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+# SERVISLERI BASLAT by Nodeist
+sudo systemctl daemon-reload
+sudo systemctl enable $ARB
+sudo systemctl restart $ARB
+
+echo '=============== KURULUM TAMAM! by Nodeist ==================='
+echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -fu acred -o cat\e[0m'
+echo -e "SENKRONIZASYONU KONTROL ET: \e[1m\e[32mcurl -s localhost:${ARB_PORT}657/status | jq .result.sync_info\e[0m"
+
+source $HOME/.bash_profile
