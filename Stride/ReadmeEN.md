@@ -201,7 +201,7 @@ strided tx staking edit-validator \
 --from=$STRD_WALLET
 ```
 
-Get Out Of Jail(Unjail): 
+Get Out Of Jail(Unjail):
 ```
 strided tx slashing unjail \
   --broadcast-mode=block \

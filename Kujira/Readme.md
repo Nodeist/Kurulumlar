@@ -24,17 +24,17 @@ Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütev
 
 ## Kujira Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Kujira fullnode'unuzu birkaç dakika içinde kurabilirsiniz. 
+Aşağıdaki otomatik komut dosyasını kullanarak Kujira fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
 Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
 ```
-https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Z-Bitenler/Kujira-Mainnet/KUJI
+wget -O KUJI.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Kujira/KUJI && chmod +x KUJI.sh && ./KUJI.sh
 ```
 
 ### Kurulum Sonrası Adımlar
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. 
+Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
 Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
 kujirad status 2>&1 | jq .SyncInfo
@@ -74,7 +74,7 @@ Cüzdan bakiyenizi kontrol etmek için:
 ```
 kujirad query bank balances $KUJI_WALLET_ADDRESS
 ```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin. 
+> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
 
 Doğrulayıcı Oluşturma:
 ```
@@ -197,7 +197,7 @@ seid tx staking edit-validator \
 --from=$WALLET
 ```
 
-Hapisten Kurtul(Unjail): 
+Hapisten Kurtul(Unjail):
 ```
 kujirad tx slashing unjail \
   --broadcast-mode=block \
@@ -217,4 +217,3 @@ sudo rm $HOME/.kujira* -rf
 sudo rm $HOME/core -rf
 sed -i '/KUJI_/d' ~/.bash_profile
 ```
-  

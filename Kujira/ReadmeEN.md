@@ -27,7 +27,7 @@ You can set up your Kujira fullnode in a few minutes using the automated script 
 You will be asked for your node name (NODENAME) during the script!
 
 ```
-https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Z-Bitenler/Kujira-Mainnet/KUJI
+wget -O KUJI.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Kujira/KUJI && chmod +x KUJI.sh && ./KUJI.sh
 ```
 
 ### Post-Installation Steps
@@ -195,7 +195,7 @@ kujirad tx staking edit-validator \
 --from=$KUJI_WALLET
 ```
 
-Get Out Of Jail(Unjail): 
+Get Out Of Jail(Unjail):
 ```
 kujirad tx slashing unjail \
   --broadcast-mode=block \
@@ -214,4 +214,3 @@ sudo rm $HOME/.kujira* -rf
 sudo rm $HOME/core -rf
 sed -i '/KUJI_/d' ~/.bash_profile
 ```
-  
