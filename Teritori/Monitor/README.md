@@ -1,8 +1,6 @@
-&#x20;                                                       [<mark style="color:red;">**Website**</mark>](https://nodeist.net/) | [<mark style="color:blue;">**Discord**</mark>](https://discord.gg/ypx7mJ6Zzb) | [<mark style="color:green;">**Telegram**</mark>](https://t.me/noodeist)
-
-&#x20;                                     [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://www.digitalocean.com/?refcode=410c988c8b3e&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
-
-![](https://i.hizliresim.com/7ffu92z.jpeg)
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/teritori.png">
+</p>
 
 
 # Teritori Grafana Monitor Kurulum Rehberi
@@ -27,8 +25,8 @@ Sunucuzda aşağıdaki portların açık olduğundan emin olun:
 
 ## Grafana Monitör Kurulumu
 Doğrulayıcınızı doğru şekilde takip ve analiz edebilmeniz için grafana monitörü ayrı bir sunucuya kurmanızı öneririz.
-Node'unuz durursa, sunucunuz arızalanırsa vs. gibi durumlarda da verileri takip etme şansınız olur. Çok büyük bir sistem gereksinimi istemiyor. 
-aşağıdaki özelliklerde bir sistem monitör için yeterli. 
+Node'unuz durursa, sunucunuz arızalanırsa vs. gibi durumlarda da verileri takip etme şansınız olur. Çok büyük bir sistem gereksinimi istemiyor.
+aşağıdaki özelliklerde bir sistem monitör için yeterli.
 
 ### Sistem Gereksinimleri
 Ubuntu 20.04 / 1 VCPU / 2 GB RAM / 20 GB SSD
@@ -85,7 +83,7 @@ Kullanılan portlar:
 
 4. Explorer yapılandırması
 
-Normalde en çok blok kaçıranlar paneli nodes.guru explorer'a göre uyarlıdır. 
+Normalde en çok blok kaçıranlar paneli nodes.guru explorer'a göre uyarlıdır.
 
 Eğer nodes.guru explorer'da olmayan bir ağ eklemek isterseniz en çok blok kaçıranlar sekmesinde düzenleme yapmanız gerekir.
 > Bu işlem sadece `En çok blok kaçıranlar` sekmesi için geçerlidir ve çok da şart değildir.

@@ -5,7 +5,7 @@ echo "  / |/ / __ \/ _ \/ __/  _/ __/_  __/";
 echo " /    / /_/ / // / _/_/ /_\ \  / /   ";
 echo "/_/|_/\____/____/___/___/___/ /_/    ";
 echo -e "\e[0m"
-echo "=================================================="                                     
+echo "=================================================="
 
 
 sleep 2
@@ -17,7 +17,7 @@ RBS_ID=reb_1111-1
 RBS_PORT=38
 RBS_FOLDER=.rebusd
 RBS_FOLDER2=rebus.core
-RBS_VER=master
+RBS_VER=v0.2.3
 RBS_REPO=https://github.com/rebuschain/rebus.core.git
 RBS_GENESIS=
 RBS_ADDRBOOK=https://raw.githubusercontent.com/obajay/nodes-Guides/main/Rebus/addrbook.json
@@ -100,7 +100,7 @@ $RBS init $RBS_NODENAME --chain-id $RBS_ID
 
 # ADDRBOOK ve GENESIS by Nodeist
 curl https://raw.githubusercontent.com/rebuschain/rebus.mainnet/master/reb_1111-1/genesis.zip > ~/.rebusd/config/genesis.zip
-cd $HOME/.rebusd/config/ 
+cd $HOME/.rebusd/config/
 unzip genesis.zip && rm -rf genesis.zip
 wget $KUJI_ADDRBOOK -O $HOME/$RBS_FOLDER/config/addrbook.json
 

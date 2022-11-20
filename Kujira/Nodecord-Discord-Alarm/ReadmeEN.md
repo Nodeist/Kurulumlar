@@ -1,15 +1,13 @@
-&#x20;                                                       [<mark style="color:red;">**Website**</mark>](https://nodeist.net/) | [<mark style="color:blue;">**Discord**</mark>](https://discord.gg/ypx7mJ6Zzb) | [<mark style="color:green;">**Telegram**</mark>](https://t.me/noodeist)
-
-&#x20;                                     [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://www.digitalocean.com/?refcode=410c988c8b3e&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
-
-![](https://i.hizliresim.com/hb4a5iv.png)
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/kujira.png">
+</p>
 
 
 
 
 # Nodecord
 
-    
+
 Nodecord is a Cosmos-based blockchain validator monitoring and alerting tool.
 Monitors and alerts for scenarios such as:
 - Slashing period uptime
@@ -23,8 +21,8 @@ Discord messages are created in the configured webhook channel for:
 - Current validator status
 - Detected alerts
 
-        
-## Installation steps: 
+
+## Installation steps:
 ### With the following automatic installation script (It is recommended to use a different server. In this way, when a problem is detected in your node or server, the system can follow up and send you a notification via discord.)
 ```
 wget -O NODECORD.sh https://raw.githubusercontent.com/Nodeist/Nodecord/main/NODECORD && chmod +x NODECORD.sh && ./NODECORD.sh
@@ -74,7 +72,7 @@ notifications:
     webhook:
       id: DISCORD_WEBHOOK_ID
       token: DISCORD_WEBHOOK_TOKEN
-    alert-user-ids: 
+    alert-user-ids:
       - DISCORD_USER_ID
     username: Nodecord
 validators:

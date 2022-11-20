@@ -5,7 +5,7 @@ echo "  / |/ / __ \/ _ \/ __/  _/ __/_  __/";
 echo " /    / /_/ / // / _/_/ /_\ \  / /   ";
 echo "/_/|_/\____/____/___/___/___/ /_/    ";
 echo -e "\e[0m"
-echo "=================================================="                                     
+echo "=================================================="
 
 
 sleep 2
@@ -17,7 +17,7 @@ STRD_ID=stride-1
 STRD_PORT=44
 STRD_FOLDER=.stride
 STRD_FOLDER2=stride
-STRD_VER=v1.0.0
+STRD_VER=v2.0.3
 STRD_REPO=https://github.com/Stride-Labs/stride.git
 STRD_GENESIS=https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Stride/genesis.json
 STRD_ADDRBOOK=

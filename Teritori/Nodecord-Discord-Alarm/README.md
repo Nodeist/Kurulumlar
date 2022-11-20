@@ -1,8 +1,6 @@
-&#x20;                                                       [<mark style="color:red;">**Website**</mark>](https://nodeist.net/) | [<mark style="color:blue;">**Discord**</mark>](https://discord.gg/ypx7mJ6Zzb) | [<mark style="color:green;">**Telegram**</mark>](https://t.me/noodeist)
-
-&#x20;                                     [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://www.digitalocean.com/?refcode=410c988c8b3e&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
-
-![](https://i.hizliresim.com/7ffu92z.jpeg)
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/teritori.png">
+</p>
 
 
 
@@ -30,7 +28,7 @@ Aşağıdakiler için yapılandırılmış web kancası kanalında Discord mesaj
 wget -O NODECORD.sh https://raw.githubusercontent.com/Nodeist/Nodecord/main/NODECORD && chmod +x NODECORD.sh && ./NODECORD.sh
 ```
 
-## Kurulum sonrası adımlar: 
+## Kurulum sonrası adımlar:
 Nodecord'un doğru şekilde çalışabilmesini sağlamak için için öncelikle bir screen oluşturmalısınız:
 ```
 screen -S Nodecord
@@ -43,16 +41,16 @@ Discord webhook oluşturmak ile ilgili daha fazla bilgiyi [burada](https://suppo
 
 Webhook oluşturduktan sonra url'nizi kopyalayın. şuna benzeyecektir:
 `https://discord.com/api/webhooks/97124726447720/cwM4Ks-kWcK3Jsg4I_cbo124buo12G2oıdaS76afsMwuY7elwfnwef-wuuRW`
-Bu durumda sizin 
+Bu durumda sizin
 - DISCORD_WEBHOOK_ID: `97124726447720`
 - DISCORD_WEBHOOK_TOKEN: `cwM4Ks-kWcK3Jsg4I_cbo124buo12G2oıdaS76afsMwuY7elwfnwef-wuuRW`
 Olacaktır.
 - DISCORD_USER_ID öğrenme adımını googledan araştırarak kolayca bulabilirsiniz.
 
 
-Ayrıca hangi node için rapor almak istiyorsanız **validators:** bölümünü de ona göre düzenleyin. 
+Ayrıca hangi node için rapor almak istiyorsanız **validators:** bölümünü de ona göre düzenleyin.
 - Name: Network ismi (Kujira, Osmosis,Quicksilver vs.)
-- RPC: RPC hizmeti sunan şirketlerden kolayca RPC bağlantısı bulabilirsiniz. Ben genellikle Polkachu'yu takip ediyorum. 
+- RPC: RPC hizmeti sunan şirketlerden kolayca RPC bağlantısı bulabilirsiniz. Ben genellikle Polkachu'yu takip ediyorum.
 Kujira için örnek rpc: **https://kujira-rpc.polkachu.com/**
 - Adress: Bu ne cüzdan adresiniz ne de valoper adresinizdir. Buna dikkat edin. Consensüs adresiniz olmalı. Explorer'lardan bulabilirsiniz.
 - Chain-id: Kujira örneği için **Kaiyo-1**
@@ -65,7 +63,7 @@ Eğer aynı node birden fazla sunucuda çalıştırıyorsanız. (yedek bir sunuc
 - name
 - grpc
 
-labellerinden altına birer tane daha ekleyip diğer sunucunuzun bilgilerini de yazarak takip edebilirsiniz. 
+labellerinden altına birer tane daha ekleyip diğer sunucunuzun bilgilerini de yazarak takip edebilirsiniz.
 `nano ~/Nodecord/config.yaml` yazarak dosyanızı açın. aşağıdakine benzer bir ekran göreceksiniz. gerekli yerleri düzenleyerek kaydedin.
 
 ```
@@ -75,7 +73,7 @@ notifications:
     webhook:
       id: DISCORD_WEBHOOK_ID
       token: DISCORD_WEBHOOK_TOKEN
-    alert-user-ids: 
+    alert-user-ids:
       - DISCORD_USER_ID
     username: Nodecord
 validators:
@@ -100,8 +98,8 @@ Aşağıdaki kod ile monitörü başlatabilirsiniz:
 ```bash
 cd && cd Nodecord && Nodecord monitor
 ```
-Bu kod default olarak oluşturduğunuz config.yaml dosyasından verileri çeker ve takibe başlar. 
-Ben testnet ve mainnet için iki ayrı yaml dosyası kullanıyorum. 
+Bu kod default olarak oluşturduğunuz config.yaml dosyasından verileri çeker ve takibe başlar.
+Ben testnet ve mainnet için iki ayrı yaml dosyası kullanıyorum.
 testnet için bir de testnet.yaml dosyası oluşturabilirsiniz. ve bunu ayrı screen de aşağıdaki kod ile çalıştırabilirsiniz.
 
 ```bash

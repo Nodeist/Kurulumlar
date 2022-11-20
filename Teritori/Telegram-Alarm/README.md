@@ -1,8 +1,6 @@
-&#x20;                                                       [<mark style="color:red;">**Website**</mark>](https://nodeist.net/) | [<mark style="color:blue;">**Discord**</mark>](https://discord.gg/ypx7mJ6Zzb) | [<mark style="color:green;">**Telegram**</mark>](https://t.me/noodeist)
-
-&#x20;                                     [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://www.digitalocean.com/?refcode=410c988c8b3e&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
-
-![](https://i.hizliresim.com/7ffu92z.jpeg)
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/teritori.png">
+</p>
 
 # Teritori Telegram Alarm Kurulum Rehberi
 Bu sistem sizi jail veya inaktif durum hakkında telegram üzerinden uyaracaktır. Ayrıca size her saat başı node durumunuz hakkında kısa bilgi gönderir.
@@ -23,27 +21,27 @@ Talimatlar:
 
 6. `jq` ve `bc` paketlerini kurunuz; `sudo apt-get install jq bc -y` .
 
-7. Status klasörünüzün içine girip, ayarlarınızı görmek için `bash cosmos.sh` komutunu çalıştırın. Her şey doğru ise çıktı aşağıdaki gibi veya benzer olmalıdır: 
+7. Status klasörünüzün içine girip, ayarlarınızı görmek için `bash cosmos.sh` komutunu çalıştırın. Her şey doğru ise çıktı aşağıdaki gibi veya benzer olmalıdır:
 
 ```
-root@Nodeist:~/status# bash cosmos.sh 
- 
+root@Nodeist:~/status# bash cosmos.sh
+
 /// 2022-05-21 14:16:44 ///
- 
+
 pylons-testnet-3
 
 sync >>> 373010/373010.
 jailed > true.
- 
+
 /// 2022-05-21 14:16:48 ///
- 
+
 stafihub-public-testnet-2
 
 sync >>> 512287/512287.
 place >> 47/100.
 stake >> 118.12 fis.
 
-root@Nodeist:~/status# 
+root@Nodeist:~/status#
 ```
 
 8. `slash.sh` dosyamızı oluşturalım; `nano $HOME/status/slash.sh` .
