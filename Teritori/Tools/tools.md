@@ -21,19 +21,19 @@ sleep 2
 set -e
 
 wallet="second" # your wallet name
-current_proposal=$(strided q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
+current_proposal=$(teritorid q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
 
 echo "Last proposal is: $current_proposal"
 
 while true
 do
-  last_proposal=$(strided q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
+  last_proposal=$(teritorid q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
 
   if [[ $current_proposal -lt $last_proposal ]]
   then
     echo "New proposal: $last_proposal"
     echo "Voting NO..."
-    strided tx gov vote $last_proposal no --from $wallet -y
+    teritorid tx gov vote $last_proposal no --from $wallet -y
 
     current_proposal=$last_proposal
   fi
@@ -61,19 +61,19 @@ sleep 2
 set -e
 
 wallet="second" # your wallet name
-current_proposal=$(strided q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
+current_proposal=$(teritorid q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
 
 	echo "Last proposal is: $current_proposal"
 
 	while true
 	do
-		last_proposal=$(strided q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
+		last_proposal=$(teritorid q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
 
 			if [[ $current_proposal -lt $last_proposal ]]
 			then
 				echo "New proposal: $last_proposal"
 				echo "Voting YES..."
-				strided tx gov vote $last_proposal yes --from $wallet -y
+				teritorid tx gov vote $last_proposal yes --from $wallet -y
 
 				current_proposal=$last_proposal
 			fi
@@ -112,18 +112,18 @@ GAS_VALUE="auto"
 # Withdraw
 while :
 do
-	echo $PASS | strided tx distribution withdraw-rewards "${VALIDATOR}"  --from "${KEY_NAME}" --commission --chain-id=${CHAIN_ID} --gas="${GAS_VALUE}" -y
+	echo $PASS | teritorid tx distribution withdraw-rewards "${VALIDATOR}"  --from "${KEY_NAME}" --commission --chain-id=${CHAIN_ID} --gas="${GAS_VALUE}" -y
 
 	sleep 20s
 
-	AVAILABLE_COIN=$(strided query bank balances ${ADDRESS} --output json | jq -r '.balances | map(select(.denom == "utori")) | .[].amount' | tr -cd [:digit:])
+	AVAILABLE_COIN=$(teritorid query bank balances ${ADDRESS} --output json | jq -r '.balances | map(select(.denom == "utori")) | .[].amount' | tr -cd [:digit:])
 	KEEP_FOR_FEES=100000
 	AMOUNT=$(($AVAILABLE_COIN - $KEEP_FOR_FEES))
 	AMOUNT_FINAL=$AMOUNT"utori"
 
 
 	# Delegate
-	echo $PASS | strided tx staking delegate "${VALIDATOR}" "${AMOUNT_FINAL}" --from "${KEY_NAME}" --chain-id=${CHAIN_ID} -y
+	echo $PASS | teritorid tx staking delegate "${VALIDATOR}" "${AMOUNT_FINAL}" --from "${KEY_NAME}" --chain-id=${CHAIN_ID} -y
 	date
 	sleep 90s
 done;
@@ -146,7 +146,7 @@ sleep 2
 
 set -e
 
-strided query staking validators -o json | \
+teritorid query staking validators -o json | \
 jq .validators[] | \
 jq -s 'sort_by(.tokens) | reverse' | \
 jq -r '["Validator", "VP"], ["----------------", "------------"], (.[] | [.description.moniker, (.tokens|tonumber/1000000)]) | @tsv' | \
@@ -172,7 +172,7 @@ sleep 2
 
 set -e
 
-vp=$(strided status | jq '.ValidatorInfo.VotingPower')
+vp=$(teritorid status | jq '.ValidatorInfo.VotingPower')
 if [[ $vp = "0" ]]
 then
 	status="JAILED"
