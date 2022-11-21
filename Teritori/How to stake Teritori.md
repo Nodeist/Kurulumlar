@@ -1,7 +1,5 @@
 # How to stake on Teritori Mainnet?
 
-## How to stake on Teritori Mainnet?
-
 1 - Go to https://teritori.nodeist.net
 
 2 - Connect your wallet.

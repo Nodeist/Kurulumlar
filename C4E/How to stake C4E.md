@@ -1,7 +1,5 @@
 # How to stake on C4E Mainnet?
 
-## How to stake on C4E Mainnet?
-
 1 - Go to https://c4e.nodeist.net
 
 2 - Connect your wallet.

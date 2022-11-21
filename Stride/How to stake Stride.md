@@ -1,7 +1,5 @@
 # How to stake on Stride Mainnet?
 
-## How to stake on Stride Mainnet?
-
 1 - Go to https://wallet.keplr.app/chains/stride
 
 2 - Connect your wallet.

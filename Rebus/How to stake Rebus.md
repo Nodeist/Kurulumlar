@@ -1,7 +1,5 @@
 # How to stake on Rebus Mainnet?
 
-## How to stake on Rebus Mainnet?
-
 1 - Go to https://rebus.nodeist.net
 
 2 - Connect your wallet.
