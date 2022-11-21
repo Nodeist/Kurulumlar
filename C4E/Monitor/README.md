@@ -13,10 +13,10 @@ Kurulum sırasında sizden bir kaç bilgi istenecek. Bunlar:
 
 | ANAHTAR |DEĞER |
 |---------------|-------------|
-| **bond_denom** | Denom Degeri. Örneğin C4E için `utia` |
-| **bench_prefix** | Bench Prefix Değeri. Örneğin C4E için `celestia`. Bu değeri cüzdan adresinizden öğrenebilirsiniz. **C4E**1r5g0kes6jutsydez9qw2tx6vuc8scpxn5qtyle |
-| **grpc_port** | "app.toml" dosyasında tanımlanan doğrulayıcı "grpc" bağlantı noktanız. Varsayılan değer `30090`dır |
-| **rpc_port** | "config.toml" dosyasında tanımlanan doğrulayıcı "rpc" bağlantı noktanız. Varsayılan değer `30657`dir |
+| **bond_denom** | Denom Degeri. Örneğin C4E için `uc4e` |
+| **bench_prefix** | Bench Prefix Değeri. Örneğin C4E için `c4e`. Bu değeri cüzdan adresinizden öğrenebilirsiniz. **C4E**1r5g0kes6jutsydez9qw2tx6vuc8scpxn5qtyle |
+| **grpc_port** | "app.toml" dosyasında tanımlanan doğrulayıcı "grpc" bağlantı noktanız. Varsayılan değer `31090`dır |
+| **rpc_port** | "config.toml" dosyasında tanımlanan doğrulayıcı "rpc" bağlantı noktanız. Varsayılan değer `31657`dir |
 
 Sunucuzda aşağıdaki portların açık olduğundan emin olun:
 - `9100` (node-exporter)

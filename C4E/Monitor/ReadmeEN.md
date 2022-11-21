@@ -13,10 +13,10 @@ During the installation you will be asked for some information. These:
 
 | KEY |VALUE |
 |----------|-------------|
-| **bond_denom** | Denom Value. For example `utia` for C4E |
-| **bench_prefix** | Bench Prefix Value. For example `celestia` for C4E. You can learn this value from your wallet address. **celestia**jcqum902je9zwevat7zqczskwd4lhwuj9vwgsu |
-| **grpc_port** | Your validator `grpc` port that is defined in `app.toml` file. Default value is `30090` |
-| **rpc_port** | Your validator `rpc` port that is defined in `config.toml` file. Default value is `30657` |
+| **bond_denom** | Denom Value. For example `uc4e` for C4E |
+| **bench_prefix** | Bench Prefix Value. For example `celestia` for C4E. You can learn this value from your wallet address. **c4e**jcqum902je9zwevat7zqczskwd4lhwuj9vwgsu |
+| **grpc_port** | Your validator `grpc` port that is defined in `app.toml` file. Default value is `31090` |
+| **rpc_port** | Your validator `rpc` port that is defined in `config.toml` file. Default value is `31657` |
 
 
 Make sure the following ports are open on your server:
