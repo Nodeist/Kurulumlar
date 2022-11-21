@@ -6,11 +6,11 @@
 
 2 - Connect your wallet.
 
-3 - Find the validator and click the Delegate button next to it.
+3 - Find the validator and click the `Manage` button next to it.
 
 ![Image](https://nodeist.net/C4E/Howtostake/1.png)
 
-4 - Type the amount you want to stake and click the `Send`button.
+4 - Type the amount you want to stake and click the `Delegate` button.
 
 ![Image](https://nodeist.net/C4E/Howtostake/2.png)
 
