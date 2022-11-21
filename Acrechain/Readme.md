@@ -4,7 +4,7 @@
 
 ![](https://i.hizliresim.com/5yr9202.png)
 
-# Arable Protocol Kurulum Rehberi
+# Acrechain Kurulum Rehberi
 ## Donanım Gereksinimleri
 Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
 
@@ -20,19 +20,19 @@ Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütev
  - 200 GB depolama (SSD veya NVME)
  - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
 
-## Arable Protocol Full Node Kurulum Adımları
+## Acrechain Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Arable Protocol fullnode'unuzu birkaç dakika içinde kurabilirsiniz. 
+Aşağıdaki otomatik komut dosyasını kullanarak Acrechain fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
 Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
 ```
-wget -O ARB.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Arable/ARB && chmod +x ARB.sh && ./ARB.sh
+wget -O ACRE.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Acrechain/ACRE && chmod +x ACRE.sh && ./ACRE.sh
 ```
 
 ### Kurulum Sonrası Adımlar
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. 
+Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
 Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
 acred status 2>&1 | jq .SyncInfo
@@ -41,12 +41,12 @@ acred status 2>&1 | jq .SyncInfo
 ### Cüzdan Oluşturma
 Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
 ```
-acred keys add $ARB_WALLET
+acred keys add $ACRE_WALLET
 ```
 
 (OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
 ```
-acred keys add $ARB_WALLET --recover
+acred keys add $ACRE_WALLET --recover
 ```
 
 Mevcut cüzdan listesini almak için:
@@ -57,10 +57,10 @@ acred keys list
 ### Cüzdan Bilgilerini Kaydet
 Cüzdan Adresi Ekleyin:
 ```
-ARB_WALLET_ADDRESS=$(acred keys show $ARB_WALLET -a)
-ARB_VALOPER_ADDRESS=$(acred keys show $ARB_WALLET --bech val -a)
-echo 'export ARB_WALLET_ADDRESS='${ARB_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export ARB_VALOPER_ADDRESS='${ARB_VALOPER_ADDRESS} >> $HOME/.bash_profile
+ACRE_WALLET_ADDRESS=$(acred keys show $ACRE_WALLET -a)
+ACRE_VALOPER_ADDRESS=$(acred keys show $ACRE_WALLET --bech val -a)
+echo 'export ACRE_WALLET_ADDRESS='${ACRE_WALLET_ADDRESS} >> $HOME/.bash_profile
+echo 'export ACRE_VALOPER_ADDRESS='${ACRE_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
@@ -70,22 +70,22 @@ Doğrulayıcı oluşturmadan önce lütfen en az 1 acre'ye sahip olduğunuzdan (
 
 Cüzdan bakiyenizi kontrol etmek için:
 ```
-acred query bank balances $ARB_WALLET_ADDRESS
+acred query bank balances $ACRE_WALLET_ADDRESS
 ```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin. 
+> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
 
 Doğrulayıcı Oluşturma:
 ```
 acred tx staking create-validator \
   --amount 1999000uacre \
-  --from $ARB_WALLET \
+  --from $ACRE_WALLET \
   --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
   --pubkey  $(acred tendermint show-validator) \
-  --moniker $ARB_NODENAME \
-  --chain-id $ARB_ID \
+  --moniker $ACRE_NODENAME \
+  --chain-id $ACRE_ID \
   --fees 250uacre
 ```
 
@@ -142,48 +142,48 @@ acred keys list
 
 Mnemonic kullanarak cüzdanı kurtar:
 ```
-acred keys add $ARB_WALLET --recover
+acred keys add $ACRE_WALLET --recover
 ```
 
 Cüzdan Silme:
 ```
-acred keys delete $ARB_WALLET
+acred keys delete $ACRE_WALLET
 ```
 
 Cüzdan Bakiyesi Sorgulama:
 ```
-acred query bank balances $ARB_WALLET_ADDRESS
+acred query bank balances $ACRE_WALLET_ADDRESS
 ```
 
 Cüzdandan Cüzdana Bakiye Transferi:
 ```
-acred tx bank send $ARB_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000uacre
+acred tx bank send $ACRE_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000uacre
 ```
 
 ### Oylama
 ```
-acred tx gov vote 1 yes --from $ARB_WALLET --chain-id=$ARB_ID
+acred tx gov vote 1 yes --from $ACRE_WALLET --chain-id=$ACRE_ID
 ```
 
 ### Stake, Delegasyon ve Ödüller
 Delegate İşlemi:
 ```
-acred tx staking delegate $ARB_VALOPER_ADDRESS 10000000uacre --from=$ARB_WALLET --chain-id=$ARB_ID --gas=auto --fees 250uacre
+acred tx staking delegate $ACRE_VALOPER_ADDRESS 10000000uacre --from=$ACRE_WALLET --chain-id=$ACRE_ID --gas=auto --fees 250uacre
 ```
 
 Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
 ```
-acred tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000uacre --from=$ARB_WALLET --chain-id=$ARB_ID --gas=auto --fees 250uacre
+acred tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000uacre --from=$ACRE_WALLET --chain-id=$ACRE_ID --gas=auto --fees 250uacre
 ```
 
 Tüm ödülleri çek:
 ```
-acred tx distribution withdraw-all-rewards --from=$ARB_WALLET --chain-id=$ARB_ID --gas=auto --fees 250uacre
+acred tx distribution withdraw-all-rewards --from=$ACRE_WALLET --chain-id=$ACRE_ID --gas=auto --fees 250uacre
 ```
 
 Komisyon ile ödülleri geri çekin:
 ```
-acred tx distribution withdraw-rewards $ARB_VALOPER_ADDRESS --from=$ARB_WALLET --commission --chain-id=$ARB_ID
+acred tx distribution withdraw-rewards $ACRE_VALOPER_ADDRESS --from=$ACRE_WALLET --commission --chain-id=$ACRE_ID
 ```
 
 ### Doğrulayıcı Yönetimi
@@ -191,16 +191,16 @@ Validatör İsmini Değiştir:
 ```
 acred tx staking edit-validator \
 --moniker=NEWNODENAME \
---chain-id=$ARB_ID \
---from=$ARB_WALLET
+--chain-id=$ACRE_ID \
+--from=$ACRE_WALLET
 ```
 
-Hapisten Kurtul(Unjail): 
+Hapisten Kurtul(Unjail):
 ```
 acred tx slashing unjail \
   --broadcast-mode=block \
-  --from=$ARB_WALLET \
-  --chain-id=$ARB_ID \
+  --from=$ACRE_WALLET \
+  --chain-id=$ACRE_ID \
   --gas=auto --fees 250uacre
 ```
 
@@ -213,5 +213,5 @@ sudo rm /etc/systemd/system/acre* -rf
 sudo rm $(which acred) -rf
 sudo rm $HOME/.acred* -rf
 sudo rm $HOME/acrechain -rf
-sed -i '/ARB_/d' ~/.bash_profile
+sed -i '/ACRE_/d' ~/.bash_profile
 ```

@@ -4,7 +4,7 @@
 
 ![](https://i.hizliresim.com/5yr9202.png)
 
-# Arable Protocol Grafana Monitor Kurulum Rehberi
+# Acrechain Grafana Monitor Kurulum Rehberi
 ## Önkoşullar
 
 ### Node'unuzun kurulu olduğunu sunucuya `exporter` yükleyin.
@@ -15,8 +15,8 @@ Kurulum sırasında sizden bir kaç bilgi istenecek. Bunlar:
 
 | ANAHTAR |DEĞER |
 |---------------|-------------|
-| **bond_denom** | Denom Degeri. Örneğin Arable Protocol için `uacre` |
-| **bench_prefix** | Bench Prefix Değeri. Örneğin Arable Protocol için `acre`. Bu değeri cüzdan adresinizden öğrenebilirsiniz. **acre**1r5g0kes6jutsydez9qw2tx6vuc8scpxn5qtyle |
+| **bond_denom** | Denom Degeri. Örneğin Acrechain için `uacre` |
+| **bench_prefix** | Bench Prefix Değeri. Örneğin Acrechain için `acre`. Bu değeri cüzdan adresinizden öğrenebilirsiniz. **acre**1r5g0kes6jutsydez9qw2tx6vuc8scpxn5qtyle |
 | **grpc_port** | "app.toml" dosyasında tanımlanan doğrulayıcı "grpc" bağlantı noktanız. Varsayılan değer `28090`dır |
 | **rpc_port** | "config.toml" dosyasında tanımlanan doğrulayıcı "rpc" bağlantı noktanız. Varsayılan değer `28657`dir |
 
@@ -26,8 +26,8 @@ Sunucuzda aşağıdaki portların açık olduğundan emin olun:
 
 ## Grafana Monitör Kurulumu
 Doğrulayıcınızı doğru şekilde takip ve analiz edebilmeniz için grafana monitörü ayrı bir sunucuya kurmanızı öneririz.
-Node'unuz durursa, sunucunuz arızalanırsa vs. gibi durumlarda da verileri takip etme şansınız olur. Çok büyük bir sistem gereksinimi istemiyor. 
-aşağıdaki özelliklerde bir sistem monitör için yeterli. 
+Node'unuz durursa, sunucunuz arızalanırsa vs. gibi durumlarda da verileri takip etme şansınız olur. Çok büyük bir sistem gereksinimi istemiyor.
+aşağıdaki özelliklerde bir sistem monitör için yeterli.
 
 ### Sistem Gereksinimleri
 Ubuntu 20.04 / 1 VCPU / 2 GB RAM / 20 GB SSD
@@ -84,7 +84,7 @@ Kullanılan portlar:
 
 4. Explorer yapılandırması
 
-Normalde en çok blok kaçıranlar paneli nodes.guru explorer'a göre uyarlıdır. 
+Normalde en çok blok kaçıranlar paneli nodes.guru explorer'a göre uyarlıdır.
 
 Eğer nodes.guru explorer'da olmayan bir ağ eklemek isterseniz en çok blok kaçıranlar sekmesinde düzenleme yapmanız gerekir.
 > Bu işlem sadece `En çok blok kaçıranlar` sekmesi için geçerlidir ve çok da şart değildir.

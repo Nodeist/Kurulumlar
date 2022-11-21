@@ -4,7 +4,7 @@
 
 ![](https://i.hizliresim.com/5yr9202.png)
 
-# Arable Protocol Grafana Monitor Installation Guide
+# Acrechain Grafana Monitor Installation Guide
 ## Prerequisites
 
 ### Setup `exporter` to the server where your node is installed.
@@ -15,8 +15,8 @@ During the installation you will be asked for some information. These:
 
 | KEY |VALUE |
 |----------|-------------|
-| **bond_denom** | Denom Value. For example `uacre` for Arable Protocol |
-| **bench_prefix** | Bench Prefix Value. For example `acre` for Arable Protocol. You can learn this value from your wallet address. **celestia**jcqum902je9zwevat7zqczskwd4lhwuj9vwgsu |
+| **bond_denom** | Denom Value. For example `uacre` for Acrechain |
+| **bench_prefix** | Bench Prefix Value. For example `acre` for Acrechain. You can learn this value from your wallet address. **celestia**jcqum902je9zwevat7zqczskwd4lhwuj9vwgsu |
 | **grpc_port** | Your validator `grpc` port that is defined in `app.toml` file. Default value is `28090` |
 | **rpc_port** | Your validator `rpc` port that is defined in `config.toml` file. Default value is `28657` |
 

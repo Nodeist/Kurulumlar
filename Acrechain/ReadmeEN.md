@@ -4,7 +4,7 @@
 
 ![](https://i.hizliresim.com/5yr9202.png)
 
-# Arable Protocol Installation Guide
+# Acrechain Installation Guide
 ## Hardware Requirements
 Like any Cosmos-SDK chain, the hardware requirements are pretty modest.
 
@@ -20,13 +20,13 @@ Like any Cosmos-SDK chain, the hardware requirements are pretty modest.
   - 200 GB storage (SSD or NVME)
   - Persistent Internet connection (traffic will be minimum 10Mbps during testnet - at least 100Mbps expected for production)
 
-## Arable Protocol Full Node Installation Steps
+## Acrechain Full Node Installation Steps
 ### Automatic Installation with a Single Script
-You can set up your Arable Protocol fullnode in a few minutes using the automated script below.
+You can set up your Acrechain fullnode in a few minutes using the automated script below.
 You will be asked for your node name (NODENAME) during the script!
 
 ```
-wget -O ARB.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Arable/ARB && chmod +x ARB.sh && ./ARB.sh
+wget -O ACRE.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Acrechain/ACRE && chmod +x ACRE.sh && ./ACRE.sh
 ```
 
 ### Post-Installation Steps
@@ -40,12 +40,12 @@ acred status 2>&1 | jq .SyncInfo
 ### Creating a Wallet
 You can use the following command to create a new wallet. Do not forget to save the reminder (mnemonic).
 ```
-acred keys add $ARB_WALLET
+acred keys add $ACRE_WALLET
 ```
 
 (OPTIONAL) To recover your wallet using mnemonic:
 ```
-acred keys add $ARB_WALLET --recover
+acred keys add $ACRE_WALLET --recover
 ```
 
 To get the current wallet list:
@@ -56,10 +56,10 @@ acred keys list
 ### Save Wallet Information
 Add Wallet Address:
 ```
-ARB_WALLET_ADDRESS=$(acred keys show $ARB_WALLET -a)
-ARB_VALOPER_ADDRESS=$(acred keys show $ARB_WALLET --bech val -a)
-echo 'export ARB_WALLET_ADDRESS='${ARB_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export ARB_VALOPER_ADDRESS='${ARB_VALOPER_ADDRESS} >> $HOME/.bash_profile
+ACRE_WALLET_ADDRESS=$(acred keys show $ACRE_WALLET -a)
+ACRE_VALOPER_ADDRESS=$(acred keys show $ACRE_WALLET --bech val -a)
+echo 'export ACRE_WALLET_ADDRESS='${ACRE_WALLET_ADDRESS} >> $HOME/.bash_profile
+echo 'export ACRE_VALOPER_ADDRESS='${ACRE_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
@@ -69,7 +69,7 @@ Before creating a validator please make sure you have at least 1 acre (1 acre eq
 
 To check your wallet balance:
 ```
-acred query bank balances $ARB_WALLET_ADDRESS
+acred query bank balances $ACRE_WALLET_ADDRESS
 ```
 > If you can't see your balance in your wallet, chances are your node is still syncing. Please wait for the sync to finish and then continue.
 
@@ -77,14 +77,14 @@ Creating a Validator:
 ```
 acred tx staking create-validator \
   --amount 1000000uacre \
-  --from $ARB_WALLET \
+  --from $ACRE_WALLET \
   --commission-max-change-rate "0.01" \
   --commission-max-rate "0.2" \
   --commission-rate "0.07" \
   --min-self-delegation "1" \
   --pubkey  $(acred tendermint show-validator) \
-  --moniker $ARB_NODENAME \
-  --chain-id $ARB_ID \
+  --moniker $ACRE_NODENAME \
+  --chain-id $ACRE_ID \
   --fees 250uacre
 ```
 
@@ -141,48 +141,48 @@ acred keys list
 
 Recover wallet using Mnemonic:
 ```
-acred keys add $ARB_WALLET --recover
+acred keys add $ACRE_WALLET --recover
 ```
 
 Wallet Delete:
 ```
-acred keys delete $ARB_WALLET
+acred keys delete $ACRE_WALLET
 ```
 
 Show Wallet Balance:
 ```
-acred query bank balances $ARB_WALLET_ADDRESS
+acred query bank balances $ACRE_WALLET_ADDRESS
 ```
 
 Cüzdandan Cüzdana Bakiye Transferi:
 ```
-acred tx bank send $ARB_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000uacre
+acred tx bank send $ACRE_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000uacre
 ```
 
 ### Voting
 ```
-acred tx gov vote 1 yes --from $ARB_WALLET --chain-id=$ARB_ID
+acred tx gov vote 1 yes --from $ACRE_WALLET --chain-id=$ACRE_ID
 ```
 
 ### Stake, Delegation and Rewards
 Delegate Process:
 ```
-acred tx staking delegate $ARB_VALOPER_ADDRESS 10000000uacre --from=$ARB_WALLET --chain-id=$ARB_ID --gas=auto --fees 250uacre
+acred tx staking delegate $ACRE_VALOPER_ADDRESS 10000000uacre --from=$ACRE_WALLET --chain-id=$ACRE_ID --gas=auto --fees 250uacre
 ```
 
 Redelegate from validator to another validator:
 ```
-acred tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000uacre --from=$ARB_WALLET --chain-id=$ARB_ID --gas=auto --fees 250uacre
+acred tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000uacre --from=$ACRE_WALLET --chain-id=$ACRE_ID --gas=auto --fees 250uacre
 ```
 
 Withdraw all rewards:
 ```
-acred tx distribution withdraw-all-rewards --from=$ARB_WALLET --chain-id=$ARB_ID --gas=auto --fees 250uacre
+acred tx distribution withdraw-all-rewards --from=$ACRE_WALLET --chain-id=$ACRE_ID --gas=auto --fees 250uacre
 ```
 
 Withdraw rewards with commission:
 ```
-acred tx distribution withdraw-rewards $ARB_VALOPER_ADDRESS --from=$ARB_WALLET --commission --chain-id=$ARB_ID
+acred tx distribution withdraw-rewards $ACRE_VALOPER_ADDRESS --from=$ACRE_WALLET --commission --chain-id=$ACRE_ID
 ```
 
 ### Validator Management
@@ -190,16 +190,16 @@ Change Validator Name:
 ```
 acred tx staking edit-validator \
 --moniker=NEWNODENAME \
---chain-id=$ARB_ID \
---from=$ARB_WALLET
+--chain-id=$ACRE_ID \
+--from=$ACRE_WALLET
 ```
 
-Get Out Of Jail(Unjail): 
+Get Out Of Jail(Unjail):
 ```
 acred tx slashing unjail \
   --broadcast-mode=block \
-  --from=$ARB_WALLET \
-  --chain-id=$ARB_ID \
+  --from=$ACRE_WALLET \
+  --chain-id=$ACRE_ID \
   --gas=auto --fees 250uacre
 ```
 
@@ -211,6 +211,5 @@ sudo rm /etc/systemd/system/acre* -rf
 sudo rm $(which acred) -rf
 sudo rm $HOME/.acred* -rf
 sudo rm $HOME/acrechain -rf
-sed -i '/ARB_/d' ~/.bash_profile
+sed -i '/ACRE_/d' ~/.bash_profile
 ```
-  

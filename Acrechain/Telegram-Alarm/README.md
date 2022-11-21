@@ -4,7 +4,7 @@
 
 ![](https://i.hizliresim.com/5yr9202.png)
 
-# Arable Protocol Telegram Alarm Kurulum Rehberi
+# Acrechain Telegram Alarm Kurulum Rehberi
 Bu sistem sizi jail veya inaktif durum hakkında telegram üzerinden uyaracaktır. Ayrıca size her saat başı node durumunuz hakkında kısa bilgi gönderir.
 
 Talimatlar:
@@ -23,27 +23,27 @@ Talimatlar:
 
 6. `jq` ve `bc` paketlerini kurunuz; `sudo apt-get install jq bc -y` .
 
-7. Status klasörünüzün içine girip, ayarlarınızı görmek için `bash cosmos.sh` komutunu çalıştırın. Her şey doğru ise çıktı aşağıdaki gibi veya benzer olmalıdır: 
+7. Status klasörünüzün içine girip, ayarlarınızı görmek için `bash cosmos.sh` komutunu çalıştırın. Her şey doğru ise çıktı aşağıdaki gibi veya benzer olmalıdır:
 
 ```
-root@Nodeist:~/status# bash cosmos.sh 
- 
+root@Nodeist:~/status# bash cosmos.sh
+
 /// 2022-05-21 14:16:44 ///
- 
+
 pylons-testnet-3
 
 sync >>> 373010/373010.
 jailed > true.
- 
+
 /// 2022-05-21 14:16:48 ///
- 
+
 stafihub-public-testnet-2
 
 sync >>> 512287/512287.
 place >> 47/100.
 stake >> 118.12 fis.
 
-root@Nodeist:~/status# 
+root@Nodeist:~/status#
 ```
 
 8. `slash.sh` dosyamızı oluşturalım; `nano $HOME/status/slash.sh` .
