@@ -1,5 +1,5 @@
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/c4era.png">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/c4e.png">
 </p>
 
 # C4E Useful Tools
