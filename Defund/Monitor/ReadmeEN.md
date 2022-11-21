@@ -109,9 +109,9 @@ Click on the tab title and press `edit`.
 
 ## Clipboard content
 The Grafana dashboard is divided into 4 sections:
-- **Verifier health** - main statistics for verifier health. connected peers and missed blocks
+- **Validator health** - main statistics for verifier health. connected peers and missed blocks
 - **Chain health** - summary of chain health statistics and list of missing blocks of top validators
-- **Verifier statistics** - information about the validator such as rank, limited coins, commission, delegations and rewards
+- **Validator statistics** - information about the validator such as rank, limited coins, commission, delegations and rewards
 - **Hardware health** - system hardware metrics. cpu, ram, network usage
 
 ## Reset Statistics
