@@ -209,7 +209,7 @@ sudo systemctl stop c4ed
 sudo systemctl disable c4ed
 sudo rm /etc/systemd/system/c4ed* -rf
 sudo rm $(which c4ed) -rf
-sudo rm $HOME/.c4e-chain* -rf
-sudo rm $HOME/c4e -rf
+sudo rm $HOME/c4e-chain* -rf
+sudo rm $HOME/.c4e -rf
 sed -i '/C4E_/d' ~/.bash_profile
 ```
