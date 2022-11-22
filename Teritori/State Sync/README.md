@@ -22,7 +22,7 @@ s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.teritorid
 The above `unsafe-reset-all` command reset your `wasm` folder inside the data folder. You can download our `wasm` folder to fix it.
 ```
 rm -r ~/.teritorid/data/wasm
-wget -O wasmonly.tar.lz4 https://snapshot.nodeist.net/teritori/wasmonly.tar.lz4 --inet4-only
+wget -O wasmonly.tar.lz4 https://snapshots.nodeist.net/teritori/wasmonly.tar.lz4 --inet4-only
 lz4 -c -d wasmonly.tar.lz4  | tar -x -C $HOME/.teritorid/data
 rm wasmonly.tar.lz4
 ```
