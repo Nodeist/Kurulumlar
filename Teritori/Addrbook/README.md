@@ -12,7 +12,6 @@ However, when everything else fails, you can choose to trust our `addrbook.json`
 Stop your node, download and replace your `addrbook.json` with the steps below, and restart your node.
 
 
-Updated every: **1h**
 ```
 wget -O addrbook.json https://snapshots.nodeist.net/teritori/addrbook.json --inet4-only
 mv addrbook.json ~/.teritorid/config
