@@ -1,9 +1,9 @@
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/teritori.png">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/jackal.png">
 </p>
 
 
-# Teritori State Sync
+# Jackal State Sync
 Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 
 ```
