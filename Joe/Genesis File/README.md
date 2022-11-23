@@ -9,6 +9,6 @@ The best place to download a chain genesis file is through its official hosting 
 
 Our genesis file is uploaded from a fully-synced node. However, please still "trust but verify" before using our file.
 ```
-wget -O genesis.json https://snapshots.nodeist.net/genesis.json --inet4-only
+wget -O genesis.json https://snapshots.nodeist.net/joe/genesis.json --inet4-only
 mv genesis.json ~/.joed/config
 ```
