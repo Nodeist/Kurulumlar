@@ -21,5 +21,5 @@ s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.acred/con
 
 Restart the node:
 ```
-systemctl restart teritorid && journalctl -fu acred -o cat
+systemctl restart acred && journalctl -fu acred -o cat
 ```
