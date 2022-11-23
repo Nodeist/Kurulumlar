@@ -1,5 +1,5 @@
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/acre.png">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/acrechain.png">
 </p>
 
 
