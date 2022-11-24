@@ -1,8 +1,6 @@
-&#x20;                                                       [<mark style="color:red;">**Website**</mark>](https://nodeist.net/) | [<mark style="color:blue;">**Discord**</mark>](https://discord.gg/ypx7mJ6Zzb) | [<mark style="color:green;">**Telegram**</mark>](https://t.me/noodeist)
-
-&#x20;                                     [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://www.digitalocean.com/?refcode=410c988c8b3e&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
-
-![](https://i.hizliresim.com/jvok3zq.png)
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/source.png">
+</p>
 
 # Source Kurulum Rehberi
 ## Donanım Gereksinimleri
@@ -22,7 +20,7 @@ Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütev
 
 ## Source Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Source fullnode'unuzu birkaç dakika içinde kurabilirsiniz. 
+Aşağıdaki otomatik komut dosyasını kullanarak Source fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
 Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
@@ -32,7 +30,7 @@ wget -O SRC.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Source/
 
 ### Kurulum Sonrası Adımlar
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. 
+Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
 Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
 sourced status 2>&1 | jq .SyncInfo
@@ -72,7 +70,7 @@ Cüzdan bakiyenizi kontrol etmek için:
 ```
 sourced query bank balances $SRC_WALLET_ADDRESS
 ```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin. 
+> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
 
 Doğrulayıcı Oluşturma:
 ```
@@ -195,7 +193,7 @@ sourced tx staking edit-validator \
 --from=$SRC_WALLET
 ```
 
-Hapisten Kurtul(Unjail): 
+Hapisten Kurtul(Unjail):
 ```
 sourced tx slashing unjail \
   --broadcast-mode=block \
@@ -215,4 +213,3 @@ sudo rm $HOME/.source* -rf
 sudo rm $HOME/source -rf
 sed -i '/SRC_/d' ~/.bash_profile
 ```
-  

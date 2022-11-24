@@ -1,8 +1,8 @@
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/realio.png">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/source.png">
 </p>
 
-# Realio Useful Tools
+# Source Useful Tools
 ## Always Vote No
 Create a reusable shell script such as Always_Vote_No.sh with the following code and then run the script.
 ```
@@ -21,19 +21,19 @@ sleep 2
 set -e
 
 wallet="second" # your wallet name
-current_proposal=$(realio-networkd q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
+current_proposal=$(sourced q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
 
 echo "Last proposal is: $current_proposal"
 
 while true
 do
-  last_proposal=$(realio-networkd q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
+  last_proposal=$(sourced q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
 
   if [[ $current_proposal -lt $last_proposal ]]
   then
     echo "New proposal: $last_proposal"
     echo "Voting NO..."
-    realio-networkd tx gov vote $last_proposal no --from $wallet -y
+    sourced tx gov vote $last_proposal no --from $wallet -y
 
     current_proposal=$last_proposal
   fi
@@ -61,19 +61,19 @@ sleep 2
 set -e
 
 wallet="second" # your wallet name
-current_proposal=$(realio-networkd q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
+current_proposal=$(sourced q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
 
 	echo "Last proposal is: $current_proposal"
 
 	while true
 	do
-		last_proposal=$(realio-networkd q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
+		last_proposal=$(sourced q gov proposals -o json | jq -r '.proposals[] | select(.status == "PROPOSAL_STATUS_VOTING_PERIOD") | .proposal_id' | tail -n 1)
 
 			if [[ $current_proposal -lt $last_proposal ]]
 			then
 				echo "New proposal: $last_proposal"
 				echo "Voting YES..."
-				realio-networkd tx gov vote $last_proposal yes --from $wallet -y
+				sourced tx gov vote $last_proposal yes --from $wallet -y
 
 				current_proposal=$last_proposal
 			fi
@@ -112,18 +112,18 @@ GAS_VALUE="auto"
 # Withdraw
 while :
 do
-	echo $PASS | realio-networkd tx distribution withdraw-rewards "${VALIDATOR}"  --from "${KEY_NAME}" --commission --chain-id=${CHAIN_ID} --gas="${GAS_VALUE}" -y
+	echo $PASS | sourced tx distribution withdraw-rewards "${VALIDATOR}"  --from "${KEY_NAME}" --commission --chain-id=${CHAIN_ID} --gas="${GAS_VALUE}" -y
 
 	sleep 20s
 
-	AVAILABLE_COIN=$(realio-networkd query bank balances ${ADDRESS} --output json | jq -r '.balances | map(select(.denom == "ario")) | .[].amount' | tr -cd [:digit:])
+	AVAILABLE_COIN=$(sourced query bank balances ${ADDRESS} --output json | jq -r '.balances | map(select(.denom == "usource")) | .[].amount' | tr -cd [:digit:])
 	KEEP_FOR_FEES=100000
 	AMOUNT=$(($AVAILABLE_COIN - $KEEP_FOR_FEES))
-	AMOUNT_FINAL=$AMOUNT"ario"
+	AMOUNT_FINAL=$AMOUNT"usource"
 
 
 	# Delegate
-	echo $PASS | realio-networkd tx staking delegate "${VALIDATOR}" "${AMOUNT_FINAL}" --from "${KEY_NAME}" --chain-id=${CHAIN_ID} -y
+	echo $PASS | sourced tx staking delegate "${VALIDATOR}" "${AMOUNT_FINAL}" --from "${KEY_NAME}" --chain-id=${CHAIN_ID} -y
 	date
 	sleep 90s
 done;
@@ -146,7 +146,7 @@ sleep 2
 
 set -e
 
-realio-networkd query staking validators -o json | \
+sourced query staking validators -o json | \
 jq .validators[] | \
 jq -s 'sort_by(.tokens) | reverse' | \
 jq -r '["Validator", "VP"], ["----------------", "------------"], (.[] | [.description.moniker, (.tokens|tonumber/1000000)]) | @tsv' | \
@@ -172,7 +172,7 @@ sleep 2
 
 set -e
 
-vp=$(realio-networkd status | jq '.ValidatorInfo.VotingPower')
+vp=$(sourced status | jq '.ValidatorInfo.VotingPower')
 if [[ $vp = "0" ]]
 then
 	status="JAILED"
