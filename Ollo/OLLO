@@ -22,7 +22,7 @@ OLLO_REPO=https://github.com/OLLO-Station/ollo
 OLLO_GENESIS=https://raw.githubusercontent.com/OllO-Station/ollo/master/networks/ollo-testnet-0/genesis.json
 OLLO_ADDRBOOK=https://raw.githubusercontent.com/OllO-Station/ollo/master/networks/ollo-testnet-0/addrbook.json
 OLLO_MIN_GAS=0
-OLLO_DENOM=utia
+OLLO_DENOM=utollo
 OLLO_SEEDS=
 OLLO_PEERS=45acf9ea2f2d6a2a4b564ae53ea3004f902d3fb7@185.182.184.200:26656,62b5364abdfb7c0934afaddbd0704acf82127383@65.108.13.185:27060,f599dcd0a09d376f958910982d82351a6f8c178b@95.217.118.96:26878
 
