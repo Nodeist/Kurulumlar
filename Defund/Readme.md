@@ -1,8 +1,7 @@
-&#x20;                                                       [<mark style="color:red;">**Website**</mark>](https://nodeist.net/) | [<mark style="color:blue;">**Discord**</mark>](https://discord.gg/ypx7mJ6Zzb) | [<mark style="color:green;">**Telegram**</mark>](https://t.me/noodeist)
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/defund.png">
+</p>
 
-&#x20;                                     [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://www.digitalocean.com/?refcode=410c988c8b3e&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
-
-![](https://i.hizliresim.com/4mmj0u4.png)
 
 
 
@@ -24,7 +23,7 @@ Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütev
 
 ## Defund Full Node Kurulum Adımları
 ### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Defund fullnode'unuzu birkaç dakika içinde kurabilirsiniz. 
+Aşağıdaki otomatik komut dosyasını kullanarak Defund fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
 Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
@@ -34,7 +33,7 @@ wget -O FETF.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Defund
 
 ### Kurulum Sonrası Adımlar
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. 
+Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
 Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
 defundd status 2>&1 | jq .SyncInfo
@@ -74,7 +73,7 @@ Cüzdan bakiyenizi kontrol etmek için:
 ```
 defundd query bank balances $FETF_WALLET_ADDRESS
 ```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin. 
+> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
 
 Doğrulayıcı Oluşturma:
 ```
@@ -197,7 +196,7 @@ defundd tx staking edit-validator \
 --from=$FETF_WALLET
 ```
 
-Hapisten Kurtul(Unjail): 
+Hapisten Kurtul(Unjail):
 ```
 defundd tx slashing unjail \
   --broadcast-mode=block \
@@ -217,4 +216,3 @@ sudo rm $HOME/.defund* -rf
 sudo rm $HOME/defund -rf
 sed -i '/FETF_/d' ~/.bash_profile
 ```
-  
