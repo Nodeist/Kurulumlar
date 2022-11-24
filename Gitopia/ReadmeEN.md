@@ -24,7 +24,7 @@ You can set up your Gitopia fullnode in a few minutes using the automated script
 You will be asked for your node name (NODENAME) during the script!
 
 ```
-wget -O GTP.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Gitopia/Gitopiagt && chmod +x GTP.sh && ./GTP.sh
+wget -O GTP.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Gitopia/GTP && chmod +x GTP.sh && ./GTP.sh
 ```
 
 ### Post-Installation Steps
