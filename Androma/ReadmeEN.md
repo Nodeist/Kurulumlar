@@ -24,7 +24,7 @@ You can set up your Androma fullnode in a few minutes using the automated script
 You will be asked for your node name (NODENAME) during the script!
 
 ```
-wget -O AM.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Andromeda/AM && chmod +x AM.sh && ./AM.sh
+wget -O AM.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Androma/AM && chmod +x AM.sh && ./AM.sh
 ```
 
 ### Post-Installation Steps
