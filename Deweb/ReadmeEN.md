@@ -1,8 +1,6 @@
-&#x20;                                                       [<mark style="color:red;">**Website**</mark>](https://nodeist.net/) | [<mark style="color:blue;">**Discord**</mark>](https://discord.gg/ypx7mJ6Zzb) | [<mark style="color:green;">**Telegram**</mark>](https://t.me/noodeist)
-
-&#x20;                                     [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://www.digitalocean.com/?refcode=410c988c8b3e&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
-
-![](https://i.hizliresim.com/kitpt1x.png)
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/deweb.png">
+</p>
 
 
 # Deweb Installation Guide
@@ -195,7 +193,7 @@ dewebd tx staking edit-validator \
 --from=$DWS_WALLET
 ```
 
-Get Out Of Jail(Unjail): 
+Get Out Of Jail(Unjail):
 ```
 dewebd tx slashing unjail \
   --broadcast-mode=block \
@@ -214,4 +212,3 @@ sudo rm $HOME/.deweb* -rf
 sudo rm $HOME/deweb -rf
 sed -i '/DWS_/d' ~/.bash_profile
 ```
-  
