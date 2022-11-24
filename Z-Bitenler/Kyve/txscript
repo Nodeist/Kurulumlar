@@ -1,6 +1,0 @@
-while true; 
-do 
-	
-echo aaaaaaaa | kyved tx staking delegate kyvevaloper1h4j99c40n5jh9ym96n6m8ngt94ncfvsrv75fs4 1tkyve --from=validator --chain-id=korellia --gas=auto --fees 250tkyve -y
-
-done

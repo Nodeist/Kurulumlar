@@ -1,10 +1,8 @@
-&#x20;                                                       [<mark style="color:red;">**Website**</mark>](https://nodeist.net/) | [<mark style="color:blue;">**Discord**</mark>](https://discord.gg/ypx7mJ6Zzb) | [<mark style="color:green;">**Telegram**</mark>](https://t.me/noodeist)
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/acrechain.png">
+</p>
 
-&#x20;                                     [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://www.digitalocean.com/?refcode=410c988c8b3e&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
-
-![](https://i.hizliresim.com/9k52cau.png)
-
-# Neutron Grafana Monitor Kurulum Rehberi
+# Acrechain Grafana Monitor Kurulum Rehberi
 ## Önkoşullar
 
 ### Node'unuzun kurulu olduğunu sunucuya `exporter` yükleyin.
@@ -15,10 +13,10 @@ Kurulum sırasında sizden bir kaç bilgi istenecek. Bunlar:
 
 | ANAHTAR |DEĞER |
 |---------------|-------------|
-| **bond_denom** | Denom Degeri. Örneğin Neutron için `untrn` |
-| **bench_prefix** | Bench Prefix Değeri. Örneğin Neutron için `neutron`. Bu değeri cüzdan adresinizden öğrenebilirsiniz. **Neutron**1r5g0kes6jutsydez9qw2tx6vuc8scpxn5qtyle |
-| **grpc_port** | "app.toml" dosyasında tanımlanan doğrulayıcı "grpc" bağlantı noktanız. Varsayılan değer `12090`dır |
-| **rpc_port** | "config.toml" dosyasında tanımlanan doğrulayıcı "rpc" bağlantı noktanız. Varsayılan değer `12657`dir |
+| **bond_denom** | Denom Degeri. Örneğin Acrechain için `uacre` |
+| **bench_prefix** | Bench Prefix Değeri. Örneğin Acrechain için `acre`. Bu değeri cüzdan adresinizden öğrenebilirsiniz. **acre**1r5g0kes6jutsydez9qw2tx6vuc8scpxn5qtyle |
+| **grpc_port** | "app.toml" dosyasında tanımlanan doğrulayıcı "grpc" bağlantı noktanız. Varsayılan değer `28090`dır |
+| **rpc_port** | "config.toml" dosyasında tanımlanan doğrulayıcı "rpc" bağlantı noktanız. Varsayılan değer `28657`dir |
 
 Sunucuzda aşağıdaki portların açık olduğundan emin olun:
 - `9100` (node-exporter)

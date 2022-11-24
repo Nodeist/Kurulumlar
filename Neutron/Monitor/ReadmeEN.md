@@ -1,10 +1,8 @@
-&#x20;                                                       [<mark style="color:red;">**Website**</mark>](https://nodeist.net/) | [<mark style="color:blue;">**Discord**</mark>](https://discord.gg/ypx7mJ6Zzb) | [<mark style="color:green;">**Telegram**</mark>](https://t.me/noodeist)
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/acrechain.png">
+</p>
 
-&#x20;                                     [<mark style="color:purple;">**100$ Credit Free VPS for 2 Months(DigitalOcean)**</mark>](https://www.digitalocean.com/?refcode=410c988c8b3e&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
-
-![](https://i.hizliresim.com/9k52cau.png)
-
-# Neutron Grafana Monitor Installation Guide
+# Acrechain Grafana Monitor Installation Guide
 ## Prerequisites
 
 ### Setup `exporter` to the server where your node is installed.
@@ -15,10 +13,10 @@ During the installation you will be asked for some information. These:
 
 | KEY |VALUE |
 |----------|-------------|
-| **bond_denom** | Denom Value. For example `untrn` for Neutron |
-| **bench_prefix** | Bench Prefix Value. For example `celestia` for Neutron. You can learn this value from your wallet address. **neutron**jcqum902je9zwevat7zqczskwd4lhwuj9vwgsu |
-| **grpc_port** | Your validator `grpc` port that is defined in `app.toml` file. Default value is `12090` |
-| **rpc_port** | Your validator `rpc` port that is defined in `config.toml` file. Default value is `12657` |
+| **bond_denom** | Denom Value. For example `uacre` for Acrechain |
+| **bench_prefix** | Bench Prefix Value. For example `acre` for Acrechain. You can learn this value from your wallet address. **acre**jcqum902je9zwevat7zqczskwd4lhwuj9vwgsu |
+| **grpc_port** | Your validator `grpc` port that is defined in `app.toml` file. Default value is `28090` |
+| **rpc_port** | Your validator `rpc` port that is defined in `config.toml` file. Default value is `28657` |
 
 
 Make sure the following ports are open on your server:
