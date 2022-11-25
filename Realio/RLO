@@ -23,8 +23,8 @@ RLO_GENESIS=https://raw.githubusercontent.com/realiotech/testnets/main/realionet
 RLO_ADDRBOOK=
 RLO_MIN_GAS=0
 RLO_DENOM=ario
-RLO_SEEDS=
-RLO_PEERS=2539246ebf9359e2fbc9402f6af66520532e6169@134.209.165.247:26656,
+RLO_SEEDS=aa194e9f9add331ee8ba15d2c3d8860c5a50713f@143.110.230.177:26656
+RLO_PEERS=
 
 
 sleep 1
