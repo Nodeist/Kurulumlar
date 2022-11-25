@@ -13,7 +13,7 @@ sleep 2
 # DEGISKENLER by Nodeist
 RLO_WALLET=wallet
 RLO=realio-networkd
-RLO_ID=realionetwork_1110-1
+RLO_ID=realionetwork_1110-2
 RLO_PORT=17
 RLO_FOLDER=.realio-network
 RLO_FOLDER2=realio-network
