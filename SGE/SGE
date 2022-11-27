@@ -1,0 +1,171 @@
+#!/bin/bash
+echo "=================================================="
+echo "   _  ______  ___  __________________";
+echo "  / |/ / __ \/ _ \/ __/  _/ __/_  __/";
+echo " /    / /_/ / // / _/_/ /_\ \  / /   ";
+echo "/_/|_/\____/____/___/___/___/ /_/    ";
+echo -e "\e[0m"
+echo "=================================================="
+
+
+sleep 2
+
+# DEGISKENLER by Nodeist
+SGE_WALLET=wallet
+SGE=sged
+SGE_ID=sge-testnet-1
+SGE_PORT=51
+SGE_FOLDER=.sge
+SGE_FOLDER2=sge
+SGE_VER=v0.0.3
+SGE_REPO=https://github.com/sge-network/sge
+SGE_GENESIS=https://raw.githubusercontent.com/sge-network/networks/master/sge-testnet-1/genesis.json
+SGE_ADDRBOOK=
+SGE_MIN_GAS=0
+SGE_DENOM=usge
+SGE_SEEDS=
+SGE_PEERS=27f0b281ea7f4c3db01fdb9f4cf7cc910ad240a6@209.34.206.44:26656,5f3196f370fa865bfd3e4a0653dc7853f613aba6@[2a01:4f9:1a:a718::10]:26656,afa90de6a195a4a2993b2501f12a1cd306f01d02@136.243.103.32:60856,dc75f5d2f9458767f39f62bd7eab3f499fdf2761@104.248.236.171:26656,1168931936c638e92ea6d93e2271b3fe5faee6d1@51.91.145.100:26656,8a7d722dba88326ee69fcc23b5b2ac93e36d7ff2@65.108.225.158:17756,445506c736895336e36dd4f8228a60c257b30e61@20.12.75.0:26656,971643c5b9f9d279cfb7ac1b14accd109231236b@65.108.15.170:26656,788bb7ee73c023f70c41360e9014544b12fe23f9@3.15.209.96:26656,26f0965f8cd53f2b3adc26f8ca5e893929b66c15@52.44.14.245:26656,4a3f59e30cde63d00aed8c3d15bef46b34ec2c7f@50.19.180.153:26656,31d742df5a427e241d1a6b1b22813c9cb4888c07@65.21.181.169:26656
+
+sleep 1
+
+echo "export SGE_WALLET=${SGE_WALLET}" >> $HOME/.bash_profile
+echo "export SGE=${SGE}" >> $HOME/.bash_profile
+echo "export SGE_ID=${SGE_ID}" >> $HOME/.bash_profile
+echo "export SGE_PORT=${SGE_PORT}" >> $HOME/.bash_profile
+echo "export SGE_FOLDER=${SGE_FOLDER}" >> $HOME/.bash_profile
+echo "export SGE_FOLDER2=${SGE_FOLDER2}" >> $HOME/.bash_profile
+echo "export SGE_VER=${SGE_VER}" >> $HOME/.bash_profile
+echo "export SGE_REPO=${SGE_REPO}" >> $HOME/.bash_profile
+echo "export SGE_GENESIS=${SGE_GENESIS}" >> $HOME/.bash_profile
+echo "export SGE_PEERS=${SGE_PEERS}" >> $HOME/.bash_profile
+echo "export SGE_SEED=${SGE_SEED}" >> $HOME/.bash_profile
+echo "export SGE_MIN_GAS=${SGE_MIN_GAS}" >> $HOME/.bash_profile
+echo "export SGE_DENOM=${SGE_DENOM}" >> $HOME/.bash_profile
+source $HOME/.bash_profile
+
+sleep 1
+
+if [ ! $SGE_NODENAME ]; then
+	read -p "NODE ISMI YAZINIZ: " SGE_NODENAME
+	echo 'export SGE_NODENAME='$SGE_NODENAME >> $HOME/.bash_profile
+fi
+
+echo -e "NODE ISMINIZ: \e[1m\e[32m$SGE_NODENAME\e[0m"
+echo -e "CUZDAN ISMINIZ: \e[1m\e[32m$SGE_WALLET\e[0m"
+echo -e "CHAIN ISMI: \e[1m\e[32m$SGE_ID\e[0m"
+echo -e "PORT NUMARANIZ: \e[1m\e[32m$SGE_PORT\e[0m"
+echo '================================================='
+
+sleep 2
+
+
+# GUNCELLEMELER by Nodeist
+echo -e "\e[1m\e[32m1. GUNCELLEMELER YUKLENIYOR... \e[0m" && sleep 1
+sudo apt update && sudo apt upgrade -y
+
+
+# GEREKLI PAKETLER by Nodeist
+echo -e "\e[1m\e[32m2. GEREKLILIKLER YUKLENIYOR... \e[0m" && sleep 1
+sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
+
+# GO KURULUMU by Nodeist
+echo -e "\e[1m\e[32m1. GO KURULUYOR... \e[0m" && sleep 1
+ver="1.18.2"
+cd $HOME
+wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
+rm "go$ver.linux-amd64.tar.gz"
+echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+source ~/.bash_profile
+go version
+
+sleep 1
+
+# KUTUPHANE KURULUMU by Nodeist
+echo -e "\e[1m\e[32m1. REPO YUKLENIYOR... \e[0m" && sleep 1
+cd $HOME
+git clone $SGE_REPO
+cd $SGE_FOLDER2
+git fetch --tags
+git checkout $SGE_VER
+go mod tidy
+make install
+
+sleep 1
+
+# KONFIGURASYON by Nodeist
+echo -e "\e[1m\e[32m1. KONFIGURASYONLAR AYARLANIYOR... \e[0m" && sleep 1
+$SGE config chain-id $SGE_ID
+$SGE config keyring-backend file
+$SGE init $SGE_NODENAME --chain-id $SGE_ID
+
+# ADDRBOOK ve GENESIS by Nodeist
+wget $SGE_GENESIS -O $HOME/$SGE_FOLDER/config/genesis.json
+wget $SGE_ADDRBOOK -O $HOME/$SGE_FOLDER/config/addrbook.json
+
+# EŞLER VE TOHUMLAR by Nodeist
+SEEDS="$SGE_SEEDS"
+PEERS="$SGE_PEERS"
+sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/$SGE_FOLDER/config/config.toml
+
+sleep 1
+
+
+# config pruning
+pruning="custom"
+pruning_keep_recent="100"
+pruning_keep_every="0"
+pruning_interval="50"
+sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/$SGE_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/$SGE_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/$SGE_FOLDER/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$SGE_FOLDER/config/app.toml
+
+
+# ÖZELLEŞTİRİLMİŞ PORTLAR by Nodeist
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:2${SGE_PORT}8\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:2${SGE_PORT}7\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${SGE_PORT}60\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:2${SGE_PORT}6\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":2${SGE_PORT}0\"%" $HOME/$SGE_FOLDER/config/config.toml
+sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${SGE_PORT}7\"%; s%^address = \":8080\"%address = \":${SGE_PORT}80\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${SGE_PORT}90\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${SGE_PORT}91\"%" $HOME/$SGE_FOLDER/config/app.toml
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:2${SGE_PORT}7\"%" $HOME/$SGE_FOLDER/config/client.toml
+
+# PROMETHEUS AKTIVASYON by Nodeist
+sed -i -e "s/prometheus = false/prometheus = true/" $HOME/$SGE_FOLDER/config/config.toml
+
+# MINIMUM GAS AYARI by Nodeist
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.000025$SGE_DENOM\"/" $HOME/$SGE_FOLDER/config/app.toml
+
+# INDEXER AYARI by Nodeist
+indexer="null" && \
+sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/$SGE_FOLDER/config/config.toml
+
+# RESET by Nodeist
+$SGE tendermint unsafe-reset-all --home $HOME/$SGE_FOLDER
+
+echo -e "\e[1m\e[32m4. SERVIS BASLATILIYOR... \e[0m" && sleep 1
+# create service
+sudo tee /etc/systemd/system/$SGE.service > /dev/null <<EOF
+[Unit]
+Description=$SGE
+After=network.target
+[Service]
+Type=simple
+User=$USER
+ExecStart=$(which $SGE) start
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=65535
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+# SERVISLERI BASLAT by Nodeist
+sudo systemctl daemon-reload
+sudo systemctl enable $SGE
+sudo systemctl restart $SGE
+
+echo '=============== KURULUM TAMAM! by Nodeist ==================='
+echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjjournalctl -fu sged -o cat\e[0m'
+echo -e "SENKRONIZASYONU KONTROL ET: \e[1m\e[32mcurl -s localhost:${SGE_PORT}657/status | jq .result.sync_info\e[0m"
+
+source $HOME/.bash_profile
