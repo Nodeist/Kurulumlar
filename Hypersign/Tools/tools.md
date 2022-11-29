@@ -2,7 +2,7 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/hypersign.png">
 </p>
 
-# Gitopia Useful Tools
+# Hypersign Useful Tools
 ## Always Vote No
 Create a reusable shell script such as Always_Vote_No.sh with the following code and then run the script.
 ```
