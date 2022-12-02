@@ -13,7 +13,7 @@ sleep 1
 # DEGISKENLER by Nodeist
 JKL_WALLET=wallet
 JKL=canined
-JKL_ID=lupulella-1
+JKL_ID=lupulella-2
 JKL_PORT=51
 JKL_FOLDER=.canine
 JKL_FOLDER2=canine-chain

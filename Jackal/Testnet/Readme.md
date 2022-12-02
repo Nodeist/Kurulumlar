@@ -25,7 +25,7 @@ Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
 ```
-wget -O JKL.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Jackal/JKL && chmod +x JKL.sh && ./JKL.sh
+wget -O JKL.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Jackal/Testnet/JKL && chmod +x JKL.sh && ./JKL.sh
 ```
 
 ### Kurulum Sonrası Adımlar

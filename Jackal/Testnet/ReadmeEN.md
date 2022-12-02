@@ -25,7 +25,7 @@ You can set up your Jackal fullnode in a few minutes using the automated script 
 You will be asked for your node name (NODENAME) during the script!
 
 ```
-wget -O JKL.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Jackal/JKL && chmod +x JKL.sh && ./JKL.sh
+wget -O JKL.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Jackal/Testnet/JKL && chmod +x JKL.sh && ./JKL.sh
 ```
 
 ### Post-Installation Steps
