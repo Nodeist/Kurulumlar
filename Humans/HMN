@@ -18,8 +18,8 @@ HMN_PORT=55
 HMN_FOLDER=.humans
 HMN_FOLDER2=humans
 HMN_VER=v1.0.0
-HMN_REPO=https://github.com/humansdotai/humans.git
-HMN_GENESIS=
+HMN_REPO=https://github.com/humansdotai/humans
+HMN_GENESIS=https://snapshots.polkachu.com/testnet-genesis/humans/genesis.json
 HMN_ADDRBOOK=
 HMN_MIN_GAS=0
 HMN_DENOM=uheart
@@ -89,8 +89,8 @@ cd $HOME
 git clone $HMN_REPO
 cd $HMN_FOLDER2
 git checkout $HMN_VER
-make build
-sudo cp build/dewebd /usr/local/bin/dewebd
+go build -o humansd cmd/humansd/main.go
+sudo cp humansd /usr/local/bin/humansd
 
 sleep 1
 
@@ -101,7 +101,7 @@ $HMN config keyring-backend file
 $HMN init $HMN_NODENAME --chain-id $HMN_ID
 
 # ADDRBOOK ve GENESIS by Nodeist
-curl https://rpc-testnet.humans.zone/genesis | jq .result.genesis > $HOME/.humans/config/genesis.json
+wget $HMN_GENESIS -O $HOME/$HMN_FOLDER/config/genesis.json
 wget $HMN_ADDRBOOK -O $HOME/$HMN_FOLDER/config/addrbook.json
 
 # EŞLER VE TOHUMLAR by Nodeist
