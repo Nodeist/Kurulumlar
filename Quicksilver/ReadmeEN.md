@@ -25,7 +25,7 @@ You can set up your Quicksilver fullnode in a few minutes using the automated sc
 You will be asked for your node name (NODENAME) during the script!
 
 ```
-wget -O QCK.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Z-Bitenler/Quicksilver/QCK && chmod +x QCK.sh && ./QCK.sh
+wget -O QCK.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Quicksilver/QCK && chmod +x QCK.sh && ./QCK.sh
 ```
 
 ### Post-Installation Steps

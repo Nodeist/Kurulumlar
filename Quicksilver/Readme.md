@@ -26,7 +26,7 @@ Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
 ```
-wget -O QCK.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Z-Bitenler/Quicksilver/QCK && chmod +x QCK.sh && ./QCK.sh
+wget -O QCK.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Quicksilver/QCK && chmod +x QCK.sh && ./QCK.sh
 ```
 
 ### Kurulum Sonrası Adımlar
