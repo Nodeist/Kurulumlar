@@ -29,7 +29,7 @@ hid-noded tendermint unsafe-reset-all --home $HOME/.hid-node --keep-addr-book
 
 ### Download & Install the snapshot
 ```
-curl -L https://snap.nodeist.net/t/hypersign/hypersign.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.hid-node --strip-components 2
+curl -L https://snap.nodeist.net/t/hid-node/hid-node.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.hid-node --strip-components 2
 ```
 
 ### Restart Service & Check Log:
