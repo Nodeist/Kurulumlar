@@ -2,214 +2,130 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/deweb.png">
 </p>
 
-# Deweb Kurulum Rehberi
-## Donanım Gereksinimleri
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
-
-### Minimum Donanım Gereksinimleri
- - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 4GB RAM
- - 80GB Disk
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-### Önerilen Donanım Gereksinimleri
- - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 8GB RAM
- - 200 GB depolama (SSD veya NVME)
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-## Deweb Full Node Kurulum Adımları
-### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Deweb fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
-Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
+# Deweb Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
+
+
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
+
 ```
-wget -O DWS.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Deweb/DWS && chmod +x DWS.sh && ./DWS.sh
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
 ```
 
-### Kurulum Sonrası Adımlar
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
-Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-dewebd status 2>&1 | jq .SyncInfo
-```
-
-### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
-```
-dewebd keys add $DWS_WALLET
-```
-
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
-```
-dewebd keys add $DWS_WALLET --recover
-```
-
-Mevcut cüzdan listesini almak için:
-```
-dewebd keys list
-```
-
-### Cüzdan Bilgilerini Kaydet
-Cüzdan Adresi Ekleyin:
-```
-DWS_WALLET_ADDRESS=$(dewebd keys show $DWS_WALLET -a)
-DWS_VALOPER_ADDRESS=$(dewebd keys show $DWS_WALLET --bech val -a)
-echo 'export DWS_WALLET_ADDRESS='${DWS_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export DWS_VALOPER_ADDRESS='${DWS_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ```
 
 
-### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 dws'ye sahip olduğunuzdan (1 dws 1000000 udws'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
 
-Cüzdan bakiyenizi kontrol etmek için:
 ```
-dewebd query bank balances $DWS_WALLET_ADDRESS
-```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
-
-Doğrulayıcı Oluşturma:
-```
-dewebd tx staking create-validator \
-  --amount 1999000udws \
-  --from $DWS_WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(dewebd tendermint show-validator) \
-  --moniker $DWS_NODENAME \
-  --chain-id $DWS_ID \
-  --fees 250udws
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 ```
 
+## Install Node
+Install the current version of node binary.
 
-
-## Kullanışlı Komutlar
-### Servis Yönetimi
-Logları Kontrol Et:
 ```
-journalctl -fu dewebd -o cat
-```
-
-Servisi Başlat:
-```
-systemctl start dewebd
+cd $HOME
+git clone https://github.com/deweb-services/deweb.git
+cd deweb
+git checkout v0.3.1
+make install
 ```
 
-Servisi Durdur:
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
+
 ```
-systemctl stop dewebd
+dewebd init MONIKERNAME --chain-id deweb-testnet-sirius
 ```
 
-Servisi Yeniden Başlat:
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
+
 ```
-systemctl restart dewebd
+wget -O genesis.json https://snapshots.nodeist.net/t/deweb/genesis.json --inet4-only
+mv genesis.json ~/.deweb/config
 ```
 
-### Node Bilgileri
-Senkronizasyon Bilgisi:
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-dewebd status 2>&1 | jq .SyncInfo
-```
-
-Validator Bilgisi:
-```
-dewebd status 2>&1 | jq .ValidatorInfo
+PEERS=85279852bd306c385402185e0125dffeed36bf22@38.146.3.194:26656,09ce2d3fc0fdc9d1e879888e7d72ae0fefef6e3d@65.108.105.48:11256
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.deweb/config/config.toml
 ```
 
-Node Bilgisi:
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
+
 ```
-dewebd status 2>&1 | jq .NodeInfo
+# Create Cosmovisor Folders
+mkdir -p ~/.deweb/cosmovisor/genesis/bin
+mkdir -p ~/.deweb/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/dewebd ~/.deweb/cosmovisor/genesis/bin
 ```
 
-Node ID Göser:
+### Create Service File
+Create a `dewebd.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+
 ```
-dewebd tendermint show-node-id
+[Unit]
+Description="dewebd node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=dewebd"
+Environment="DAEMON_HOME=/home/USER/.deweb"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-### Cüzdan İşlemleri
-Cüzdanları Listele:
+### Start Node Service
 ```
-dewebd keys list
+# Enable service
+sudo systemctl enable dewebd.service
+
+# Start service
+sudo service dewebd start
+
+# Check logs
+sudo journalctl -fu dewebd
 ```
 
-Mnemonic kullanarak cüzdanı kurtar:
-```
-dewebd keys add $DWS_WALLET --recover
-```
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-Cüzdan Silme:
-```
-dewebd keys delete $DWS_WALLET
-```
+> Use Ansible script to automate the node installation process
 
-Cüzdan Bakiyesi Sorgulama:
-```
-dewebd query bank balances $DWS_WALLET_ADDRESS
-```
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
-Cüzdandan Cüzdana Bakiye Transferi:
-```
-dewebd tx bank send $DWS_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000udws
-```
+> Use custom ports for each node so you can run multiple nodes on the same server
 
-### Oylama
-```
-dewebd tx gov vote 1 yes --from $DWS_WALLET --chain-id=$DWS_ID
-```
-
-### Stake, Delegasyon ve Ödüller
-Delegate İşlemi:
-```
-dewebd tx staking delegate $DWS_VALOPER_ADDRESS 10000000udws --from=$DWS_WALLET --chain-id=$DWS_ID --gas=auto --fees 250udws
-```
-
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-```
-dewebd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000udws --from=$DWS_WALLET --chain-id=$DWS_ID --gas=auto --fees 250udws
-```
-
-Tüm ödülleri çek:
-```
-dewebd tx distribution withdraw-all-rewards --from=$DWS_WALLET --chain-id=$DWS_ID --gas=auto --fees 250udws
-```
-
-Komisyon ile ödülleri geri çekin:
-```
-dewebd tx distribution withdraw-rewards $DWS_VALOPER_ADDRESS --from=$DWS_WALLET --commission --chain-id=$DWS_ID
-```
-
-### Doğrulayıcı Yönetimi
-Validatör İsmini Değiştir:
-```
-seid tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$DWS_ID \
---from=$DWS_WALLET
-```
-
-Hapisten Kurtul(Unjail):
-```
-dewebd tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$DWS_WALLET \
-  --chain-id=$DWS_ID \
-  --gas=auto --fees 250udws
-```
-
-
-Node Tamamen Silmek:
-```
-sudo systemctl stop dewebd
-sudo systemctl disable dewebd
-sudo rm /etc/systemd/system/deweb* -rf
-sudo rm $(which dewebd) -rf
-sudo rm $HOME/.deweb* -rf
-sudo rm $HOME/deweb -rf
-sed -i '/DWS_/d' ~/.bash_profile
-```
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.

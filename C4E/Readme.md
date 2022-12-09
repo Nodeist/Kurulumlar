@@ -2,214 +2,130 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/c4e.png">
 </p>
 
-# C4E Kurulum Rehberi
-## Donanım Gereksinimleri
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
-
-### Minimum Donanım Gereksinimleri
- - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 4GB RAM
- - 80GB Disk
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-### Önerilen Donanım Gereksinimleri
- - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 8GB RAM
- - 200 GB depolama (SSD veya NVME)
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-## C4E Full Node Kurulum Adımları
-### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak C4E fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
-Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
+# C4E Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
+
+
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
+
 ```
-wget -O C4E.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/C4E/C4E && chmod +x C4E.sh && ./C4E.sh
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
 ```
 
-### Kurulum Sonrası Adımlar
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
-Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-c4ed status 2>&1 | jq .SyncInfo
-```
-
-### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
-```
-c4ed keys add $C4E_WALLET
-```
-
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
-```
-c4ed keys add $C4E_WALLET --recover
-```
-
-Mevcut cüzdan listesini almak için:
-```
-c4ed keys list
-```
-
-### Cüzdan Bilgilerini Kaydet
-Cüzdan Adresi Ekleyin:
-```
-C4E_WALLET_ADDRESS=$(c4ed keys show $C4E_WALLET -a)
-C4E_VALOPER_ADDRESS=$(c4ed keys show $C4E_WALLET --bech val -a)
-echo 'export C4E_WALLET_ADDRESS='${C4E_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export C4E_VALOPER_ADDRESS='${C4E_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ```
 
 
-### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 c4e'ye sahip olduğunuzdan (1 c4e 1000000 uc4e'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
 
-Cüzdan bakiyenizi kontrol etmek için:
 ```
-c4ed query bank balances $C4E_WALLET_ADDRESS
-```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
-
-Doğrulayıcı Oluşturma:
-```
-c4ed tx staking create-validator \
-  --amount 1999000uc4e \
-  --from $C4E_WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(c4ed tendermint show-validator) \
-  --moniker $C4E_NODENAME \
-  --chain-id $C4E_ID \
-  --fees 250uc4e
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 ```
 
+## Install Node
+Install the current version of node binary.
 
-
-## Kullanışlı Komutlar
-### Servis Yönetimi
-Logları Kontrol Et:
 ```
-journalctl -fu c4ed -o cat
-```
-
-Servisi Başlat:
-```
-systemctl start c4ed
+cd $HOME
+git clone https://github.com/chain4energy/c4e-chain.git
+cd c4e-chain
+git checkout v1.0.0
+make install
 ```
 
-Servisi Durdur:
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
+
 ```
-systemctl stop c4ed
+c4ed init MONIKERNAME --chain-id perun-1
 ```
 
-Servisi Yeniden Başlat:
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
+
 ```
-systemctl restart c4ed
+wget -O genesis.json https://snapshots.nodeist.net/c4e/genesis.json --inet4-only
+mv genesis.json ~/.c4e-chain/config
 ```
 
-### Node Bilgileri
-Senkronizasyon Bilgisi:
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-c4ed status 2>&1 | jq .SyncInfo
-```
-
-Validator Bilgisi:
-```
-c4ed status 2>&1 | jq .ValidatorInfo
+PEERS=96b621f209eb2244e6b0976a8918e1f6536d9a3d@34.208.153.193:26656,c1bfac5b59966c2fc97d48540b9614f34785fbf3@57.128.144.137:26656,f5d50df79f2aa5a9d18576147f59b8807347b6f9@66.70.178.78:26656,85acd1e5580c950f5ede07c3da4bd814d42cf323@95.179.190.59:26656,fe9a629d1bb3e1e958b2013b6747e3dbbd7ba8d3@149.102.130.176:26656,37f3f290c59dcce9109ac828e9839dc9c22be718@188.34.134.24:26656,bb9cbee9c391f5b0744d5da0ea1abc17ed0ca1b2@159.69.56.25:26656,2f6141859c28c088514b46f7783509aeeb87553f@141.94.193.12:11656
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.c4e-chain/config/config.toml
 ```
 
-Node Bilgisi:
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
+
 ```
-c4ed status 2>&1 | jq .NodeInfo
+# Create Cosmovisor Folders
+mkdir -p ~/.c4e-chain/cosmovisor/genesis/bin
+mkdir -p ~/.c4e-chain/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/c4ed ~/.c4e-chain/cosmovisor/genesis/bin
 ```
 
-Node ID Göser:
+### Create Service File
+Create a `c4ed.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+
 ```
-c4ed tendermint show-node-id
+[Unit]
+Description="c4ed node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=c4ed"
+Environment="DAEMON_HOME=/home/USER/.c4e-chain"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-### Cüzdan İşlemleri
-Cüzdanları Listele:
+### Start Node Service
 ```
-c4ed keys list
+# Enable service
+sudo systemctl enable c4ed.service
+
+# Start service
+sudo service c4ed start
+
+# Check logs
+sudo journalctl -fu c4ed
 ```
 
-Mnemonic kullanarak cüzdanı kurtar:
-```
-c4ed keys add $C4E_WALLET --recover
-```
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-Cüzdan Silme:
-```
-c4ed keys delete $C4E_WALLET
-```
+> Use Ansible script to automate the node installation process
 
-Cüzdan Bakiyesi Sorgulama:
-```
-c4ed query bank balances $C4E_WALLET_ADDRESS
-```
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
-Cüzdandan Cüzdana Bakiye Transferi:
-```
-c4ed tx bank send $C4E_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000uc4e
-```
+> Use custom ports for each node so you can run multiple nodes on the same server
 
-### Oylama
-```
-c4ed tx gov vote 1 yes --from $C4E_WALLET --chain-id=$C4E_ID
-```
-
-### Stake, Delegasyon ve Ödüller
-Delegate İşlemi:
-```
-c4ed tx staking delegate $C4E_VALOPER_ADDRESS 10000000uc4e --from=$C4E_WALLET --chain-id=$C4E_ID --gas=auto --fees 250uc4e
-```
-
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-```
-c4ed tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000uc4e --from=$C4E_WALLET --chain-id=$C4E_ID --gas=auto --fees 250uc4e
-```
-
-Tüm ödülleri çek:
-```
-c4ed tx distribution withdraw-all-rewards --from=$C4E_WALLET --chain-id=$C4E_ID --gas=auto --fees 250uc4e
-```
-
-Komisyon ile ödülleri geri çekin:
-```
-c4ed tx distribution withdraw-rewards $C4E_VALOPER_ADDRESS --from=$C4E_WALLET --commission --chain-id=$C4E_ID
-```
-
-### Doğrulayıcı Yönetimi
-Validatör İsmini Değiştir:
-```
-c4ed tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$C4E_ID \
---from=$C4E_WALLET
-```
-
-Hapisten Kurtul(Unjail):
-```
-c4ed tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$C4E_WALLET \
-  --chain-id=$C4E_ID \
-  --gas=auto --fees 250uc4e
-```
-
-
-Node Tamamen Silmek:
-```
-sudo systemctl stop c4ed
-sudo systemctl disable c4ed
-sudo rm /etc/systemd/system/c4ed* -rf
-sudo rm $(which c4ed) -rf
-sudo rm $HOME/c4e-chain* -rf
-sudo rm $HOME/.c4e -rf
-sed -i '/C4E_/d' ~/.bash_profile
-```
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.

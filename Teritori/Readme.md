@@ -2,261 +2,130 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/teritori.png">
 </p>
 
-## Teritori Kurulum Rehberi
 
-### Donanım Gereksinimleri
 
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
+# Teritori Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
 
-#### Minimum Donanım Gereksinimleri
 
-* 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
-* 4GB RAM
-* 80GB Disk
-* Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-#### Önerilen Donanım Gereksinimleri
-
-* 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
-* 8GB RAM
-* 200 GB depolama (SSD veya NVME)
-* Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-Resmi belgeler:
-
-> > [Doğrulayıcı kurulum talimatları](https://github.com/TERITORI/teritori-chain/blob/main/testnet/teritori-testnet-v2/README.md)
-
-Gezgin:
-
-> > https://teritori.explorers.guru/
-
-### Teritori Full Node Kurulum Adımları
-
-#### Tek Script İle Otomatik Kurulum
-
-Aşağıdaki otomatik komut dosyasını kullanarak Teritori fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Script sırasında size node isminiz (NODENAME) sorulacak!
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
 
 ```
-wget -O TT.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Teritori/TT && chmod +x TT.sh && ./TT.sh
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
 ```
 
-#### Kurulum Sonrası Adımlar
-
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
-
-```
-teritorid status 2>&1 | jq .SyncInfo
-```
-
-#### Cüzdan Oluşturma
-
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
 
 ```
-teritorid keys add $TT_WALLET
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ```
 
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
+
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
 
 ```
-teritorid keys add $TT_WALLET --recover
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 ```
 
-Mevcut cüzdan listesini almak için:
+## Install Node
+Install the current version of node binary.
 
 ```
-teritorid keys list
+cd $HOME
+git clone https://github.com/TERITORI/teritori-chain
+cd teritori-chain
+git checkout v1.3.0
+make install
 ```
 
-#### Cüzdan Bilgilerini Kaydet
-
-Cüzdan Adresi Ekleyin:
-
-```
-TT_WALLET_ADDRESS=$(teritorid keys show $TT_WALLET -a)
-TT_VALOPER_ADDRESS=$(teritorid keys show $TT_WALLET --bech val -a)
-echo 'export TT_WALLET_ADDRESS='${TT_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export TT_VALOPER_ADDRESS='${TT_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
-```
-
-#### Doğrulayıcı oluştur
-
-Doğrulayıcı oluşturmadan önce lütfen en az 1 tori'ye sahip olduğunuzdan (1 tori 1000000 utori'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
-
-Cüzdan bakiyenizi kontrol etmek için:
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
 
 ```
-teritorid query bank balances $TT_WALLET_ADDRESS
+teritorid init MONIKERNAME --chain-id teritori-1
 ```
 
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
-
-Doğrulayıcı Oluşturma:
-
-```
-teritorid tx staking create-validator \
-  --amount 1000000utori \
-  --from $TT_WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(teritorid tendermint show-validator) \
-  --moniker $TT_NODENAME \
-  --chain-id $TT_ID \
-  --fees 250utori
-```
-
-### Kullanışlı Komutlar
-
-#### Servis Yönetimi
-
-Logları Kontrol Et:
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
 
 ```
-journalctl -fu teritorid -o cat
+wget -O genesis.json https://snapshots.nodeist.net/teritori/genesis.json --inet4-only
+mv genesis.json ~/.teritorid/config
 ```
 
-Servisi Başlat:
-
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-systemctl start teritorid
-```
-
-Servisi Durdur:
-
-```
-systemctl stop teritorid
+PEERS=3069b058b5ed85c3cdb2cf18fb1d255d966b53af@193.149.187.8:26656,a06fbbb9ace823ae28a696a91daa2d0644653c28@65.21.32.200:26756,d856120f262134ebf13e1d2632d778b69e704208@65.108.4.188:15956,20e1000e88125698264454a884812746c2eb4807@seeds.lavenderfive.com:15956
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.teritorid/config/config.toml
 ```
 
-Servisi Yeniden Başlat:
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
 
 ```
-systemctl restart teritorid
+# Create Cosmovisor Folders
+mkdir -p ~/.teritorid/cosmovisor/genesis/bin
+mkdir -p ~/.teritorid/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/teritorid ~/.teritorid/cosmovisor/genesis/bin
 ```
 
-#### Node Bilgileri
-
-Senkronizasyon Bilgisi:
-
-```
-teritorid status 2>&1 | jq .SyncInfo
-```
-
-Validator Bilgisi:
+### Create Service File
+Create a `teritorid.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
 
 ```
-teritorid status 2>&1 | jq .ValidatorInfo
+[Unit]
+Description="teritorid node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=teritorid"
+Environment="DAEMON_HOME=/home/USER/.teritorid"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-Node Bilgisi:
-
+### Start Node Service
 ```
-teritorid status 2>&1 | jq .NodeInfo
-```
+# Enable service
+sudo systemctl enable teritorid.service
 
-Node ID Göser:
+# Start service
+sudo service teritorid start
 
-```
-teritorid tendermint show-node-id
-```
-
-#### Cüzdan İşlemleri
-
-Cüzdanları Listele:
-
-```
-teritorid keys list
+# Check logs
+sudo journalctl -fu teritorid
 ```
 
-Mnemonic kullanarak cüzdanı kurtar:
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-```
-teritorid keys add $TT_WALLET --recover
-```
+> Use Ansible script to automate the node installation process
 
-Cüzdan Silme:
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
-```
-teritorid keys delete $TT_WALLET
-```
+> Use custom ports for each node so you can run multiple nodes on the same server
 
-Cüzdan Bakiyesi Sorgulama:
-
-```
-teritorid query bank balances $TT_WALLET_ADDRESS
-```
-
-Cüzdandan Cüzdana Bakiye Transferi:
-
-```
-teritorid tx bank send $TT_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000utori
-```
-
-#### Oylama
-
-```
-teritorid tx gov vote 1 yes --from $TT_WALLET --chain-id=$TT_ID
-```
-
-#### Stake, Delegasyon ve Ödüller
-
-Delegate İşlemi:
-
-```
-teritorid tx staking delegate $TT_VALOPER_ADDRESS 10000000utori --from=$TT_WALLET --chain-id=$TT_ID --gas=auto --fees 250utori
-```
-
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-
-```
-teritorid tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000utori --from=$TT_WALLET --chain-id=$TT_ID --gas=auto --fees 250utori
-```
-
-Tüm ödülleri çek:
-
-```
-teritorid tx distribution withdraw-all-rewards --from=$TT_WALLET --chain-id=$TT_ID --gas=auto --fees 250utori
-```
-
-Komisyon ile ödülleri geri çekin:
-
-```
-teritorid tx distribution withdraw-rewards $TT_VALOPER_ADDRESS --from=$TT_WALLET --commission --chain-id=$TT_ID
-```
-
-#### Doğrulayıcı Yönetimi
-
-Validatör İsmini Değiştir:
-
-```
-teritorid tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$TT_ID \
---from=$TT_WALLET
-```
-
-Hapisten Kurtul(Unjail):
-
-```
-teritorid tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$TT_WALLET \
-  --chain-id=$TT_ID \
-  --gas=auto --fees 250utori
-```
-
-Node Tamamen Silmek:
-
-```
-sudo systemctl stop teritorid
-sudo systemctl disable teritorid
-sudo rm /etc/systemd/system/teritori* -rf
-sudo rm $(which teritorid) -rf
-sudo rm $HOME/.teritori* -rf
-sudo rm $HOME/teritori-chain -rf
-sed -i '/TT_/d' ~/.bash_profile
-```
-
-{% embed url="https://www.youtube.com/watch?v=zk6JvHsxsVQ" %}
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.

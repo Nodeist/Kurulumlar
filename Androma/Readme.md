@@ -2,214 +2,130 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/androma.png">
 </p>
 
-# Androma Kurulum Rehberi
-## Donanım Gereksinimleri
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
-
-### Minimum Donanım Gereksinimleri
- - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 4GB RAM
- - 80GB Disk
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-### Önerilen Donanım Gereksinimleri
- - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 8GB RAM
- - 200 GB depolama (SSD veya NVME)
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-## Androma Full Node Kurulum Adımları
-### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Androma fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
-Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
+# Andromaverse Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
+
+
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
+
 ```
-wget -O AM.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Androma/AM && chmod +x AM.sh && ./AM.sh
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
 ```
 
-### Kurulum Sonrası Adımlar
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
-Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-andromad status 2>&1 | jq .SyncInfo
-```
-
-### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
-```
-andromad keys add $AM_WALLET
-```
-
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
-```
-andromad keys add $AM_WALLET --recover
-```
-
-Mevcut cüzdan listesini almak için:
-```
-andromad keys list
-```
-
-### Cüzdan Bilgilerini Kaydet
-Cüzdan Adresi Ekleyin:
-```
-AM_WALLET_ADDRESS=$(andromad keys show $AM_WALLET -a)
-AM_VALOPER_ADDRESS=$(andromad keys show $AM_WALLET --bech val -a)
-echo 'export AM_WALLET_ADDRESS='${AM_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export AM_VALOPER_ADDRESS='${AM_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ```
 
 
-### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 andr'ye sahip olduğunuzdan (1 andr 1000000 uandr'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
 
-Cüzdan bakiyenizi kontrol etmek için:
 ```
-andromad query bank balances $AM_WALLET_ADDRESS
-```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
-
-Doğrulayıcı Oluşturma:
-```
-andromad tx staking create-validator \
-  --amount 1999000uandr \
-  --from $AM_WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(andromad tendermint show-validator) \
-  --moniker $AM_NODENAME \
-  --chain-id $AM_ID \
-  --fees 250uandr
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 ```
 
+## Install Node
+Install the current version of node binary.
 
-
-## Kullanışlı Komutlar
-### Servis Yönetimi
-Logları Kontrol Et:
 ```
-journalctl -fu andromad -o cat
-```
-
-Servisi Başlat:
-```
-systemctl start andromad
+git clone https://github.com/AndromaverseLabs/testnet androma
+cd androma
+git checkout v1
+make install
 ```
 
-Servisi Durdur:
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
+
 ```
-systemctl stop andromad
+acred init MONIKERNAME --chain-id androma-1
 ```
 
-Servisi Yeniden Başlat:
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
+
 ```
-systemctl restart andromad
+wget -O genesis.json https://snapshots.nodeist.net/t/androma/genesis.json --inet4-only
+mv genesis.json ~/.androma/config
 ```
 
-### Node Bilgileri
-Senkronizasyon Bilgisi:
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-andromad status 2>&1 | jq .SyncInfo
+PEERS=cf99fc36374b48aad8c3e5acfd4e1963da853fae@65.109.17.86:38656,44836c8b359b7cf14e8211b00afbb24e1f9d50c1@65.108.2.41:14656,184e4f817ce3aabad250756629a9157f58a91bfb@65.109.82.249:28656,6ca9cc12c3448b22fc51f8ba11eb62b7cb667f04@65.108.132.239:26856,91efe71a306d0f16e51cca4ec5280bedde58a1e8@95.217.118.96:26989
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.androma/config/config.toml
+
 ```
 
-Validator Bilgisi:
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
+
 ```
-andromad status 2>&1 | jq .ValidatorInfo
+# Create Cosmovisor Folders
+mkdir -p ~/.androma/cosmovisor/genesis/bin
+mkdir -p ~/.androma/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/andromad ~/.androma/cosmovisor/genesis/bin
 ```
 
-Node Bilgisi:
+### Create Service File
+Create a `andromad.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+
 ```
-andromad status 2>&1 | jq .NodeInfo
+[Unit]
+Description="andromad node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=andromad"
+Environment="DAEMON_HOME=/home/USER/.androma"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-Node ID Göser:
+### Start Node Service
 ```
-andromad tendermint show-node-id
+# Enable service
+sudo systemctl enable androma.service
+
+# Start service
+sudo service andromad start
+
+# Check logs
+sudo journalctl -fu andromad
 ```
 
-### Cüzdan İşlemleri
-Cüzdanları Listele:
-```
-andromad keys list
-```
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-Mnemonic kullanarak cüzdanı kurtar:
-```
-andromad keys add $AM_WALLET --recover
-```
+> Use Ansible script to automate the node installation process
 
-Cüzdan Silme:
-```
-andromad keys delete $AM_WALLET
-```
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
-Cüzdan Bakiyesi Sorgulama:
-```
-andromad query bank balances $AM_WALLET_ADDRESS
-```
+> Use custom ports for each node so you can run multiple nodes on the same server
 
-Cüzdandan Cüzdana Bakiye Transferi:
-```
-andromad tx bank send $AM_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000uandr
-```
-
-### Oylama
-```
-andromad tx gov vote 1 yes --from $AM_WALLET --chain-id=$AM_ID
-```
-
-### Stake, Delegasyon ve Ödüller
-Delegate İşlemi:
-```
-andromad tx staking delegate $AM_VALOPER_ADDRESS 10000000uandr --from=$AM_WALLET --chain-id=$AM_ID --gas=auto --fees 250uandr
-```
-
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-```
-andromad tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000uandr --from=$AM_WALLET --chain-id=$AM_ID --gas=auto --fees 250uandr
-```
-
-Tüm ödülleri çek:
-```
-andromad tx distribution withdraw-all-rewards --from=$AM_WALLET --chain-id=$AM_ID --gas=auto --fees 250uandr
-```
-
-Komisyon ile ödülleri geri çekin:
-```
-andromad tx distribution withdraw-rewards $AM_VALOPER_ADDRESS --from=$AM_WALLET --commission --chain-id=$AM_ID
-```
-
-### Doğrulayıcı Yönetimi
-Validatör İsmini Değiştir:
-```
-andromad tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$AM_ID \
---from=$AM_WALLET
-```
-
-Hapisten Kurtul(Unjail):
-```
-andromad tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$AM_WALLET \
-  --chain-id=$AM_ID \
-  --gas=auto --fees 250uandr
-```
-
-
-Node Tamamen Silmek:
-```
-sudo systemctl stop andromad
-sudo systemctl disable andromad
-sudo rm /etc/systemd/system/androma* -rf
-sudo rm $(which andromad) -rf
-sudo rm $HOME/.androma* -rf
-sudo rm $HOME/testnet -rf
-sed -i '/AM_/d' ~/.bash_profile
-```
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.

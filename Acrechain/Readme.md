@@ -2,214 +2,130 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/acrechain.png">
 </p>
 
-# Acrechain Kurulum Rehberi
-## Donanım Gereksinimleri
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
-
-### Minimum Donanım Gereksinimleri
- - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 4GB RAM
- - 80GB Disk
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-### Önerilen Donanım Gereksinimleri
- - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 8GB RAM
- - 200 GB depolama (SSD veya NVME)
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-## Acrechain Full Node Kurulum Adımları
-### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Acrechain fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
-Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
+# Acrechain Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
+
+
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
+
 ```
-wget -O ACRE.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Acrechain/ACRE && chmod +x ACRE.sh && ./ACRE.sh
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
 ```
 
-### Kurulum Sonrası Adımlar
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
-Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-acred status 2>&1 | jq .SyncInfo
-```
-
-### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
-```
-acred keys add $ACRE_WALLET
-```
-
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
-```
-acred keys add $ACRE_WALLET --recover
-```
-
-Mevcut cüzdan listesini almak için:
-```
-acred keys list
-```
-
-### Cüzdan Bilgilerini Kaydet
-Cüzdan Adresi Ekleyin:
-```
-ACRE_WALLET_ADDRESS=$(acred keys show $ACRE_WALLET -a)
-ACRE_VALOPER_ADDRESS=$(acred keys show $ACRE_WALLET --bech val -a)
-echo 'export ACRE_WALLET_ADDRESS='${ACRE_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export ACRE_VALOPER_ADDRESS='${ACRE_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ```
 
 
-### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 acre'ye sahip olduğunuzdan (1 acre 1000000 uacre'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
 
-Cüzdan bakiyenizi kontrol etmek için:
 ```
-acred query bank balances $ACRE_WALLET_ADDRESS
-```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
-
-Doğrulayıcı Oluşturma:
-```
-acred tx staking create-validator \
-  --amount 1999000uacre \
-  --from $ACRE_WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(acred tendermint show-validator) \
-  --moniker $ACRE_NODENAME \
-  --chain-id $ACRE_ID \
-  --fees 250uacre
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 ```
 
+## Install Node
+Install the current version of node binary.
 
-
-## Kullanışlı Komutlar
-### Servis Yönetimi
-Logları Kontrol Et:
 ```
-journalctl -fu acred -o cat
-```
-
-Servisi Başlat:
-```
-systemctl start acred
+cd $HOME
+git clone https://github.com/ArableProtocol/acrechain
+cd acrechain
+git checkout v1.1.1
+make install
 ```
 
-Servisi Durdur:
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
+
 ```
-systemctl stop acred
+acred init MONIKERNAME --chain-id acre_9052-1
 ```
 
-Servisi Yeniden Başlat:
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
+
 ```
-systemctl restart acred
+wget -O genesis.json https://snapshots.nodeist.net/acre/genesis.json --inet4-only
+mv genesis.json ~/.acred/config
 ```
 
-### Node Bilgileri
-Senkronizasyon Bilgisi:
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-acred status 2>&1 | jq .SyncInfo
-```
-
-Validator Bilgisi:
-```
-acred status 2>&1 | jq .ValidatorInfo
+PEERS=ef28f065e24d60df275b06ae9f7fed8ba0823448@46.4.81.204:34656,e29de0ba5c6eb3cc813211887af4e92a71c54204@65.108.1.225:46656,276be584b4a8a3fd9c3ee1e09b7a447a60b201a4@116.203.29.162:26656,e2d029c95a3476a23bad36f98b316b6d04b26001@49.12.33.189:36656,1264ee73a2f40a16c2cbd80c1a824aad7cb082e4@149.102.146.252:26656,dbe9c383a709881f6431242de2d805d6f0f60c9e@65.109.52.156:7656,d01fb8d008cb5f194bc27c054e0246c4357256b3@31.7.196.72:26656,91c0b06f0539348a412e637ebb8208a1acdb71a9@178.162.165.193:21095,bac90a590452337700e0033315e96430d19a3ffa@23.106.238.167:26656
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.acred/config/config.toml
 ```
 
-Node Bilgisi:
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
+
 ```
-acred status 2>&1 | jq .NodeInfo
+# Create Cosmovisor Folders
+mkdir -p ~/.acred/cosmovisor/genesis/bin
+mkdir -p ~/.acred/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/acred ~/.acred/cosmovisor/genesis/bin
 ```
 
-Node ID Göser:
+### Create Service File
+Create a `acred.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+
 ```
-acred tendermint show-node-id
+[Unit]
+Description="acred node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=acred"
+Environment="DAEMON_HOME=/home/USER/.acred"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-### Cüzdan İşlemleri
-Cüzdanları Listele:
+### Start Node Service
 ```
-acred keys list
+# Enable service
+sudo systemctl enable acred.service
+
+# Start service
+sudo service acred start
+
+# Check logs
+sudo journalctl -fu acred
 ```
 
-Mnemonic kullanarak cüzdanı kurtar:
-```
-acred keys add $ACRE_WALLET --recover
-```
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-Cüzdan Silme:
-```
-acred keys delete $ACRE_WALLET
-```
+> Use Ansible script to automate the node installation process
 
-Cüzdan Bakiyesi Sorgulama:
-```
-acred query bank balances $ACRE_WALLET_ADDRESS
-```
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
-Cüzdandan Cüzdana Bakiye Transferi:
-```
-acred tx bank send $ACRE_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000uacre
-```
+> Use custom ports for each node so you can run multiple nodes on the same server
 
-### Oylama
-```
-acred tx gov vote 1 yes --from $ACRE_WALLET --chain-id=$ACRE_ID
-```
-
-### Stake, Delegasyon ve Ödüller
-Delegate İşlemi:
-```
-acred tx staking delegate $ACRE_VALOPER_ADDRESS 10000000uacre --from=$ACRE_WALLET --chain-id=$ACRE_ID --gas=auto --fees 250uacre
-```
-
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-```
-acred tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000uacre --from=$ACRE_WALLET --chain-id=$ACRE_ID --gas=auto --fees 250uacre
-```
-
-Tüm ödülleri çek:
-```
-acred tx distribution withdraw-all-rewards --from=$ACRE_WALLET --chain-id=$ACRE_ID --gas=auto --fees 250uacre
-```
-
-Komisyon ile ödülleri geri çekin:
-```
-acred tx distribution withdraw-rewards $ACRE_VALOPER_ADDRESS --from=$ACRE_WALLET --commission --chain-id=$ACRE_ID
-```
-
-### Doğrulayıcı Yönetimi
-Validatör İsmini Değiştir:
-```
-acred tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$ACRE_ID \
---from=$ACRE_WALLET
-```
-
-Hapisten Kurtul(Unjail):
-```
-acred tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$ACRE_WALLET \
-  --chain-id=$ACRE_ID \
-  --gas=auto --fees 250uacre
-```
-
-
-Node Tamamen Silmek:
-```
-sudo systemctl stop acred
-sudo systemctl disable acred
-sudo rm /etc/systemd/system/acre* -rf
-sudo rm $(which acred) -rf
-sudo rm $HOME/.acred* -rf
-sudo rm $HOME/acrechain -rf
-sed -i '/ACRE_/d' ~/.bash_profile
-```
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.

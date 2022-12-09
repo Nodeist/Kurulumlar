@@ -2,241 +2,130 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/stride.png">
 </p>
 
-# Stride Kurulum Rehberi
-## Donanım Gereksinimleri
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
-
-### Minimum Donanım Gereksinimleri
- - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 4GB RAM
- - 80GB Disk
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-### Önerilen Donanım Gereksinimleri
- - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 8GB RAM
- - 200 GB depolama (SSD veya NVME)
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-## Stride Full Node Kurulum Adımları
-### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Stride fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
-Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
+# Stride Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
+
+
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
+
 ```
-wget -O STRD.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Stride/STRD && chmod +x STRD.sh && ./STRD.sh
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
 ```
 
-### Kurulum Sonrası Adımlar
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
-Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-strided status 2>&1 | jq .SyncInfo
-```
-
-### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
-```
-strided keys add $STRD_WALLET
-```
-
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
-```
-strided keys add $STRD_WALLET --recover
-```
-
-Mevcut cüzdan listesini almak için:
-```
-strided keys list
-```
-
-### Cüzdan Bilgilerini Kaydet
-Cüzdan Adresi Ekleyin:
-```
-STRD_WALLET_ADDRESS=$(strided keys show $STRD_WALLET -a)
-STRD_VALOPER_ADDRESS=$(strided keys show $STRD_WALLET --bech val -a)
-echo 'export STRD_WALLET_ADDRESS='${STRD_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export STRD_VALOPER_ADDRESS='${STRD_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ```
 
 
-### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 strd'ye sahip olduğunuzdan (1 strd 1000000 ustrd'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
 
-Cüzdan bakiyenizi kontrol etmek için:
 ```
-strided query bank balances $STRD_WALLET_ADDRESS
-```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
-
-Doğrulayıcı Oluşturma:
-```
-strided tx staking create-validator \
-  --amount 1999000ustrd \
-  --from $STRD_WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(strided tendermint show-validator) \
-  --moniker $STRD_NODENAME \
-  --chain-id $STRD_ID \
-  --fees 250ustrd
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 ```
 
-## Likit hisseli işlemler
-### Likidite stake edin
-Likidite, ATOM'unuzu stATOM için Stride'da stake edin:
+## Install Node
+Install the current version of node binary.
+
 ```
-strided tx stakeibc liquid-stake 1000 uatom --from $WALLET --chain-id $STRD_ID
+cd $HOME
+git clone https://github.com/Stride-Labs/stride.git
+cd stride
+git checkout v2.0.3
+make install
 ```
 
-> Not: 1000 uatom likit stake yaparsanız, karşılığında sadece 990 (az ya da çok olabilir) stATOM alabilirsiniz! Bunun nedeni döviz kurumuzun çalışma şeklidir. 990 stATOM'unuz hala 1000 uatom değerindedir (veya stake ödülleri kazandıkça daha fazla!)
-### Redeem işlemi
-Bazı staking ödüllerini topladıktan sonra, jetonlarınızı geri alabilirsiniz. Şu anda Gaia (Cosmos Hub) test ağımızdaki bağlanma süresi yaklaşık 30 dakikadır.
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
+
 ```
-strided tx stakeibc redeem-stake 999 GAIA <cosmos_address_you_want_to_redeem_to> --chain-id $STRD_ID --from $STRD_WALLET
+strided init MONIKERNAME --chain-id stride-1
 ```
 
-### Jetonların talep edilebilir olup olmadığını kontrol edin
-Belirteçlerinizin talep edilmeye hazır olup olmadığını görmek istiyorsanız, "<your_stride_account>" ile anahtarlanmış "UserRedemptionRecord"unuzu arayın.
-```
-strided q records list-user-redemption-record --output json | jq --arg WALLET_ADDRESS "$STRD_WALLET_ADDRESS" '.UserRedemptionRecord | map(select(.sender == $STRD_WALLET_ADDRESS))'
-```
-Kaydınız "isClaimable=true" özelliğine sahipse, hak talebinde bulunulmaya hazırdır!
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
 
-### Talep belirteçleri
-Belirteçlerinizin bağı çözüldükten sonra, talep sürecini tetikleyerek talep edilebilirler.
 ```
-strided tx stakeibc claim-undelegated-tokens GAIA 5 --chain-id $STRD_ID --from $STRD_WALLET
-```
-> Not: Bu işlev, bir FIFO kuyruğundaki talepleri tetikler, yani talebiniz 20. sıradaysa, jetonlarınızın hesabınızda görünmesini görmeden önce diğer talepleri işleme koymuş olursunuz.
-
-
-## Kullanışlı Komutlar
-### Servis Yönetimi
-Logları Kontrol Et:
-```
-journalctl -fu strided -o cat
+wget -O genesis.json https://snapshots.nodeist.net/stride/genesis.json --inet4-only
+mv genesis.json ~/.stride/config
 ```
 
-Servisi Başlat:
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-systemctl start strided
-```
-
-Servisi Durdur:
-```
-systemctl stop strided
+PEERS=ffbb05de3bab5939d88ca85aa72b3098d6009fd2@192.168.50.68:26656,dfc52f7dfe9b19d3bc72fc61f428b224716bb163@172.31.1.6:26656,eed404a63d9c446a494f1d6286a780b17812eac8@10.93.14.21:26656,b5f9fa874781f975687018ae559f0d952d3a2e24@0.0.0.0:26656
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.stride/config/config.toml
 ```
 
-Servisi Yeniden Başlat:
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
+
 ```
-systemctl restart strided
+# Create Cosmovisor Folders
+mkdir -p ~/.stride/cosmovisor/genesis/bin
+mkdir -p ~/.stride/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/strided ~/.stride/cosmovisor/genesis/bin
 ```
 
-### Node Bilgileri
-Senkronizasyon Bilgisi:
+### Create Service File
+Create a `strided.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+
 ```
-strided status 2>&1 | jq .SyncInfo
+[Unit]
+Description="strided node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=strided"
+Environment="DAEMON_HOME=/home/USER/.stride"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-Validator Bilgisi:
+### Start Node Service
 ```
-strided status 2>&1 | jq .ValidatorInfo
+# Enable service
+sudo systemctl enable strided.service
+
+# Start service
+sudo service strided start
+
+# Check logs
+sudo journalctl -fu strided
 ```
 
-Node Bilgisi:
-```
-strided status 2>&1 | jq .NodeInfo
-```
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-Node ID Göser:
-```
-strided tendermint show-node-id
-```
+> Use Ansible script to automate the node installation process
 
-### Cüzdan İşlemleri
-Cüzdanları Listele:
-```
-strided keys list
-```
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
-Mnemonic kullanarak cüzdanı kurtar:
-```
-strided keys add $STRD_WALLET --recover
-```
+> Use custom ports for each node so you can run multiple nodes on the same server
 
-Cüzdan Silme:
-```
-strided keys delete $STRD_WALLET
-```
-
-Cüzdan Bakiyesi Sorgulama:
-```
-strided query bank balances $STRD_WALLET_ADDRESS
-```
-
-Cüzdandan Cüzdana Bakiye Transferi:
-```
-strided tx bank send $STRD_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ustrd
-```
-
-### Oylama
-```
-strided tx gov vote 1 yes --from $STRD_WALLET --chain-id=$STRD_ID
-```
-
-### Stake, Delegasyon ve Ödüller
-Delegate İşlemi:
-```
-strided tx staking delegate $STRD_VALOPER_ADDRESS 10000000ustrd --from=$STRD_WALLET --chain-id=$STRD_ID --gas=auto --fees 250ustrd
-```
-
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-```
-strided tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ustrd --from=$STRD_WALLET --chain-id=$STRD_ID --gas=auto --fees 250ustrd
-```
-
-Tüm ödülleri çek:
-```
-strided tx distribution withdraw-all-rewards --from=$STRD_WALLET --chain-id=$STRD_ID --gas=auto --fees 250ustrd
-```
-
-Komisyon ile ödülleri geri çekin:
-```
-strided tx distribution withdraw-rewards $STRD_VALOPER_ADDRESS --from=$STRD_WALLET --commission --chain-id=$STRD_ID
-```
-
-### Doğrulayıcı Yönetimi
-Validatör İsmini Değiştir:
-```
-strided tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$STRD_ID \
---from=$STRD_WALLET
-```
-
-Hapisten Kurtul(Unjail):
-```
-strided tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$STRD_WALLET \
-  --chain-id=$STRD_ID \
-  --gas=auto --fees 250ustrd
-```
-
-
-Node Tamamen Silmek:
-```
-sudo systemctl stop strided
-sudo systemctl disable strided
-sudo rm /etc/systemd/system/stride* -rf
-sudo rm $(which strided) -rf
-sudo rm $HOME/.stride* -rf
-sudo rm $HOME/stride -rf
-sed -i '/STRD_/d' ~/.bash_profile
-```
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.

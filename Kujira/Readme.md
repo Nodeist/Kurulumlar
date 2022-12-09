@@ -2,214 +2,130 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/kujira.png">
 </p>
 
-# Kujira Kurulum Rehberi
-## Donanım Gereksinimleri
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
-
-### Minimum Donanım Gereksinimleri
- - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 4GB RAM
- - 80GB Disk
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-### Önerilen Donanım Gereksinimleri
- - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 8GB RAM
- - 200 GB depolama (SSD veya NVME)
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-## Kujira Full Node Kurulum Adımları
-### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Kujira fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
-Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
+# Kujira Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
+
+
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
+
 ```
-wget -O KUJI.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Kujira/KUJI && chmod +x KUJI.sh && ./KUJI.sh
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
 ```
 
-### Kurulum Sonrası Adımlar
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
-Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-kujirad status 2>&1 | jq .SyncInfo
-```
-
-### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
-```
-kujirad keys add $WALLET
-```
-
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
-```
-kujirad keys add $WALLET --recover
-```
-
-Mevcut cüzdan listesini almak için:
-```
-kujirad keys list
-```
-
-### Cüzdan Bilgilerini Kaydet
-Cüzdan Adresi Ekleyin:
-```
-KUJI_WALLET_ADDRESS=$(kujirad keys show $WALLET -a)
-KUJI_VALOPER_ADDRESS=$(kujirad keys show $WALLET --bech val -a)
-echo 'export KUJI_WALLET_ADDRESS='${KUJI_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export KUJI_VALOPER_ADDRESS='${KUJI_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ```
 
 
-### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 kuji'ye sahip olduğunuzdan (1 kuji 1000000 ukuji'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
 
-Cüzdan bakiyenizi kontrol etmek için:
 ```
-kujirad query bank balances $KUJI_WALLET_ADDRESS
-```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
-
-Doğrulayıcı Oluşturma:
-```
-kujirad tx staking create-validator \
-  --amount 1999000ukuji \
-  --from $WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(kujirad tendermint show-validator) \
-  --moniker $KUJI_NODENAME \
-  --chain-id $KUJI_ID \
-  --fees 250ukuji
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 ```
 
+## Install Node
+Install the current version of node binary.
 
-
-## Kullanışlı Komutlar
-### Servis Yönetimi
-Logları Kontrol Et:
 ```
-journalctl -fu kujirad -o cat
-```
-
-Servisi Başlat:
-```
-systemctl start kujirad
+cd $HOME
+git clone https://github.com/Team-Kujira/core.git
+cd core
+git checkout v0.7.1
+make install
 ```
 
-Servisi Durdur:
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
+
 ```
-systemctl stop kujirad
+kujirad init MONIKERNAME --chain-id kaiyo-1
 ```
 
-Servisi Yeniden Başlat:
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
+
 ```
-systemctl restart kujirad
+wget -O genesis.json https://snapshots.nodeist.net/kujira/genesis.json --inet4-only
+mv genesis.json ~/.kujira/config
 ```
 
-### Node Bilgileri
-Senkronizasyon Bilgisi:
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-kujirad status 2>&1 | jq .SyncInfo
-```
-
-Validator Bilgisi:
-```
-kujirad status 2>&1 | jq .ValidatorInfo
+PEERS=9813378d0dceb86e57018bfdfbade9d863f6f3c8@3.38.73.119:26656,ccffabe81f2de8a81e171f93fe1209392bf9993f@65.108.234.59:26656,7878121e8fa201c836c8c0a95b6a9c7ac6e5b101@141.95.151.171:26656,0743497e30049ac8d59fee5b2ab3a49c3824b95c@198.244.200.196:26656,2efead362f0fc7b7fce0a64d05b56c5b28d5c2b4@164.92.209.72:36347,d24ee4b38c1ead082a7bcf8006617b640d3f5ab9@91.196.166.13:26656,5d0f0bc1c2d60f1d273165c5c8cefc3965c3d3c9@65.108.233.175:26656,5a70fdcf1f51bb38920f655597ce5fc90b8b88b8@136.244.29.116:41656,35af92154fdb2ac19f3f010c26cca9e5c175d054@65.108.238.61:27656,e65c2e27ea06b795a25f3ce813ed2062371705b8@213.239.212.121:13657,f6d0d3ac0c748a343368705c37cf51140a95929b@146.59.81.204:36657
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.kujira/config/config.toml
 ```
 
-Node Bilgisi:
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
+
 ```
-kujirad status 2>&1 | jq .NodeInfo
+# Create Cosmovisor Folders
+mkdir -p ~/.kujira/cosmovisor/genesis/bin
+mkdir -p ~/.kujira/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/kujirad ~/.kujira/cosmovisor/genesis/bin
 ```
 
-Node ID Göser:
+### Create Service File
+Create a `kujirad.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+
 ```
-kujirad tendermint show-node-id
+[Unit]
+Description="kujirad node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=kujirad"
+Environment="DAEMON_HOME=/home/USER/.kujira"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-### Cüzdan İşlemleri
-Cüzdanları Listele:
+### Start Node Service
 ```
-kujirad keys list
+# Enable service
+sudo systemctl enable kujirad.service
+
+# Start service
+sudo service kujirad start
+
+# Check logs
+sudo journalctl -fu kujirad
 ```
 
-Mnemonic kullanarak cüzdanı kurtar:
-```
-kujirad keys add $WALLET --recover
-```
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-Cüzdan Silme:
-```
-kujirad keys delete $WALLET
-```
+> Use Ansible script to automate the node installation process
 
-Cüzdan Bakiyesi Sorgulama:
-```
-kujirad query bank balances $KUJI_WALLET_ADDRESS
-```
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
-Cüzdandan Cüzdana Bakiye Transferi:
-```
-kujirad tx bank send $KUJI_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ukuji
-```
+> Use custom ports for each node so you can run multiple nodes on the same server
 
-### Oylama
-```
-kujirad tx gov vote 1 yes --from $WALLET --chain-id=$KUJI_ID
-```
-
-### Stake, Delegasyon ve Ödüller
-Delegate İşlemi:
-```
-kujirad tx staking delegate $KUJI_VALOPER_ADDRESS 10000000ukuji --from=$WALLET --chain-id=$KUJI_ID --gas=auto --fees 250ukuji
-```
-
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-```
-kujirad tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ukuji --from=$WALLET --chain-id=$KUJI_ID --gas=auto --fees 250ukuji
-```
-
-Tüm ödülleri çek:
-```
-kujirad tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$KUJI_ID --gas=auto --fees 250ukuji
-```
-
-Komisyon ile ödülleri geri çekin:
-```
-kujirad tx distribution withdraw-rewards $KUJI_VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$KUJI_ID
-```
-
-### Doğrulayıcı Yönetimi
-Validatör İsmini Değiştir:
-```
-seid tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$KUJI_ID \
---from=$WALLET
-```
-
-Hapisten Kurtul(Unjail):
-```
-kujirad tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$WALLET \
-  --chain-id=$KUJI_ID \
-  --gas=auto --fees 250ukuji
-```
-
-
-Node Tamamen Silmek:
-```
-sudo systemctl stop kujirad
-sudo systemctl disable kujirad
-sudo rm /etc/systemd/system/kujira* -rf
-sudo rm $(which kujirad) -rf
-sudo rm $HOME/.kujira* -rf
-sudo rm $HOME/core -rf
-sed -i '/KUJI_/d' ~/.bash_profile
-```
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.

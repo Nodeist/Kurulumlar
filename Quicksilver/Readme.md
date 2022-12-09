@@ -3,212 +3,127 @@
 </p>
 
 
-# Quicksilver Kurulum Rehberi
-## Donanım Gereksinimleri
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
+
+# Quicksilver Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
 
 
-### Minimum Donanım Gereksinimleri
- - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 4GB RAM
- - 80GB Disk
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-### Önerilen Donanım Gereksinimleri
- - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 8GB RAM
- - 200 GB depolama (SSD veya NVME)
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-## Quicksilver Full Node Kurulum Adımları
-### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Quicksilver fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
-Script sırasında size node isminiz (NODENAME) sorulacak!
-
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
 
 ```
-wget -O QCK.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Quicksilver/QCK && chmod +x QCK.sh && ./QCK.sh
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
 ```
 
-### Kurulum Sonrası Adımlar
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
-Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-quicksilverd status 2>&1 | jq .SyncInfo
-```
-
-### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
-```
-quicksilverd keys add $WALLET
-```
-
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
-```
-quicksilverd keys add $WALLET --recover
-```
-
-Mevcut cüzdan listesini almak için:
-```
-quicksilverd keys list
-```
-
-### Cüzdan Bilgilerini Kaydet
-Cüzdan Adresi Ekleyin:
-```
-QCK_WALLET_ADDRESS=$(quicksilverd keys show $WALLET -a)
-QCK_VALOPER_ADDRESS=$(quicksilverd keys show $WALLET --bech val -a)
-echo 'export QCK_WALLET_ADDRESS='${QCK_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export QCK_VALOPER_ADDRESS='${QCK_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ```
 
 
-### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 qck'ye sahip olduğunuzdan (1 qck 1000000 uqck'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
 
-Cüzdan bakiyenizi kontrol etmek için:
 ```
-quicksilverd query bank balances $QCK_WALLET_ADDRESS
-```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
-Doğrulayıcı Oluşturma:
-```
-quicksilverd tx staking create-validator \
-  --amount 1999000uqck \
-  --from $WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(quicksilverd tendermint show-validator) \
-  --moniker $QCK_NODENAME \
-  --chain-id $QCK_ID \
-  --fees 250uqck
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 ```
 
+## Install Node
+Install the current version of node binary.
 
-## Kullanışlı Komutlar
-### Servis Yönetimi
-Logları Kontrol Et:
 ```
-journalctl -fu quicksilverd -o cat
-```
-
-Servisi Başlat:
-```
-systemctl start quicksilverd
+cd $HOME
+sudo wget -O $(which quicksilverd) https://github.com/ingenuity-build/testnets/releases/download/v0.10.0/quicksilverd-v0.10.4-2-amd64
+sudo chmod +x /usr/local/bin/quicksilverd
 ```
 
-Servisi Durdur:
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
+
 ```
-systemctl stop quicksilverd
+quicksilverd init MONIKERNAME --chain-id innuendo-3
 ```
 
-Servisi Yeniden Başlat:
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
+
 ```
-systemctl restart quicksilverd
+wget -O genesis.json https://snapshots.nodeist.net/t/quicksilver/genesis.json --inet4-only
+mv genesis.json ~/.quicksilverd/config
 ```
 
-### Node Bilgileri
-Senkronizasyon Bilgisi:
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-quicksilverd status 2>&1 | jq .SyncInfo
-```
-
-Validator Bilgisi:
-```
-quicksilverd status 2>&1 | jq .ValidatorInfo
+PEERS=884919e20a71dc0c632739f44275897f80725159@185.16.39.51:11656,2cc493c229a4cb972dc8588c09ee8981614a426c@144.76.67.53:2390,6c31ea769b18d7b20b2d738df7778fb9fc3fc380@18.236.225.32:26656,4ccdccd18a480f13af85aa798356c1bf856f5c20@88.208.57.200:11656
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.quicksilverd/config/config.toml
 ```
 
-Node Bilgisi:
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
+
 ```
-quicksilverd status 2>&1 | jq .NodeInfo
+# Create Cosmovisor Folders
+mkdir -p ~/.quicksilverd/cosmovisor/genesis/bin
+mkdir -p ~/.quicksilverd/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/quicksilverd ~/.quicksilverd/cosmovisor/genesis/bin
 ```
 
-Node ID Göser:
+### Create Service File
+Create a `quicksilverd.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+
 ```
-quicksilverd tendermint show-node-id
+[Unit]
+Description="quicksilverd node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=quicksilverd"
+Environment="DAEMON_HOME=/home/USER/.quicksilverd"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-### Cüzdan İşlemleri
-Cüzdanları Listele:
+### Start Node Service
 ```
-quicksilverd keys list
+# Enable service
+sudo systemctl enable quicksilverd.service
+
+# Start service
+sudo service quicksilverd start
+
+# Check logs
+sudo journalctl -fu quicksilverd
 ```
 
-Mnemonic kullanarak cüzdanı kurtar:
-```
-quicksilverd keys add $WALLET --recover
-```
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-Cüzdan Silme:
-```
-quicksilverd keys delete $WALLET
-```
+> Use Ansible script to automate the node installation process
 
-Cüzdan Bakiyesi Sorgulama:
-```
-quicksilverd query bank balances $QCK_WALLET_ADDRESS
-```
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
-Cüzdandan Cüzdana Bakiye Transferi:
-```
-quicksilverd tx bank send $QCK_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000uqck
-```
+> Use custom ports for each node so you can run multiple nodes on the same server
 
-### Oylama
-```
-quicksilverd tx gov vote 1 yes --from $WALLET --chain-id=$QCK_ID
-```
-
-### Stake, Delegasyon ve Ödüller
-Delegate İşlemi:
-```
-quicksilverd tx staking delegate $QCK_VALOPER_ADDRESS 10000000uqck --from=$WALLET --chain-id=$QCK_ID --gas=auto --fees 250uqck
-```
-
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-```
-quicksilverd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000uqck --from=$WALLET --chain-id=$QCK_ID --gas=auto --fees 250uqck
-```
-
-Tüm ödülleri çek:
-```
-quicksilverd tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$QCK_ID --gas=auto --fees 250uqck
-```
-
-Komisyon ile ödülleri geri çekin:
-```
-quicksilverd tx distribution withdraw-rewards $QCK_VALOPER_ADDRESS --from=$WALLET --commission --chain-id=$QCK_ID
-```
-
-### Doğrulayıcı Yönetimi
-Validatör İsmini Değiştir:
-```
-seid tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$QCK_ID \
---from=$WALLET
-```
-
-Hapisten Kurtul(Unjail):
-```
-quicksilverd tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$WALLET \
-  --chain-id=$QCK_ID \
-  --gas=auto --fees 250uqck
-```
-
-
-Node Tamamen Silmek:
-```
-sudo systemctl stop quicksilverd
-sudo systemctl disable quicksilverd
-sudo rm /etc/systemd/system/quicksilver* -rf
-sudo rm $(which quicksilverd) -rf
-sudo rm $HOME/.quicksilverd* -rf
-sudo rm $HOME/quicksilver -rf
-sed -i '/QCK_/d' ~/.bash_profile
-```
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.

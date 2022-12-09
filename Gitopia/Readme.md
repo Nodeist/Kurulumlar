@@ -2,214 +2,129 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/gitopia.png">
 </p>
 
-# Gitopia Kurulum Rehberi
-## Donanım Gereksinimleri
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
-
-### Minimum Donanım Gereksinimleri
- - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 4GB RAM
- - 80GB Disk
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-### Önerilen Donanım Gereksinimleri
- - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 8GB RAM
- - 200 GB depolama (SSD veya NVME)
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-## Gitopia Full Node Kurulum Adımları
-### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Gitopia fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
-Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
+# Gitopia Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
+
+
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
+
 ```
-wget -O GTP.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Gitopia/GTP && chmod +x GTP.sh && ./GTP.sh
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
 ```
 
-### Kurulum Sonrası Adımlar
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
-Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-gitopiad status 2>&1 | jq .SyncInfo
-```
-
-### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
-```
-gitopiad keys add $GTP_WALLET
-```
-
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
-```
-gitopiad keys add $GTP_WALLET --recover
-```
-
-Mevcut cüzdan listesini almak için:
-```
-gitopiad keys list
-```
-
-### Cüzdan Bilgilerini Kaydet
-Cüzdan Adresi Ekleyin:
-```
-GTP_WALLET_ADDRESS=$(gitopiad keys show $GTP_WALLET -a)
-GTP_VALOPER_ADDRESS=$(gitopiad keys show $GTP_WALLET --bech val -a)
-echo 'export GTP_WALLET_ADDRESS='${GTP_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export GTP_VALOPER_ADDRESS='${GTP_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ```
 
 
-### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 tlore'ye sahip olduğunuzdan (1 tlore 1000000 utlore'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
 
-Cüzdan bakiyenizi kontrol etmek için:
 ```
-gitopiad query bank balances $GTP_WALLET_ADDRESS
-```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
-
-Doğrulayıcı Oluşturma:
-```
-gitopiad tx staking create-validator \
-  --amount 1999000utlore \
-  --from $GTP_WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(gitopiad tendermint show-validator) \
-  --moniker $GTP_NODENAME \
-  --chain-id $GTP_ID \
-  --fees 250utlore
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 ```
 
+## Install Node
+Install the current version of node binary.
 
-
-## Kullanışlı Komutlar
-### Servis Yönetimi
-Logları Kontrol Et:
 ```
-journalctl -fu gitopiad -o cat
-```
-
-Servisi Başlat:
-```
-systemctl start gitopiad
+cd $HOME
+curl https://get.gitopia.com | bash
+git clone -b v1.2.0 gitopia://gitopia/gitopia && cd gitopia
+make install
 ```
 
-Servisi Durdur:
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
+
 ```
-systemctl stop gitopiad
+gitopiad init MONIKERNAME --chain-id gitopia-janus-testnet-2
 ```
 
-Servisi Yeniden Başlat:
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
+
 ```
-systemctl restart gitopiad
+wget -O genesis.json https://snapshots.nodeist.net/t/gitopia/genesis.json --inet4-only
+mv genesis.json ~/.gitopia/config
 ```
 
-### Node Bilgileri
-Senkronizasyon Bilgisi:
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-gitopiad status 2>&1 | jq .SyncInfo
-```
-
-Validator Bilgisi:
-```
-gitopiad status 2>&1 | jq .ValidatorInfo
+PEERS=85279852bd306c385402185e0125dffeed36bf22@38.146.3.194:26656,09ce2d3fc0fdc9d1e879888e7d72ae0fefef6e3d@65.108.105.48:11256
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.gitopia/config/config.toml
 ```
 
-Node Bilgisi:
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
+
 ```
-gitopiad status 2>&1 | jq .NodeInfo
+# Create Cosmovisor Folders
+mkdir -p ~/.gitopia/cosmovisor/genesis/bin
+mkdir -p ~/.gitopia/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/gitopiad ~/.gitopia/cosmovisor/genesis/bin
 ```
 
-Node ID Göser:
+### Create Service File
+Create a `gitopiad.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+
 ```
-gitopiad tendermint show-node-id
+[Unit]
+Description="gitopiad node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=gitopiad"
+Environment="DAEMON_HOME=/home/USER/.gitopia"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-### Cüzdan İşlemleri
-Cüzdanları Listele:
+### Start Node Service
 ```
-gitopiad keys list
+# Enable service
+sudo systemctl enable gitopiad.service
+
+# Start service
+sudo service gitopiad start
+
+# Check logs
+sudo journalctl -fu gitopiad
 ```
 
-Mnemonic kullanarak cüzdanı kurtar:
-```
-gitopiad keys add $GTP_WALLET --recover
-```
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-Cüzdan Silme:
-```
-gitopiad keys delete $GTP_WALLET
-```
+> Use Ansible script to automate the node installation process
 
-Cüzdan Bakiyesi Sorgulama:
-```
-gitopiad query bank balances $GTP_WALLET_ADDRESS
-```
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
-Cüzdandan Cüzdana Bakiye Transferi:
-```
-gitopiad tx bank send $GTP_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000utlore
-```
+> Use custom ports for each node so you can run multiple nodes on the same server
 
-### Oylama
-```
-gitopiad tx gov vote 1 yes --from $GTP_WALLET --chain-id=$GTP_ID
-```
-
-### Stake, Delegasyon ve Ödüller
-Delegate İşlemi:
-```
-gitopiad tx staking delegate $GTP_VALOPER_ADDRESS 10000000utlore --from=$GTP_WALLET --chain-id=$GTP_ID --gas=auto --fees 250utlore
-```
-
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-```
-gitopiad tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000utlore --from=$GTP_WALLET --chain-id=$GTP_ID --gas=auto --fees 250utlore
-```
-
-Tüm ödülleri çek:
-```
-gitopiad tx distribution withdraw-all-rewards --from=$GTP_WALLET --chain-id=$GTP_ID --gas=auto --fees 250utlore
-```
-
-Komisyon ile ödülleri geri çekin:
-```
-gitopiad tx distribution withdraw-rewards $GTP_VALOPER_ADDRESS --from=$GTP_WALLET --commission --chain-id=$GTP_ID
-```
-
-### Doğrulayıcı Yönetimi
-Validatör İsmini Değiştir:
-```
-gitopiad tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$GTP_ID \
---from=$GTP_WALLET
-```
-
-Hapisten Kurtul(Unjail):
-```
-gitopiad tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$GTP_WALLET \
-  --chain-id=$GTP_ID \
-  --gas=auto --fees 250utlore
-```
-
-
-Node Tamamen Silmek:
-```
-sudo systemctl stop gitopiad
-sudo systemctl disable gitopiad
-sudo rm /etc/systemd/system/gitopia* -rf
-sudo rm $(which gitopiad) -rf
-sudo rm $HOME/.gitopia* -rf
-sudo rm $HOME/gitopiad -rf
-sed -i '/GTP_/d' ~/.bash_profile
-```
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.

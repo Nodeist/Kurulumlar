@@ -2,214 +2,130 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/jackal.png">
 </p>
 
-# Jackal Kurulum Rehberi
-## Donanım Gereksinimleri
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
-
-### Minimum Donanım Gereksinimleri
- - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 4GB RAM
- - 80GB Disk
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-### Önerilen Donanım Gereksinimleri
- - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 8GB RAM
- - 200 GB depolama (SSD veya NVME)
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-## Jackal Full Node Kurulum Adımları
-### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Jackal fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
-Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
+# Jackal Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
+
+
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
+
 ```
-wget -O JKL.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Jackal/JKL && chmod +x JKL.sh && ./JKL.sh
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
 ```
 
-### Kurulum Sonrası Adımlar
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
-Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-canined status 2>&1 | jq .SyncInfo
-```
-
-### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
-```
-canined keys add $JKL_WALLET
-```
-
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
-```
-canined keys add $JKL_WALLET --recover
-```
-
-Mevcut cüzdan listesini almak için:
-```
-canined keys list
-```
-
-### Cüzdan Bilgilerini Kaydet
-Cüzdan Adresi Ekleyin:
-```
-JKL_WALLET_ADDRESS=$(canined keys show $JKL_WALLET -a)
-JKL_VALOPER_ADDRESS=$(canined keys show $JKL_WALLET --bech val -a)
-echo 'export JKL_WALLET_ADDRESS='${JKL_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export JKL_VALOPER_ADDRESS='${JKL_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ```
 
 
-### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 jkl'ye sahip olduğunuzdan (1 jkl 1000000 ujkl'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
 
-Cüzdan bakiyenizi kontrol etmek için:
 ```
-canined query bank balances $JKL_WALLET_ADDRESS
-```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
-
-Doğrulayıcı Oluşturma:
-```
-canined tx staking create-validator \
-  --amount 1999000ujkl \
-  --from $JKL_WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(canined tendermint show-validator) \
-  --moniker $JKL_NODENAME \
-  --chain-id $JKL_ID \
-  --fees 250ujkl
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 ```
 
+## Install Node
+Install the current version of node binary.
 
-
-## Kullanışlı Komutlar
-### Servis Yönetimi
-Logları Kontrol Et:
 ```
-journalctl -fu canined -o cat
-```
-
-Servisi Başlat:
-```
-systemctl start canined
+cd $HOME
+git clone https://github.com/JackalLabs/canine-chain
+cd canine-chain
+git checkout v1.2.0
+make install
 ```
 
-Servisi Durdur:
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
+
 ```
-systemctl stop canined
+canined init MONIKERNAME --chain-id jackal-1
 ```
 
-Servisi Yeniden Başlat:
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
+
 ```
-systemctl restart canined
+wget -O genesis.json https://snapshots.nodeist.net/jackal/genesis.json --inet4-only
+mv genesis.json ~/.canine/config
 ```
 
-### Node Bilgileri
-Senkronizasyon Bilgisi:
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-canined status 2>&1 | jq .SyncInfo
-```
-
-Validator Bilgisi:
-```
-canined status 2>&1 | jq .ValidatorInfo
+PEERS=c98028a169aabe5f8555090e6cd3370308b391b3@135.181.20.44:2506,ec38fb158ffb0272c4b7c951fc790a8f9849e280@198.244.212.27:26656,399068f8371dce4ae5d7cd7da2c965e765e68f4b@65.108.238.102:17556,39b55b1c49ad0994bbead006be40d9c84b0bf2d4@78.107.253.133:28656,f90a64a0a3f3c0480360e0fe5dd0f806d7741558@207.244.127.5:26656,57d82676ab660e8e4471664d7fee18e3e2e3dd19@89.58.38.59:26656,8be44995ab4eeafcde6e0a9e196c40d483ef6d2a@51.81.155.97:10556
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.canine/config/config.toml
 ```
 
-Node Bilgisi:
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
+
 ```
-canined status 2>&1 | jq .NodeInfo
+# Create Cosmovisor Folders
+mkdir -p ~/.canine/cosmovisor/genesis/bin
+mkdir -p ~/.canine/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/canined ~/.canine/cosmovisor/genesis/bin
 ```
 
-Node ID Göser:
+### Create Service File
+Create a `canined.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+
 ```
-canined tendermint show-node-id
+[Unit]
+Description="canined node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=canined"
+Environment="DAEMON_HOME=/home/USER/.canine"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-### Cüzdan İşlemleri
-Cüzdanları Listele:
+### Start Node Service
 ```
-canined keys list
+# Enable service
+sudo systemctl enable canined.service
+
+# Start service
+sudo service canined start
+
+# Check logs
+sudo journalctl -fu canined
 ```
 
-Mnemonic kullanarak cüzdanı kurtar:
-```
-canined keys add $JKL_WALLET --recover
-```
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-Cüzdan Silme:
-```
-canined keys delete $JKL_WALLET
-```
+> Use Ansible script to automate the node installation process
 
-Cüzdan Bakiyesi Sorgulama:
-```
-canined query bank balances $JKL_WALLET_ADDRESS
-```
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
-Cüzdandan Cüzdana Bakiye Transferi:
-```
-canined tx bank send $JKL_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ujkl
-```
+> Use custom ports for each node so you can run multiple nodes on the same server
 
-### Oylama
-```
-canined tx gov vote 1 yes --from $JKL_WALLET --chain-id=$JKL_ID
-```
-
-### Stake, Delegasyon ve Ödüller
-Delegate İşlemi:
-```
-canined tx staking delegate $JKL_VALOPER_ADDRESS 10000000ujkl --from=$JKL_WALLET --chain-id=$JKL_ID --gas=auto --fees 250ujkl
-```
-
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-```
-canined tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ujkl --from=$JKL_WALLET --chain-id=$JKL_ID --gas=auto --fees 250ujkl
-```
-
-Tüm ödülleri çek:
-```
-canined tx distribution withdraw-all-rewards --from=$JKL_WALLET --chain-id=$JKL_ID --gas=auto --fees 250ujkl
-```
-
-Komisyon ile ödülleri geri çekin:
-```
-canined tx distribution withdraw-rewards $JKL_VALOPER_ADDRESS --from=$JKL_WALLET --commission --chain-id=$JKL_ID
-```
-
-### Doğrulayıcı Yönetimi
-Validatör İsmini Değiştir:
-```
-canined tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$JKL_ID \
---from=$JKL_WALLET
-```
-
-Hapisten Kurtul(Unjail):
-```
-canined tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$JKL_WALLET \
-  --chain-id=$JKL_ID \
-  --gas=auto --fees 250ujkl
-```
-
-
-Node Tamamen Silmek:
-```
-sudo systemctl stop canined
-sudo systemctl disable canined
-sudo rm /etc/systemd/system/canined* -rf
-sudo rm $(which canined) -rf
-sudo rm $HOME/.canine* -rf
-sudo rm $HOME/canine-chain -rf
-sed -i '/JKL_/d' ~/.bash_profile
-```
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.

@@ -4,215 +4,128 @@
 
 
 
+# Defund Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
 
-# Defund Kurulum Rehberi
-## Donanım Gereksinimleri
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
 
-### Minimum Donanım Gereksinimleri
- - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 4GB RAM
- - 80GB Disk
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-### Önerilen Donanım Gereksinimleri
- - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 8GB RAM
- - 200 GB depolama (SSD veya NVME)
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-## Defund Full Node Kurulum Adımları
-### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Defund fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
-Script sırasında size node isminiz (NODENAME) sorulacak!
-
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
 
 ```
-wget -O FETF.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Defund/FETF && chmod +x FETF.sh && ./FETF.sh
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
 ```
 
-### Kurulum Sonrası Adımlar
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
-Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-defundd status 2>&1 | jq .SyncInfo
-```
-
-### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
-```
-defundd keys add $FETF_WALLET
-```
-
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
-```
-defundd keys add $FETF_WALLET --recover
-```
-
-Mevcut cüzdan listesini almak için:
-```
-defundd keys list
-```
-
-### Cüzdan Bilgilerini Kaydet
-Cüzdan Adresi Ekleyin:
-```
-FETF_WALLET_ADDRESS=$(defundd keys show $FETF_WALLET -a)
-FETF_VALOPER_ADDRESS=$(defundd keys show $FETF_WALLET --bech val -a)
-echo 'export FETF_WALLET_ADDRESS='${FETF_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export FETF_VALOPER_ADDRESS='${FETF_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ```
 
 
-### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 fetf'ye sahip olduğunuzdan (1 fetf 1000000 ufetf'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
 
-Cüzdan bakiyenizi kontrol etmek için:
 ```
-defundd query bank balances $FETF_WALLET_ADDRESS
-```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
-
-Doğrulayıcı Oluşturma:
-```
-defundd tx staking create-validator \
-  --amount 1000000ufetf \
-  --from $FETF_WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(defundd tendermint show-validator) \
-  --moniker $FETF_NODENAME \
-  --chain-id $FETF_ID \
-  --fees 250ufetf
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 ```
 
+## Install Node
+Install the current version of node binary.
 
-
-## Kullanışlı Komutlar
-### Servis Yönetimi
-Logları Kontrol Et:
 ```
-journalctl -fu defundd -o cat
-```
-
-Servisi Başlat:
-```
-systemctl start defundd
+cd $HOME
+git clone https://github.com/defund-labs/defund.git
+cd defund
+git checkout v0.1.0
+make install
 ```
 
-Servisi Durdur:
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
+
 ```
-systemctl stop defundd
+defundd init MONIKERNAME --chain-id defund-private-2
 ```
 
-Servisi Yeniden Başlat:
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
+
 ```
-systemctl restart defundd
+wget -O genesis.json https://snapshots.nodeist.net/t/defund/genesis.json --inet4-only
+mv genesis.json ~/.defund/config
 ```
 
-### Node Bilgileri
-Senkronizasyon Bilgisi:
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-defundd status 2>&1 | jq .SyncInfo
-```
-
-Validator Bilgisi:
-```
-defundd status 2>&1 | jq .ValidatorInfo
+PEERS=85279852bd306c385402185e0125dffeed36bf22@38.146.3.194:26656,09ce2d3fc0fdc9d1e879888e7d72ae0fefef6e3d@65.108.105.48:11256
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.defund/config/config.toml
 ```
 
-Node Bilgisi:
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
+
 ```
-defundd status 2>&1 | jq .NodeInfo
+# Create Cosmovisor Folders
+mkdir -p ~/.defund/cosmovisor/genesis/bin
+mkdir -p ~/.defund/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/defundd ~/.defund/cosmovisor/genesis/bin
 ```
 
-Node ID Göser:
+### Create Service File
+Create a `defundd.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+
 ```
-defundd tendermint show-node-id
+[Unit]
+Description="defundd node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=defundd"
+Environment="DAEMON_HOME=/home/USER/.defund"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-### Cüzdan İşlemleri
-Cüzdanları Listele:
+### Start Node Service
 ```
-defundd keys list
+# Enable service
+sudo systemctl enable defundd.service
+
+# Start service
+sudo service defundd start
+
+# Check logs
+sudo journalctl -fu defundd
 ```
 
-Mnemonic kullanarak cüzdanı kurtar:
-```
-defundd keys add $FETF_WALLET --recover
-```
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-Cüzdan Silme:
-```
-defundd keys delete $FETF_WALLET
-```
+> Use Ansible script to automate the node installation process
 
-Cüzdan Bakiyesi Sorgulama:
-```
-defundd query bank balances $FETF_WALLET_ADDRESS
-```
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
-Cüzdandan Cüzdana Bakiye Transferi:
-```
-defundd tx bank send $FETF_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ufetf
-```
+> Use custom ports for each node so you can run multiple nodes on the same server
 
-### Oylama
-```
-defundd tx gov vote 1 yes --from $FETF_WALLET --chain-id=$FETF_ID
-```
-
-### Stake, Delegasyon ve Ödüller
-Delegate İşlemi:
-```
-defundd tx staking delegate $FETF_VALOPER_ADDRESS 10000000ufetf --from=$FETF_WALLET --chain-id=$FETF_ID --gas=auto --fees 250ufetf
-```
-
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-```
-defundd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ufetf --from=$FETF_WALLET --chain-id=$FETF_ID --gas=auto --fees 250ufetf
-```
-
-Tüm ödülleri çek:
-```
-defundd tx distribution withdraw-all-rewards --from=$FETF_WALLET --chain-id=$FETF_ID --gas=auto --fees 250ufetf
-```
-
-Komisyon ile ödülleri geri çekin:
-```
-defundd tx distribution withdraw-rewards $FETF_VALOPER_ADDRESS --from=$FETF_WALLET --commission --chain-id=$FETF_ID
-```
-
-### Doğrulayıcı Yönetimi
-Validatör İsmini Değiştir:
-```
-defundd tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$FETF_ID \
---from=$FETF_WALLET
-```
-
-Hapisten Kurtul(Unjail):
-```
-defundd tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$FETF_WALLET \
-  --chain-id=$FETF_ID \
-  --gas=auto --fees 250ufetf
-```
-
-
-Node Tamamen Silmek:
-```
-sudo systemctl stop defundd
-sudo systemctl disable defundd
-sudo rm /etc/systemd/system/defund* -rf
-sudo rm $(which defundd) -rf
-sudo rm $HOME/.defund* -rf
-sudo rm $HOME/defund -rf
-sed -i '/FETF_/d' ~/.bash_profile
-```
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.

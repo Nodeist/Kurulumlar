@@ -2,214 +2,130 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/realio.png">
 </p>
 
-# Realio Kurulum Rehberi
-## Donanım Gereksinimleri
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
-
-### Minimum Donanım Gereksinimleri
- - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 4GB RAM
- - 80GB Disk
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-### Önerilen Donanım Gereksinimleri
- - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 8GB RAM
- - 200 GB depolama (SSD veya NVME)
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-## Realio Full Node Kurulum Adımları
-### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Realio fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
-Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
+# Realio Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
+
+
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
+
 ```
-wget -O RLO.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Realio/RLO && chmod +x RLO.sh && ./RLO.sh
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
 ```
 
-### Kurulum Sonrası Adımlar
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
-Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-realio-networkd status 2>&1 | jq .SyncInfo
-```
-
-### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
-```
-realio-networkd keys add $RLO_WALLET
-```
-
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
-```
-realio-networkd keys add $RLO_WALLET --recover
-```
-
-Mevcut cüzdan listesini almak için:
-```
-realio-networkd keys list
-```
-
-### Cüzdan Bilgilerini Kaydet
-Cüzdan Adresi Ekleyin:
-```
-RLO_WALLET_ADDRESS=$(realio-networkd keys show $RLO_WALLET -a)
-RLO_VALOPER_ADDRESS=$(realio-networkd keys show $RLO_WALLET --bech val -a)
-echo 'export RLO_WALLET_ADDRESS='${RLO_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export RLO_VALOPER_ADDRESS='${RLO_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ```
 
 
-### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 rio'ye sahip olduğunuzdan (1 rio 1000000 ario'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
 
-Cüzdan bakiyenizi kontrol etmek için:
 ```
-realio-networkd query bank balances $RLO_WALLET_ADDRESS
-```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
-
-Doğrulayıcı Oluşturma:
-```
-realio-networkd tx staking create-validator \
-  --amount 1999000ario \
-  --from $RLO_WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(realio-networkd tendermint show-validator) \
-  --moniker $RLO_NODENAME \
-  --chain-id $RLO_ID \
-  --fees 250ario
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 ```
 
+## Install Node
+Install the current version of node binary.
 
-
-## Kullanışlı Komutlar
-### Servis Yönetimi
-Logları Kontrol Et:
 ```
-journalctl -fu realio-networkd -o cat
-```
-
-Servisi Başlat:
-```
-systemctl start realio-networkd
+cd $HOME
+git clone https://github.com/realiotech/realio-network.git
+cd realio
+git checkout v0.6.2
+make install
 ```
 
-Servisi Durdur:
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
+
 ```
-systemctl stop realio-networkd
+realio-networkd init MONIKERNAME --chain-id realionetwork_1110-2
 ```
 
-Servisi Yeniden Başlat:
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
+
 ```
-systemctl restart realio-networkd
+wget -O genesis.json https://snapshots.nodeist.net/t/realio/genesis.json --inet4-only
+mv genesis.json ~/.realio-network/config
 ```
 
-### Node Bilgileri
-Senkronizasyon Bilgisi:
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-realio-networkd status 2>&1 | jq .SyncInfo
-```
-
-Validator Bilgisi:
-```
-realio-networkd status 2>&1 | jq .ValidatorInfo
+PEERS=13de8696c1a4211beb99896408cb0e9b5c174bac@65.109.34.9:65.109.34.9:36656,aa194e9f9add331ee8ba15d2c3d8860c5a50713f@143.110.230.177:26656
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.realio-network/config/config.toml
 ```
 
-Node Bilgisi:
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
+
 ```
-realio-networkd status 2>&1 | jq .NodeInfo
+# Create Cosmovisor Folders
+mkdir -p ~/.realio-network/cosmovisor/genesis/bin
+mkdir -p ~/.realio-network/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/realio-networkd ~/.realio-network/cosmovisor/genesis/bin
 ```
 
-Node ID Göser:
+### Create Service File
+Create a `realio-networkd.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+
 ```
-realio-networkd tendermint show-node-id
+[Unit]
+Description="realio-networkd node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=realio-networkd"
+Environment="DAEMON_HOME=/home/USER/.realio-network"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-### Cüzdan İşlemleri
-Cüzdanları Listele:
+### Start Node Service
 ```
-realio-networkd keys list
+# Enable service
+sudo systemctl enable realio-networkd.service
+
+# Start service
+sudo service realio-networkd start
+
+# Check logs
+sudo journalctl -fu realio-networkd
 ```
 
-Mnemonic kullanarak cüzdanı kurtar:
-```
-realio-networkd keys add $RLO_WALLET --recover
-```
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-Cüzdan Silme:
-```
-realio-networkd keys delete $RLO_WALLET
-```
+> Use Ansible script to automate the node installation process
 
-Cüzdan Bakiyesi Sorgulama:
-```
-realio-networkd query bank balances $RLO_WALLET_ADDRESS
-```
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
-Cüzdandan Cüzdana Bakiye Transferi:
-```
-realio-networkd tx bank send $RLO_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000ario
-```
+> Use custom ports for each node so you can run multiple nodes on the same server
 
-### Oylama
-```
-realio-networkd tx gov vote 1 yes --from $RLO_WALLET --chain-id=$RLO_ID
-```
-
-### Stake, Delegasyon ve Ödüller
-Delegate İşlemi:
-```
-realio-networkd tx staking delegate $RLO_VALOPER_ADDRESS 10000000ario --from=$RLO_WALLET --chain-id=$RLO_ID --gas=auto --fees 250ario
-```
-
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-```
-realio-networkd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000ario --from=$RLO_WALLET --chain-id=$RLO_ID --gas=auto --fees 250ario
-```
-
-Tüm ödülleri çek:
-```
-realio-networkd tx distribution withdraw-all-rewards --from=$RLO_WALLET --chain-id=$RLO_ID --gas=auto --fees 250ario
-```
-
-Komisyon ile ödülleri geri çekin:
-```
-realio-networkd tx distribution withdraw-rewards $RLO_VALOPER_ADDRESS --from=$RLO_WALLET --commission --chain-id=$RLO_ID
-```
-
-### Doğrulayıcı Yönetimi
-Validatör İsmini Değiştir:
-```
-realio-networkd tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$RLO_ID \
---from=$RLO_WALLET
-```
-
-Hapisten Kurtul(Unjail):
-```
-realio-networkd tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$RLO_WALLET \
-  --chain-id=$RLO_ID \
-  --gas=auto --fees 250ario
-```
-
-
-Node Tamamen Silmek:
-```
-sudo systemctl stop realio-networkd
-sudo systemctl disable realio-networkd
-sudo rm /etc/systemd/system/realio-network* -rf
-sudo rm $(which realio-networkd) -rf
-sudo rm $HOME/.realio-network* -rf
-sudo rm $HOME/realio-network -rf
-sed -i '/RLO_/d' ~/.bash_profile
-```
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.

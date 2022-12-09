@@ -2,214 +2,130 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/terp.png">
 </p>
 
-# Terp Kurulum Rehberi
-## Donanım Gereksinimleri
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
-
-### Minimum Donanım Gereksinimleri
- - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 4GB RAM
- - 80GB Disk
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-### Önerilen Donanım Gereksinimleri
- - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 8GB RAM
- - 200 GB depolama (SSD veya NVME)
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-## Terp Full Node Kurulum Adımları
-### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Terp fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
-Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
+# Terp Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
+
+
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
+
 ```
-wget -O TERP.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Terp/TERP && chmod +x TERP.sh && ./TERP.sh
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
 ```
 
-### Kurulum Sonrası Adımlar
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
-Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-terpd status 2>&1 | jq .SyncInfo
-```
-
-### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
-```
-terpd keys add $TERP_WALLET
-```
-
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
-```
-terpd keys add $TERP_WALLET --recover
-```
-
-Mevcut cüzdan listesini almak için:
-```
-terpd keys list
-```
-
-### Cüzdan Bilgilerini Kaydet
-Cüzdan Adresi Ekleyin:
-```
-TERP_WALLET_ADDRESS=$(terpd keys show $TERP_WALLET -a)
-TERP_VALOPER_ADDRESS=$(terpd keys show $TERP_WALLET --bech val -a)
-echo 'export TERP_WALLET_ADDRESS='${TERP_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export TERP_VALOPER_ADDRESS='${TERP_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ```
 
 
-### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 terpx'ye sahip olduğunuzdan (1 terpx 1000000 uterpx'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
 
-Cüzdan bakiyenizi kontrol etmek için:
 ```
-terpd query bank balances $TERP_WALLET_ADDRESS
-```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
-
-Doğrulayıcı Oluşturma:
-```
-terpd tx staking create-validator \
-  --amount 1999000uterpx \
-  --from $TERP_WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(terpd tendermint show-validator) \
-  --moniker $TERP_NODENAME \
-  --chain-id $TERP_ID \
-  --fees 250uterpx
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 ```
 
+## Install Node
+Install the current version of node binary.
 
-
-## Kullanışlı Komutlar
-### Servis Yönetimi
-Logları Kontrol Et:
 ```
-journalctl -fu terpd -o cat
-```
-
-Servisi Başlat:
-```
-systemctl start terpd
+cd $HOME
+git clone https://github.com/terpnetwork/terp-core.git
+cd terp-core
+git checkout v0.1.0
+make install
 ```
 
-Servisi Durdur:
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
+
 ```
-systemctl stop terpd
+terpd init MONIKERNAME --chain-id athena-2
 ```
 
-Servisi Yeniden Başlat:
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
+
 ```
-systemctl restart terpd
+wget -O genesis.json https://snapshots.nodeist.net/t/terp/genesis.json --inet4-only
+mv genesis.json ~/.terp/config
 ```
 
-### Node Bilgileri
-Senkronizasyon Bilgisi:
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-terpd status 2>&1 | jq .SyncInfo
-```
-
-Validator Bilgisi:
-```
-terpd status 2>&1 | jq .ValidatorInfo
+PEERS=a24cbc18af3f3558719e2f479ff412f60e126683@181.41.142.78:11503,7e5c0b9384a1b9636f1c670d5dc91ba4721ab1ca@23.88.53.28:36656
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.terp/config/config.toml
 ```
 
-Node Bilgisi:
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
+
 ```
-terpd status 2>&1 | jq .NodeInfo
+# Create Cosmovisor Folders
+mkdir -p ~/.terp/cosmovisor/genesis/bin
+mkdir -p ~/.terp/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/terpd ~/.terp/cosmovisor/genesis/bin
 ```
 
-Node ID Göser:
+### Create Service File
+Create a `terpd.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+
 ```
-terpd tendermint show-node-id
+[Unit]
+Description="terpd node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=terpd"
+Environment="DAEMON_HOME=/home/USER/.terp"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-### Cüzdan İşlemleri
-Cüzdanları Listele:
+### Start Node Service
 ```
-terpd keys list
+# Enable service
+sudo systemctl enable terpd.service
+
+# Start service
+sudo service terpd start
+
+# Check logs
+sudo journalctl -fu terpd
 ```
 
-Mnemonic kullanarak cüzdanı kurtar:
-```
-terpd keys add $TERP_WALLET --recover
-```
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-Cüzdan Silme:
-```
-terpd keys delete $TERP_WALLET
-```
+> Use Ansible script to automate the node installation process
 
-Cüzdan Bakiyesi Sorgulama:
-```
-terpd query bank balances $TERP_WALLET_ADDRESS
-```
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
-Cüzdandan Cüzdana Bakiye Transferi:
-```
-terpd tx bank send $TERP_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000uterpx
-```
+> Use custom ports for each node so you can run multiple nodes on the same server
 
-### Oylama
-```
-terpd tx gov vote 1 yes --from $TERP_WALLET --chain-id=$TERP_ID
-```
-
-### Stake, Delegasyon ve Ödüller
-Delegate İşlemi:
-```
-terpd tx staking delegate $TERP_VALOPER_ADDRESS 10000000uterpx --from=$TERP_WALLET --chain-id=$TERP_ID --gas=auto --fees 250uterpx
-```
-
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-```
-terpd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000uterpx --from=$TERP_WALLET --chain-id=$TERP_ID --gas=auto --fees 250uterpx
-```
-
-Tüm ödülleri çek:
-```
-terpd tx distribution withdraw-all-rewards --from=$TERP_WALLET --chain-id=$TERP_ID --gas=auto --fees 250uterpx
-```
-
-Komisyon ile ödülleri geri çekin:
-```
-terpd tx distribution withdraw-rewards $TERP_VALOPER_ADDRESS --from=$TERP_WALLET --commission --chain-id=$TERP_ID
-```
-
-### Doğrulayıcı Yönetimi
-Validatör İsmini Değiştir:
-```
-terpd tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$TERP_ID \
---from=$TERP_WALLET
-```
-
-Hapisten Kurtul(Unjail):
-```
-terpd tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$TERP_WALLET \
-  --chain-id=$TERP_ID \
-  --gas=auto --fees 250uterpx
-```
-
-
-Node Tamamen Silmek:
-```
-sudo systemctl stop terpd
-sudo systemctl disable terpd
-sudo rm /etc/systemd/system/terp* -rf
-sudo rm $(which terpd) -rf
-sudo rm $HOME/.terp* -rf
-sudo rm $HOME/terp-core -rf
-sed -i '/TERP_/d' ~/.bash_profile
-```
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.

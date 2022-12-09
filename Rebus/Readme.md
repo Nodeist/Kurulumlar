@@ -2,251 +2,130 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/rebus.png">
 </p>
 
-### Rebus Kurulum Rehberi
 
-#### Donanım Gereksinimleri
 
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
+# Rebus Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
 
-**Minimum Donanım Gereksinimleri**
 
-* 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
-* 4GB RAM
-* 80GB Disk
-* Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-**Önerilen Donanım Gereksinimleri**
-
-* 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
-* 8GB RAM
-* 200 GB depolama (SSD veya NVME)
-* Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-#### Rebus Full Node Kurulum Adımları
-
-**Tek Script İle Otomatik Kurulum**
-
-Aşağıdaki otomatik komut dosyasını kullanarak Rebus fullnode'unuzu birkaç dakika içinde kurabilirsiniz. Script sırasında size node isminiz (NODENAME) sorulacak!
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
 
 ```
-wget -O RBS.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Rebus/RBS && chmod +x RBS.sh && ./RBS.sh
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
 ```
 
-**Kurulum Sonrası Adımlar**
-
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız. Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
-
-```
-rebusd status 2>&1 | jq .SyncInfo
-```
-
-**Cüzdan Oluşturma**
-
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
 
 ```
-rebusd keys add $RBS_WALLET
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ```
 
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
+
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
 
 ```
-rebusd keys add $RBS_WALLET --recover
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 ```
 
-Mevcut cüzdan listesini almak için:
+## Install Node
+Install the current version of node binary.
 
 ```
-rebusd keys list
+cd $HOME
+git clone https://github.com/rebuschain/rebus.core.git
+cd rebus
+git checkout v0.2.3
+make install
 ```
 
-**Cüzdan Bilgilerini Kaydet**
-
-Cüzdan Adresi Ekleyin:
-
-```
-RBS_WALLET_ADDRESS=$(rebusd keys show $RBS_WALLET -a)
-RBS_VALOPER_ADDRESS=$(rebusd keys show $RBS_WALLET --bech val -a)
-echo 'export RBS_WALLET_ADDRESS='${RBS_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export RBS_VALOPER_ADDRESS='${RBS_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
-```
-
-**Doğrulayıcı oluştur**
-
-Doğrulayıcı oluşturmadan önce lütfen en az 1 rebus'ye sahip olduğunuzdan (1 rebus 1000000 arebus'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
-
-Cüzdan bakiyenizi kontrol etmek için:
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
 
 ```
-rebusd query bank balances $RBS_WALLET_ADDRESS
+rebusd init MONIKERNAME --chain-id reb_1111-1
 ```
 
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
-
-Doğrulayıcı Oluşturma:
-
-```
-rebusd tx staking create-validator \
-  --amount 1000000arebus \
-  --from $RBS_WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(rebusd tendermint show-validator) \
-  --moniker $RBS_NODENAME \
-  --chain-id $RBS_ID \
-  --fees 250arebus
-```
-
-#### Kullanışlı Komutlar
-
-**Servis Yönetimi**
-
-Logları Kontrol Et:
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
 
 ```
-journalctl -fu rebusd -o cat
+wget -O genesis.json https://snapshots.nodeist.net/rebus/genesis.json --inet4-only
+mv genesis.json ~/.rebusd/config
 ```
 
-Servisi Başlat:
-
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-systemctl start rebusd
-```
-
-Servisi Durdur:
-
-```
-systemctl stop rebusd
+PEERS=9be95ccf0086b96b707115b7707ea73420b11b6b@159.223.152.53:26656,3a3e7123b9ae814b8d8517b6635d21b9ae45bf25@195.3.222.148:26656,d28516746773bfaeca4efa5537c0bf5990b8828e@65.21.229.33:27656,7197d316935ca7b7ac36da7d4a3a6df16cd286a7@93.170.72.118:26656,87102b5dd22c1d17f97197c078f23726ae3c6214@tinyo.fi:26656,b9b70240be5b970a4939ddd5cc9a45ff4be6c292@198.244.167.164:26656,9289288c444b781a18f13c69da42b99424442cbb@65.108.44.149:21656,4ef77b2a17e71d2535b3c8ec11830708fc299705@209.222.98.90:26656,c301abd7abe536d7791eb139599a68ecaab4ffbc@65.108.6.121:26656,dda7abe32cc84a722cf6b1d2ee3b61ebe7ad71df@135.181.212.183:21656,07b84cf4b47a2e5ad251267716fe05bcf30330cd@65.21.170.3:29656,b4941d0929595b9f83d190559e1d7126fec91cb0@172.96.161.94:26656,ce8b36056ace01414fa7a92e43eaa5bfd8705dd4@138.201.141.76:26656,89ded0a3987d22e46b756fead439e2a4d25f23cb@185.144.99.30:26656,62859ddc0485dbb37b7442135b8d468c4b2222b3@65.108.132.239:36656,eeca453e3a1cf670c78e2255b8f0bd5a9443c30b@65.108.225.71:26656
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.rebusd/config/config.toml
 ```
 
-Servisi Yeniden Başlat:
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
 
 ```
-systemctl restart rebusd
+# Create Cosmovisor Folders
+mkdir -p ~/.rebusd/cosmovisor/genesis/bin
+mkdir -p ~/.rebusd/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/rebusd ~/.rebusd/cosmovisor/genesis/bin
 ```
 
-**Node Bilgileri**
-
-Senkronizasyon Bilgisi:
-
-```
-rebusd status 2>&1 | jq .SyncInfo
-```
-
-Validator Bilgisi:
+### Create Service File
+Create a `rebusd.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
 
 ```
-rebusd status 2>&1 | jq .ValidatorInfo
+[Unit]
+Description="rebusd node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=rebusd"
+Environment="DAEMON_HOME=/home/USER/.rebusd"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-Node Bilgisi:
-
+### Start Node Service
 ```
-rebusd status 2>&1 | jq .NodeInfo
-```
+# Enable service
+sudo systemctl enable rebusd.service
 
-Node ID Göser:
+# Start service
+sudo service rebusd start
 
-```
-rebusd tendermint show-node-id
-```
-
-**Cüzdan İşlemleri**
-
-Cüzdanları Listele:
-
-```
-rebusd keys list
+# Check logs
+sudo journalctl -fu rebusd
 ```
 
-Mnemonic kullanarak cüzdanı kurtar:
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-```
-rebusd keys add $RBS_WALLET --recover
-```
+> Use Ansible script to automate the node installation process
 
-Cüzdan Silme:
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
-```
-rebusd keys delete $RBS_WALLET
-```
+> Use custom ports for each node so you can run multiple nodes on the same server
 
-Cüzdan Bakiyesi Sorgulama:
-
-```
-rebusd query bank balances $RBS_WALLET_ADDRESS
-```
-
-Cüzdandan Cüzdana Bakiye Transferi:
-
-```
-rebusd tx bank send $RBS_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000arebus
-```
-
-**Oylama**
-
-```
-rebusd tx gov vote 1 yes --from $RBS_WALLET --chain-id=$RBS_ID
-```
-
-**Stake, Delegasyon ve Ödüller**
-
-Delegate İşlemi:
-
-```
-rebusd tx staking delegate $RBS_VALOPER_ADDRESS 10000000arebus --from=$RBS_WALLET --chain-id=$RBS_ID --gas=auto --fees 250arebus
-```
-
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-
-```
-rebusd tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000arebus --from=$RBS_WALLET --chain-id=$RBS_ID --gas=auto --fees 250arebus
-```
-
-Tüm ödülleri çek:
-
-```
-rebusd tx distribution withdraw-all-rewards --from=$RBS_WALLET --chain-id=$RBS_ID --gas=auto --fees 250arebus
-```
-
-Komisyon ile ödülleri geri çekin:
-
-```
-rebusd tx distribution withdraw-rewards $RBS_VALOPER_ADDRESS --from=$RBS_WALLET --commission --chain-id=$RBS_ID
-```
-
-**Doğrulayıcı Yönetimi**
-
-Validatör İsmini Değiştir:
-
-```
-rebusd tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$RBS_ID \
---from=$RBS_WALLET
-```
-
-Hapisten Kurtul(Unjail):
-
-```
-rebusd tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$RBS_WALLET \
-  --chain-id=$RBS_ID \
-  --gas=auto --fees 250arebus
-```
-
-Node Tamamen Silmek:
-
-```
-sudo systemctl stop rebusd
-sudo systemctl disable rebusd
-sudo rm /etc/systemd/system/rebusd* -rf
-sudo rm $(which rebusd) -rf
-sudo rm $HOME/.rebusd* -rf
-sudo rm $HOME/rebus.core -rf
-sed -i '/RBS_/d' ~/.bash_profile
-```
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.

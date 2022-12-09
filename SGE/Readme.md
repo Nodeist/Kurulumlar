@@ -2,214 +2,130 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/sge.png">
 </p>
 
-# SGE Kurulum Rehberi
-## Donanım Gereksinimleri
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
-
-### Minimum Donanım Gereksinimleri
- - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 4GB RAM
- - 80GB Disk
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-### Önerilen Donanım Gereksinimleri
- - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 8GB RAM
- - 200 GB depolama (SSD veya NVME)
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-## SGE Full Node Kurulum Adımları
-### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak SGE fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
-Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
+# SGE Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
+
+
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
+
 ```
-wget -O SGE.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/SGE/SGE && chmod +x SGE.sh && ./SGE.sh
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
 ```
 
-### Kurulum Sonrası Adımlar
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
-Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-sged status 2>&1 | jq .SyncInfo
-```
-
-### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
-```
-sged keys add $SGE_WALLET
-```
-
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
-```
-sged keys add $SGE_WALLET --recover
-```
-
-Mevcut cüzdan listesini almak için:
-```
-sged keys list
-```
-
-### Cüzdan Bilgilerini Kaydet
-Cüzdan Adresi Ekleyin:
-```
-SGE_WALLET_ADDRESS=$(sged keys show $SGE_WALLET -a)
-SGE_VALOPER_ADDRESS=$(sged keys show $SGE_WALLET --bech val -a)
-echo 'export SGE_WALLET_ADDRESS='${SGE_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export SGE_VALOPER_ADDRESS='${SGE_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ```
 
 
-### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 sge'ye sahip olduğunuzdan (1 sge 1000000 usge'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
 
-Cüzdan bakiyenizi kontrol etmek için:
 ```
-sged query bank balances $SGE_WALLET_ADDRESS
-```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
-
-Doğrulayıcı Oluşturma:
-```
-sged tx staking create-validator \
-  --amount 1999000usge \
-  --from $SGE_WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(sged tendermint show-validator) \
-  --moniker $SGE_NODENAME \
-  --chain-id $SGE_ID \
-  --fees 250usge
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 ```
 
+## Install Node
+Install the current version of node binary.
 
-
-## Kullanışlı Komutlar
-### Servis Yönetimi
-Logları Kontrol Et:
 ```
-journalctl -fu sged -o cat
-```
-
-Servisi Başlat:
-```
-systemctl start sged
+cd $HOME
+git clone https://github.com/sge-network/sge  
+cd sge
+git checkout v0.0.3
+make install
 ```
 
-Servisi Durdur:
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
+
 ```
-systemctl stop sged
+sged init MONIKERNAME --chain-id sge-testnet-1
 ```
 
-Servisi Yeniden Başlat:
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
+
 ```
-systemctl restart sged
+wget -O genesis.json https://snapshots.nodeist.net/t/sge/genesis.json --inet4-only
+mv genesis.json ~/.sge/config
 ```
 
-### Node Bilgileri
-Senkronizasyon Bilgisi:
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-sged status 2>&1 | jq .SyncInfo
-```
-
-Validator Bilgisi:
-```
-sged status 2>&1 | jq .ValidatorInfo
+PEERS=27f0b281ea7f4c3db01fdb9f4cf7cc910ad240a6@209.34.206.44:26656,5f3196f370fa865bfd3e4a0653dc7853f613aba6@[2a01:4f9:1a:a718::10]:26656,afa90de6a195a4a2993b2501f12a1cd306f01d02@136.243.103.32:60856,dc75f5d2f9458767f39f62bd7eab3f499fdf2761@104.248.236.171:26656,1168931936c638e92ea6d93e2271b3fe5faee6d1@51.91.145.100:26656,8a7d722dba88326ee69fcc23b5b2ac93e36d7ff2@65.108.225.158:17756,445506c736895336e36dd4f8228a60c257b30e61@20.12.75.0:26656,971643c5b9f9d279cfb7ac1b14accd109231236b@65.108.15.170:26656,788bb7ee73c023f70c41360e9014544b12fe23f9@3.15.209.96:26656,26f0965f8cd53f2b3adc26f8ca5e893929b66c15@52.44.14.245:26656,4a3f59e30cde63d00aed8c3d15bef46b34ec2c7f@50.19.180.153:26656,31d742df5a427e241d1a6b1b22813c9cb4888c07@65.21.181.169:26656
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.sge/config/config.toml
 ```
 
-Node Bilgisi:
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
+
 ```
-sged status 2>&1 | jq .NodeInfo
+# Create Cosmovisor Folders
+mkdir -p ~/.sge/cosmovisor/genesis/bin
+mkdir -p ~/.sge/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/sged ~/.sge/cosmovisor/genesis/bin
 ```
 
-Node ID Göser:
+### Create Service File
+Create a `sged.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+
 ```
-sged tendermint show-node-id
+[Unit]
+Description="sged node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=sged"
+Environment="DAEMON_HOME=/home/USER/.sge"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-### Cüzdan İşlemleri
-Cüzdanları Listele:
+### Start Node Service
 ```
-sged keys list
+# Enable service
+sudo systemctl enable sged.service
+
+# Start service
+sudo service sged start
+
+# Check logs
+sudo journalctl -fu sged
 ```
 
-Mnemonic kullanarak cüzdanı kurtar:
-```
-sged keys add $SGE_WALLET --recover
-```
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-Cüzdan Silme:
-```
-sged keys delete $SGE_WALLET
-```
+> Use Ansible script to automate the node installation process
 
-Cüzdan Bakiyesi Sorgulama:
-```
-sged query bank balances $SGE_WALLET_ADDRESS
-```
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
-Cüzdandan Cüzdana Bakiye Transferi:
-```
-sged tx bank send $SGE_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000usge
-```
+> Use custom ports for each node so you can run multiple nodes on the same server
 
-### Oylama
-```
-sged tx gov vote 1 yes --from $SGE_WALLET --chain-id=$SGE_ID
-```
-
-### Stake, Delegasyon ve Ödüller
-Delegate İşlemi:
-```
-sged tx staking delegate $SGE_VALOPER_ADDRESS 10000000usge --from=$SGE_WALLET --chain-id=$SGE_ID --gas=auto --fees 250usge
-```
-
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-```
-sged tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000usge --from=$SGE_WALLET --chain-id=$SGE_ID --gas=auto --fees 250usge
-```
-
-Tüm ödülleri çek:
-```
-sged tx distribution withdraw-all-rewards --from=$SGE_WALLET --chain-id=$SGE_ID --gas=auto --fees 250usge
-```
-
-Komisyon ile ödülleri geri çekin:
-```
-sged tx distribution withdraw-rewards $SGE_VALOPER_ADDRESS --from=$SGE_WALLET --commission --chain-id=$SGE_ID
-```
-
-### Doğrulayıcı Yönetimi
-Validatör İsmini Değiştir:
-```
-sged tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$SGE_ID \
---from=$SGE_WALLET
-```
-
-Hapisten Kurtul(Unjail):
-```
-sged tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$SGE_WALLET \
-  --chain-id=$SGE_ID \
-  --gas=auto --fees 250usge
-```
-
-
-Node Tamamen Silmek:
-```
-sudo systemctl stop sged
-sudo systemctl disable sged
-sudo rm /etc/systemd/system/sge* -rf
-sudo rm $(which sged) -rf
-sudo rm $HOME/.sge* -rf
-sudo rm $HOME/sge -rf
-sed -i '/SGE_/d' ~/.bash_profile
-```
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.

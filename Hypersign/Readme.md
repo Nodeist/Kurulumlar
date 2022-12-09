@@ -2,214 +2,129 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/hypersign.png">
 </p>
 
-# Hypersign Kurulum Rehberi
-## Donanım Gereksinimleri
-Herhangi bir Cosmos-SDK zinciri gibi, donanım gereksinimleri de oldukça mütevazı.
-
-### Minimum Donanım Gereksinimleri
- - 3x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 4GB RAM
- - 80GB Disk
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-### Önerilen Donanım Gereksinimleri
- - 4x CPU; saat hızı ne kadar yüksek olursa o kadar iyi
- - 8GB RAM
- - 200 GB depolama (SSD veya NVME)
- - Kalıcı İnternet bağlantısı (testnet sırasında trafik minimum 10Mbps olacak - üretim için en az 100Mbps bekleniyor)
-
-## Hypersign Full Node Kurulum Adımları
-### Tek Script İle Otomatik Kurulum
-Aşağıdaki otomatik komut dosyasını kullanarak Hypersign fullnode'unuzu birkaç dakika içinde kurabilirsiniz.
-Script sırasında size node isminiz (NODENAME) sorulacak!
 
 
+# Hypersign Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
+
+
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
+
 ```
-wget -O HS.sh https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/Hypersign/HS && chmod +x HS.sh && ./HS.sh
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
 ```
 
-### Kurulum Sonrası Adımlar
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
 
-Doğrulayıcınızın blokları senkronize ettiğinden emin olmalısınız.
-Senkronizasyon durumunu kontrol etmek için aşağıdaki komutu kullanabilirsiniz.
 ```
-hid-noded status 2>&1 | jq .SyncInfo
-```
-
-### Cüzdan Oluşturma
-Yeni cüzdan oluşturmak için aşağıdaki komutu kullanabilirsiniz. Hatırlatıcıyı (mnemonic) kaydetmeyi unutmayın.
-```
-hid-noded keys add $HS_WALLET
-```
-
-(OPSIYONEL) Cüzdanınızı hatırlatıcı (mnemonic) kullanarak kurtarmak için:
-```
-hid-noded keys add $HS_WALLET --recover
-```
-
-Mevcut cüzdan listesini almak için:
-```
-hid-noded keys list
-```
-
-### Cüzdan Bilgilerini Kaydet
-Cüzdan Adresi Ekleyin:
-```
-HS_WALLET_ADDRESS=$(hid-noded keys show $HS_WALLET -a)
-HS_VALOPER_ADDRESS=$(hid-noded keys show $HS_WALLET --bech val -a)
-echo 'export HS_WALLET_ADDRESS='${HS_WALLET_ADDRESS} >> $HOME/.bash_profile
-echo 'export HS_VALOPER_ADDRESS='${HS_VALOPER_ADDRESS} >> $HOME/.bash_profile
-source $HOME/.bash_profile
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 ```
 
 
-### Doğrulayıcı oluştur
-Doğrulayıcı oluşturmadan önce lütfen en az 1 hid'ye sahip olduğunuzdan (1 hid 1000000 uhid'e eşittir) ve düğümünüzün senkronize olduğundan emin olun.
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
 
-Cüzdan bakiyenizi kontrol etmek için:
 ```
-hid-noded query bank balances $HS_WALLET_ADDRESS
-```
-> Cüzdanınızda bakiyenizi göremiyorsanız, muhtemelen düğümünüz hala eşitleniyordur. Lütfen senkronizasyonun bitmesini bekleyin ve ardından devam edin.
-
-Doğrulayıcı Oluşturma:
-```
-hid-noded tx staking create-validator \
-  --amount 1999000uhid \
-  --from $HS_WALLET \
-  --commission-max-change-rate "0.01" \
-  --commission-max-rate "0.2" \
-  --commission-rate "0.07" \
-  --min-self-delegation "1" \
-  --pubkey  $(hid-noded tendermint show-validator) \
-  --moniker $HS_NODENAME \
-  --chain-id $HS_ID \
-  --fees 250uhid
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 ```
 
+## Install Node
+Install the current version of node binary.
 
-
-## Kullanışlı Komutlar
-### Servis Yönetimi
-Logları Kontrol Et:
 ```
-journalctl -fu hid-noded -o cat
-```
-
-Servisi Başlat:
-```
-systemctl start hid-noded
+cd $HOME
+git clone https://github.com/hypersign-protocol/hid-node.git
+cd hid-node
+make install
 ```
 
-Servisi Durdur:
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
+
 ```
-systemctl stop hid-noded
+hypersignd init MONIKERNAME --chain-id hypersign-testnet-sirius
 ```
 
-Servisi Yeniden Başlat:
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
+
 ```
-systemctl restart hid-noded
+wget -O genesis.json https://snapshots.nodeist.net/t/hypersign/genesis.json --inet4-only
+mv genesis.json ~/.hid-node/config
 ```
 
-### Node Bilgileri
-Senkronizasyon Bilgisi:
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-hid-noded status 2>&1 | jq .SyncInfo
-```
-
-Validator Bilgisi:
-```
-hid-noded status 2>&1 | jq .ValidatorInfo
+PEERS=85279852bd306c385402185e0125dffeed36bf22@38.146.3.194:26656,09ce2d3fc0fdc9d1e879888e7d72ae0fefef6e3d@65.108.105.48:11256
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.hid-node/config/config.toml
 ```
 
-Node Bilgisi:
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
+
 ```
-hid-noded status 2>&1 | jq .NodeInfo
+# Create Cosmovisor Folders
+mkdir -p ~/.hid-node/cosmovisor/genesis/bin
+mkdir -p ~/.hid-node/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/hid-noded ~/.hid-node/cosmovisor/genesis/bin
 ```
 
-Node ID Göser:
+### Create Service File
+Create a `hid-noded.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+
 ```
-hid-noded tendermint show-node-id
+[Unit]
+Description="hid-noded node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=hid-noded"
+Environment="DAEMON_HOME=/home/USER/.hid-node"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-### Cüzdan İşlemleri
-Cüzdanları Listele:
+### Start Node Service
 ```
-hid-noded keys list
+# Enable service
+sudo systemctl enable hid-noded.service
+
+# Start service
+sudo service hid-noded start
+
+# Check logs
+sudo journalctl -fu hid-noded
 ```
 
-Mnemonic kullanarak cüzdanı kurtar:
-```
-hid-noded keys add $HS_WALLET --recover
-```
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-Cüzdan Silme:
-```
-hid-noded keys delete $HS_WALLET
-```
+> Use Ansible script to automate the node installation process
 
-Cüzdan Bakiyesi Sorgulama:
-```
-hid-noded query bank balances $HS_WALLET_ADDRESS
-```
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
-Cüzdandan Cüzdana Bakiye Transferi:
-```
-hid-noded tx bank send $HS_WALLET_ADDRESS <TO_WALLET_ADDRESS> 10000000uhid
-```
+> Use custom ports for each node so you can run multiple nodes on the same server
 
-### Oylama
-```
-hid-noded tx gov vote 1 yes --from $HS_WALLET --chain-id=$HS_ID
-```
-
-### Stake, Delegasyon ve Ödüller
-Delegate İşlemi:
-```
-hid-noded tx staking delegate $HS_VALOPER_ADDRESS 10000000uhid --from=$HS_WALLET --chain-id=$HS_ID --gas=auto --fees 250uhid
-```
-
-Payını doğrulayıcıdan başka bir doğrulayıcıya yeniden devretme:
-```
-hid-noded tx staking redelegate <srcValidatorAddress> <destValidatorAddress> 10000000uhid --from=$HS_WALLET --chain-id=$HS_ID --gas=auto --fees 250uhid
-```
-
-Tüm ödülleri çek:
-```
-hid-noded tx distribution withdraw-all-rewards --from=$HS_WALLET --chain-id=$HS_ID --gas=auto --fees 250uhid
-```
-
-Komisyon ile ödülleri geri çekin:
-```
-hid-noded tx distribution withdraw-rewards $HS_VALOPER_ADDRESS --from=$HS_WALLET --commission --chain-id=$HS_ID
-```
-
-### Doğrulayıcı Yönetimi
-Validatör İsmini Değiştir:
-```
-hid-noded tx staking edit-validator \
---moniker=NEWNODENAME \
---chain-id=$HS_ID \
---from=$HS_WALLET
-```
-
-Hapisten Kurtul(Unjail):
-```
-hid-noded tx slashing unjail \
-  --broadcast-mode=block \
-  --from=$HS_WALLET \
-  --chain-id=$HS_ID \
-  --gas=auto --fees 250uhid
-```
-
-
-Node Tamamen Silmek:
-```
-sudo systemctl stop hid-noded
-sudo systemctl disable hid-noded
-sudo rm /etc/systemd/system/hid-node* -rf
-sudo rm $(which hid-noded) -rf
-sudo rm $HOME/.hid-node* -rf
-sudo rm $HOME/hid-node -rf
-sed -i '/HS_/d' ~/.bash_profile
-```
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.
