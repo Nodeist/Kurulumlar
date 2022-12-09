@@ -1,10 +1,10 @@
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/kujira.png">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/neutron.png">
 </p>
 
 
 
-# Kujira Snapshot Setup
+# Neutron Snapshot Setup
 We take node snapshot daily.
 Every Night at 00:00 UTC+3
 
@@ -17,22 +17,22 @@ sudo snap install lz4
 
 ### Stop your node
 ```
-sudo systemctl stop kujirad
+sudo systemctl stop neutrond
 ```
 
 ### Reset your node
 This will erase your node database. If you are already running validator, be sure you backed up your `priv_validator_key.json` prior to running the the command.
 
 ```
-kujirad tendermint unsafe-reset-all --home $HOME/.kujira --keep-addr-book
+neutrond tendermint unsafe-reset-all --home $HOME/.neutrond --keep-addr-book
 ```
 
 ### Download & Install the snapshot
 ```
-curl -L https://snap.nodeist.net/kujira/kujira.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.kujira --strip-components 2
+curl -L https://snap.nodeist.net/t/neutron/neutron.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.neutrond --strip-components 2
 ```
 
 ### Restart Service & Check Log:
 ```
-sudo systemctl start kujirad && journalctl -u kujirad -f --no-hostname -o cat
+sudo systemctl start neutrond && journalctl -u neutrond -f --no-hostname -o cat
 ```

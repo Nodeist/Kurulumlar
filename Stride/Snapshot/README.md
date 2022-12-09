@@ -6,6 +6,7 @@
 
 # Stride Snapshot Setup
 We take node snapshot daily.
+Every Night at 00:00 UTC+3
 
 ### Install lz4 (if needed)
 ```
