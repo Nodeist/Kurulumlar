@@ -4,8 +4,6 @@
 
 
 # Gitopia State Sync
-Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
-
 ```
 systemctl stop gitopiad
 gitopiad tendermint unsafe-reset-all --home $HOME/.gitopia --keep-addr-book

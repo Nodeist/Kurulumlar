@@ -4,8 +4,6 @@
 
 
 # Defund State Sync
-Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
-
 ```
 systemctl stop defundd
 defundd tendermint unsafe-reset-all --home $HOME/.defund --keep-addr-book

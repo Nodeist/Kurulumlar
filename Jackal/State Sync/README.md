@@ -4,8 +4,6 @@
 
 
 # Jackal State Sync
-Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
-
 ```
 systemctl stop canined
 canined tendermint unsafe-reset-all --home $HOME/.canine --keep-addr-book

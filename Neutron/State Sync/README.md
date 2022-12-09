@@ -4,8 +4,6 @@
 
 
 # Neutron State Sync
-Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
-
 ```
 systemctl stop neutrond
 neutrond tendermint unsafe-reset-all --home $HOME/.neutrond --keep-addr-book

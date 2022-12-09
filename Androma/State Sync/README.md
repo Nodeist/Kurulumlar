@@ -4,8 +4,6 @@
 
 
 # Androma State Sync
-Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
-
 ```
 systemctl stop andromad
 andromad tendermint unsafe-reset-all --home $HOME/.androma --keep-addr-book

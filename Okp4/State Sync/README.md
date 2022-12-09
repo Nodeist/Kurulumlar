@@ -4,8 +4,6 @@
 
 
 # Okp4 State Sync
-Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
-
 ```
 systemctl stop okp4d
 okp4d tendermint unsafe-reset-all --home $HOME/.okp4d --keep-addr-book
