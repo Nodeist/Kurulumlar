@@ -8,7 +8,7 @@
 We take node snapshot daily.
 Every Night at 00:00 UTC+3
 
-You can browse the [logs](https://snap.nodeist.net/t/realio/log.txt) for current snapshot date, block height, and file size information.
+You can browse the [logs](https://snap.nodeist.net/t/realio-network/log.txt) for current snapshot date, block height, and file size information.
 
 ### Install lz4 (if needed)
 ```
