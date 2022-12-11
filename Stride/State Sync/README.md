@@ -3,7 +3,7 @@
 </p>
 
 
-# Strided State Sync
+# Stride State Sync
 ```
 systemctl stop strided
 strided tendermint unsafe-reset-all --home $HOME/.stride --keep-addr-book
