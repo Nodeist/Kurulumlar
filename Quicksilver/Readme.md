@@ -52,7 +52,7 @@ sudo chmod +x /usr/local/bin/quicksilverd
 Please replace `MONIKERNAME` with your own moniker.
 
 ```
-quicksilverd init MONIKERNAME --chain-id innuendo-3
+quicksilverd init MONIKERNAME --chain-id innuendo-4
 ```
 
 ### Download Genesis
