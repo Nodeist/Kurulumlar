@@ -5,8 +5,7 @@
 
 
 # Hypersign Snapshot Setup
-We take node snapshot daily.
-Every Night at 00:00 UTC+3
+We take node snapshot every night at 00:00 UTC+3
 
 You can browse the [logs](https://snap.nodeist.net/t/hid-node/log.txt) for current snapshot date, block height, and file size information.
 
