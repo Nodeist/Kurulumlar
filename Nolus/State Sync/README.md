@@ -16,6 +16,13 @@ s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.nolus/config/config.toml
 ```
+The above `unsafe-reset-all` command reset your `wasm` folder inside the data folder. You can download our `wasm` folder to fix it.
+```
+rm -r ~/.nolus/data/wasm
+wget -O wasmonly.tar.lz4 https://snapshots.nodeist.net/t/nolus/wasmonly.tar.lz4 --inet4-only
+lz4 -c -d wasmonly.tar.lz4  | tar -x -C $HOME/.nolus/data
+rm wasmonly.tar.lz4
+```
 
 Restart the node:
 ```
