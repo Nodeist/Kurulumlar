@@ -43,7 +43,7 @@ Install the current version of node binary.
 cd $HOME
 git clone https://github.com/terpnetwork/terp-core.git
 cd terp-core
-git checkout v0.1.0
+git checkout v0.2.0
 make install
 ```
 
