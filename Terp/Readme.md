@@ -52,7 +52,7 @@ make install
 Please replace `MONIKERNAME` with your own moniker.
 
 ```
-terpd init MONIKERNAME --chain-id athena-2
+terpd init MONIKERNAME --chain-id athena-3
 ```
 
 ### Download Genesis
