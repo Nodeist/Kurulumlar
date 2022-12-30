@@ -43,7 +43,7 @@ Install the current version of node binary.
 cd $HOME
 git clone https://github.com/terpnetwork/terp-core.git
 cd terp-core
-git checkout v0.1.0
+git checkout v0.2.0
 make install
 ```
 
@@ -52,7 +52,7 @@ make install
 Please replace `MONIKERNAME` with your own moniker.
 
 ```
-terpd init MONIKERNAME --chain-id athena-2
+terpd init MONIKERNAME --chain-id athena-3
 ```
 
 ### Download Genesis
