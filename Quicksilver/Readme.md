@@ -42,7 +42,7 @@ Install the current version of node binary.
 ```
 cd $HOME
 rm quicksilver -rf
-sudo wget -O quicksilverd https://github.com/ingenuity-build/testnets/releases/download/v0.10.5/quicksilverd-v0.10.8-amd64
+sudo wget -O quicksilverd https://github.com/ingenuity-build/quicksilver/releases/download/v1.1.0-innuendo/quicksilverd-v1.1.0-innuendo-amd64
 mv quicksilverd /usr/local/bin/quicksilverd
 sudo chmod +x /usr/local/bin/quicksilverd
 ```
