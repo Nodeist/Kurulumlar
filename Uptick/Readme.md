@@ -1,0 +1,132 @@
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/uptick.png">
+</p>
+
+
+
+# Uptick Node Installation Guide
+Feel free to skip this step if you already have Go and Cosmovisor.
+
+
+## Install Go
+We will use Go `v1.19.3` as example here. The code below also cleanly removes any previous Go installation.
+
+```
+sudo rm -rvf /usr/local/go/
+wget https://golang.org/dl/go1.19.3.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+rm go1.19.3.linux-amd64.tar.gz
+```
+
+### Configure Go
+Unless you want to configure in a non-standard way, then set these in the `~/.profile` file.
+
+```
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+```
+
+
+### Install Cosmovisor
+We will use Cosmovisor `v1.0.0` as example here.
+
+```
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
+```
+
+## Install Node
+Install the current version of node binary.
+
+```
+cd $HOME
+rm -rf uptick
+git clone https://github.com/UptickNetwork/uptick.git
+cd uptick
+git checkout v0.2.4
+make build
+```
+
+## Configure Node
+### Initialize Node
+Please replace `MONIKERNAME` with your own moniker.
+
+```
+uptickd init MONIKERNAME --chain-id uptick_7000-2
+```
+
+### Download Genesis
+The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
+
+```
+wget -O genesis.json https://snapshots.nodeist.net/t/uptick/genesis.json --inet4-only
+mv genesis.json ~/.uptickd/config
+```
+
+### Configure Peers
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
+```
+PEERS=ad563c8036250cb34f3e822280ead9c59c9537d3@185.239.209.124:31656,c32b90dee067d3dce129d1765c54d926ea270fb7@146.148.7.75:15656,5badbf826e75a2afc216023dd2e7b8ad0eeb9fa6@136.243.88.91:7060,7849e4320385434b0828a3e0206a3b69767393f6@65.109.91.227:26656,3ac3a67c7caf0263d794eff6c6759fa32a986309@65.109.49.111:46656,1c66685cbf5c8dc0a739eb57c896d35eb2eed17c@141.94.139.233:28656,18f89c33d7a070ad1dcde227f4a3dcfb435c6c7f@89.117.49.65:26656,6b5375296e81501b0db0a34a7a04f39520400214@65.108.45.200:27565,099077c1ee8139e38f2c7961ae41ac3554cf67a1@85.190.254.14:15656,1eee80b5cda2b1c3bcab199d9aca24f48cb903da@46.4.121.72:15656,eabf0b54204ef9a881665c6884ebfee86922c915@35.239.229.233:15656,e8704845eaa0f3d39fcdc9c4065f3beb344384db@142.132.152.46:27656,d5bad0f321d477eb4bb01474db90ebb1dbc03bc4@35.240.90.251:26656,8f6fbc1a1119f5827e1768aca3577724460fb61f@157.90.213.40:26656,7d0f2b6860cb1b8fd522a466970c8385da2c89a3@65.108.232.174:15656,f98d3a7fef176406e84c5c9a8dd0698fc3dee5b1@83.171.249.165:31656,29f6fee3545bd63cc7abf46c05d82d952d3d112d@38.242.216.89:26656,1e34e47eeaaa8f78f3d866ef4ce43a1d224dcdef@185.193.66.67:31656,78fa616bb67efd86e48529fde26309681ee213b6@65.108.199.222:26636,7a1f08486cd519270b3aeab7c6c4abf2cc07d22b@46.17.250.145:60856,1f96655ed716ecace89f06f10bc10fad14b9fe61@51.89.232.234:27916,2d892493335b4bb1582dabcaa1e832bcba041e79@95.217.4.62:26656,45f58ce671967a10933ea3e2279be03f0ebcb42c@85.114.134.219:16656,0afb5ce897e69eec34fb32bf87f4a2f93f79e0b3@65.109.65.210:30656,cbc8bb35fc3972366a93cacf094a695da7e5f2fe@34.122.18.10:15656,b1d03edfc52afefb44b706f7a2c33c6a978a48f2@65.109.92.166:15656,e235147df1089a6d2bec6132af6512cfc859791e@65.21.225.58:27656,b9d3fe835ded0b93c39befad43fb3c4964ae740f@91.195.101.100:26656,5d540990a9fd7f36584f1473bf2a5746ffffece4@65.108.13.185:27464,d3441672ea7cc417449ea8e49b4b29fb06a3c869@85.239.244.129:26656,a6168ac0c8ed11eeeffd75154d64c2fb3de433b1@65.109.88.180:30656,20aaf646f9c766a8b81d838554ba6e593122ed1f@46.4.122.236:36656,a3b3712dfd366c5c39f6a6b3265c88c4166da86a@161.97.93.245:26661,b483acbcae7ccd1244f588144245e9d1124c3de5@88.99.56.200:26666,b724c8cb32bac64cbeb6bbde5906ecd5bb111feb@149.102.142.198:31656,38fc28d774d8a0abb405c1440880928bdb4aab2d@142.132.199.236:15656,40a93c4be9e2dcb155d60e174c0e00d6808283e7@65.109.52.56:26656,e9b37cb6a5743ca1793af119f53b91cf5892fb45@65.109.88.251:34656,49c9876d8ad31ccfd3a169fa93d568ceec946476@65.108.229.46:26656,1bb6d67af0dd1d452e294e9df430d07bccefe502@185.215.167.241:26656,570a72436a64ecf88e1dc51d7804fae114e12fff@162.55.245.219:15656,c7494393eefd3e7e87a49884f5a8bdbe74e552d5@176.124.31.151:26656,d15d0b19bcdf7ffa592b04de5362f5def6b20aa0@65.21.204.46:26667,9b7b2fb9d1416f9feadf5a58b29de0bc150d974d@37.187.144.187:26656,821cec653e1bdcd6e0ea7db62ddc65e7dae9fc5b@190.2.136.58:26656,7dace139a0389ca95c5eda64ddf19a01e6d60d02@95.214.52.206:26656,33de15e925c8bd20f01413b9fcf44562b488eb85@65.108.234.11:15656,f58fd7ff25183e7e0dc3c35e667641129a8bc2cd@144.76.27.79:26656,40ffd59440b11d63bfb8e20cfed5b36f282a06b3@154.12.238.247:31656,e213d0a9c203c45e8bf89bd2247b1ba1d2b3691b@185.239.208.131:31656
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.uptickd/config/config.toml
+```
+
+## Launch Node
+### Configure Cosmovisor Folder
+Create Cosmovisor folders and load the node binary.
+
+```
+# Create Cosmovisor Folders
+mkdir -p ~/.uptickd/cosmovisor/genesis/bin
+mkdir -p ~/.uptickd/cosmovisor/upgrades
+
+# Load Node Binary into Cosmovisor Folder
+cp ~/go/bin/uptickd ~/.uptickd/cosmovisor/genesis/bin
+```
+
+### Create Service File
+Create a `uptickd.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+
+```
+[Unit]
+Description="uptickd node"
+After=network-online.target
+
+[Service]
+User=USER
+ExecStart=/home/USER/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+Environment="DAEMON_NAME=uptickd"
+Environment="DAEMON_HOME=/home/USER/.uptickd"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
+```
+
+### Start Node Service
+```
+# Enable service
+sudo systemctl enable uptickd.service
+
+# Start service
+sudo service uptickd start
+
+# Check logs
+sudo journalctl -fu uptickd
+```
+
+# Other Considerations
+This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
+
+> Use Ansible script to automate the node installation process
+
+> Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
+
+> Use custom ports for each node so you can run multiple nodes on the same server
+
+> If you find a bug in this installation guide, please reach out to our [Discord Server](https://discord.gg/yV2nEunsTY) and let us know.
