@@ -121,7 +121,7 @@ sudo journalctl -fu gitopiad
 # Other Considerations
 This installation guide is the bare minimum to get a node started. You should consider the following as you become a more experienced node operator.
 
-> Use Ansible script to automate the node installation process
+
 
 > Configure firewall to close most ports while only leaving the p2p port (typically 26656) open
 
