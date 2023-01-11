@@ -3,9 +3,8 @@
 </p>
 
 # Chain upgrade to v0.4.3
-> **Note** **Block Countdown can be found [here](https://lava.explorers.guru/block/22300)**
+> **Block Countdown can be found [here](https://lava.explorers.guru/block/22300)**
 
-## Upgrade
 Once the chain reaches the upgrade height, you will encounter the following panic error message:\
 `ERR UPGRADE "xxx" NEEDED at height: 22300`
 ```
