@@ -1,18 +1,30 @@
-<p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/mars.png">
-</p>
+cd /var/www/html/snap/t/mars/
+du -h mars.tar.lz4 | tee -a /var/www/html/snap/t/mars/log.txt
+cd
 
+sleep 2
 
-# Mars Live Peers
-Here is a list of active peers. Add them to your `config.toml` if you have trouble finding peers.
-```
-b60d9649dd154c169dcf08f47af7c1528c159818@104.248.41.168,7342199e80976b052d8506cc5a56d1f9a1cbb486@65.21.89.54:65.21.89.54:26653,719cf7e8f7640a48c782599475d4866b401f2d34@51.254.197.170,9847d03c789d9c87e84611ebc3d6df0e6123c0cc@91.194.30.203,cec7501f438e2700573cdd9d45e7fb5116ba74b9@176.9.51.55,fe8d614aa5899a97c11d0601ef50c3e7ce17d57b@65.108.233.109,e12bc490096d1b5f4026980f05a118c82e81df2a@85.17.6.142,6bf4d284761f63d9c609deb1cb37d74d43b6aca7@207.180.253.242,8f50c04195cc82d0da34e33cfeb0daa694b14479@65.108.105.48
-```
+systemctl stop marsd
+cd $HOME/cosmprund
+./build/cosmprund prune ~/.mars/data
+cd
+tar -cf - $HOME/.mars/data | lz4 - /var/www/html/snap/t/mars/mars.tar.lz4 -f
+sudo systemctl start marsd
 
-Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
+rm -rf /var/www/html/snap/t/mars/log.txt
+set -e
+now_date() {
+    echo -n $(TZ=":Europe/Moscow" date '+%d-%m-%Y')
+}
+log_this() {
+    YEL='\033[1;33m' # yellow
+    NC='\033[0m'     # No Color
+    local logging="$@"
+    printf "|$(now_date)| $logging\n" | tee -a /var/www/html/snap/t/mars/log.txt
+}
 
-```
-PEERS=b60d9649dd154c169dcf08f47af7c1528c159818@104.248.41.168,7342199e80976b052d8506cc5a56d1f9a1cbb486@65.21.89.54:65.21.89.54:26653,719cf7e8f7640a48c782599475d4866b401f2d34@51.254.197.170,9847d03c789d9c87e84611ebc3d6df0e6123c0cc@91.194.30.203,cec7501f438e2700573cdd9d45e7fb5116ba74b9@176.9.51.55,fe8d614aa5899a97c11d0601ef50c3e7ce17d57b@65.108.233.109,e12bc490096d1b5f4026980f05a118c82e81df2a@85.17.6.142,6bf4d284761f63d9c609deb1cb37d74d43b6aca7@207.180.253.242,8f50c04195cc82d0da34e33cfeb0daa694b14479@65.108.105.48
-sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.mars/config/config.toml
-
-```
+LAST_BLOCK_HEIGHT=$(curl -s https://mars-testnet.nodejumper.io:443/status | jq -r .result.sync_info.latest_block_height)
+log_this "LAST_BLOCK_HEIGHT ${LAST_BLOCK_HEIGHT}"
+cd /var/www/html/snap/t/mars/
+du -h mars.tar.lz4 | tee -a /var/www/html/snap/t/mars/log.txt
+cd

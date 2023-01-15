@@ -66,7 +66,7 @@ mv genesis.json ~/.defund/config
 ### Configure Peers
 Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-PEERS=85279852bd306c385402185e0125dffeed36bf22@38.146.3.194:26656,09ce2d3fc0fdc9d1e879888e7d72ae0fefef6e3d@65.108.105.48:11256
+PEERS=6366ac3af3995ecbc48c13ce9564aef0c7a6d7df@defund-testnet.nodejumper.io:28656,f03f3a18bae28f2099648b1c8b1eadf3323cf741@162.55.211.136:26656,a9c52398d4ea4b3303923e2933990f688c593bd8@157.90.208.222:36656,b136caf667b9cb81de8c1858de300376d7a0ee0f@65.21.53.39:46656,a56c51d7a130f33ffa2965a60bee938e7a60c01f@142.132.158.4:10656,51c8bb36bfd184bdd5a8ee67431a0298218de946@57.128.80.37:26656,e47e5e7ae537147a23995117ea8b2d4c2a408dcb@172.104.159.69:45656,b2521331cc7ef94374208aae2c1ed8a3dcdd811b@95.217.118.100:28656,2b76e96658f5e5a5130bc96d63f016073579b72d@51.91.215.40:45656,f8093378e2e5e8fc313f9285e96e70a11e4b58d5@141.94.73.39:45656
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.defund/config/config.toml
 ```
 
