@@ -43,7 +43,7 @@ Install the current version of node binary.
 cd $HOME
 git clone https://github.com/defund-labs/defund.git
 cd defund
-git checkout v0.1.0
+git checkout v0.2.2
 make install
 ```
 
@@ -52,7 +52,7 @@ make install
 Please replace `MONIKERNAME` with your own moniker.
 
 ```
-defundd init MONIKERNAME --chain-id defund-private-2
+defundd init MONIKERNAME --chain-id defund-private-4
 ```
 
 ### Download Genesis
