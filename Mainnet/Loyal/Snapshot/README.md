@@ -7,7 +7,7 @@
 # Loyal Snapshot Setup
 We take node snapshot every night at 00:00 UTC+3
 
-You can browse the [logs](https://snap.nodeist.net/t/loyal/log.txt) for current snapshot date, block height, and file size information.
+You can browse the [logs](https://snap.nodeist.net/loyal/log.txt) for current snapshot date, block height, and file size information.
 
 ### Install lz4 (if needed)
 ```
@@ -30,7 +30,7 @@ loyald tendermint unsafe-reset-all --home $HOME/.loyal --keep-addr-book
 
 ### Download & Install the snapshot
 ```
-curl -L https://snap.nodeist.net/t/loyal/loyal.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.loyal --strip-components 2
+curl -L https://snap.nodeist.net/loyal/loyal.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.loyal --strip-components 2
 ```
 
 ### Restart Service & Check Log:

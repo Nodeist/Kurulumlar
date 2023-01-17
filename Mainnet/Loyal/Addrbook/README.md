@@ -13,6 +13,6 @@ Stop your node, download and replace your `addrbook.json` with the steps below, 
 
 
 ```
-wget -O addrbook.json https://snapshots.nodeist.net/t/loyal/addrbook.json --inet4-only
+wget -O addrbook.json https://snapshots.nodeist.net/loyal/addrbook.json --inet4-only
 mv addrbook.json ~/.loyal/config
 ```
