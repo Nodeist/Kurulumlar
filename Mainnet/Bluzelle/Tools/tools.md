@@ -1,8 +1,8 @@
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/bluezelle.png">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/bluzelle.png">
 </p>
 
-# Bluezelle Useful Tools
+# Bluzelle Useful Tools
 ## Always Vote No
 Create a reusable shell script such as Always_Vote_No.sh with the following code and then run the script.
 ```

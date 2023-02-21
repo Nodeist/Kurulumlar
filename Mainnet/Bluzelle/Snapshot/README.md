@@ -1,13 +1,13 @@
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/bluezelle.png">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/bluzelle.png">
 </p>
 
 
 
-# Bluezelle Snapshot Setup
+# Bluzelle Snapshot Setup
 We take node snapshot every night at 00:00 UTC+3
 
-You can browse the [logs](https://snap.nodeist.net/bluezelle/log.txt) for current snapshot date, block height, and file size information.
+You can browse the [logs](https://snap.nodeist.net/bluzelle/log.txt) for current snapshot date, block height, and file size information.
 
 ### Install lz4 (if needed)
 ```
@@ -30,7 +30,7 @@ curiumd tendermint unsafe-reset-all --home $HOME/.curium --keep-addr-book
 
 ### Download & Install the snapshot
 ```
-curl -L https://snap.nodeist.net/bluezelle/bluezelle.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.curium --strip-components 2
+curl -L https://snap.nodeist.net/bluzelle/bluzelle.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.curium --strip-components 2
 ```
 
 ### Restart Service & Check Log:

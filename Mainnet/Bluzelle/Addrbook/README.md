@@ -1,9 +1,9 @@
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/bluezelle.png">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/bluzelle.png">
 </p>
 
 
-# Addrbook for Bluezelle
+# Addrbook for Bluzelle
 
 Sometimes node operators will face peering issues with the rest of the network. Often it can be solved with a good seed node or a list of stable persistent peers.
 
@@ -13,6 +13,6 @@ Stop your node, download and replace your `addrbook.json` with the steps below, 
 
 
 ```
-wget -O addrbook.json https://snapshots.nodeist.net/bluezelle/addrbook.json --inet4-only
+wget -O addrbook.json https://snapshots.nodeist.net/bluzelle/addrbook.json --inet4-only
 mv addrbook.json ~/.curium/config
 ```

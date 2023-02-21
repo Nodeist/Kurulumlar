@@ -1,10 +1,10 @@
 <p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/bluezelle.png">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/bluzelle.png">
 </p>
 
 
 
-# Bluezelle Node Installation Guide
+# Bluzelle Node Installation Guide
 Feel free to skip this step if you already have Go and Cosmovisor.
 
 
@@ -53,14 +53,14 @@ ignite chain serve -f -v
 Please replace `MONIKERNAME` with your own moniker.
 
 ```
-curiumd init MONIKERNAME --chain-id bluezelle-8
+curiumd init MONIKERNAME --chain-id bluzelle-8
 ```
 
 ### Download Genesis
 The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
 
 ```
-wget -O genesis.json https://snapshots.nodeist.net/bluezelle/genesis.json --inet4-only
+wget -O genesis.json https://snapshots.nodeist.net/bluzelle/genesis.json --inet4-only
 mv genesis.json ~/.curium/config
 ```
 
