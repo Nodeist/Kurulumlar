@@ -1,3 +1,7 @@
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/ojo.png">
+</p>
+
 
 <h1 align="center"> Install price-feeder</h1> 
 
