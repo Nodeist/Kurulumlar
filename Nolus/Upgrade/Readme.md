@@ -2,7 +2,7 @@
   <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/nolus.png">
 </p>
 
-# Cosmos Hub v9.0.0 Upgrade
+# Nolus Upgrade 
 > **Block Countdown can be found [here](https://nolus.explorers.guru/block/1327000)**
 
 
