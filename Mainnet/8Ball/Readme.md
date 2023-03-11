@@ -1,9 +1,3 @@
-<p align="center">
-  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/8ball.png">
-</p>
-
-
-
 # 8Ball Node Installation Guide
 Feel free to skip this step if you already have Go and Cosmovisor.
 
