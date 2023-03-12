@@ -1,3 +1,7 @@
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/8ball.png">
+</p>
+
 # Genesis Mirror Download for 8Ball
 
 The best place to download a chain genesis file is through its official hosting site (typically GitHub) as documented in the official doc. We offer a mirror download in case the official hosting site is down.

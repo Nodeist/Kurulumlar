@@ -1,3 +1,7 @@
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/8ball.png">
+</p>
+
 # 8Ball State Sync
 ```
 systemctl stop 8ball

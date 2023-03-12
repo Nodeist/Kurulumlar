@@ -1,3 +1,7 @@
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/8ball.png">
+</p>
+
 # 8Ball Live Peers
 Here is a list of active peers. Add them to your `config.toml` if you have trouble finding peers.
 ```

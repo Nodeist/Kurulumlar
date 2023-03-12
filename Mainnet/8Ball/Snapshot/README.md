@@ -1,3 +1,7 @@
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/8ball.png">
+</p>
+
 # 8Ball Snapshot Setup
 We take node snapshot every night at 00:00 UTC+3
 
