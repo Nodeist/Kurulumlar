@@ -40,11 +40,9 @@ go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
 Install the current version of node binary.
 
 ```
-cd $HOME
-wget https://files.kyve.network/chain/v1.0.0-rc0/kyved_linux_amd64.tar.gz
+wget https://github.com/KYVENetwork/chain/releases/download/v1.0.0/kyved_linux_amd64.tar.gz
 tar -xvzf kyved_linux_amd64.tar.gz
-sudo mv chaind kyved
-sudo chmod +x kyved
+chmod +x kyved
 sudo mv kyved $HOME/go/bin/kyved
 rm kyved_linux_amd64.tar.gz
 ```
@@ -54,21 +52,21 @@ rm kyved_linux_amd64.tar.gz
 Please replace `MONIKERNAME` with your own moniker.
 
 ```
-kyved init MONIKERNAME --chain-id kaon-1
+kyved init MONIKERNAME --chain-id kyve-1
 ```
 
 ### Download Genesis
 The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
 
 ```
-wget -O genesis.json https://snapshots.nodeist.net/t/kyvekaon/genesis.json --inet4-only
+wget -O genesis.json https://snapshots.nodeist.net/kyve/genesis.json --inet4-only
 mv genesis.json ~/.kyve/config
 ```
 
 ### Configure Peers
 Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-PEERS=a16f15669692ac66d1eed3e32485077abdf4b08c@161.97.98.83:26656,e215ad0f0664a121efdd627cb580a5312bb6dd1f@65.109.104.171:28656,1a9a719766a43bac6949770362e0e742af0fa7de@135.181.214.190:26658,5e4396a64a069227e25cb34b35eda9693c8ec260@185.172.191.11:26656,1fa8c846f0bebaf6d1ddf803569709e3965f1999@185.144.99.33:26656,782359e3c4d543a605fda2cdbda4a439cb5a0bac@162.55.245.142:26656
+PEERS=7b3e38a97fdbebe73fd977d7da420019925a80cd@192.168.29.248:26656,100e5f097ebb73ecf0df415e419f3319cfc8458c@167.99.141.216:26656,f645af14c553021f838115caacd6f530a54233fa@192.168.1.177:26656,0fe8e7419225639ec2775e52952dfe74534275c5@135.181.215.62:26656,31afcf1856538f28afcc11e9ce78d32e981ab4ff@10.92.47.216:26656
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.kyve/config/config.toml
 ```
 

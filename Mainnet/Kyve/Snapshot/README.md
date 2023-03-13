@@ -7,7 +7,7 @@
 # Kyve Snapshot Setup
 We take node snapshot every night at 00:00 UTC+3
 
-You can browse the [logs](https://snap.nodeist.net/t/kyve/log.txt) for current snapshot date, block height, and file size information.
+You can browse the [logs](https://snap.nodeist.net/kyve/log.txt) for current snapshot date, block height, and file size information.
 
 ### Install lz4 (if needed)
 ```
@@ -30,7 +30,7 @@ kyved tendermint unsafe-reset-all --home $HOME/.kyve --keep-addr-book
 
 ### Download & Install the snapshot
 ```
-curl -L https://snap.nodeist.net/t/kyve/kyve.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.kyve --strip-components 2
+curl -L https://snap.nodeist.net/kyve/kyve.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.kyve --strip-components 2
 ```
 
 ### Restart Service & Check Log:
