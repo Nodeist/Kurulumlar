@@ -43,7 +43,7 @@ Install the current version of node binary.
 cd $HOME
 git clone https://github.com/Stride-Labs/stride.git
 cd stride
-git checkout v6.0.0
+git checkout v7.0.0
 make install
 ```
 
