@@ -1,0 +1,17 @@
+<p align="center">
+  <img height="100" height="auto" src="https://raw.githubusercontent.com/Nodeist/Kurulumlar/main/logos/coreum.png">
+</p>
+
+
+# Coreum Live Peers
+Here is a list of active peers. Add them to your `config.toml` if you have trouble finding peers.
+```
+8cedd961a72c183686e9b0b67b6e54fccd6471c3@35.194.10.107:26656,81e76bc013acbb2048e7acfb2ab04d80732a3699@34.122.166.246:26656,55cec213e8f3738d2642147d857afab93b1a4ef6@34.172.192.61:26656,62b207017a272a1452ebe7e67018a4f6be1146d8@34.172.201.60:26656,094189cad7921baf44c280ee8efed959869f3a22@34.66.215.21:26656,d65085259afd2065796bba7430d61fe85042e1c3@190.92.219.25:26656,eeb17ff4b1dad8d20fdafc339c277f7a624bb84a@35.238.253.76:26656,92b67a34dbda739a92cd04561ac8c33bfa858477@34.67.59.88:26656,2505072cc9586c0c4fafa092a2352123d8c12936@34.28.225.76:26656
+```
+
+Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
+
+```
+PEERS=8cedd961a72c183686e9b0b67b6e54fccd6471c3@35.194.10.107:26656,81e76bc013acbb2048e7acfb2ab04d80732a3699@34.122.166.246:26656,55cec213e8f3738d2642147d857afab93b1a4ef6@34.172.192.61:26656,62b207017a272a1452ebe7e67018a4f6be1146d8@34.172.201.60:26656,094189cad7921baf44c280ee8efed959869f3a22@34.66.215.21:26656,d65085259afd2065796bba7430d61fe85042e1c3@190.92.219.25:26656,eeb17ff4b1dad8d20fdafc339c277f7a624bb84a@35.238.253.76:26656,92b67a34dbda739a92cd04561ac8c33bfa858477@34.67.59.88:26656,2505072cc9586c0c4fafa092a2352123d8c12936@34.28.225.76:26656
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.core/coreum-mainnet-1/config/config.toml
+```
