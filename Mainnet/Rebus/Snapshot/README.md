@@ -7,7 +7,6 @@
 # Rebus Snapshot Setup
 We take node snapshot every night at 00:00 UTC+3
 
-You can browse the [logs](https://snap.nodeist.net/rebus/log.txt) for current snapshot date, block height, and file size information.
 
 ### Install lz4 (if needed)
 ```
