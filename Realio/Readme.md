@@ -43,7 +43,7 @@ Install the current version of node binary.
 cd $HOME
 git clone https://github.com/realiotech/realio-network.git
 cd realio
-git checkout v0.6.2
+git checkout v0.8.0
 make install
 ```
 
@@ -52,7 +52,7 @@ make install
 Please replace `MONIKERNAME` with your own moniker.
 
 ```
-realio-networkd init MONIKERNAME --chain-id realionetwork_1110-2
+realio-networkd init MONIKERNAME --chain-id realionetwork_3300-1
 ```
 
 ### Download Genesis
@@ -66,7 +66,7 @@ mv genesis.json ~/.realio-network/config
 ### Configure Peers
 Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-PEERS=13de8696c1a4211beb99896408cb0e9b5c174bac@65.109.34.9:65.109.34.9:36656,aa194e9f9add331ee8ba15d2c3d8860c5a50713f@143.110.230.177:26656
+PEERS=1cd70318b6a103cead4ee9e917ef927bc7889ca0@165.232.100.101:26656
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.realio-network/config/config.toml
 ```
 
