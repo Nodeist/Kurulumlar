@@ -291,7 +291,7 @@ sudo rm /etc/systemd/system/humansd.service
 sudo systemctl daemon-reload
 rm -f $(which humansd)
 rm -rf $HOME/.humansd
-rm -rf $HOME/canine-chain
+rm -rf $HOME/humans
 ```
 
 ## ⚙️ Service Management

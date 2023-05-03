@@ -35,10 +35,10 @@ Install the current version of node binary.
 
 ```
 cd $HOME
-rm -rf noisd
-git clone https://github.com/noislabs/noisd.git
-cd noisd
-git checkout v1.0.0
+rm -rf ojo
+git clone https://github.com/ojo-network/ojo
+cd ojo || return
+git checkout v0.1.2
 make install
 ```
 
@@ -47,22 +47,22 @@ make install
 Please replace `MONIKERNAME` with your own moniker.
 
 ```
-noisd init MONIKERNAME --chain-id nois-1
+ojod init MONIKERNAME --chain-id ojo-devnet
 ```
 
 ### Download Genesis
 The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
 
 ```
-wget -O genesis.json https://ss.nodeist.net/nois/genesis.json --inet4-only
-mv genesis.json ~/.noisd/config
+wget -O genesis.json https://ss.nodeist.net/t/ojo/genesis.json --inet4-only
+mv genesis.json ~/.ojo/config
 ```
 
 ### Configure Peers
 Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-PEERS=00852ba0bfdf20aac74369b1a5c43e50668c9738@135.181.128.114:17356,d2041f5d812b4fb196d5210a287448b68fe7bef9@95.217.104.49:51656,8ec2fee6c37c07cc5af57ec870015a0191d4707d@65.108.65.36:51656,ad53e98a88aa0c6f724b457ad6575b83c5f4a02b@167.235.15.19:30656,9d21af60ad2568ffcb55a0bd0eb03b6cfa2644c5@49.12.120.113:26656,374615fcb23cfbd30a59a2b904cf675d9b93b7e0@78.46.61.117:01656,497dff4750970f8d142c9c61da4acee0e3ff76c4@141.95.155.224:12156,288e7a14ccac3cdc1d8ab20335d4c48edf5930f2@84.46.250.136:17356,3784e5ecd7f703c8a37427463e9c7c7b31389345@142.132.211.91:51656,732fe2553e152d37b29653ee07324fdbfd5ef961@95.217.200.26:36656,379c0e32463be66e5cf8d13d62eb87ddb1a702c2@142.132.152.46:47656,1eef6409922688e5bf6f00891537552b9ba5540f@135.181.119.59:51656
-sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.noisd/config/config.toml
+PEERS=1786d7d18b39d5824cae23e8085c87883ed661e6@65.109.147.57:36656,9ea0473b3684dbf1f2cf194f69f746566dab6760@78.46.99.50:22656,ed367ee00b2155c743be6f5b635de6e7ea5acc64@149.202.73.104:11356,66b140833cba7cadd92d544088d735e219adbf01@65.108.226.183:21656,0621bb73d18724cae4eb411e6b96765f95a3345e@178.63.8.245:61356,b33500a3aaeb7fa116bdbddbe9c91c3158f38f8d@128.199.18.172:26656,e0fb84d102a7a43e13362c848df725d6868aed55@144.76.164.139:37656,9bcec17faba1b8f6583d37103f20bd9b968ac857@38.146.3.230:21656
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.ojo/config/config.toml
 ```
 
 ## Launch Node
@@ -71,19 +71,19 @@ Create Cosmovisor folders and load the node binary.
 
 ```
 # Create Cosmovisor Folders
-mkdir -p ~/.noisd/cosmovisor/genesis/bin
-mkdir -p ~/.noisd/cosmovisor/upgrades
+mkdir -p ~/.ojo/cosmovisor/genesis/bin
+mkdir -p ~/.ojo/cosmovisor/upgrades
 
 # Load Node Binary into Cosmovisor Folder
-cp ~/go/bin/noisd ~/.noisd/cosmovisor/genesis/bin
+cp ~/go/bin/ojod ~/.ojo/cosmovisor/genesis/bin
 ```
 
 ### Create Service File
-Create a `noisd.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+Create a `ojod.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
 
 ```
 [Unit]
-Description="noisd node"
+Description="ojod node"
 After=network-online.target
 
 [Service]
@@ -92,8 +92,8 @@ ExecStart=/home/USER/go/bin/cosmovisor start
 Restart=always
 RestartSec=3
 LimitNOFILE=4096
-Environment="DAEMON_NAME=noisd"
-Environment="DAEMON_HOME=/home/USER/.noisd"
+Environment="DAEMON_NAME=ojod"
+Environment="DAEMON_HOME=/home/USER/.ojo"
 Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
 Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
 Environment="UNSAFE_SKIP_BACKUP=true"
@@ -105,13 +105,13 @@ WantedBy=multi-user.target
 ### Start Node Service
 ```
 # Enable service
-sudo systemctl enable noisd.service
+sudo systemctl enable ojod.service
 
 # Start service
-sudo service noisd start
+sudo service ojod start
 
 # Check logs
-sudo journalctl -fu noisd
+sudo journalctl -fu ojod
 ```
 
 # Other Considerations
