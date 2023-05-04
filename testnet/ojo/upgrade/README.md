@@ -1,7 +1,7 @@
 ## Instructions
 
 ---
-description: Prepare for and the upcomming chain upgrade using Cosmovisor.
+description: Prepare for and the upcoming chain upgrade using Cosmovisor.
 ---
 
 # Upgrade
