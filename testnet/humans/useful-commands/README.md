@@ -58,7 +58,7 @@ humansd tx staking create-validator \
 --identity "YOUR_KEYBASE_ID" \
 --details "YOUR_DETAILS" \
 --website "YOUR_WEBSITE_URL" \
---chain-id humans_3000-1 \
+--chain-id humans_3000-31 \
 --commission-rate 0.05 \
 --commission-max-rate 0.20 \
 --commission-max-change-rate 0.01 \
@@ -78,7 +78,7 @@ humansd tx staking edit-validator \
 --identity "YOUR_KEYBASE_ID" \
 --details "YOUR_DETAILS" \
 --website "YOUR_WEBSITE_URL"
---chain-id humans_3000-1 \
+--chain-id humans_3000-31 \
 --commission-rate 0.05 \
 --from wallet \
 --gas-adjustment 1.4 \
@@ -90,7 +90,7 @@ humansd tx staking edit-validator \
 #### Unjail validator
 
 ```bash
-humansd tx slashing unjail --from wallet --chain-id humans_3000-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
+humansd tx slashing unjail --from wallet --chain-id humans_3000-31 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
 ```
 
 #### Jail reason
@@ -122,43 +122,43 @@ humansd q staking validator $(humansd keys show wallet --bech val -a)
 #### Withdraw rewards from all validators
 
 ```bash
-humansd tx distribution withdraw-all-rewards --from wallet --chain-id humans_3000-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
+humansd tx distribution withdraw-all-rewards --from wallet --chain-id humans_3000-31 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
 ```
 
 #### Withdraw commission and rewards from your validator
 
 ```bash
-humansd tx distribution withdraw-rewards $(humansd keys show wallet --bech val -a) --commission --from wallet --chain-id humans_3000-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
+humansd tx distribution withdraw-rewards $(humansd keys show wallet --bech val -a) --commission --from wallet --chain-id humans_3000-31 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
 ```
 
 #### Delegate tokens to yourself
 
 ```bash
-humansd tx staking delegate $(humansd keys show wallet --bech val -a) 1000000uheart --from wallet --chain-id humans_3000-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
+humansd tx staking delegate $(humansd keys show wallet --bech val -a) 1000000uheart --from wallet --chain-id humans_3000-31 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
 ```
 
 #### Delegate tokens to validator
 
 ```bash
-humansd tx staking delegate <TO_VALOPER_ADDRESS> 1000000uheart --from wallet --chain-id humans_3000-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
+humansd tx staking delegate <TO_VALOPER_ADDRESS> 1000000uheart --from wallet --chain-id humans_3000-31 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
 ```
 
 #### Redelegate tokens to another validator
 
 ```bash
-humansd tx staking redelegate $(humansd keys show wallet --bech val -a) <TO_VALOPER_ADDRESS> 1000000uheart --from wallet --chain-id humans_3000-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
+humansd tx staking redelegate $(humansd keys show wallet --bech val -a) <TO_VALOPER_ADDRESS> 1000000uheart --from wallet --chain-id humans_3000-31 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
 ```
 
 #### Unbond tokens from your validator
 
 ```bash
-humansd tx staking unbond $(humansd keys show wallet --bech val -a) 1000000uheart --from wallet --chain-id humans_3000-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
+humansd tx staking unbond $(humansd keys show wallet --bech val -a) 1000000uheart --from wallet --chain-id humans_3000-31 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
 ```
 
 #### Send tokens to the wallet
 
 ```bash
-humansd tx bank send wallet <TO_WALLET_ADDRESS> 1000000uheart --from wallet --chain-id humans_3000-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
+humansd tx bank send wallet <TO_WALLET_ADDRESS> 1000000uheart --from wallet --chain-id humans_3000-31 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
 ```
 
 ## 🗳 Governance
@@ -178,25 +178,25 @@ humansd query gov proposal 1
 #### Vote 'Yes'
 
 ```bash
-humansd tx gov vote 1 yes --from wallet --chain-id humans_3000-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
+humansd tx gov vote 1 yes --from wallet --chain-id humans_3000-31 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
 ```
 
 #### Vote 'No'
 
 ```bash
-humansd tx gov vote 1 no --from wallet --chain-id humans_3000-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
+humansd tx gov vote 1 no --from wallet --chain-id humans_3000-31 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
 ```
 
 #### Vote 'Abstain'
 
 ```bash
-humansd tx gov vote 1 abstain --from wallet --chain-id humans_3000-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
+humansd tx gov vote 1 abstain --from wallet --chain-id humans_3000-31 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
 ```
 
 #### Vote 'NoWithVeto'
 
 ```bash
-humansd tx gov vote 1 NoWithVeto --from wallet --chain-id humans_3000-1 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
+humansd tx gov vote 1 NoWithVeto --from wallet --chain-id humans_3000-31 --gas-adjustment 1.4 --gas auto --gas-prices 0.025uheart -y
 ```
 
 ## ⚡️ Utility
