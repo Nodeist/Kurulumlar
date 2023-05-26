@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/sao](https://exp.nodeist.net/sao)
+[https://exp.nodeist.net/sao](https://exp.nodeist.net/Sao)
 
 ## Public endpoints
 

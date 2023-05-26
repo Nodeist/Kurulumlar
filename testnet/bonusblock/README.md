@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/bonusblock](https://exp.nodeist.net/bonusblock)
+[https://exp.nodeist.net/bonusblock](https://exp.nodeist.net/Bonusblock)
 
 ## Public endpoints
 

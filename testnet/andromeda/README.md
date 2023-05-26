@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/andromeda](https://exp.nodeist.net/andromeda)
+[https://exp.nodeist.net/andromeda](https://exp.nodeist.net/Andromeda)
 
 ## Public endpoints
 

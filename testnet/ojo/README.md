@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/ojo](https://exp.nodeist.net/ojo)
+[https://exp.nodeist.net/ojo](https://exp.nodeist.net/Ojo)
 
 ## Public endpoints
 

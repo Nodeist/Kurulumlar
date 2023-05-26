@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/blockx](https://exp.nodeist.net/blockx)
+[https://exp.nodeist.net/blockx](https://exp.nodeist.net/Blockx)
 
 ## Public endpoints
 

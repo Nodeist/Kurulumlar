@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/sge](https://exp.nodeist.net/sge)
+[https://exp.nodeist.net/sge](https://exp.nodeist.net/Sge)
 
 ## Public endpoints
 

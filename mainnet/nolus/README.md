@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/nolus](https://exp.nodeist.net/nolus)
+[https://exp.nodeist.net/nolus](https://exp.nodeist.net/Nolus)
 
 ## Public endpoints
 

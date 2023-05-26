@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/realio](https://exp.nodeist.net/realio)
+[https://exp.nodeist.net/realio](https://exp.nodeist.net/Realio)
 
 ## Public endpoints
 

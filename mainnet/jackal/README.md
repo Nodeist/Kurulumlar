@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/jackal](https://exp.nodeist.net/jackal)
+[https://exp.nodeist.net/jackal](https://exp.nodeist.net/Jackal)
 
 ## Public endpoints
 

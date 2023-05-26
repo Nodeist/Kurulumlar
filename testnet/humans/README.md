@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/humans](https://exp.nodeist.net/humans)
+[https://exp.nodeist.net/humans](https://exp.nodeist.net/Humans)
 
 ## Public endpoints
 

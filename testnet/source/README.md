@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/source](https://exp.nodeist.net/source)
+[https://exp.nodeist.net/source](https://exp.nodeist.net/Source)
 
 ## Public endpoints
 

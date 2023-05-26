@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/dymension](https://exp.nodeist.net/dymension)
+[https://exp.nodeist.net/dymension](https://exp.nodeist.net/Dymension)
 
 ## Public endpoints
 

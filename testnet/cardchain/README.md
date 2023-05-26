@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/cardchain](https://exp.nodeist.net/cardchain)
+[https://exp.nodeist.net/cardchain](https://exp.nodeist.net/Cardchain)
 
 ## Public endpoints
 

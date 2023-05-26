@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/hypersign](https://exp.nodeist.net/hypersign)
+[https://exp.nodeist.net/hypersign](https://exp.nodeist.net/Hypersign)
 
 ## Public endpoints
 

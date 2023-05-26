@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/gitopia](https://exp.nodeist.net/gitopia)
+[https://exp.nodeist.net/gitopia](https://exp.nodeist.net/Gitopia)
 
 ## Public endpoints
 

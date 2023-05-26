@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/okp4](https://exp.nodeist.net/okp4)
+[https://exp.nodeist.net/okp4](https://exp.nodeist.net/Okp4)
 
 ## Public endpoints
 

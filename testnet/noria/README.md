@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/noria](https://exp.nodeist.net/noria)
+[https://exp.nodeist.net/noria](https://exp.nodeist.net/Noria)
 
 ## Public endpoints
 

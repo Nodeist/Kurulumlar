@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/composable](https://exp.nodeist.net/composable)
+[https://exp.nodeist.net/composable](https://exp.nodeist.net/Composable)
 
 ## Public endpoints
 

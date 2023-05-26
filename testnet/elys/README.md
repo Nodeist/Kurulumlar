@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/elys](https://exp.nodeist.net/elys)
+[https://exp.nodeist.net/elys](https://exp.nodeist.net/Elys)
 
 ## Public endpoints
 

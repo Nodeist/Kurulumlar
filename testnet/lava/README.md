@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/lava](https://exp.nodeist.net/lava)
+[https://exp.nodeist.net/lava](https://exp.nodeist.net/Lava)
 
 ## Public endpoints
 

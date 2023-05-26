@@ -1,5 +1,5 @@
 ## Chain explorer
-[https://exp.nodeist.net/cascadia](https://exp.nodeist.net/cascadia)
+[https://exp.nodeist.net/cascadia](https://exp.nodeist.net/Cascadia)
 
 ## Public endpoints
 
