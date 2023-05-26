@@ -52,7 +52,7 @@ noriad q bank balances $(noriad keys show wallet -a)
 
 ```bash
 noriad tx staking create-validator \
---amount 1000000ucrd \
+--amount 1000000unoria \
 --pubkey $(noriad tendermint show-validator) \
 --moniker "YOUR_MONIKER_NAME" \
 --identity "YOUR_KEYBASE_ID" \
@@ -66,7 +66,7 @@ noriad tx staking create-validator \
 --from wallet \
 --gas-adjustment 1.4 \
 --gas auto \
---gas-prices 0.025ucrd \
+--gas-prices 0.0025ucrd \
 -y
 ```
 
@@ -83,14 +83,14 @@ noriad tx staking edit-validator \
 --from wallet \
 --gas-adjustment 1.4 \
 --gas auto \
---gas-prices 0.025ucrd \
+--gas-prices 0.0025ucrd \
 -y
 ```
 
 #### Unjail validator
 
 ```bash
-noriad tx slashing unjail --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.025ucrd -y
+noriad tx slashing unjail --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.0025ucrd -y
 ```
 
 #### Jail reason
@@ -122,43 +122,43 @@ noriad q staking validator $(noriad keys show wallet --bech val -a)
 #### Withdraw rewards from all validators
 
 ```bash
-noriad tx distribution withdraw-all-rewards --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.025ucrd -y
+noriad tx distribution withdraw-all-rewards --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.0025ucrd -y
 ```
 
 #### Withdraw commission and rewards from your validator
 
 ```bash
-noriad tx distribution withdraw-rewards $(noriad keys show wallet --bech val -a) --commission --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.025ucrd -y
+noriad tx distribution withdraw-rewards $(noriad keys show wallet --bech val -a) --commission --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.0025ucrd -y
 ```
 
 #### Delegate tokens to yourself
 
 ```bash
-noriad tx staking delegate $(noriad keys show wallet --bech val -a) 1000000ucrd --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.025ucrd -y
+noriad tx staking delegate $(noriad keys show wallet --bech val -a) 1000000unoria --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.0025ucrd -y
 ```
 
 #### Delegate tokens to validator
 
 ```bash
-noriad tx staking delegate <TO_VALOPER_ADDRESS> 1000000ucrd --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.025ucrd -y
+noriad tx staking delegate <TO_VALOPER_ADDRESS> 1000000unoria --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.0025ucrd -y
 ```
 
 #### Redelegate tokens to another validator
 
 ```bash
-noriad tx staking redelegate $(noriad keys show wallet --bech val -a) <TO_VALOPER_ADDRESS> 1000000ucrd --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.025ucrd -y
+noriad tx staking redelegate $(noriad keys show wallet --bech val -a) <TO_VALOPER_ADDRESS> 1000000unoria --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.0025ucrd -y
 ```
 
 #### Unbond tokens from your validator
 
 ```bash
-noriad tx staking unbond $(noriad keys show wallet --bech val -a) 1000000ucrd --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.025ucrd -y
+noriad tx staking unbond $(noriad keys show wallet --bech val -a) 1000000unoria --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.0025ucrd -y
 ```
 
 #### Send tokens to the wallet
 
 ```bash
-noriad tx bank send wallet <TO_WALLET_ADDRESS> 1000000ucrd --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.025ucrd -y
+noriad tx bank send wallet <TO_WALLET_ADDRESS> 1000000unoria --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.0025ucrd -y
 ```
 
 ## 🗳 Governance
@@ -178,25 +178,25 @@ noriad query gov proposal 1
 #### Vote 'Yes'
 
 ```bash
-noriad tx gov vote 1 yes --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.025ucrd -y
+noriad tx gov vote 1 yes --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.0025ucrd -y
 ```
 
 #### Vote 'No'
 
 ```bash
-noriad tx gov vote 1 no --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.025ucrd -y
+noriad tx gov vote 1 no --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.0025ucrd -y
 ```
 
 #### Vote 'Abstain'
 
 ```bash
-noriad tx gov vote 1 abstain --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.025ucrd -y
+noriad tx gov vote 1 abstain --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.0025ucrd -y
 ```
 
 #### Vote 'NoWithVeto'
 
 ```bash
-noriad tx gov vote 1 NoWithVeto --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.025ucrd -y
+noriad tx gov vote 1 NoWithVeto --from wallet --chain-id oasis-3 --gas-adjustment 1.4 --gas auto --gas-prices 0.0025ucrd -y
 ```
 
 ## ⚡️ Utility
@@ -263,7 +263,7 @@ echo $(noriad tendermint show-node-id)'@'$(curl -s ifconfig.me)':'$(cat $HOME/.n
 #### Set minimum gas price
 
 ```bash
-sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.025ucrd\"/" $HOME/.noria/config/app.toml
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025ucrd\"/" $HOME/.noria/config/app.toml
 ```
 
 #### Enable prometheus
