@@ -3,28 +3,28 @@
 ### Stop the service and reset the data
 
 ```bash
-sudo systemctl stop nolusd
-cp $HOME/.nolus/data/priv_validator_state.json $HOME/.nolus/priv_validator_state.json.backup
-nolusd tendermint unsafe-reset-all --home $HOME/.nolus
+sudo systemctl stop ununifid
+cp $HOME/.ununifi/data/priv_validator_state.json $HOME/.ununifi/priv_validator_state.json.backup
+ununifid tendermint unsafe-reset-all --home $HOME/.ununifi
 ```
 
 ### Get and configure the state sync information
 
 ```bash
-SNAP_RPC="https://rpc-nolus.nodeist.net:443"
+SNAP_RPC="https://rpc-ununifi.nodeist.net:443"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
 sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.nolus/config/config.toml
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.ununifi/config/config.toml
 
-mv $HOME/.nolus/priv_validator_state.json.backup $HOME/.nolus/data/priv_validator_state.json
+mv $HOME/.ununifi/priv_validator_state.json.backup $HOME/.ununifi/data/priv_validator_state.json
 ```
 
 ### Restart the service and check the log
 
 ```bash
-sudo systemctl restart nolusd && sudo journalctl -u nolusd -f --no-hostname -o cat
+sudo systemctl restart ununifid && sudo journalctl -u ununifid -f --no-hostname -o cat
 ```

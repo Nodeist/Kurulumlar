@@ -35,10 +35,10 @@ Install the current version of node binary.
 
 ```
 cd $HOME
-rm -rf nolus-core
-git clone https://github.com/nolus-protocol/nolus-core
-cd nolus-core
-git checkout v0.3.0
+rm -rf ununifi
+git clone https://github.com/UnUniFi/chain ununifi
+cd ununifi || return
+git checkout v2.1.0
 make build
 ```
 
@@ -47,22 +47,22 @@ make build
 Please replace `MONIKERNAME` with your own moniker.
 
 ```
-nolusd init MONIKERNAME --chain-id pirin-1
+ununifid init MONIKERNAME --chain-id ununifi-beta-v1
 ```
 
 ### Download Genesis
 The genesis file link below is Nodeist's mirror download. The best practice is to find the official genesis download link.
 
 ```
-wget -O genesis.json https://ss.nodeist.net/nolus/genesis.json --inet4-only
-mv genesis.json ~/.nolus/config
+wget -O genesis.json https://ss.nodeist.net/ununifi/genesis.json --inet4-only
+mv genesis.json ~/.ununifi/config
 ```
 
 ### Configure Peers
 Here is a script for you to update `persistent_peers` setting with these peers in `config.toml`.
 ```
-PEERS=39fa78be2d32bde352c7252c219f75ad81aaf14a@144.76.40.53:19756,18845b356886a99ee704f7a06de79fc8208b47d1@57.128.96.155:19756,e5e2b4ae69c1115f126abcd5aa449842e29832b0@51.255.66.46:2110,13f2ff36f5caeec4bca6705aebc0ce5fb65aefb3@168.119.89.8:27656,6cceba286b498d4a1931f85e35ea0fa433373057@169.155.170.20:26656,7740f125a480d1329fa1015e7ea97f09ee4eded7@107.135.15.66:26746,488c9ee36fc5ee54e662895dfed5e5df9a5ff2d5@136.243.39.118:26656,aeb6c84798c3528b20ee02985208eb72ed794742@185.246.87.116:26666,cbbb839a7fee054f7e272688787200b2b847bbf0@103.180.28.91:26656,67d569007da736396d7b636224b97349adcde12f@51.89.98.102:55666,e16568ad949050e0a817bddaf651a8cce04b0e7a@176.9.70.180:26656
-sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.nolus/config/config.toml
+PEERS=1357ac5cd92b215b05253b25d78cf485dd899d55@[2600:1f1c:534:8f02:7bf:6b31:3702:2265]:26656,ed7e91350c4086fa1a2237978d4fbda50f9620a1@51.195.145.109:26656,1f954a27230c300417b4abf876dc26e1b243b6c6@128.1.131.123:26656,7fcfaf5941c0a4c22d39ec239862a97fda5dc5d8@159.69.59.89:26676,c25eea256d716ced4a156515bffe74709700d752@54.86.9.250:26656,5fe291fddba68eba46711af84cc9803629e42a6a@75.119.158.3:26656,cea8d05b6e01188cf6481c55b7d1bc2f31de0eed@3.101.90.205:26656,fa38d2a851de43d34d9602956cd907eb3942ae89@45.77.14.59:26656,67899600321bc673dce01489f0a79007cb44da96@139.144.77.82:26656,796c62bb2af411c140cf24ddc409dff76d9d61cf@[2600:1f1c:534:8f02:ca0e:14e9:8e60:989e]:26656,6031e074a44b10563209a0fb81a1fc08323796d7@192.99.44.79:23256,553d7226aaee5a043b234300f57f99e74c81f10c@88.99.69.190:26656,51da685a375d9fdebf20e989f3c2775a0f717d2d@184.174.35.252:26656,e9539642f4ca58bb6dc09257d4ba8fc00467235f@65.108.199.120:60656
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.ununifi/config/config.toml
 ```
 
 ## Launch Node
@@ -71,19 +71,19 @@ Create Cosmovisor folders and load the node binary.
 
 ```
 # Create Cosmovisor Folders
-mkdir -p ~/.nolus/cosmovisor/genesis/bin
-mkdir -p ~/.nolus/cosmovisor/upgrades
+mkdir -p ~/.ununifi/cosmovisor/genesis/bin
+mkdir -p ~/.ununifi/cosmovisor/upgrades
 
 # Load Node Binary into Cosmovisor Folder
-cp ~/go/bin/nolusd ~/.nolus/cosmovisor/genesis/bin
+cp ~/go/bin/ununifid ~/.ununifi/cosmovisor/genesis/bin
 ```
 
 ### Create Service File
-Create a `nolusd.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
+Create a `ununifid.service` file in the `/etc/systemd/system` folder with the following code snippet. Make sure to replace `USER` with your Linux user name. You need `sudo` previlege to do this step.
 
 ```
 [Unit]
-Description="nolusd node"
+Description="ununifid node"
 After=network-online.target
 
 [Service]
@@ -92,8 +92,8 @@ ExecStart=/home/USER/go/bin/cosmovisor start
 Restart=always
 RestartSec=3
 LimitNOFILE=4096
-Environment="DAEMON_NAME=nolusd"
-Environment="DAEMON_HOME=/home/USER/.nolus"
+Environment="DAEMON_NAME=ununifid"
+Environment="DAEMON_HOME=/home/USER/.ununifi"
 Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
 Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
 Environment="UNSAFE_SKIP_BACKUP=true"
@@ -105,13 +105,13 @@ WantedBy=multi-user.target
 ### Start Node Service
 ```
 # Enable service
-sudo systemctl enable nolusd.service
+sudo systemctl enable ununifid.service
 
 # Start service
-sudo service nolusd start
+sudo service ununifid start
 
 # Check logs
-sudo journalctl -fu nolusd
+sudo journalctl -fu ununifid
 ```
 
 # Other Considerations
